@@ -1,0 +1,18 @@
+13-Apr-2020 15:46:28.294 INFOS [http-nio-8080-exec-4] org.apache.catalina.core.ApplicationContext.log Manager: init: Associated with Deployer 'Catalina:type=Deployer,host=localhost'
+13-Apr-2020 15:46:28.295 INFOS [http-nio-8080-exec-4] org.apache.catalina.core.ApplicationContext.log Manager: init: Global resources are available
+13-Apr-2020 15:54:13.126 INFOS [http-nio-8080-exec-4] org.apache.catalina.core.ApplicationContext.log Manager: init: Associated with Deployer 'Catalina:type=Deployer,host=localhost'
+13-Apr-2020 15:54:13.126 INFOS [http-nio-8080-exec-4] org.apache.catalina.core.ApplicationContext.log Manager: init: Global resources are available
+13-Apr-2020 15:56:29.897 INFOS [http-nio-8080-exec-1] org.apache.catalina.core.ApplicationContext.log Manager: list: Listing contexts for virtual host 'localhost'
+13-Apr-2020 15:56:29.908 INFOS [http-nio-8080-exec-2] org.apache.catalina.core.ApplicationContext.log Manager: list: Listing contexts for virtual host 'localhost'
+13-Apr-2020 15:56:29.973 INFOS [http-nio-8080-exec-3] org.apache.catalina.core.ApplicationContext.log Manager: install: Installing context configuration at 'file:/var/folders/sd/0hy_nv0n1t35twgf202ffjqc0000gn/T/context9024586258042198431.xml'
+13-Apr-2020 15:56:33.186 INFOS [http-nio-8080-exec-4] org.apache.catalina.core.ApplicationContext.log Manager: start: Starting web application '/DASI-TD2-Correction'
+13-Apr-2020 16:06:06.713 INFOS [http-nio-8080-exec-6] org.apache.catalina.core.ApplicationContext.log Manager: list: Listing contexts for virtual host 'localhost'
+13-Apr-2020 16:06:06.720 INFOS [http-nio-8080-exec-9] org.apache.catalina.core.ApplicationContext.log Manager: list: Listing contexts for virtual host 'localhost'
+13-Apr-2020 16:06:06.741 INFOS [http-nio-8080-exec-7] org.apache.catalina.core.ApplicationContext.log Manager: undeploy: Undeploying web application at '/DASI-TD2-Correction'
+13-Apr-2020 16:06:07.283 INFOS [http-nio-8080-exec-1] org.apache.catalina.core.ApplicationContext.log Manager: install: Installing context configuration at 'file:/var/folders/sd/0hy_nv0n1t35twgf202ffjqc0000gn/T/context4919348564519526743.xml'
+13-Apr-2020 16:06:10.765 INFOS [http-nio-8080-exec-3] org.apache.catalina.core.ApplicationContext.log Manager: start: Starting web application '/DASI-TD2-Correction'
+13-Apr-2020 16:12:55.855 INFOS [http-nio-8080-exec-20] org.apache.catalina.core.ApplicationContext.log Manager: list: Listing contexts for virtual host 'localhost'
+13-Apr-2020 16:12:55.884 INFOS [http-nio-8080-exec-11] org.apache.catalina.core.ApplicationContext.log Manager: list: Listing contexts for virtual host 'localhost'
+13-Apr-2020 16:12:55.962 INFOS [http-nio-8080-exec-12] org.apache.catalina.core.ApplicationContext.log Manager: undeploy: Undeploying web application at '/DASI-TD2-Correction'
+13-Apr-2020 16:12:56.585 INFOS [http-nio-8080-exec-13] org.apache.catalina.core.ApplicationContext.log Manager: install: Installing context configuration at 'file:/var/folders/sd/0hy_nv0n1t35twgf202ffjqc0000gn/T/context96137569964519847.xml'
+13-Apr-2020 16:13:05.857 INFOS [http-nio-8080-exec-15] org.apache.catalina.core.ApplicationContext.log Manager: start: Starting web application '/DASI-TD2-Correction'

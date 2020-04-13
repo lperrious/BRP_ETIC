@@ -1,0 +1,109 @@
+13-Apr-2020 15:46:23.697 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Server version:        Apache Tomcat/8.5.29
+13-Apr-2020 15:46:23.704 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Mar 5 2018 13:11:12 UTC
+13-Apr-2020 15:46:23.704 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Server number:         8.5.29.0
+13-Apr-2020 15:46:23.704 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Mac OS X
+13-Apr-2020 15:46:23.704 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            10.15.1
+13-Apr-2020 15:46:23.704 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          x86_64
+13-Apr-2020 15:46:23.704 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             /Library/Java/JavaVirtualMachines/jdk1.8.0_241.jdk/Contents/Home/jre
+13-Apr-2020 15:46:23.704 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           1.8.0_241-b07
+13-Apr-2020 15:46:23.704 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Oracle Corporation
+13-Apr-2020 15:46:23.705 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         /Users/louisrob/Documents/ETIC/Etude_BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance
+13-Apr-2020 15:46:23.705 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         /Users/louisrob/Documents/ETIC/Etude_BRP/Test déploiement client/Tomcat-Installation/apache-tomcat-8.5.29
+13-Apr-2020 15:46:23.705 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=/Users/louisrob/Documents/ETIC/Etude_BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance/conf/logging.properties
+13-Apr-2020 15:46:23.705 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+13-Apr-2020 15:46:23.706 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+13-Apr-2020 15:46:23.706 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.protocol.handler.pkgs=org.apache.catalina.webresources
+13-Apr-2020 15:46:23.706 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dignore.endorsed.dirs=
+13-Apr-2020 15:46:23.706 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=/Users/louisrob/Documents/ETIC/Etude_BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance
+13-Apr-2020 15:46:23.706 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=/Users/louisrob/Documents/ETIC/Etude_BRP/Test déploiement client/Tomcat-Installation/apache-tomcat-8.5.29
+13-Apr-2020 15:46:23.706 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=/Users/louisrob/Documents/ETIC/Etude_BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance/temp
+13-Apr-2020 15:46:23.706 INFOS [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [/Users/louisrob/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.]
+13-Apr-2020 15:46:24.239 INFOS [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+13-Apr-2020 15:46:24.286 INFOS [main] org.apache.tomcat.util.net.NioSelectorPool.getSharedSelector Using a shared selector for servlet write/read
+13-Apr-2020 15:46:24.292 INFOS [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["ajp-nio-8009"]
+13-Apr-2020 15:46:24.294 INFOS [main] org.apache.tomcat.util.net.NioSelectorPool.getSharedSelector Using a shared selector for servlet write/read
+13-Apr-2020 15:46:24.295 INFOS [main] org.apache.catalina.startup.Catalina.load Initialization processed in 1829 ms
+13-Apr-2020 15:46:24.382 INFOS [main] org.apache.catalina.core.StandardService.startInternal Démarrage du service [Catalina]
+13-Apr-2020 15:46:24.382 INFOS [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet Engine: Apache Tomcat/8.5.29
+13-Apr-2020 15:46:24.398 INFOS [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDescriptor Déploiement du descripteur de configuration [/Users/louisrob/Documents/ETIC/Etude_BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance/conf/Catalina/localhost/manager.xml]
+13-Apr-2020 15:46:25.165 INFOS [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDescriptor Deployment of configuration descriptor [/Users/louisrob/Documents/ETIC/Etude_BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance/conf/Catalina/localhost/manager.xml] has finished in [764] ms
+13-Apr-2020 15:46:25.165 INFOS [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDescriptor Déploiement du descripteur de configuration [/Users/louisrob/Documents/ETIC/Etude_BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance/conf/Catalina/localhost/ROOT.xml]
+13-Apr-2020 15:46:25.203 INFOS [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDescriptor Deployment of configuration descriptor [/Users/louisrob/Documents/ETIC/Etude_BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance/conf/Catalina/localhost/ROOT.xml] has finished in [37] ms
+13-Apr-2020 15:46:25.210 INFOS [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+13-Apr-2020 15:46:25.219 INFOS [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["ajp-nio-8009"]
+13-Apr-2020 15:46:25.221 INFOS [main] org.apache.catalina.startup.Catalina.start Server startup in 925 ms
+13-Apr-2020 15:52:52.888 INFOS [main] org.apache.catalina.core.StandardServer.await A valid shutdown command was received via the shutdown port. Stopping the Server instance.
+13-Apr-2020 15:52:52.889 INFOS [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+13-Apr-2020 15:52:52.944 INFOS [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["ajp-nio-8009"]
+13-Apr-2020 15:52:53.000 INFOS [main] org.apache.catalina.core.StandardService.stopInternal Arrêt du service [Catalina]
+13-Apr-2020 15:52:53.062 INFOS [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+13-Apr-2020 15:52:53.074 INFOS [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["ajp-nio-8009"]
+13-Apr-2020 15:52:53.079 INFOS [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
+13-Apr-2020 15:52:53.081 INFOS [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["ajp-nio-8009"]
+13-Apr-2020 15:54:08.226 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Server version:        Apache Tomcat/8.5.29
+13-Apr-2020 15:54:08.230 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Mar 5 2018 13:11:12 UTC
+13-Apr-2020 15:54:08.232 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Server number:         8.5.29.0
+13-Apr-2020 15:54:08.233 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Mac OS X
+13-Apr-2020 15:54:08.234 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            10.15.1
+13-Apr-2020 15:54:08.234 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          x86_64
+13-Apr-2020 15:54:08.235 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             /Library/Java/JavaVirtualMachines/jdk1.8.0_241.jdk/Contents/Home/jre
+13-Apr-2020 15:54:08.235 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           1.8.0_241-b07
+13-Apr-2020 15:54:08.236 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Oracle Corporation
+13-Apr-2020 15:54:08.236 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         /Users/louisrob/Documents/ETIC/Etude_BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance
+13-Apr-2020 15:54:08.236 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         /Users/louisrob/Documents/ETIC/Etude_BRP/Test déploiement client/Tomcat-Installation/apache-tomcat-8.5.29
+13-Apr-2020 15:54:08.238 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=/Users/louisrob/Documents/ETIC/Etude_BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance/conf/logging.properties
+13-Apr-2020 15:54:08.238 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+13-Apr-2020 15:54:08.240 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+13-Apr-2020 15:54:08.240 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.protocol.handler.pkgs=org.apache.catalina.webresources
+13-Apr-2020 15:54:08.240 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dignore.endorsed.dirs=
+13-Apr-2020 15:54:08.240 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=/Users/louisrob/Documents/ETIC/Etude_BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance
+13-Apr-2020 15:54:08.240 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=/Users/louisrob/Documents/ETIC/Etude_BRP/Test déploiement client/Tomcat-Installation/apache-tomcat-8.5.29
+13-Apr-2020 15:54:08.240 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=/Users/louisrob/Documents/ETIC/Etude_BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance/temp
+13-Apr-2020 15:54:08.241 INFOS [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [/Users/louisrob/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.]
+13-Apr-2020 15:54:08.802 INFOS [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+13-Apr-2020 15:54:08.949 INFOS [main] org.apache.tomcat.util.net.NioSelectorPool.getSharedSelector Using a shared selector for servlet write/read
+13-Apr-2020 15:54:08.980 INFOS [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["ajp-nio-8009"]
+13-Apr-2020 15:54:08.989 INFOS [main] org.apache.tomcat.util.net.NioSelectorPool.getSharedSelector Using a shared selector for servlet write/read
+13-Apr-2020 15:54:08.993 INFOS [main] org.apache.catalina.startup.Catalina.load Initialization processed in 2702 ms
+13-Apr-2020 15:54:09.151 INFOS [main] org.apache.catalina.core.StandardService.startInternal Démarrage du service [Catalina]
+13-Apr-2020 15:54:09.151 INFOS [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet Engine: Apache Tomcat/8.5.29
+13-Apr-2020 15:54:09.220 INFOS [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDescriptor Déploiement du descripteur de configuration [/Users/louisrob/Documents/ETIC/Etude_BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance/conf/Catalina/localhost/manager.xml]
+13-Apr-2020 15:54:10.507 AVERTISSEMENT [localhost-startStop-1] org.apache.catalina.util.SessionIdGeneratorBase.createSecureRandom Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [200] milliseconds.
+13-Apr-2020 15:54:10.542 INFOS [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDescriptor Deployment of configuration descriptor [/Users/louisrob/Documents/ETIC/Etude_BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance/conf/Catalina/localhost/manager.xml] has finished in [1 322] ms
+13-Apr-2020 15:54:10.542 INFOS [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDescriptor Déploiement du descripteur de configuration [/Users/louisrob/Documents/ETIC/Etude_BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance/conf/Catalina/localhost/ROOT.xml]
+13-Apr-2020 15:54:10.659 INFOS [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDescriptor Deployment of configuration descriptor [/Users/louisrob/Documents/ETIC/Etude_BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance/conf/Catalina/localhost/ROOT.xml] has finished in [117] ms
+13-Apr-2020 15:54:10.668 INFOS [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+13-Apr-2020 15:54:10.687 INFOS [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["ajp-nio-8009"]
+13-Apr-2020 15:54:10.689 INFOS [main] org.apache.catalina.startup.Catalina.start Server startup in 1695 ms
+13-Apr-2020 15:56:29.980 INFOS [http-nio-8080-exec-3] org.apache.catalina.startup.HostConfig.deployDescriptor Déploiement du descripteur de configuration [/Users/louisrob/Documents/ETIC/Etude_BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance/conf/Catalina/localhost/DASI-TD2-Correction.xml]
+13-Apr-2020 15:56:33.158 INFOS [http-nio-8080-exec-3] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+13-Apr-2020 15:56:33.173 INFOS [http-nio-8080-exec-3] org.apache.catalina.startup.HostConfig.deployDescriptor Deployment of configuration descriptor [/Users/louisrob/Documents/ETIC/Etude_BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance/conf/Catalina/localhost/DASI-TD2-Correction.xml] has finished in [3 194] ms
+13-Apr-2020 15:56:33.186 INFOS [http-nio-8080-exec-4] org.apache.catalina.util.LifecycleBase.start The start() method was called on component [StandardEngine[Catalina].StandardHost[localhost].StandardContext[/DASI-TD2-Correction]] after start() had already been called. The second call will be ignored.
+13-Apr-2020 16:06:07.262 INFOS [http-nio-8080-exec-7] org.apache.catalina.startup.HostConfig.undeploy Repli (undeploy) de l'application web ayant pour chemin de contexte [/DASI-TD2-Correction]
+13-Apr-2020 16:06:07.285 INFOS [http-nio-8080-exec-1] org.apache.catalina.startup.HostConfig.deployDescriptor Déploiement du descripteur de configuration [/Users/louisrob/Documents/ETIC/Etude_BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance/conf/Catalina/localhost/DASI-TD2-Correction.xml]
+13-Apr-2020 16:06:10.752 INFOS [http-nio-8080-exec-1] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+13-Apr-2020 16:06:10.759 INFOS [http-nio-8080-exec-1] org.apache.catalina.startup.HostConfig.deployDescriptor Deployment of configuration descriptor [/Users/louisrob/Documents/ETIC/Etude_BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance/conf/Catalina/localhost/DASI-TD2-Correction.xml] has finished in [3 473] ms
+13-Apr-2020 16:06:10.765 INFOS [http-nio-8080-exec-3] org.apache.catalina.util.LifecycleBase.start The start() method was called on component [StandardEngine[Catalina].StandardHost[localhost].StandardContext[/DASI-TD2-Correction]] after start() had already been called. The second call will be ignored.
+13-Apr-2020 16:12:56.009 AVERTISSEMENT [http-nio-8080-exec-12] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesJdbc The web application [DASI-TD2-Correction] registered the JDBC driver [com.mysql.cj.jdbc.Driver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+13-Apr-2020 16:12:56.011 AVERTISSEMENT [http-nio-8080-exec-12] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesThreads The web application [DASI-TD2-Correction] appears to have started a thread named [mysql-cj-abandoned-connection-cleanup] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.lang.Object.wait(Native Method)
+ java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:144)
+ com.mysql.cj.jdbc.AbandonedConnectionCleanupThread.run(AbandonedConnectionCleanupThread.java:85)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+ java.lang.Thread.run(Thread.java:748)
+13-Apr-2020 16:12:56.548 INFOS [http-nio-8080-exec-12] org.apache.catalina.startup.HostConfig.undeploy Repli (undeploy) de l'application web ayant pour chemin de contexte [/DASI-TD2-Correction]
+13-Apr-2020 16:12:56.589 INFOS [http-nio-8080-exec-13] org.apache.catalina.startup.HostConfig.deployDescriptor Déploiement du descripteur de configuration [/Users/louisrob/Documents/ETIC/Etude_BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance/conf/Catalina/localhost/DASI-TD2-Correction.xml]
+13-Apr-2020 16:12:57.118 INFOS [mysql-cj-abandoned-connection-cleanup] org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading Illegal access: this web application instance has been stopped already. Could not load []. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+ java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load []. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading(WebappClassLoaderBase.java:1311)
+	at org.apache.catalina.loader.WebappClassLoaderBase.getResource(WebappClassLoaderBase.java:986)
+	at com.mysql.cj.jdbc.AbandonedConnectionCleanupThread.checkThreadContextClassLoader(AbandonedConnectionCleanupThread.java:117)
+	at com.mysql.cj.jdbc.AbandonedConnectionCleanupThread.run(AbandonedConnectionCleanupThread.java:84)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+
+13-Apr-2020 16:13:05.826 INFOS [http-nio-8080-exec-13] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+13-Apr-2020 16:13:05.835 INFOS [http-nio-8080-exec-13] org.apache.catalina.startup.HostConfig.deployDescriptor Deployment of configuration descriptor [/Users/louisrob/Documents/ETIC/Etude_BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance/conf/Catalina/localhost/DASI-TD2-Correction.xml] has finished in [9 245] ms
+13-Apr-2020 16:13:05.857 INFOS [http-nio-8080-exec-15] org.apache.catalina.util.LifecycleBase.start The start() method was called on component [StandardEngine[Catalina].StandardHost[localhost].StandardContext[/DASI-TD2-Correction]] after start() had already been called. The second call will be ignored.
