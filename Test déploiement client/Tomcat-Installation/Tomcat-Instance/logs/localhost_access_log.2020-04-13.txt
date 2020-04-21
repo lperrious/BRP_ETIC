@@ -71,3 +71,11 @@
 127.0.0.1 - tomcat [13/Apr/2020:16:13:05 +0200] "GET /manager/text/deploy?config=file%3A%2Fvar%2Ffolders%2Fsd%2F0hy_nv0n1t35twgf202ffjqc0000gn%2FT%2Fcontext96137569964519847.xml&path=/DASI-TD2-Correction HTTP/1.1" 200 89
 127.0.0.1 - tomcat [13/Apr/2020:16:13:05 +0200] "GET /manager/text/start?path=/DASI-TD2-Correction HTTP/1.1" 200 89
 0:0:0:0:0:0:0:1 - - [13/Apr/2020:16:13:06 +0200] "GET /DASI-TD2-Correction HTTP/1.1" 302 -
+127.0.0.1 - - [13/Apr/2020:17:29:51 +0200] "HEAD /netbeans-tomcat-status-test HTTP/1.1" 404 -
+127.0.0.1 - tomcat [13/Apr/2020:17:29:51 +0200] "GET /manager/text/ HTTP/1.1" 200 41
+127.0.0.1 - - [13/Apr/2020:17:29:51 +0200] "HEAD /netbeans-tomcat-status-test HTTP/1.1" 404 -
+127.0.0.1 - tomcat [13/Apr/2020:17:29:51 +0200] "GET /manager/text/ HTTP/1.1" 200 41
+127.0.0.1 - - [13/Apr/2020:17:29:51 +0200] "HEAD /netbeans-tomcat-status-test HTTP/1.1" 404 -
+127.0.0.1 - tomcat [13/Apr/2020:17:29:51 +0200] "GET /manager/text/ HTTP/1.1" 200 41
+127.0.0.1 - - [13/Apr/2020:17:29:52 +0200] "HEAD /netbeans-tomcat-status-test HTTP/1.1" 404 -
+127.0.0.1 - tomcat [13/Apr/2020:17:29:52 +0200] "GET /manager/text/ HTTP/1.1" 200 41
