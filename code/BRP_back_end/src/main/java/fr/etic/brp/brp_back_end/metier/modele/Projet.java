@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 
 enum TypeMarche {
@@ -59,6 +60,9 @@ public class Projet implements Serializable {
     private Integer CA9;
     private Integer C81;
     private Integer C82;
+    
+    @ManyToOne
+    private CoeffRaccordement coeffRaccordement;
 
     public Projet() {
     }
