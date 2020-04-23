@@ -68,4 +68,9 @@ public abstract class Descriptif implements Serializable {
     public void setPrix(double prix) {
         this.prix = prix;
     }
+
+    @Override
+    public String toString() {
+        return "Descriptif{" + "idDescriptif=" + idDescriptif + ", nomDescriptif=" + nomDescriptif + ", description=" + description + ", courteDescription=" + courteDescription + ", prix=" + prix + '}';
+    }
 }

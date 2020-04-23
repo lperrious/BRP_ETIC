@@ -39,4 +39,9 @@ public class CorpsEtat implements Serializable {
     public void setIntituleCorpsEtat(String intituleCorpsEtat) {
         this.intituleCorpsEtat = intituleCorpsEtat;
     }
+
+    @Override
+    public String toString() {
+        return "CorpsEtat{" + "idCorpsEtat=" + idCorpsEtat + ", intituleCorpsEtat=" + intituleCorpsEtat + '}';
+    }
 }

@@ -27,4 +27,9 @@ public class Ouvrage extends Descriptif implements Serializable {
     public void setUnite(String unite) {
         this.unite = unite;
     }
+
+    @Override
+    public String toString() {
+        return "Ouvrage{" + "unite=" + unite + '}';
+    }
 }
