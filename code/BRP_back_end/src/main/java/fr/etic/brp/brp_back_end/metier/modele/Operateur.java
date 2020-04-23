@@ -1,6 +1,7 @@
 
 package fr.etic.brp.brp_back_end.metier.modele;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,7 +13,7 @@ import javax.persistence.Id;
  */
 
 @Entity
-public class Operateur {
+public class Operateur implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,6 +23,9 @@ public class Operateur {
     private Integer salt;
     private String token;
     private String nom;
+
+    public Operateur() {
+    }
 
     public Operateur(String mail, String mdp, Integer salt, String nom) {
         this.mail = mail;
