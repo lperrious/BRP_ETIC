@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 /**
  *
  * @author quentinmarc
@@ -17,11 +18,15 @@ public class Categorie implements Serializable {
     private Long idCategorie;
     private String intituleCategorie;
     
+    @OneToMany
+    private Famille famille;
+    
     public Categorie(){ 
     }
 
     public Categorie(String intituleCategorie) {
         this.intituleCategorie = intituleCategorie;
+        this.famille = null;
     }
 
     public Long getIdCategorie() {
@@ -40,8 +45,16 @@ public class Categorie implements Serializable {
         this.intituleCategorie = intituleCategorie;
     }
 
+    public Famille getFamille() {
+        return famille;
+    }
+
+    public void setFamille(Famille famille) {
+        this.famille = famille;
+    }
+
     @Override
     public String toString() {
-        return "Categorie{" + "idCategorie=" + idCategorie + ", intituleCategorie=" + intituleCategorie + '}';
+        return "Categorie{" + "idCategorie=" + idCategorie + ", intituleCategorie=" + intituleCategorie + ", famille=" + famille + '}';
     }
 }

@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 /**
  *
  * @author quentinmarc
@@ -17,11 +18,15 @@ public class CorpsEtat implements Serializable {
     private Long idCorpsEtat;
     private String intituleCorpsEtat;
     
+    @OneToMany
+    private Categorie categorie;
+    
     public CorpsEtat(){  
     }
 
     public CorpsEtat(String intituleCorpsEtat) {
         this.intituleCorpsEtat = intituleCorpsEtat;
+        this.categorie = null;
     }
 
     public Long getIdCorpsEtat() {
@@ -40,8 +45,18 @@ public class CorpsEtat implements Serializable {
         this.intituleCorpsEtat = intituleCorpsEtat;
     }
 
+    public Categorie getCategorie() {
+        return categorie;
+    }
+
+    public void setCategorie(Categorie categorie) {
+        this.categorie = categorie;
+    }
+
     @Override
     public String toString() {
-        return "CorpsEtat{" + "idCorpsEtat=" + idCorpsEtat + ", intituleCorpsEtat=" + intituleCorpsEtat + '}';
+        return "CorpsEtat{" + "idCorpsEtat=" + idCorpsEtat + ", intituleCorpsEtat=" + intituleCorpsEtat + ", categorie=" + categorie + '}';
     }
+    
+    
 }
