@@ -1,6 +1,7 @@
 package fr.etic.brp.brp_back_end.metier.modele;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,14 +20,14 @@ public class Categorie implements Serializable {
     private String intituleCategorie;
     
     @OneToMany
-    private Famille famille;
+    private List<Famille> listeFamille;
     
     public Categorie(){ 
     }
 
     public Categorie(String intituleCategorie) {
         this.intituleCategorie = intituleCategorie;
-        this.famille = null;
+        this.listeFamille = null;
     }
 
     public Long getIdCategorie() {
@@ -45,16 +46,16 @@ public class Categorie implements Serializable {
         this.intituleCategorie = intituleCategorie;
     }
 
-    public Famille getFamille() {
-        return famille;
+    public List<Famille> getListeFamille() {
+        return listeFamille;
     }
 
-    public void setFamille(Famille famille) {
-        this.famille = famille;
+    public void setListeFamille(List<Famille> listeFamille) {
+        this.listeFamille = listeFamille;
     }
 
     @Override
     public String toString() {
-        return "Categorie{" + "idCategorie=" + idCategorie + ", intituleCategorie=" + intituleCategorie + ", famille=" + famille + '}';
+        return "Categorie{" + "idCategorie=" + idCategorie + ", intituleCategorie=" + intituleCategorie + ", listeFamille=" + listeFamille + '}';
     }
 }

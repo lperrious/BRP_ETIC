@@ -1,6 +1,7 @@
 package fr.etic.brp.brp_back_end.metier.modele;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,14 +21,14 @@ public class SousFamille implements Serializable {
     private String intituleSousFamille;
     
     @OneToMany
-    private Descriptif descriptif;
+    private List<Descriptif> listDescriptif;
     
     public SousFamille(){ 
     }
 
     public SousFamille(String intituleSousFamille) {
         this.intituleSousFamille = intituleSousFamille;
-        this.descriptif = null;
+        this.listDescriptif = null;
     }
 
     public Long getIdSousFamille() {
@@ -46,16 +47,16 @@ public class SousFamille implements Serializable {
         this.intituleSousFamille = intituleSousFamille;
     }
 
-    public Descriptif getDescriptif() {
-        return descriptif;
+    public List<Descriptif> getListDescriptif() {
+        return listDescriptif;
     }
 
-    public void setDescriptif(Descriptif descriptif) {
-        this.descriptif = descriptif;
+    public void setListDescriptif(List<Descriptif> listDescriptif) {
+        this.listDescriptif = listDescriptif;
     }
 
     @Override
     public String toString() {
-        return "SousFamille{" + "idSousFamille=" + idSousFamille + ", intituleSousFamille=" + intituleSousFamille + ", descriptif=" + descriptif + '}';
+        return "SousFamille{" + "idSousFamille=" + idSousFamille + ", intituleSousFamille=" + intituleSousFamille + ", listDescriptif=" + listDescriptif + '}';
     }
 }
