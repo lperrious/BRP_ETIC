@@ -62,13 +62,49 @@ public class Projet implements Serializable {
     private Integer C82;
     
     @ManyToOne
-    private CoeffRaccordement coeffRaccordement;
+    private CoeffRaccordement coeffRaccordement; 
+    @ManyToOne
+    private CategorieConstruction categorieConstruction;
+    
 
     public Projet() {
     }
 
     public Projet(String nomProjet) {
         this.nomProjet = nomProjet;
+        this.CA1 = null;
+        this.CA2 = null;
+        this.CA3 = null;
+        this.CA4 = null;
+        this.CA5 = null;
+        this.CA6 = null;
+        this.CA7 = null;
+        this.CA8 = null;
+        this.CA9 = null;
+        this.C81 = null;
+        this.C82 = null;
+        this.EFF = null;
+        this.categorieConstruction = null;
+        this.coeffAdapt = null;
+        this.coeffRaccordement = null;
+        this.datePrixRef = null;
+        this.idProjet = null;
+    }
+
+    public CoeffRaccordement getCoeffRaccordement() {
+        return coeffRaccordement;
+    }
+
+    public void setCoeffRaccordement(CoeffRaccordement coeffRaccordement) {
+        this.coeffRaccordement = coeffRaccordement;
+    }
+
+    public CategorieConstruction getCategorieConstruction() {
+        return categorieConstruction;
+    }
+
+    public void setCategorieConstruction(CategorieConstruction categorieConstruction) {
+        this.categorieConstruction = categorieConstruction;
     }
 
     public Long getIdProjet() {
