@@ -80,5 +80,10 @@ public class Operateur implements Serializable {
 
     public void setNom(String nom) {
         this.nom = nom;
-    }   
+    }  
+
+    @Override
+    public String toString() {
+        return "Operateur{" + "idOperateur=" + idOperateur + ", mail=" + mail + ", mdp=" + mdp + ", salt=" + salt + ", token=" + token + ", nom=" + nom + '}';
+    }
 }

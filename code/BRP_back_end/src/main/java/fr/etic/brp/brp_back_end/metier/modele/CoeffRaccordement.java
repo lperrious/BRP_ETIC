@@ -51,4 +51,9 @@ public class CoeffRaccordement implements Serializable {
     public void setValeur(Float valeur) {
         this.valeur = valeur;
     } 
+
+    @Override
+    public String toString() {
+        return "CoeffRaccordement{" + "idCoeffRaccordement=" + idCoeffRaccordement + ", localisation=" + localisation + ", valeur=" + valeur + '}';
+    }
 }

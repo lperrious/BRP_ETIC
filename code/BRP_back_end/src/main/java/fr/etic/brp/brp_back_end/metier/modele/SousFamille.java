@@ -40,4 +40,9 @@ public class SousFamille implements Serializable {
     public void setIntituleSousFamille(String intituleSousFamille) {
         this.intituleSousFamille = intituleSousFamille;
     }
+
+    @Override
+    public String toString() {
+        return "SousFamille{" + "idSousFamille=" + idSousFamille + ", intituleSousFamille=" + intituleSousFamille + '}';
+    }
 }

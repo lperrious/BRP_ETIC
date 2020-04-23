@@ -41,4 +41,9 @@ public class CategorieConstruction implements Serializable {
     public void setIntituleCategorieConstruction(String intituleCategorieConstruction) {
         this.intituleCategorieConstruction = intituleCategorieConstruction;
     }
+
+    @Override
+    public String toString() {
+        return "CategorieConstruction{" + "idCategorieConstruction=" + idCategorieConstruction + ", intituleCategorieConstruction=" + intituleCategorieConstruction + '}';
+    }
 }

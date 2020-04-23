@@ -40,5 +40,8 @@ public class Categorie implements Serializable {
         this.intituleCategorie = intituleCategorie;
     }
 
-   
+    @Override
+    public String toString() {
+        return "Categorie{" + "idCategorie=" + idCategorie + ", intituleCategorie=" + intituleCategorie + '}';
+    }
 }
