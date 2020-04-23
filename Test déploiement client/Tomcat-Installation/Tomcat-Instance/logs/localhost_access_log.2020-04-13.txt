@@ -108,4 +108,13 @@
 0:0:0:0:0:0:0:1 - - [13/Apr/2020:17:23:31 +0200] "GET /favicon.ico HTTP/1.1" 200 21630
 0:0:0:0:0:0:0:1 - - [13/Apr/2020:17:23:36 +0200] "GET /DASI-TD2-Correction/login.html HTTP/1.1" 200 3333
 0:0:0:0:0:0:0:1 - - [13/Apr/2020:17:23:53 +0200] "POST /DASI-TD2-Correction/ActionServlet HTTP/1.1" 500 11362
+<<<<<<< HEAD
+127.0.0.1 - - [13/Apr/2020:17:43:48 +0200] "HEAD /netbeans-tomcat-status-test HTTP/1.1" 404 -
+127.0.0.1 - tomcat [13/Apr/2020:17:43:48 +0200] "GET /manager/text/ HTTP/1.1" 200 41
+127.0.0.1 - - [13/Apr/2020:17:43:48 +0200] "HEAD /netbeans-tomcat-status-test HTTP/1.1" 404 -
+127.0.0.1 - tomcat [13/Apr/2020:17:43:48 +0200] "GET /manager/text/ HTTP/1.1" 200 41
+127.0.0.1 - - [13/Apr/2020:17:43:48 +0200] "HEAD /netbeans-tomcat-status-test HTTP/1.1" 404 -
+127.0.0.1 - tomcat [13/Apr/2020:17:43:48 +0200] "GET /manager/text/ HTTP/1.1" 200 41
+=======
 >>>>>>> d39e01ca265d4024c79b7e58a6682c094bed3a22
+>>>>>>> 0c87dd28ba078a6ec98824598f4f3c22308668ae
