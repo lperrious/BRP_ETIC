@@ -2,10 +2,12 @@
 package fr.etic.brp.brp_back_end.metier.modele;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -18,12 +20,26 @@ public class CategorieConstruction implements Serializable {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long idCategorieConstruction;
     private String intituleCategorieConstruction;
+    
+    @OneToMany
+    private List<SousCategorieConstruction> listSousCategorieConstruction;
+    
+    
 
     public CategorieConstruction() {
     }
 
     public CategorieConstruction(String intituleCategorieConstruction) {
         this.intituleCategorieConstruction = intituleCategorieConstruction;
+        this.listSousCategorieConstruction = null;
+    }
+
+    public List<SousCategorieConstruction> getListSousCategorieConstruction() {
+        return listSousCategorieConstruction;
+    }
+
+    public void setListSousCategorieConstruction(List<SousCategorieConstruction> listSousCategorieConstruction) {
+        this.listSousCategorieConstruction = listSousCategorieConstruction;
     }
 
     public Long getIdCategorieConstruction() {
@@ -44,6 +60,6 @@ public class CategorieConstruction implements Serializable {
 
     @Override
     public String toString() {
-        return "CategorieConstruction{" + "idCategorieConstruction=" + idCategorieConstruction + ", intituleCategorieConstruction=" + intituleCategorieConstruction + '}';
+        return "CategorieConstruction{" + "idCategorieConstruction=" + idCategorieConstruction + ", intituleCategorieConstruction=" + intituleCategorieConstruction + ", listSousCategorieConstruction=" + listSousCategorieConstruction + '}';
     }
 }
