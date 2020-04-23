@@ -107,6 +107,16 @@
 13-Apr-2020 16:13:05.826 INFOS [http-nio-8080-exec-13] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
 13-Apr-2020 16:13:05.835 INFOS [http-nio-8080-exec-13] org.apache.catalina.startup.HostConfig.deployDescriptor Deployment of configuration descriptor [/Users/louisrob/Documents/ETIC/Etude_BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance/conf/Catalina/localhost/DASI-TD2-Correction.xml] has finished in [9 245] ms
 13-Apr-2020 16:13:05.857 INFOS [http-nio-8080-exec-15] org.apache.catalina.util.LifecycleBase.start The start() method was called on component [StandardEngine[Catalina].StandardHost[localhost].StandardContext[/DASI-TD2-Correction]] after start() had already been called. The second call will be ignored.
+<<<<<<< HEAD
+13-Apr-2020 17:29:52.343 INFOS [main] org.apache.catalina.core.StandardServer.await A valid shutdown command was received via the shutdown port. Stopping the Server instance.
+13-Apr-2020 17:29:52.349 INFOS [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+13-Apr-2020 17:29:52.410 INFOS [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["ajp-nio-8009"]
+13-Apr-2020 17:29:52.469 INFOS [main] org.apache.catalina.core.StandardService.stopInternal Arrêt du service [Catalina]
+13-Apr-2020 17:29:52.541 INFOS [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+13-Apr-2020 17:29:52.552 INFOS [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["ajp-nio-8009"]
+13-Apr-2020 17:29:52.555 INFOS [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
+13-Apr-2020 17:29:52.558 INFOS [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["ajp-nio-8009"]
+=======
 13-Apr-2020 17:12:35.791 GRAVE [main] org.apache.catalina.startup.Catalina.initDirs Cannot find specified temporary folder at [/Users/quentinmarc/Documents/ETIC-git/Etude BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance/temp]
 13-Apr-2020 17:12:37.777 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Server version:        Apache Tomcat/8.5.29
 13-Apr-2020 17:12:37.779 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Mar 5 2018 13:11:12 UTC
@@ -187,6 +197,7 @@ Caused by: java.lang.IllegalArgumentException: The main resource set specified [
 13-Apr-2020 17:23:07.161 INFOS [http-nio-8080-exec-7] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
 13-Apr-2020 17:23:07.184 INFOS [http-nio-8080-exec-7] org.apache.catalina.startup.HostConfig.deployDescriptor Deployment of configuration descriptor [/Users/quentinmarc/Documents/ETIC-git/Etude BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance/conf/Catalina/localhost/DASI-TD2-Correction.xml] has finished in [8 046] ms
 13-Apr-2020 17:23:07.204 INFOS [http-nio-8080-exec-5] org.apache.catalina.util.LifecycleBase.start The start() method was called on component [StandardEngine[Catalina].StandardHost[localhost].StandardContext[/DASI-TD2-Correction]] after start() had already been called. The second call will be ignored.
+<<<<<<< HEAD
 13-Apr-2020 17:43:49.216 INFOS [main] org.apache.catalina.core.StandardServer.await A valid shutdown command was received via the shutdown port. Stopping the Server instance.
 13-Apr-2020 17:43:49.217 INFOS [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
 13-Apr-2020 17:43:49.272 INFOS [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["ajp-nio-8009"]
@@ -203,3 +214,6 @@ Caused by: java.lang.IllegalArgumentException: The main resource set specified [
 13-Apr-2020 17:43:49.360 INFOS [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["ajp-nio-8009"]
 13-Apr-2020 17:43:49.361 INFOS [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
 13-Apr-2020 17:43:49.361 INFOS [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["ajp-nio-8009"]
+=======
+>>>>>>> d39e01ca265d4024c79b7e58a6682c094bed3a22
+>>>>>>> 0c87dd28ba078a6ec98824598f4f3c22308668ae
