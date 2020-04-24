@@ -15,7 +15,7 @@ import javax.persistence.Id;
 public class SousCategorieConstruction implements Serializable {
     
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long idSousCategorieConstruction;
     private String intituleSousCategorieConstruction;
 

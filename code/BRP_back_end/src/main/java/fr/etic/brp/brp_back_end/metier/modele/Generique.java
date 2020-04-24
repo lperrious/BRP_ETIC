@@ -16,13 +16,10 @@ public class Generique extends Descriptif implements Serializable {
     public Generique(String idDescriptif, String nomDescriptif, String description, String courteDescription, double prix){
         super(idDescriptif, nomDescriptif, description, courteDescription, prix);
     }
-<<<<<<< HEAD
-    
-=======
 
     @Override
     public String toString() {
         return "Generique{" + '}';
     }
->>>>>>> 0d0cccd973515cbeb4e0afd2834ceb32d0232d76
+
 }
