@@ -16,7 +16,7 @@ import javax.persistence.OneToMany;
 public class Famille implements Serializable {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idFamille;
     private String intituleFamille;
     

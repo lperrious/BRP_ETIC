@@ -21,4 +21,5 @@ public class Generique extends Descriptif implements Serializable {
     public String toString() {
         return "Generique{" + '}';
     }
+
 }
