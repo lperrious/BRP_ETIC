@@ -217,7 +217,8 @@ public class Service {
     }
     */
     
-    public Operateur AuthentifierOperateur(String mail, String mdp) {
+    //TO DO
+    public Operateur AuthentifierOperateur(String mail, String mdpEntre) {
         Operateur resultat = null;
         JpaUtil.creerContextePersistance();
         try {
@@ -225,7 +226,7 @@ public class Service {
             Operateur operateur = operateurDao.ChercherParMail(mail);
             if (operateur != null) {
                 // Vérification du mot de passe
-                if (operateur.getMail().equals(mdp)) {
+                if (operateur.getMail().equals(mdpEntre)) {
                     resultat = operateur;
                 }
             }
@@ -239,32 +240,27 @@ public class Service {
     }
     
     //TO DO
-    public Projet CreerProjet(String nomProjet){
+    public Boolean CreerProjet(String nomProjet){
         return null;
     }
     
     //TO DO
-    public Boolean EditerInfosProjet(){ //A voir en fonction des infos qu'on modifie (plusieurs signatures différentes ?)
+    public Projet OuvrirProjet(Long idProjet){
         return null;
     }
     
     //TO DO
-    public List<Descriptif> ParcoursDescriptifFiltre(String filtre){
+    public Boolean EditerInfosProjet(String typeInfo, String nouvelleValeur){
         return null;
     }
     
     //TO DO
-    public Boolean ImportationBasePrixFichier(){
+    public Boolean ModifBibliotheque(){
         return null;
     }
     
     //TO DO
-    public Boolean ImportationBaseDescriptifFichier(){
-        return null;
-    }
-    
-    //TO DO
-    public List<Descriptif> ListingDescriptifParCorpsEtat(CorpsEtat corpsEtat){
+    public Boolean DupliquerProjet(Long idProjet){
         return null;
     }
 }
