@@ -34,6 +34,7 @@ public class Operateur implements Serializable {
         this.mdp = mdp;
         this.salt = salt;
         this.nom = nom;
+        this.token = null;
     }
 
     public Long getIdOperateur() {

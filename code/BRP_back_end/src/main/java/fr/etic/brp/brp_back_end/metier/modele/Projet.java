@@ -269,6 +269,6 @@ public class Projet implements Serializable {
 
     @Override
     public String toString() {
-        return "Projet{" + "idProjet=" + idProjet + ", nomProjet=" + nomProjet + ", typeMarche=" + typeMarche + ", typeConstruction=" + typeConstruction + ", typeLot=" + typeLot + ", site=" + site + ", datePrixRef=" + datePrixRef + ", coeffAdapt=" + coeffAdapt + ", EFF=" + EFF + ", CA1=" + CA1 + ", CA2=" + CA2 + ", CA3=" + CA3 + ", CA4=" + CA4 + ", CA5=" + CA5 + ", CA6=" + CA6 + ", CA7=" + CA7 + ", CA8=" + CA8 + ", CA9=" + CA9 + ", C81=" + C81 + ", C82=" + C82 + '}';
+        return "Projet{" + "idProjet=" + idProjet + ", nomProjet=" + nomProjet + ", typeMarche=" + typeMarche + ", typeConstruction=" + typeConstruction + ", typeLot=" + typeLot + ", site=" + site + ", datePrixRef=" + datePrixRef + ", coeffAdapt=" + coeffAdapt + ", EFF=" + EFF + ", CA1=" + CA1 + ", CA2=" + CA2 + ", CA3=" + CA3 + ", CA4=" + CA4 + ", CA5=" + CA5 + ", CA6=" + CA6 + ", CA7=" + CA7 + ", CA8=" + CA8 + ", CA9=" + CA9 + ", C81=" + C81 + ", C82=" + C82 + ", coeffRaccordement=" + coeffRaccordement + ", categorieConstruction=" + categorieConstruction + '}';
     }
 }
