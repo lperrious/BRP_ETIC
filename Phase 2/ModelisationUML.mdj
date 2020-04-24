@@ -11825,7 +11825,7 @@
 											"top": 61,
 											"width": 123.525390625,
 											"height": 13,
-											"text": "-valeur: Decimal",
+											"text": "-valeur: Double",
 											"horizontalAlignment": 0
 										}
 									],
@@ -16212,7 +16212,7 @@
 							},
 							"name": "valeur",
 							"visibility": "private",
-							"type": "Decimal"
+							"type": "Double"
 						}
 					]
 				},
