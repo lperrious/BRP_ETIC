@@ -16,4 +16,5 @@ public class Generique extends Descriptif implements Serializable {
     public Generique(String idDescriptif, String nomDescriptif, String description, String courteDescription, double prix){
         super(idDescriptif, nomDescriptif, description, courteDescription, prix);
     }
+    
 }
