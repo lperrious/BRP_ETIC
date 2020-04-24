@@ -15,15 +15,15 @@ import javax.persistence.Id;
 public class CoeffRaccordement implements Serializable {
     
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long idCoeffRaccordement;
     private String localisation;
-    private Float valeur;
+    private Double valeur;
 
     public CoeffRaccordement() {
     }
 
-    public CoeffRaccordement(String localisation, Float valeur) {
+    public CoeffRaccordement(String localisation, Double valeur) {
         this.localisation = localisation;
         this.valeur = valeur;
     }
@@ -44,11 +44,11 @@ public class CoeffRaccordement implements Serializable {
         this.localisation = localisation;
     }
 
-    public Float getValeur() {
+    public Double getValeur() {
         return valeur;
     }
 
-    public void setValeur(Float valeur) {
+    public void setValeur(Double valeur) {
         this.valeur = valeur;
     } 
 

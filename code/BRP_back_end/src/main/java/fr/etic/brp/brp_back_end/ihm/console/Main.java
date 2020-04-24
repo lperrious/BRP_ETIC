@@ -14,7 +14,6 @@ import fr.etic.brp.brp_back_end.metier.modele.Projet;
 import fr.etic.brp.brp_back_end.metier.modele.SousCategorieConstruction;
 import fr.etic.brp.brp_back_end.metier.modele.SousFamille;
 import java.io.IOException;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
@@ -35,8 +34,11 @@ public class Main {
     //------------initialisations------------------
     
         // A faire tout le temps
-        initialiserProjets();
-        //initialiserMediums();
+        InitialiserProjets();
+        InitialiserCategories();
+        InitialiserCoeffRaccordement();
+        InitialiserDescriptif();
+        InitialiserSousFamille();
         
         // Pour les tests primaires mais pas secondaires
         //initialiserClients();
@@ -82,7 +84,7 @@ public class Main {
 //---------------------------- INITIALISATIONS ---------------------------------
 //------------------------------------------------------------------------------
     
-    public static void initialiserProjets() {
+    public static void InitialiserProjets() {
         
         System.out.println();
         System.out.println("**** initialiserProjets() ****");
@@ -115,6 +117,150 @@ public class Main {
         
         System.out.println("** Projet après persistance: ");
         afficherProjet(projet1);
+        System.out.println();
+    }
+    public static void InitialiserCategories() {
+        
+        System.out.println();
+        System.out.println("**** initialiserCategories() ****");
+        System.out.println();
+        
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("BRP_PU");
+        EntityManager em = emf.createEntityManager();        
+        
+        Categorie categorie1 = new Categorie("intitule1");
+         
+        System.out.println("** Categorie avant persistance: ");
+        afficherCategorie(categorie1);
+        System.out.println();
+
+        try {
+            em.getTransaction().begin();
+            em.persist(categorie1);
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service initialiserCategories()", ex);
+            try {
+                em.getTransaction().rollback();
+            }
+            catch (IllegalStateException ex2) {
+                // Ignorer cette exception...
+            }
+        } finally {
+            em.close();
+        }
+        
+        System.out.println("** Categorie après persistance: ");
+        afficherCategorie(categorie1);
+        System.out.println();
+    }
+    public static void InitialiserCoeffRaccordement() {
+        
+        System.out.println();
+        System.out.println("**** initialiserCoeffRaccordement() ****");
+        System.out.println();
+        
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("BRP_PU");
+        EntityManager em = emf.createEntityManager();        
+        
+        CoeffRaccordement coeffRaccordement1 = new CoeffRaccordement("Paris", 1.0);
+         
+        System.out.println("** CoeffRaccordement avant persistance: ");
+        afficherCoeffRaccordement(coeffRaccordement1);
+        System.out.println();
+
+        try {
+            em.getTransaction().begin();
+            em.persist(coeffRaccordement1);
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service initialiserCoeffRaccordement()", ex);
+            try {
+                em.getTransaction().rollback();
+            }
+            catch (IllegalStateException ex2) {
+                // Ignorer cette exception...
+            }
+        } finally {
+            em.close();
+        }
+        
+        System.out.println("** CoeffRaccordement après persistance: ");
+        afficherCoeffRaccordement(coeffRaccordement1);
+        System.out.println();
+    }
+    public static void InitialiserDescriptif() {
+        
+        System.out.println();
+        System.out.println("**** InitialiserDescriptif() ****");
+        System.out.println();
+        
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("BRP_PU");
+        EntityManager em = emf.createEntityManager();        
+        
+        Generique generique1 = new Generique("idDesceriptif1", "nomDescriptif1", "descriptionGenerique1", "courteDescriptionGenerique1", 100);
+        Ouvrage ouvrage1 = new Ouvrage("idOuvrage1", "nomOuvrage1", "descriptionOuvrage1", "courteDescriptionOuvrage1", 100, "ml");
+         
+        System.out.println("** Descriptif avant persistance: ");
+        afficherGenerique(generique1);
+        afficherOuvrage(ouvrage1);
+        System.out.println();
+
+        try {
+            em.getTransaction().begin();
+            em.persist(generique1);
+            em.persist(ouvrage1);
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service InitialiserDescriptif()", ex);
+            try {
+                em.getTransaction().rollback();
+            }
+            catch (IllegalStateException ex2) {
+                // Ignorer cette exception...
+            }
+        } finally {
+            em.close();
+        }
+        
+        System.out.println("** Descriptif après persistance: ");
+        afficherGenerique(generique1);
+        afficherOuvrage(ouvrage1);
+        System.out.println();
+    }
+    public static void InitialiserSousFamille() {
+        
+        System.out.println();
+        System.out.println("**** InitialiserSousFamille() ****");
+        System.out.println();
+        
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("BRP_PU");
+        EntityManager em = emf.createEntityManager();        
+        
+        SousFamille sousFamille1 = new SousFamille("intituleSousFamille1");
+         
+        System.out.println("** SousFamille avant persistance: ");
+        afficherSousFamille(sousFamille1);
+        System.out.println();
+
+        try {
+            em.getTransaction().begin();
+            em.persist(sousFamille1);
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service InitialiserSousFamille()", ex);
+            try {
+                em.getTransaction().rollback();
+            }
+            catch (IllegalStateException ex2) {
+                // Ignorer cette exception...
+            }
+        } finally {
+            em.close();
+        }
+        
+        System.out.println("** SousFamille après persistance: ");
+        afficherSousFamille(sousFamille1);
         System.out.println();
     }
     
