@@ -14,6 +14,12 @@ import fr.etic.brp.brp_back_end.metier.modele.Projet;
 import fr.etic.brp.brp_back_end.metier.modele.SousCategorieConstruction;
 import fr.etic.brp.brp_back_end.metier.modele.SousFamille;
 import java.io.IOException;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 /**
  *
@@ -29,7 +35,7 @@ public class Main {
     //------------initialisations------------------
     
         // A faire tout le temps
-        //initialiserEmploye();
+        initialiserProjets();
         //initialiserMediums();
         
         // Pour les tests primaires mais pas secondaires
@@ -76,61 +82,42 @@ public class Main {
 //---------------------------- INITIALISATIONS ---------------------------------
 //------------------------------------------------------------------------------
     
-    /*public static void initialiserClients() {
+    public static void initialiserProjets() {
         
         System.out.println();
-        System.out.println("**** initialiserClients() ****");
+        System.out.println("**** initialiserProjets() ****");
         System.out.println();
         
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("fr.insalyon.dasi_Predict-IF_jar_1.0PU");
-        EntityManager em = emf.createEntityManager();
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("BRP_PU");
+        EntityManager em = emf.createEntityManager();        
         
-        Date dateOfBirth = new Date(1912, 10, 12);
-        
-        
-        Client alice = new Client(dateOfBirth, "20 av Albert Einstein", "alice.lovelace@insa-lyon.fr", "Alice1012", "0667897668", "Alice", "Lovelace");
-        Client kevin = new Client(dateOfBirth, "20 av Albert Einstein", "kevin.lovelace@insa-lyon.fr", "KEKE", "0667897669", "Kevin", "keke");
-        
-        AstroTest astroTest = new AstroTest();
-            List<String> listeAstroProfile;   
+        Projet projet1 = new Projet("projet1");
+         
+        System.out.println("** Projet avant persistance: ");
+        afficherProjet(projet1);
+        System.out.println();
+
         try {
-            listeAstroProfile = astroTest.getProfil(alice.getFirstName(), alice.getBirthDate());
-            
-            AstralProfile astralProfile = new AstralProfile(listeAstroProfile.get(0), listeAstroProfile.get(1), listeAstroProfile.get(2), listeAstroProfile.get(3));
-            alice.setAstralProfile(astralProfile);
-
-            System.out.println("** Client avant persistance: ");
-            afficherClient(alice);
-            afficherClient(kevin);
-            System.out.println();
-
+            em.getTransaction().begin();
+            em.persist(projet1);
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service initialiserProjets()", ex);
             try {
-                em.getTransaction().begin();
-                em.persist(alice);
-                em.persist(kevin);
-                em.getTransaction().commit();
-            } catch (Exception ex) {
-                Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service initialiserClients()", ex);
-                try {
-                    em.getTransaction().rollback();
-                }
-                catch (IllegalStateException ex2) {
-                    // Ignorer cette exception...
-                }
-            } finally {
-                em.close();
+                em.getTransaction().rollback();
             }
-
-        } catch (IOException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, "Exception lors de l'appel au Service initialiserClients()", ex);
+            catch (IllegalStateException ex2) {
+                // Ignorer cette exception...
+            }
+        } finally {
+            em.close();
         }
         
-        System.out.println("** Client après persistance: ");
-        afficherClient(alice);
-        afficherClient(kevin);
+        System.out.println("** Projet après persistance: ");
+        afficherProjet(projet1);
         System.out.println();
     }
-    */
+    
     
 //------------------------------------------------------------------------------
 //------------------------------ TESTS DES SERVICES  ---------------------------
@@ -340,7 +327,7 @@ public class Main {
     public static void afficherOuvrage(Ouvrage ouvrage) {
         System.out.println("-> " + ouvrage);
     }
-    public static void afficherprojet(Projet projet) {
+    public static void afficherProjet(Projet projet) {
         System.out.println("-> " + projet);
     }
     public static void afficherSousCategorieConstruction(SousCategorieConstruction sousCategorieConstruction) {

@@ -38,7 +38,7 @@ enum Site {
 public class Projet implements Serializable {
         
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idProjet;
     private String nomProjet;
     private TypeMarche typeMarche;
