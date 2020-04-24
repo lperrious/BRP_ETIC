@@ -69,19 +69,6 @@ public class Service {
         return resultat;
     }
     
-    public List<CategorieConstruction> ListerCategorieConstructions() {
-        List<CategorieConstruction> resultat = null;
-        JpaUtil.creerContextePersistance();
-        try {
-            resultat = categorieConstructionDao.ListerCategorieConstructions();
-        } catch (Exception ex) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service ListerCategorieConstructions()", ex);
-            resultat = null;
-        } finally {
-            JpaUtil.fermerContextePersistance();
-        }
-        return resultat;
-    }
     public List<Categorie> ListerCategories() {
         List<Categorie> resultat = null;
         JpaUtil.creerContextePersistance();
@@ -89,6 +76,19 @@ public class Service {
             resultat = categorieDao.ListerCategories();
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service ListerCategories()", ex);
+            resultat = null;
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        return resultat;
+    }
+    public List<CategorieConstruction> ListerCategorieConstructions() {
+        List<CategorieConstruction> resultat = null;
+        JpaUtil.creerContextePersistance();
+        try {
+            resultat = categorieConstructionDao.ListerCategorieConstructions();
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service ListerCategorieConstructions()", ex);
             resultat = null;
         } finally {
             JpaUtil.fermerContextePersistance();
@@ -108,7 +108,7 @@ public class Service {
         }
         return resultat;
     }
-    public List<CorpsEtat> ListerCorpsEtat() {
+    public List<CorpsEtat> ListerCorpsEtats() {
         List<CorpsEtat> resultat = null;
         JpaUtil.creerContextePersistance();
         try {

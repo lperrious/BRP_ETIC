@@ -13,7 +13,9 @@ import fr.etic.brp.brp_back_end.metier.modele.Ouvrage;
 import fr.etic.brp.brp_back_end.metier.modele.Projet;
 import fr.etic.brp.brp_back_end.metier.modele.SousCategorieConstruction;
 import fr.etic.brp.brp_back_end.metier.modele.SousFamille;
+import fr.etic.brp.brp_back_end.metier.service.Service;
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
@@ -34,18 +36,17 @@ public class Main {
     //------------initialisations------------------
     
         // A faire tout le temps
-        InitialiserProjets();
+        InitialiserCategories();
         InitialiserCategorieConstruction();
+        InitialiserCoeffRaccordement();
         InitialiserCorpsEtat();
+        InitialiserDescriptif();
         InitialiserFamille();
         InitialiserOperateur();
+        InitialiserProjets();
         InitialiserSousCategorieConstruction();
-        InitialiserCategories();
-        InitialiserCoeffRaccordement();
-        InitialiserDescriptif();
         InitialiserSousFamille();
 
-        
         // Pour les tests primaires mais pas secondaires
         //initialiserClients();
         //initialiserConsultations(); 
@@ -54,29 +55,16 @@ public class Main {
     
       //---------tests-primaires--------//
       
-//        testerInscriptionClient();
-//        testerAuthentifierAppUser();
-//        
-//        testerListerClients();
-//        testerListerEmployes();
-//        testerListerMediums();
-//        testerListerConsultations();
-//        testerListerConsultationsNonDebutees();
-//        testerListerConsultationsEnCours();
-//        testerListerConsultationsTerminees();
-//        testerConsultationEnCours();
-//        
-//        testerRechercheClientParId();
-//        testerRechercheEmployeParId();
-//        testerRechercheConsulationParId();
-//        testerRechercheMediumParId();
-//        
-//        testerCommencerConsultation();
-//        testerAccepterConsultation();
-//       testerTerminerConsultation();
-//        
-//        testerGetFeedback();
-//        testerAskInspiration();
+        testerListerCategories();
+        testerListerCategorieConstructions();
+        testerListerCoeffRaccordements();
+        testerListerCorpsEtats();
+        testerListerDescriptifs();
+        testerListerFamilles();
+        testerListerOperateurs();
+        testerListerProjets();
+        testerListerSousCategorieConstructions();
+        testerListerSousFamilles();
         
       //----------tests-secondaires------//
       
@@ -269,8 +257,6 @@ public class Main {
         afficherSousFamille(sousFamille1);
         System.out.println();
     }
-    
-    
     public static void InitialiserCategorieConstruction() {
         
         System.out.println();
@@ -305,8 +291,7 @@ public class Main {
         System.out.println("** CategorieConstruction après persistance: ");
         afficherCategorieConstruction(categorieConstruction1);
         System.out.println();
-    }
-    
+    } 
     public static void InitialiserCorpsEtat() {
         
         System.out.println();
@@ -342,7 +327,6 @@ public class Main {
         afficherCorpsEtat(corpsEtat1);
         System.out.println();
     }
-    
     public static void InitialiserFamille() {
         
         System.out.println();
@@ -378,7 +362,6 @@ public class Main {
         afficherFamille(famille1);
         System.out.println();
     }
-    
     public static void InitialiserOperateur() {
         
         System.out.println();
@@ -414,7 +397,6 @@ public class Main {
         afficherOperateur(operateur1);
         System.out.println();
     }
-    
     public static void InitialiserSousCategorieConstruction() {
         
         System.out.println();
@@ -536,29 +518,190 @@ public class Main {
         } else {
             System.out.println("Authentification échouée avec le mail '" + mail + "' et le mot de passe '" + password + "'");
         }
-    }
+    }*/
     
                 //-----------------------//
 
-    public static void testerListerClients() {
+    public static void testerListerCategories() {
         
         System.out.println();
-        System.out.println("**** testerListeClients() ****");
+        System.out.println("**** testerListerCategories() ****");
         System.out.println();
         
         Service service = new Service();
-        List<Client> listeClients = service.ListerClients();
-        System.out.println("*** Liste des Clients");
-        if (listeClients != null) {
-            listeClients.forEach((client) -> {
-                afficherClient(client);
+        List<Categorie> listeCategorie = service.ListerCategories();
+        System.out.println("*** Liste des Categories");
+        if (listeCategorie != null) {
+            listeCategorie.forEach((categorie) -> {
+                afficherCategorie(categorie);
             });
         }
         else {
             System.out.println("=> ERREUR...");
         }
     }
-    */
+    public static void testerListerCategorieConstructions() {
+        
+        System.out.println();
+        System.out.println("**** testerListerCategorieConstructions() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        List<CategorieConstruction> listCategorieConstruction = service.ListerCategorieConstructions();
+        System.out.println("*** Liste des CategorieConstructions");
+        if (listCategorieConstruction != null) {
+            listCategorieConstruction.forEach((categorieConstruction) -> {
+                afficherCategorieConstruction(categorieConstruction);
+            });
+        }
+        else {
+            System.out.println("=> ERREUR...");
+        }
+    }
+    public static void testerListerCoeffRaccordements() {
+        
+        System.out.println();
+        System.out.println("**** testerListerCoeffRaccordements() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        List<CoeffRaccordement> listCoeffRaccordement = service.ListerCoeffRaccordements();
+        System.out.println("*** Liste des CoeffRaccordements");
+        if (listCoeffRaccordement != null) {
+            listCoeffRaccordement.forEach((coeffRaccordement) -> {
+                afficherCoeffRaccordement(coeffRaccordement);
+            });
+        }
+        else {
+            System.out.println("=> ERREUR...");
+        }
+    }
+    public static void testerListerCorpsEtats() {
+        
+        System.out.println();
+        System.out.println("**** testerListerCorpsEtats() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        List<CorpsEtat> listeCorpsEtats = service.ListerCorpsEtats();
+        System.out.println("*** Liste des CorpsEtats");
+        if (listeCorpsEtats != null) {
+            listeCorpsEtats.forEach((corpsEtat) -> {
+                afficherCorpsEtat(corpsEtat);
+            });
+        }
+        else {
+            System.out.println("=> ERREUR...");
+        }
+    }
+    public static void testerListerDescriptifs() {
+        
+        System.out.println();
+        System.out.println("**** testerListerDescriptifs() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        List<Descriptif> listeDescriptifs = service.ListerDescriptifs();
+        System.out.println("*** Liste des Descriptifs");
+        if (listeDescriptifs != null) {
+            listeDescriptifs.forEach((descriptif) -> {
+                afficherDescriptif(descriptif);
+            });
+        }
+        else {
+            System.out.println("=> ERREUR...");
+        }
+    }
+    public static void testerListerFamilles() {
+        
+        System.out.println();
+        System.out.println("**** testerListerFamilles() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        List<Famille> listeFamilles = service.ListerFamilles();
+        System.out.println("*** Liste des Familles");
+        if (listeFamilles != null) {
+            listeFamilles.forEach((famille) -> {
+                afficherFamille(famille);
+            });
+        }
+        else {
+            System.out.println("=> ERREUR...");
+        }
+    }
+    public static void testerListerOperateurs() {
+        
+        System.out.println();
+        System.out.println("**** testerListerOperateurs() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        List<Operateur> listeOperateurs = service.ListerOperateurs();
+        System.out.println("*** Liste des Operateurs");
+        if (listeOperateurs != null) {
+            listeOperateurs.forEach((operateur) -> {
+                afficherOperateur(operateur);
+            });
+        }
+        else {
+            System.out.println("=> ERREUR...");
+        }
+    }
+    public static void testerListerProjets() {
+        
+        System.out.println();
+        System.out.println("**** testerListerProjets() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        List<Projet> listeProjets = service.ListerProjets();
+        System.out.println("*** Liste des Projets");
+        if (listeProjets != null) {
+            listeProjets.forEach((projet) -> {
+                afficherProjet(projet);
+            });
+        }
+        else {
+            System.out.println("=> ERREUR...");
+        }
+    }
+    public static void testerListerSousCategorieConstructions() {
+        
+        System.out.println();
+        System.out.println("**** testerListerSousCategorieConstructions() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        List<SousCategorieConstruction> listeSousCategorieConstructions = service.ListerSousCategorieConstructions();
+        System.out.println("*** Liste des SousCategorieConstructions");
+        if (listeSousCategorieConstructions != null) {
+            listeSousCategorieConstructions.forEach((sousCategorieConstruction) -> {
+                afficherSousCategorieConstruction(sousCategorieConstruction);
+            });
+        }
+        else {
+            System.out.println("=> ERREUR...");
+        }
+    }
+    public static void testerListerSousFamilles() {
+        
+        System.out.println();
+        System.out.println("**** testerListerSousFamilles() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        List<SousFamille> listeSousFamilles = service.ListerSousFamilles();
+        System.out.println("*** Liste des SousFamilles");
+        if (listeSousFamilles != null) {
+            listeSousFamilles.forEach((sousFamille) -> {
+                afficherSousFamille(sousFamille);
+            });
+        }
+        else {
+            System.out.println("=> ERREUR...");
+        }
+    }
     
                 //-----------------------//
     
