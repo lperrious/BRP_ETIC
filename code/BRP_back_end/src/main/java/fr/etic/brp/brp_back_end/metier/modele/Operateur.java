@@ -41,10 +41,6 @@ public class Operateur implements Serializable {
         return idOperateur;
     }
 
-    public void setIdOperateur(Long idOperateur) {
-        this.idOperateur = idOperateur;
-    }
-
     public String getMail() {
         return mail;
     }

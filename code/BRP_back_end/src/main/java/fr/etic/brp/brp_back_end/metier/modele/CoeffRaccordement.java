@@ -32,10 +32,6 @@ public class CoeffRaccordement implements Serializable {
         return idCoeffRaccordement;
     }
 
-    public void setIdCoeffRaccordement(Long idCoeffRaccordement) {
-        this.idCoeffRaccordement = idCoeffRaccordement;
-    }
-
     public String getLocalisation() {
         return localisation;
     }

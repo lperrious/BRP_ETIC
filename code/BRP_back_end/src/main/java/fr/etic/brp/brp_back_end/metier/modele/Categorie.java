@@ -34,10 +34,6 @@ public class Categorie implements Serializable {
         return idCategorie;
     }
 
-    public void setIdCategorie(Long idCategorie) {
-        this.idCategorie = idCategorie;
-    }
-
     public String getIntituleCategorie() {
         return intituleCategorie;
     }

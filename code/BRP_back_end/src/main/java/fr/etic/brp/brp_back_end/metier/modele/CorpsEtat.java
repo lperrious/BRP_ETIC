@@ -34,10 +34,6 @@ public class CorpsEtat implements Serializable {
         return idCorpsEtat;
     }
 
-    public void setIdCorpsEtat(Long idCorpsEtat) {
-        this.idCorpsEtat = idCorpsEtat;
-    }
-
     public String getIntituleCorpsEtat() {
         return intituleCorpsEtat;
     }

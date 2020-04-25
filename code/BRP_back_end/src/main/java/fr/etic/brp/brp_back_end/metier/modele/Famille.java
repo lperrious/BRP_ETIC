@@ -35,10 +35,6 @@ public class Famille implements Serializable {
         return idFamille;
     }
 
-    public void setIdFamille(Long idFamille) {
-        this.idFamille = idFamille;
-    }
-
     public String getIntituleFamille() {
         return intituleFamille;
     }
