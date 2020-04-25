@@ -23,7 +23,7 @@ public class BasePrixRefDao {
     
     public List<BasePrixRef> ListerBasePrixRefs() {
         EntityManager em = JpaUtil.obtenirContextePersistance();
-        TypedQuery<BasePrixRef> query = em.createQuery("SELECT c FROM CaractDim c", BasePrixRef.class);
+        TypedQuery<BasePrixRef> query = em.createQuery("SELECT b FROM BasePrixRef b", BasePrixRef.class);
         return query.getResultList();
     }
     

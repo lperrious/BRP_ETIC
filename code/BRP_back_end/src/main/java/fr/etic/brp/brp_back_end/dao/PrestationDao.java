@@ -23,7 +23,7 @@ public class PrestationDao {
     
     public List<Prestation> ListerPrestations() {
         EntityManager em = JpaUtil.obtenirContextePersistance();
-        TypedQuery<Prestation> query = em.createQuery("SELECT c FROM CaractDim c", Prestation.class);
+        TypedQuery<Prestation> query = em.createQuery("SELECT p FROM Prestation p", Prestation.class);
         return query.getResultList();
     }
     
