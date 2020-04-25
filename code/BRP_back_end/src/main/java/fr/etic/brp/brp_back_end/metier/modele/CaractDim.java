@@ -11,24 +11,24 @@ import javax.persistence.Id;
  * @author louisrob
  */
 @Entity
-public class CaracteristiqueDimensionnelle implements Serializable {
+public class CaractDim implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idCaracteristiqueDimensionnelle;
+    private Long idCaractDim;
     private String codeCaractDim;
     private Double valeur;
 
-    public CaracteristiqueDimensionnelle() {
+    public CaractDim() {
     }
 
-    public CaracteristiqueDimensionnelle(String codeCaractDim, Double valeur) {
+    public CaractDim(String codeCaractDim, Double valeur) {
         this.codeCaractDim = codeCaractDim;
         this.valeur = valeur;
     }
 
     public Long getIdCaracteristiqueDimensionnelle() {
-        return idCaracteristiqueDimensionnelle;
+        return idCaractDim;
     }
 
     public String getCodeCaractDim() {
@@ -49,6 +49,6 @@ public class CaracteristiqueDimensionnelle implements Serializable {
 
     @Override
     public String toString() {
-        return "CaracteristiqueDimensionnelle{" + "idCaracteristiqueDimensionnelle=" + idCaracteristiqueDimensionnelle + ", codeCaractDim=" + codeCaractDim + ", valeur=" + valeur + '}';
+        return "CaracteristiqueDimensionnelle{" + "idCaracteristiqueDimensionnelle=" + idCaractDim + ", codeCaractDim=" + codeCaractDim + ", valeur=" + valeur + '}';
     }
 }

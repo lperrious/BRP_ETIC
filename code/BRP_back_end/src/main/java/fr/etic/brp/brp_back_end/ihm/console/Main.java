@@ -2,7 +2,7 @@ package fr.etic.brp.brp_back_end.ihm.console;
 
 import fr.etic.brp.brp_back_end.dao.JpaUtil;
 import fr.etic.brp.brp_back_end.metier.modele.BasePrixRef;
-import fr.etic.brp.brp_back_end.metier.modele.CaracteristiqueDimensionnelle;
+import fr.etic.brp.brp_back_end.metier.modele.CaractDim;
 import fr.etic.brp.brp_back_end.metier.modele.Categorie;
 import fr.etic.brp.brp_back_end.metier.modele.CategorieConstruction;
 import fr.etic.brp.brp_back_end.metier.modele.CoeffRaccordement;
@@ -40,7 +40,7 @@ public class Main {
     
         // A faire tout le temps
         InitialiserBasePrixRef();
-        InitialiserCaracteristiqueDimensionnelle();
+        InitialiserCaractDim();
         InitialiserCategories();
         InitialiserCategorieConstruction();
         InitialiserCoeffRaccordement();
@@ -152,27 +152,27 @@ public class Main {
         afficherProjet(projet1);
         System.out.println();
     }
-    public static void InitialiserCaracteristiqueDimensionnelle() {
+    public static void InitialiserCaractDim() {
         
         System.out.println();
-        System.out.println("**** InitialiserCaracteristiqueDimensionnelle() ****");
+        System.out.println("**** InitialiserCaractDim() ****");
         System.out.println();
         
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("BRP_PU");
         EntityManager em = emf.createEntityManager();        
         
-        CaracteristiqueDimensionnelle caracteristiqueDimensionnelle1 = new CaracteristiqueDimensionnelle("codeCaractDim1", 1.0);
+        CaractDim caractDim1 = new CaractDim("codeCaractDim1", 1.0);
          
-        System.out.println("** CaracteristiqueDimensionnelle avant persistance: ");
-        afficherCaracteristiqueDimensionnelle(caracteristiqueDimensionnelle1);
+        System.out.println("** CaractDim avant persistance: ");
+        afficherCaractDim(caractDim1);
         System.out.println();
 
         try {
             em.getTransaction().begin();
-            em.persist(caracteristiqueDimensionnelle1);
+            em.persist(caractDim1);
             em.getTransaction().commit();
         } catch (Exception ex) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service InitialiserCaracteristiqueDimensionnelle()", ex);
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service InitialiserCaractDim()", ex);
             try {
                 em.getTransaction().rollback();
             }
@@ -183,8 +183,8 @@ public class Main {
             em.close();
         }
         
-        System.out.println("** CaracteristiqueDimensionnelle après persistance: ");
-        afficherCaracteristiqueDimensionnelle(caracteristiqueDimensionnelle1);
+        System.out.println("** CaractDim après persistance: ");
+        afficherCaractDim(caractDim1);
         System.out.println();
     }
     public static void InitialiserCategories() {
@@ -853,8 +853,8 @@ public class Main {
     public static void afficherBasePrixRef(BasePrixRef basePrixRef) {
         System.out.println("-> " + basePrixRef);
     }
-    public static void afficherCaracteristiqueDimensionnelle(CaracteristiqueDimensionnelle caracteristiqueDimensionnelle) {
-        System.out.println("-> " + caracteristiqueDimensionnelle);
+    public static void afficherCaractDim(CaractDim caractDim) {
+        System.out.println("-> " + caractDim);
     }
     public static void afficherCategorieConstruction(CategorieConstruction categorieConstruction) {
         System.out.println("-> " + categorieConstruction);
