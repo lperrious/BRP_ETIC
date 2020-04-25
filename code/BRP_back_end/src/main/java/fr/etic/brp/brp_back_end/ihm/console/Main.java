@@ -60,6 +60,8 @@ public class Main {
     
       //---------tests-primaires--------//
       
+        //testerListerBasePrixRefs();
+        //testerListerCaractDims();
         testerListerCategories();
         testerListerCategorieConstructions();
         testerListerCoeffRaccordements();
@@ -67,6 +69,7 @@ public class Main {
         testerListerDescriptifs();
         testerListerFamilles();
         testerListerOperateurs();
+        //testerListerPrestations();
         testerListerProjets();
         testerListerSousCategorieConstructions();
         testerListerSousFamilles();

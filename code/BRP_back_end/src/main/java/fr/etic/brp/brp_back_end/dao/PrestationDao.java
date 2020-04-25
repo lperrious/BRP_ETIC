@@ -21,7 +21,7 @@ public class PrestationDao {
         return em.find(Prestation.class, idPrestation); // renvoie null si l'identifiant n'existe pas
     }
     
-    public List<Prestation> ListerCategorieConstructions() {
+    public List<Prestation> ListerPrestations() {
         EntityManager em = JpaUtil.obtenirContextePersistance();
         TypedQuery<Prestation> query = em.createQuery("SELECT c FROM CaractDim c", Prestation.class);
         return query.getResultList();

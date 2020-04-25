@@ -21,7 +21,7 @@ public class CaractDimDao {
         return em.find(CaractDim.class, idCaractDim); // renvoie null si l'identifiant n'existe pas
     }
     
-    public List<CaractDim> ListerCategorieConstructions() {
+    public List<CaractDim> ListerCaractDims() {
         EntityManager em = JpaUtil.obtenirContextePersistance();
         TypedQuery<CaractDim> query = em.createQuery("SELECT c FROM CaractDim c", CaractDim.class);
         return query.getResultList();
