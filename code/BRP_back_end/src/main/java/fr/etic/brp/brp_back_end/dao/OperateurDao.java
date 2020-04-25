@@ -8,6 +8,7 @@ package fr.etic.brp.brp_back_end.dao;
 import fr.etic.brp.brp_back_end.metier.modele.Operateur;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
@@ -46,6 +47,15 @@ public class OperateurDao {
         return result;
     }
     
+    public Integer RecupererSalt(String mailOperateur)
+    {
+        EntityManager em = JpaUtil.obtenirContextePersistance();
+        Query query = em.createQuery("SELECT o.salt FROM Operateur o WHERE o.mail = :mail");
+        query.setParameter("mail", mailOperateur); //Correspond au param ":mail" dans la requête
+        Integer result = (Integer)query.getSingleResult();
+        return result;
+    }
+     
     public void Update(Operateur operateur) {
         EntityManager em = JpaUtil.obtenirContextePersistance();
         em.merge(operateur);

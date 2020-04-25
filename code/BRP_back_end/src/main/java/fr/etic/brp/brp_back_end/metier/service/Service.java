@@ -27,6 +27,8 @@ import fr.etic.brp.brp_back_end.metier.modele.Prestation;
 import fr.etic.brp.brp_back_end.metier.modele.Projet;
 import fr.etic.brp.brp_back_end.metier.modele.SousCategorieConstruction;
 import fr.etic.brp.brp_back_end.metier.modele.SousFamille;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -251,10 +253,15 @@ public class Service {
     //TO DO
     public Operateur AuthentifierOperateur(String mail, String mdpEntre) {
         Operateur resultat = null;
+        Integer salt = null;
         JpaUtil.creerContextePersistance();
         try {
             // Recherche de l'operateur
             Operateur operateur = operateurDao.ChercherParMail(mail);
+            salt = operateurDao.RecupererSalt(mail);
+            String mdpConcat = mdpEntre+salt;
+            //String mdpHash = org.apache.commons.codec.digest.DigestUtils.sha256Hex(mdpConcat);
+            String mdpHash = Hashing.sha256().hashString(mdpConcat, StandardCharsets.UTF_8).toString();
             if (operateur != null) {
                 // Vérification du mot de passe
                 if (operateur.getMail().equals(mdpEntre)) {
