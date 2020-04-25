@@ -41,6 +41,9 @@ public class Service {
     protected ProjetDao projetDao = new ProjetDao();
     protected SousCategorieConstructionDao sousCategorieConstructionDao = new SousCategorieConstructionDao();
     protected SousFamilleDao sousFamilleDao = new SousFamilleDao();
+    protected BasePrixRefDao basePrixRefDao = new BasePrixRefDao();
+    protected CaractDimDao caractDimDao = new CaractDimDao();
+    protected PrestationDao prestationDao = new PrestationDao();
     
     public Projet RechercherProjetParId(Long id) {
         Projet resultat = null;
@@ -193,6 +196,45 @@ public class Service {
             resultat = sousFamilleDao.ListerSousFamilles();
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service ListerSousFamilles()", ex);
+            resultat = null;
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        return resultat;
+    }
+    public List<BasePrixRef> ListerBasePrixRefs(){
+        List<BasePrixRef> resultat = null;
+        JpaUtil.creerContextePersistance();
+        try {
+            resultat = basePrixRefDao.ListerBasePrixRefs();
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service ListerBasePrixRefs()", ex);
+            resultat = null;
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        return resultat;
+    }
+    public List<CaractDim> ListerCaractDims(){
+        List<CaractDim> resultat = null;
+        JpaUtil.creerContextePersistance();
+        try {
+            resultat = caractDimDao.ListerCaractDims();
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service ListerCaractDims()", ex);
+            resultat = null;
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        return resultat;
+    }
+    public List<Prestation> ListerPrestations(){
+        List<Prestation> resultat = null;
+        JpaUtil.creerContextePersistance();
+        try {
+            resultat = prestationDao.ListerPrestations();
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service ListerPrestations()", ex);
             resultat = null;
         } finally {
             JpaUtil.fermerContextePersistance();
