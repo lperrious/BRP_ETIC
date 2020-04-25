@@ -1,5 +1,7 @@
 package fr.etic.brp.brp_back_end.metier.service;
 
+import fr.etic.brp.brp_back_end.dao.BasePrixRefDao;
+import fr.etic.brp.brp_back_end.dao.CaractDimDao;
 import fr.etic.brp.brp_back_end.dao.CategorieConstructionDao;
 import fr.etic.brp.brp_back_end.dao.CategorieDao;
 import fr.etic.brp.brp_back_end.dao.CoeffRaccordementDao;
@@ -8,9 +10,12 @@ import fr.etic.brp.brp_back_end.dao.DescriptifDao;
 import fr.etic.brp.brp_back_end.dao.FamilleDao;
 import fr.etic.brp.brp_back_end.dao.JpaUtil;
 import fr.etic.brp.brp_back_end.dao.OperateurDao;
+import fr.etic.brp.brp_back_end.dao.PrestationDao;
 import fr.etic.brp.brp_back_end.dao.ProjetDao;
 import fr.etic.brp.brp_back_end.dao.SousCategorieConstructionDao;
 import fr.etic.brp.brp_back_end.dao.SousFamilleDao;
+import fr.etic.brp.brp_back_end.metier.modele.BasePrixRef;
+import fr.etic.brp.brp_back_end.metier.modele.CaractDim;
 import fr.etic.brp.brp_back_end.metier.modele.Categorie;
 import fr.etic.brp.brp_back_end.metier.modele.CategorieConstruction;
 import fr.etic.brp.brp_back_end.metier.modele.CoeffRaccordement;
@@ -18,6 +23,7 @@ import fr.etic.brp.brp_back_end.metier.modele.CorpsEtat;
 import fr.etic.brp.brp_back_end.metier.modele.Descriptif;
 import fr.etic.brp.brp_back_end.metier.modele.Famille;
 import fr.etic.brp.brp_back_end.metier.modele.Operateur;
+import fr.etic.brp.brp_back_end.metier.modele.Prestation;
 import fr.etic.brp.brp_back_end.metier.modele.Projet;
 import fr.etic.brp.brp_back_end.metier.modele.SousCategorieConstruction;
 import fr.etic.brp.brp_back_end.metier.modele.SousFamille;
@@ -41,6 +47,9 @@ public class Service {
     protected ProjetDao projetDao = new ProjetDao();
     protected SousCategorieConstructionDao sousCategorieConstructionDao = new SousCategorieConstructionDao();
     protected SousFamilleDao sousFamilleDao = new SousFamilleDao();
+    protected BasePrixRefDao basePrixRefDao = new BasePrixRefDao();
+    protected CaractDimDao caractDimDao = new CaractDimDao();
+    protected PrestationDao prestationDao = new PrestationDao();
     
     public Projet RechercherProjetParId(Long id) {
         Projet resultat = null;
@@ -193,6 +202,45 @@ public class Service {
             resultat = sousFamilleDao.ListerSousFamilles();
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service ListerSousFamilles()", ex);
+            resultat = null;
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        return resultat;
+    }
+    public List<BasePrixRef> ListerBasePrixRefs(){
+        List<BasePrixRef> resultat = null;
+        JpaUtil.creerContextePersistance();
+        try {
+            resultat = basePrixRefDao.ListerBasePrixRefs();
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service ListerBasePrixRefs()", ex);
+            resultat = null;
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        return resultat;
+    }
+    public List<CaractDim> ListerCaractDims(){
+        List<CaractDim> resultat = null;
+        JpaUtil.creerContextePersistance();
+        try {
+            resultat = caractDimDao.ListerCaractDims();
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service ListerCaractDims()", ex);
+            resultat = null;
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        return resultat;
+    }
+    public List<Prestation> ListerPrestations(){
+        List<Prestation> resultat = null;
+        JpaUtil.creerContextePersistance();
+        try {
+            resultat = prestationDao.ListerPrestations();
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service ListerPrestations()", ex);
             resultat = null;
         } finally {
             JpaUtil.fermerContextePersistance();
