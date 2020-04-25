@@ -54,19 +54,6 @@ public class Service {
     protected CaractDimDao caractDimDao = new CaractDimDao();
     protected PrestationDao prestationDao = new PrestationDao();
     
-    public Projet RechercherProjetParId(Long id) {
-        Projet resultat = null;
-        JpaUtil.creerContextePersistance();
-        try {
-            resultat = projetDao.ChercherParId(id);
-        } catch (Exception ex) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service rechercherProjetParId(id)", ex);
-            resultat = null;
-        } finally {
-            JpaUtil.fermerContextePersistance();
-        }
-        return resultat;
-    }
     public Descriptif RechercherDescriptifParId(Long id) {
         Descriptif resultat = null;
         JpaUtil.creerContextePersistance();
@@ -281,9 +268,19 @@ public class Service {
         return null;
     }
     
-    //TO DO
-    public Projet OuvrirProjet(Long idProjet){
-        return null;
+    //TO DO - A TESTER
+    public Projet RechercherProjetParId(Long id) {
+        Projet resultat = null;
+        JpaUtil.creerContextePersistance();
+        try {
+            resultat = projetDao.ChercherParId(id);
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service rechercherProjetParId(id)", ex);
+            resultat = null;
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        return resultat;
     }
     
     //TO DO
