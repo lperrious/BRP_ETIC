@@ -292,28 +292,35 @@ public class Service {
         return null;
     }
     
-    //TO DO
+    //TO DO - Fonctionne pour le moment mais il faut mieux peupler la BD pour de vrais tests !
     //Duplique un projet en donnant par défaut le nom "Nouveau Projet"
     public Boolean DupliquerProjet(Long idProjetADupliquer){
         Projet projetADupliquer = null;
         Projet projetDuplique = null;
         JpaUtil.creerContextePersistance();
+        
         try {
-            projetADupliquer = projetDao.ChercherParId(idProjetADupliquer); //On va cherche le projet à duppliquer
-            if(projetADupliquer != null) {
-                //On duplique ce projet en faisant attention aux liens divers
-                projetDuplique = new Projet("Nouveau Projet");
-                /*projetDuplique.setTypeMarche(projetADupliquer.getTypeMarche());
-                projetDuplique.setTypeConstruction(projetADupliquer.getTypeConstruction());
-                projetDuplique.setTypeLot(projetADupliquer.getTypeLot());
-                projetDuplique.setSite(projetADupliquer.getSite());
-                projetDuplique.setDatePrixRef(projetADupliquer.getDatePrixRef());
-                projetDuplique.setCoeffAdapt(projetADupliquer.getCoeffAdapt());
-                projetDuplique.setCategorieConstruction(projetADupliquer.getCategorieConstruction());
-                //Attention il faut bien que tous les liens soit recrées eux aussi (cascade ?)*/
-                projetDao.Creer(projetDuplique);
-            } else {
-                System.out.println("Pas de projet à dupliquer trouvé !");
+            if(idProjetADupliquer != null)
+            {
+                projetADupliquer = projetDao.ChercherParId(idProjetADupliquer); //On va cherche le projet à duppliquer
+                if(projetADupliquer != null) {
+                    //On duplique ce projet en faisant attention aux liens divers
+                    projetDuplique = new Projet("Nouveau Projet");
+                    projetDuplique.setTypeMarche(projetADupliquer.getTypeMarche());
+                    projetDuplique.setTypeConstruction(projetADupliquer.getTypeConstruction());
+                    projetDuplique.setTypeLot(projetADupliquer.getTypeLot());
+                    projetDuplique.setSite(projetADupliquer.getSite());
+                    projetDuplique.setDatePrixRef(projetADupliquer.getDatePrixRef());
+                    projetDuplique.setCoeffAdapt(projetADupliquer.getCoeffAdapt());
+                    projetDuplique.setCategorieConstruction(projetADupliquer.getCategorieConstruction());
+                    //Attention il faut bien que tous les liens soit recrées eux aussi (cascade ?)
+                    //On enregistre dans la BD
+                    JpaUtil.ouvrirTransaction();
+                    projetDao.Creer(projetDuplique);
+                    JpaUtil.validerTransaction();
+                } else {
+                    System.out.println("Pas de projet à dupliquer trouvé !");
+                }
             }
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service DupliquerProjet(idProjet)", ex);
