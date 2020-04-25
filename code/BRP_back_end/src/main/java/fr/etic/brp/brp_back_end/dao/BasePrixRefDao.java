@@ -21,7 +21,7 @@ public class BasePrixRefDao {
         return em.find(BasePrixRef.class, idBasePrixRef); // renvoie null si l'identifiant n'existe pas
     }
     
-    public List<BasePrixRef> ListerCategorieConstructions() {
+    public List<BasePrixRef> ListerBasePrixRefs() {
         EntityManager em = JpaUtil.obtenirContextePersistance();
         TypedQuery<BasePrixRef> query = em.createQuery("SELECT c FROM CaractDim c", BasePrixRef.class);
         return query.getResultList();
