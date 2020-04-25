@@ -1,5 +1,6 @@
 package fr.etic.brp.brp_back_end.ihm.console;
 
+import com.google.common.hash.Hashing;
 import fr.etic.brp.brp_back_end.dao.JpaUtil;
 import fr.etic.brp.brp_back_end.metier.modele.BasePrixRef;
 import fr.etic.brp.brp_back_end.metier.modele.CaractDim;
@@ -18,12 +19,14 @@ import fr.etic.brp.brp_back_end.metier.modele.SousCategorieConstruction;
 import fr.etic.brp.brp_back_end.metier.modele.SousFamille;
 import fr.etic.brp.brp_back_end.metier.service.Service;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.lang.Math;
 
 /**
  *
@@ -73,6 +76,7 @@ public class Main {
         testerListerProjets();
         testerListerSousCategorieConstructions();
         testerListerSousFamilles();
+        testerAuthentifierOperateur();
         
       //----------tests-secondaires------//
       
@@ -449,9 +453,13 @@ public class Main {
         System.out.println();
         
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("BRP_PU");
-        EntityManager em = emf.createEntityManager();        
+        EntityManager em = emf.createEntityManager();     
         
-        Operateur operateur1 = new Operateur("quentinmarc@orange.fr", "monMDP", 31424, "quentin");
+        Integer salt = (Integer)(Math.random()*1000000);
+        String mdpConcat = "monMDP"+salt;
+        String mdpHash = Hashing.sha256().hashString(mdpConcat, StandardCharsets.UTF_8).toString();
+        
+        Operateur operateur1 = new Operateur("quentinmarc@orange.fr", mdpHash, salt, "quentin");
          
         System.out.println("** Operateur avant persistance: ");
         afficherOperateur(operateur1);
@@ -546,59 +554,51 @@ public class Main {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-    }
-    public static void testerAuthentifierAppUser() {
+    }*/
+    public static void testerAuthentifierOperateur() {
         
         System.out.println();
-        System.out.println("**** testerAuthentifierAppUser() ****");
+        System.out.println("**** testerAuthentifierOperateur() ****");
         System.out.println();
         
         Service service = new Service();
-        AppUser user;
+        Operateur operateur;
         String mail;
-        String password;
+        String mdpEntre;
 
-        mail = "alice.lovelace@insa-lyon.fr";
-        password = "Alice1012";
-        user = service.AuthentifierAppUser(mail, password);
-        if (user != null && user.getClass() == Client.class) {
-            System.out.println("Authentification réussie avec le mail '" + mail + "' et le mot de passe '" + password + "'");
-            afficherClient((Client)user);
+        mail = "quentinmarc@orange.fr";
+        mdpEntre = "monMDP";
+        operateur = service.AuthentifierOperateur(mail, mdpEntre);
+        if (operateur != null) {
+            System.out.println("Authentification réussie avec le mail '" + mail + "' et le mot de passe '" + mdpEntre + "'");
+            afficherOperateur(operateur);
         }
         else {
-            System.out.println("Authentification échouée avec le mail '" + mail + "' et le mot de passe '" + password + "'");
+            System.out.println("Authentification échouée avec le mail '" + mail + "' et le mot de passe '" + mdpEntre + "'");
         }
 
         mail = "ada.lovelace@insa-lyon.fr";
-        password = "Ada2020";
-        user = service.AuthentifierAppUser(mail, password);
-        if (user != null && user.getClass() == Client.class) {
-            System.out.println("Authentification réussie avec le mail '" + mail + "' et le mot de passe '" + password + "'");
-            afficherClient((Client)user);
-        } else {
-            System.out.println("Authentification échouée avec le mail '" + mail + "' et le mot de passe '" + password + "'");
+        mdpEntre = "Ada2020";
+        operateur = service.AuthentifierOperateur(mail, mdpEntre);
+        if (operateur != null) {
+            System.out.println("Authentification réussie avec le mail '" + mail + "' et le mot de passe '" + mdpEntre + "'");
+            afficherOperateur(operateur);
         }
-                
-        mail = "cgayel5170@free.fr";
-        password = "mdpCamille";
-        user = service.AuthentifierAppUser(mail, password);
-        if (user != null && user.getClass() == Employee.class) {
-            System.out.println("Authentification réussie avec le mail '" + mail + "' et le mot de passe '" + password + "'");
-            afficherEmploye((Employee)user);
-        } else {
-            System.out.println("Authentification échouée avec le mail '" + mail + "' et le mot de passe '" + password + "'");
+        else {
+            System.out.println("Authentification échouée avec le mail '" + mail + "' et le mot de passe '" + mdpEntre + "'");
         }
-
-        mail = "ada.lovelace@insa-lyon.fr";
-        password = "Ada2020";
-        user = service.AuthentifierAppUser(mail, password);
-        if (user != null && user.getClass() == Employee.class) {
-            System.out.println("Authentification réussie avec le mail '" + mail + "' et le mot de passe '" + password + "'");
-            afficherEmploye((Employee)user);
-        } else {
-            System.out.println("Authentification échouée avec le mail '" + mail + "' et le mot de passe '" + password + "'");
+        
+        mail = "quentinmarc@orange.fr";
+        mdpEntre = "Ada2020";
+        operateur = service.AuthentifierOperateur(mail, mdpEntre);
+        if (operateur != null) {
+            System.out.println("Authentification réussie avec le mail '" + mail + "' et le mot de passe '" + mdpEntre + "'");
+            afficherOperateur(operateur);
         }
-    }*/
+        else {
+            System.out.println("Authentification échouée avec le mail '" + mail + "' et le mot de passe '" + mdpEntre + "'");
+        }
+    }
     
                 //-----------------------//
 

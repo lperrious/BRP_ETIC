@@ -1,5 +1,6 @@
 package fr.etic.brp.brp_back_end.metier.service;
 
+import com.google.common.hash.Hashing;
 import fr.etic.brp.brp_back_end.dao.BasePrixRefDao;
 import fr.etic.brp.brp_back_end.dao.CaractDimDao;
 import fr.etic.brp.brp_back_end.dao.CategorieConstructionDao;
@@ -257,14 +258,13 @@ public class Service {
         JpaUtil.creerContextePersistance();
         try {
             // Recherche de l'operateur
-            Operateur operateur = operateurDao.ChercherParMail(mail);
             salt = operateurDao.RecupererSalt(mail);
             String mdpConcat = mdpEntre+salt;
-            //String mdpHash = org.apache.commons.codec.digest.DigestUtils.sha256Hex(mdpConcat);
             String mdpHash = Hashing.sha256().hashString(mdpConcat, StandardCharsets.UTF_8).toString();
+            Operateur operateur = operateurDao.ChercherParMail(mail);
             if (operateur != null) {
                 // Vérification du mot de passe
-                if (operateur.getMail().equals(mdpEntre)) {
+                if (operateur.getMdp().equals(mdpHash)) {
                     resultat = operateur;
                 }
             }
