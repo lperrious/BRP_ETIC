@@ -35,10 +35,6 @@ public class SousFamille implements Serializable {
         return idSousFamille;
     }
 
-    public void setIdSousFamille(Long idSousFamille) {
-        this.idSousFamille = idSousFamille;
-    }
-
     public String getIntituleSousFamille() {
         return intituleSousFamille;
     }

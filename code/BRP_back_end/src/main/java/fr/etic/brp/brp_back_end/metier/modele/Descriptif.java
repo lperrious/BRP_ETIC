@@ -11,7 +11,7 @@ import javax.persistence.InheritanceType;
  * @author quentinmarc
  */
 @Entity
-@Inheritance (strategy = InheritanceType.JOINED)
+@Inheritance (strategy = InheritanceType.JOINED) //Définit la stratégie d'héritage dans la BD
 public abstract class Descriptif implements Serializable {
     
     @Id
@@ -19,25 +19,19 @@ public abstract class Descriptif implements Serializable {
     protected String nomDescriptif;
     protected String description;
     protected String courteDescription;
-    protected double prix;
     
     public Descriptif(){ 
     }
 
-    public Descriptif(String idDescriptif, String nomDescriptif, String description, String courteDescription, double prix) {
+    public Descriptif(String idDescriptif, String nomDescriptif, String description, String courteDescription) {
         this.idDescriptif = idDescriptif;
         this.nomDescriptif = nomDescriptif;
         this.description = description;
         this.courteDescription = courteDescription;
-        this.prix = prix;
     }
 
     public String getIdDescriptif() {
         return idDescriptif;
-    }
-
-    public void setIdDescriptif(String idDescriptif) {
-        this.idDescriptif = idDescriptif;
     }
 
     public String getNomDescriptif() {
@@ -64,16 +58,8 @@ public abstract class Descriptif implements Serializable {
         this.courteDescription = courteDescription;
     }
 
-    public double getPrix() {
-        return prix;
-    }
-
-    public void setPrix(double prix) {
-        this.prix = prix;
-    }
-
     @Override
     public String toString() {
-        return "Descriptif{" + "idDescriptif=" + idDescriptif + ", nomDescriptif=" + nomDescriptif + ", description=" + description + ", courteDescription=" + courteDescription + ", prix=" + prix + '}';
+        return "Descriptif{" + "idDescriptif=" + idDescriptif + ", nomDescriptif=" + nomDescriptif + ", description=" + description + ", courteDescription=" + courteDescription + '}';
     }
 }

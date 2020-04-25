@@ -1,6 +1,8 @@
 package fr.etic.brp.brp_back_end.ihm.console;
 
 import fr.etic.brp.brp_back_end.dao.JpaUtil;
+import fr.etic.brp.brp_back_end.metier.modele.BasePrixRef;
+import fr.etic.brp.brp_back_end.metier.modele.CaracteristiqueDimensionnelle;
 import fr.etic.brp.brp_back_end.metier.modele.Categorie;
 import fr.etic.brp.brp_back_end.metier.modele.CategorieConstruction;
 import fr.etic.brp.brp_back_end.metier.modele.CoeffRaccordement;
@@ -10,6 +12,7 @@ import fr.etic.brp.brp_back_end.metier.modele.Famille;
 import fr.etic.brp.brp_back_end.metier.modele.Generique;
 import fr.etic.brp.brp_back_end.metier.modele.Operateur;
 import fr.etic.brp.brp_back_end.metier.modele.Ouvrage;
+import fr.etic.brp.brp_back_end.metier.modele.Prestation;
 import fr.etic.brp.brp_back_end.metier.modele.Projet;
 import fr.etic.brp.brp_back_end.metier.modele.SousCategorieConstruction;
 import fr.etic.brp.brp_back_end.metier.modele.SousFamille;
@@ -36,6 +39,8 @@ public class Main {
     //------------initialisations------------------
     
         // A faire tout le temps
+        InitialiserBasePrixRef();
+        InitialiserCaracteristiqueDimensionnelle();
         InitialiserCategories();
         InitialiserCategorieConstruction();
         InitialiserCoeffRaccordement();
@@ -78,27 +83,26 @@ public class Main {
 //---------------------------- INITIALISATIONS ---------------------------------
 //------------------------------------------------------------------------------
     
-    public static void InitialiserProjets() {
+    public static void InitialiserBasePrixRef() {
         
         System.out.println();
-        System.out.println("**** initialiserProjets() ****");
+        System.out.println("**** InitialiserBasePrixRef() ****");
         System.out.println();
         
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("BRP_PU");
         EntityManager em = emf.createEntityManager();        
         
-        Projet projet1 = new Projet("projet1");
-         
-        System.out.println("** Projet avant persistance: ");
-        afficherProjet(projet1);
+        BasePrixRef basePrixRef = new BasePrixRef("anne1", 1.0, 2.0, 3.0, "ml", 4.0);
+        System.out.println("** BasePrixRef avant persistance: ");
+        afficherBasePrixRef(basePrixRef);
         System.out.println();
 
         try {
             em.getTransaction().begin();
-            em.persist(projet1);
+            em.persist(basePrixRef);
             em.getTransaction().commit();
         } catch (Exception ex) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service initialiserProjets()", ex);
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service InitialiserBasePrixRef()", ex);
             try {
                 em.getTransaction().rollback();
             }
@@ -109,8 +113,78 @@ public class Main {
             em.close();
         }
         
-        System.out.println("** Projet après persistance: ");
+        System.out.println("** BasePrixRef après persistance: ");
+        afficherBasePrixRef(basePrixRef);
+        System.out.println();
+    }
+    public static void InitialiserProjets() {
+        
+        System.out.println();
+        System.out.println("**** InitialiserProjets() ****");
+        System.out.println();
+        
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("BRP_PU");
+        EntityManager em = emf.createEntityManager();        
+        
+        Projet projet1 = new Projet("nomProjet1");
+        
+        System.out.println("** Projets avant persistance: ");
         afficherProjet(projet1);
+        System.out.println();
+
+        try {
+            em.getTransaction().begin();
+            em.persist(projet1);
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service InitialiserProjets()", ex);
+            try {
+                em.getTransaction().rollback();
+            }
+            catch (IllegalStateException ex2) {
+                // Ignorer cette exception...
+            }
+        } finally {
+            em.close();
+        }
+        
+        System.out.println("** Projets après persistance: ");
+        afficherProjet(projet1);
+        System.out.println();
+    }
+    public static void InitialiserCaracteristiqueDimensionnelle() {
+        
+        System.out.println();
+        System.out.println("**** InitialiserCaracteristiqueDimensionnelle() ****");
+        System.out.println();
+        
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("BRP_PU");
+        EntityManager em = emf.createEntityManager();        
+        
+        CaracteristiqueDimensionnelle caracteristiqueDimensionnelle1 = new CaracteristiqueDimensionnelle("codeCaractDim1", 1.0);
+         
+        System.out.println("** CaracteristiqueDimensionnelle avant persistance: ");
+        afficherCaracteristiqueDimensionnelle(caracteristiqueDimensionnelle1);
+        System.out.println();
+
+        try {
+            em.getTransaction().begin();
+            em.persist(caracteristiqueDimensionnelle1);
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service InitialiserCaracteristiqueDimensionnelle()", ex);
+            try {
+                em.getTransaction().rollback();
+            }
+            catch (IllegalStateException ex2) {
+                // Ignorer cette exception...
+            }
+        } finally {
+            em.close();
+        }
+        
+        System.out.println("** CaracteristiqueDimensionnelle après persistance: ");
+        afficherCaracteristiqueDimensionnelle(caracteristiqueDimensionnelle1);
         System.out.println();
     }
     public static void InitialiserCategories() {
@@ -192,18 +266,21 @@ public class Main {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("BRP_PU");
         EntityManager em = emf.createEntityManager();        
         
-        Generique generique1 = new Generique("idDesceriptif1", "nomDescriptif1", "descriptionGenerique1", "courteDescriptionGenerique1", 100);
-        Ouvrage ouvrage1 = new Ouvrage("idOuvrage1", "nomOuvrage1", "descriptionOuvrage1", "courteDescriptionOuvrage1", 100, "ml");
+        Generique generique1 = new Generique("idDesceriptif1", "nomDescriptif1", "descriptionGenerique1", "courteDescriptionGenerique1");
+        Ouvrage ouvrage1 = new Ouvrage("idOuvrage1", "nomOuvrage1", "descriptionOuvrage1", "courteDescriptionOuvrage1");
+        Prestation prestation1 = new Prestation("idPrestation1", "nomPrestation1", "descriptionPrestation1", "courteDescriptionPrestation1");
          
         System.out.println("** Descriptif avant persistance: ");
         afficherGenerique(generique1);
         afficherOuvrage(ouvrage1);
+        afficherPrestation(prestation1);
         System.out.println();
 
         try {
             em.getTransaction().begin();
             em.persist(generique1);
             em.persist(ouvrage1);
+            em.persist(prestation1);
             em.getTransaction().commit();
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service InitialiserDescriptif()", ex);
@@ -220,6 +297,7 @@ public class Main {
         System.out.println("** Descriptif après persistance: ");
         afficherGenerique(generique1);
         afficherOuvrage(ouvrage1);
+        afficherPrestation(prestation1);
         System.out.println();
     }
     public static void InitialiserSousFamille() {
@@ -266,8 +344,7 @@ public class Main {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("BRP_PU");
         EntityManager em = emf.createEntityManager();        
         
-        CategorieConstruction categorieConstruction1 = new CategorieConstruction("categorieConstruction1");
-         
+        CategorieConstruction categorieConstruction1 = new CategorieConstruction("intituleCategorieConstruction1", "codeCategorieConstruction1");
         System.out.println("** CategorieConstruction avant persistance: ");
         afficherCategorieConstruction(categorieConstruction1);
         System.out.println();
@@ -773,6 +850,12 @@ public class Main {
 //-------------------------- METHODES AFFICHAGE -------------------------------
 //------------------------------------------------------------------------------
     
+    public static void afficherBasePrixRef(BasePrixRef basePrixRef) {
+        System.out.println("-> " + basePrixRef);
+    }
+    public static void afficherCaracteristiqueDimensionnelle(CaracteristiqueDimensionnelle caracteristiqueDimensionnelle) {
+        System.out.println("-> " + caracteristiqueDimensionnelle);
+    }
     public static void afficherCategorieConstruction(CategorieConstruction categorieConstruction) {
         System.out.println("-> " + categorieConstruction);
     }
@@ -801,6 +884,9 @@ public class Main {
     }
     public static void afficherOuvrage(Ouvrage ouvrage) {
         System.out.println("-> " + ouvrage);
+    }
+    public static void afficherPrestation(Prestation prestation) {
+        System.out.println("-> " + prestation);
     }
     public static void afficherProjet(Projet projet) {
         System.out.println("-> " + projet);

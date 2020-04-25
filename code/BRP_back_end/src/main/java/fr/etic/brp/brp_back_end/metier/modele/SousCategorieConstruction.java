@@ -30,10 +30,6 @@ public class SousCategorieConstruction implements Serializable {
         return idSousCategorieConstruction;
     }
 
-    public void setIdSousCategorieConstruction(Long idSousCategorieConstruction) {
-        this.idSousCategorieConstruction = idSousCategorieConstruction;
-    }
-
     public String getIntituleSousCategorieConstruction() {
         return intituleSousCategorieConstruction;
     }

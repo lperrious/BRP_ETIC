@@ -1,7 +1,9 @@
 package fr.etic.brp.brp_back_end.metier.modele;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -10,26 +12,38 @@ import javax.persistence.Entity;
 @Entity
 public class Ouvrage extends Descriptif implements Serializable {
     
-    private String unite;
+    @OneToMany
+    private List<Prestation> listePrestation;
+    @OneToMany
+    private List<BasePrixRef> listeBasePrixRefOuvrage;
     
     public Ouvrage(){ 
     }
     
-    public Ouvrage(String idDescriptif, String nomDescriptif, String description, String courteDescription, double prix, String unite){
-        super(idDescriptif, nomDescriptif, description, courteDescription, prix);
-        this.unite = unite;
+    public Ouvrage(String idDescriptif, String nomDescriptif, String description, String courteDescription){
+        super(idDescriptif, nomDescriptif, description, courteDescription);
+        this.listeBasePrixRefOuvrage = null;
+        this.listePrestation = null;
     }
 
-    public String getUnite() {
-        return unite;
+    public List<Prestation> getListePrestation() {
+        return listePrestation;
     }
 
-    public void setUnite(String unite) {
-        this.unite = unite;
+    public void setListePrestation(List<Prestation> listePrestation) {
+        this.listePrestation = listePrestation;
+    }
+
+    public List<BasePrixRef> getListeBasePrixRefOuvrage() {
+        return listeBasePrixRefOuvrage;
+    }
+
+    public void setListeBasePrixRefOuvrage(List<BasePrixRef> listeBasePrixRefOuvrage) {
+        this.listeBasePrixRefOuvrage = listeBasePrixRefOuvrage;
     }
 
     @Override
     public String toString() {
-        return "Ouvrage{" + "unite=" + unite + '}';
-    }
+        return "Ouvrage{" + "listePrestation=" + listePrestation + ", listeBasePrixRefOuvrage=" + listeBasePrixRefOuvrage + '}';
+    }    
 }
