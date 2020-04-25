@@ -60,8 +60,8 @@ public class Main {
     
       //---------tests-primaires--------//
       
-        //testerListerBasePrixRefs();
-        //testerListerCaractDims();
+        testerListerBasePrixRefs();
+        testerListerCaractDims();
         testerListerCategories();
         testerListerCategorieConstructions();
         testerListerCoeffRaccordements();
@@ -69,7 +69,7 @@ public class Main {
         testerListerDescriptifs();
         testerListerFamilles();
         testerListerOperateurs();
-        //testerListerPrestations();
+        testerListerPrestations();
         testerListerProjets();
         testerListerSousCategorieConstructions();
         testerListerSousFamilles();
@@ -776,6 +776,60 @@ public class Main {
         if (listeSousFamilles != null) {
             listeSousFamilles.forEach((sousFamille) -> {
                 afficherSousFamille(sousFamille);
+            });
+        }
+        else {
+            System.out.println("=> ERREUR...");
+        }
+    }
+    public static void testerListerBasePrixRefs() {
+        
+        System.out.println();
+        System.out.println("**** testerListerBasePrixRefs() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        List<BasePrixRef> listeBasePrixRefs = service.ListerBasePrixRefs();
+        System.out.println("*** Liste des BasePrixRefs");
+        if (listeBasePrixRefs != null) {
+            listeBasePrixRefs.forEach((basePrixRef) -> {
+                afficherBasePrixRef(basePrixRef);
+            });
+        }
+        else {
+            System.out.println("=> ERREUR...");
+        }
+    }
+    public static void testerListerCaractDims() {
+        
+        System.out.println();
+        System.out.println("**** testerCaractDims() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        List<CaractDim> listeCaractDims = service.ListerCaractDims();
+        System.out.println("*** Liste des CaractDims");
+        if (listeCaractDims != null) {
+            listeCaractDims.forEach((caractDim) -> {
+                afficherCaractDim(caractDim);
+            });
+        }
+        else {
+            System.out.println("=> ERREUR...");
+        }
+    }
+    public static void testerListerPrestations() {
+        
+        System.out.println();
+        System.out.println("**** testerPrestations() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        List<Prestation> listePrestations = service.ListerPrestations();
+        System.out.println("*** Liste des Prestations");
+        if (listePrestations != null) {
+            listePrestations.forEach((prestation) -> {
+                afficherPrestation(prestation);
             });
         }
         else {
