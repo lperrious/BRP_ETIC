@@ -455,7 +455,7 @@ public class Main {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("BRP_PU");
         EntityManager em = emf.createEntityManager();     
         
-        Integer salt = (Integer)(Math.random()*1000000);
+        int salt = (int)(Math.random()*1000);
         String mdpConcat = "monMDP"+salt;
         String mdpHash = Hashing.sha256().hashString(mdpConcat, StandardCharsets.UTF_8).toString();
         

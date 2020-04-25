@@ -251,7 +251,6 @@ public class Service {
         return resultat;
     }
     
-    //TO DO
     public Operateur AuthentifierOperateur(String mail, String mdpEntre) {
         Operateur resultat = null;
         Integer salt = null;
