@@ -291,8 +291,7 @@ public class Service {
     public Boolean ModifBibliotheque(){
         return null;
     }
-    
-    //TO DO - Fonctionne pour le moment mais il faut mieux peupler la BD pour de vrais tests !
+       
     //Duplique un projet en donnant par défaut le nom "Nouveau Projet"
     public Boolean DupliquerProjet(Long idProjetADupliquer){
         Projet projetADupliquer = null;
@@ -302,7 +301,7 @@ public class Service {
         try {
             if(idProjetADupliquer != null)
             {
-                projetADupliquer = projetDao.ChercherParId(idProjetADupliquer); //On va cherche le projet à duppliquer
+                projetADupliquer = projetDao.ChercherParId(idProjetADupliquer); //On va chercher le projet à duppliquer
                 if(projetADupliquer != null) {
                     //On duplique ce projet en faisant attention aux liens divers
                     projetDuplique = new Projet("Nouveau Projet");
@@ -313,7 +312,8 @@ public class Service {
                     projetDuplique.setDatePrixRef(projetADupliquer.getDatePrixRef());
                     projetDuplique.setCoeffAdapt(projetADupliquer.getCoeffAdapt());
                     projetDuplique.setCategorieConstruction(projetADupliquer.getCategorieConstruction());
-                    //Attention il faut bien que tous les liens soit recrées eux aussi (cascade ?)
+                    projetDuplique.setCoeffRaccordement(projetADupliquer.getCoeffRaccordement());
+                    
                     //On enregistre dans la BD
                     JpaUtil.ouvrirTransaction();
                     projetDao.Creer(projetDuplique);

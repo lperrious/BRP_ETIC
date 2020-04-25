@@ -64,11 +64,11 @@ public class CategorieConstruction implements Serializable {
         this.listeSousCategorieConstruction = listeSousCategorieConstruction;
     }
 
-    public List<CaractDim> getListeCaracteristiqueDimensionelle() {
+    public List<CaractDim> getListeCaractDim() {
         return listeCaractDim;
     }
 
-    public void setListeCaracteristiqueDimensionelle(List<CaractDim> listeCaractDim) {
+    public void setListeCaractDim(List<CaractDim> listeCaractDim) {
         this.listeCaractDim = listeCaractDim;
     }
 

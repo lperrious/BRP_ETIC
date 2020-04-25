@@ -10,32 +10,32 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 
-enum TypeMarche {
-  marchePublic,
-  marchePrive;
-}
-
-enum TypeConstruction {
-  neuf,
-  renovation;
-}
-
-enum TypeLot {
-  lotSepare,
-  entrepriseGenerale;
-}
-
-enum Site {
-  libre,
-  occupe;
-}
-
 /**
  *
  * @author louisrob
  */
 @Entity
 public class Projet implements Serializable {
+    
+    public enum TypeMarche {
+      marchePublic,
+      marchePrive;
+    }
+
+    public enum TypeConstruction {
+      neuf,
+      renovation;
+    }
+
+    public enum TypeLot {
+      lotSepare,
+      entrepriseGenerale;
+    }
+
+    public enum Site {
+      libre,
+      occupe;
+    }
         
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

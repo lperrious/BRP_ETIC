@@ -15,11 +15,17 @@ import fr.etic.brp.brp_back_end.metier.modele.Operateur;
 import fr.etic.brp.brp_back_end.metier.modele.Ouvrage;
 import fr.etic.brp.brp_back_end.metier.modele.Prestation;
 import fr.etic.brp.brp_back_end.metier.modele.Projet;
+import fr.etic.brp.brp_back_end.metier.modele.Projet.Site;
+import fr.etic.brp.brp_back_end.metier.modele.Projet.TypeConstruction;
+import fr.etic.brp.brp_back_end.metier.modele.Projet.TypeLot;
+import fr.etic.brp.brp_back_end.metier.modele.Projet.TypeMarche;
 import fr.etic.brp.brp_back_end.metier.modele.SousCategorieConstruction;
 import fr.etic.brp.brp_back_end.metier.modele.SousFamille;
 import fr.etic.brp.brp_back_end.metier.service.Service;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,9 +47,10 @@ public class Main {
 
     //------------initialisations------------------
     
-        // A faire tout le temps
+        // A faire tout le temps (l'ordre est important)
         InitialiserBasePrixRef();
         InitialiserCaractDim();
+        InitialiserSousCategorieConstruction();
         InitialiserCategories();
         InitialiserCategorieConstruction();
         InitialiserCoeffRaccordement();
@@ -52,7 +59,6 @@ public class Main {
         InitialiserFamille();
         InitialiserOperateur();
         InitialiserProjets();
-        InitialiserSousCategorieConstruction();
         InitialiserSousFamille();
 
         // Pour les tests primaires mais pas secondaires
@@ -136,6 +142,16 @@ public class Main {
         EntityManager em = emf.createEntityManager();        
         
         Projet projet1 = new Projet("nomProjet1");
+        TypeMarche typeMarche = TypeMarche.marchePublic;
+        projet1.setTypeMarche(typeMarche);
+        TypeConstruction typeConstruction = TypeConstruction.renovation;
+        projet1.setTypeConstruction(typeConstruction);
+        TypeLot typeLot = TypeLot.lotSepare;
+        projet1.setTypeLot(typeLot);
+        Site site = Site.libre;
+        projet1.setSite(site);
+        projet1.setDatePrixRef(new Date());
+        projet1.setCoeffAdapt(1F);
         
         System.out.println("** Projets avant persistance: ");
         afficherProjet(projet1);
@@ -143,7 +159,15 @@ public class Main {
 
         try {
             em.getTransaction().begin();
+            
+            CategorieConstruction categorieConstruction = em.find(CategorieConstruction.class, 1L);
+            projet1.setCategorieConstruction(categorieConstruction);
+            
+            CoeffRaccordement coeffRaccordement = em.find(CoeffRaccordement.class, 1L);
+            projet1.setCoeffRaccordement(coeffRaccordement);
+            
             em.persist(projet1);
+            
             em.getTransaction().commit();
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service InitialiserProjets()", ex);
@@ -354,13 +378,26 @@ public class Main {
         EntityManager em = emf.createEntityManager();        
         
         CategorieConstruction categorieConstruction1 = new CategorieConstruction("intituleCategorieConstruction1", "codeCategorieConstruction1");
+        
         System.out.println("** CategorieConstruction avant persistance: ");
         afficherCategorieConstruction(categorieConstruction1);
         System.out.println();
 
         try {
             em.getTransaction().begin();
+            
+            SousCategorieConstruction sousCategorieConstruction = em.find(SousCategorieConstruction.class, 1L);
+            List<SousCategorieConstruction> listeSousCategorieConstruction = new ArrayList<>();
+            listeSousCategorieConstruction.add(0, sousCategorieConstruction);
+            categorieConstruction1.setListeSousCategorieConstruction(listeSousCategorieConstruction);
+            
+            CaractDim caractDim = em.find(CaractDim.class, 1L);
+            List<CaractDim> listeCaractDim = new ArrayList<>();
+            listeCaractDim.add(0, caractDim);
+            categorieConstruction1.setListeCaractDim(listeCaractDim);
+            
             em.persist(categorieConstruction1);
+            
             em.getTransaction().commit();
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service initialiserCategorieConstruction()", ex);
@@ -839,7 +876,7 @@ public class Main {
     public static void testerListerCaractDims() {
         
         System.out.println();
-        System.out.println("**** testerCaractDims() ****");
+        System.out.println("**** testerListerCaractDims() ****");
         System.out.println();
         
         Service service = new Service();
