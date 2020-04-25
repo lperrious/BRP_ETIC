@@ -146,5 +146,5 @@ public class Projet implements Serializable {
     @Override
     public String toString() {
         return "Projet{" + "idProjet=" + idProjet + ", nomProjet=" + nomProjet + ", typeMarche=" + typeMarche + ", typeConstruction=" + typeConstruction + ", typeLot=" + typeLot + ", site=" + site + ", datePrixRef=" + datePrixRef + ", coeffAdapt=" + coeffAdapt + ", coeffRaccordement=" + coeffRaccordement + ", categorieConstruction=" + categorieConstruction + '}';
-    }
+    } 
 }

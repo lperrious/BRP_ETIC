@@ -26,7 +26,7 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import java.lang.Math;
+//import java.lang.Math;
 
 /**
  *
@@ -77,6 +77,8 @@ public class Main {
         testerListerSousCategorieConstructions();
         testerListerSousFamilles();
         testerAuthentifierOperateur();
+        testerRechercherProjetParId();
+        testerDupliquerProjet();
         
       //----------tests-secondaires------//
       
@@ -524,37 +526,7 @@ public class Main {
 //------------------------------------------------------------------------------
 //------------------------------ TESTS DES SERVICES  ---------------------------
 //------------------------------------------------------------------------------
-    
-    /*public static void testerInscriptionClient(){
-        
-        System.out.println();
-        System.out.println("**** testerInscriptionClient() ****");
-        System.out.println();
-        
-        Service service = new Service();
-        
-        Date dateOfBirth = new Date(1912, 10, 11);
-        Client alice = new Client(dateOfBirth, "20 av Albert Einstein", "alice2.lovelace@insa-lyon.fr", "Alice1012", "0667897668", "Alice", "Lovelace");
-        AstroTest astroTest = new AstroTest();
-        List<String> listeAstroProfile;
-        try {
-            listeAstroProfile = astroTest.getProfil(alice.getFirstName(), alice.getBirthDate());
-            AstralProfile astralProfile = new AstralProfile(listeAstroProfile.get(0), listeAstroProfile.get(1), listeAstroProfile.get(2), listeAstroProfile.get(3));
-            alice.setAstralProfile(astralProfile);
-
-            Long idAlice = service.InscrireClient(alice);
-            if (idAlice != null) {
-                System.out.println("> Succès inscription");
-            } else {
-                System.out.println("> Échec inscription");
-            }
-            afficherClient(alice);
-            System.out.println();
-        } catch (IOException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-    }*/
+   
     public static void testerAuthentifierOperateur() {
         
         System.out.println();
@@ -597,6 +569,70 @@ public class Main {
         }
         else {
             System.out.println("Authentification échouée avec le mail '" + mail + "' et le mot de passe '" + mdpEntre + "'");
+        }
+    }
+    
+    public static void testerRechercherProjetParId() {
+        
+        System.out.println();
+        System.out.println("**** testerRechercherProjetParId() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        
+        //Doit fonctionner
+        Long idProjetTest = 1L;
+
+        Projet projetTest1 = service.RechercherProjetParId(idProjetTest);
+        if (projetTest1 != null) {
+            System.out.println("Ouverture avec succès de" + projetTest1.getNomProjet());
+            afficherProjet(projetTest1);
+        }
+        else {
+            System.out.println("Aucun projet trouvé !");
+        }
+        
+        //Ne doit pas fonctionner
+        idProjetTest = 2L;
+
+        Projet projetTest2 = service.RechercherProjetParId(idProjetTest);
+        if (projetTest2 != null) {
+            System.out.println("Ouverture avec succès de" + projetTest2.getNomProjet());
+            afficherProjet(projetTest2);
+        }
+        else {
+            System.out.println("Aucun projet correspondant à l'id" + idProjetTest + " !");
+        }
+    }
+    
+    public static void testerDupliquerProjet() {
+        
+        System.out.println();
+        System.out.println("**** testerDupliquerProjet() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        
+        //Doit fonctionner
+        Long idProjet = 1L;
+        
+        Boolean resultat = service.DupliquerProjet(idProjet);
+        if(resultat)
+        {
+            System.out.println("Duplication avec succès du projet n°" + idProjet);
+        } else {
+            System.out.println("Erreur de duplication du projet n°" + idProjet);
+        }
+       
+        //Ne doit pas fonctionner
+        Long idProjet2 = 100L;
+        
+        Boolean resultat2 = service.DupliquerProjet(idProjet2);
+        if(resultat2)
+        {
+            System.out.println("Duplication avec succès du projet n°" + idProjet2);
+        } else {
+            System.out.println("Erreur de duplication du projet n°" + idProjet2);
         }
     }
     
