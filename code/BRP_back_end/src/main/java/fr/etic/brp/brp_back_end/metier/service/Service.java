@@ -200,23 +200,6 @@ public class Service {
         return resultat;
     }
     
-    //Squelette
-    /*
-    public ValeurRetour NomService(Arguments) {
-        JpaUtil.creerContextePersistance();
-        // On trouve d'abord un employé disponible
-        try {
-            //Essayer le service
-        } catch (Exception ex) {
-            JpaUtil.annulerTransaction();
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service NomService(Arguments)", ex);
-        } finally {
-            JpaUtil.fermerContextePersistance();
-        }
-        return valeurRetour;
-    }
-    */
-    
     //TO DO
     public Operateur AuthentifierOperateur(String mail, String mdpEntre) {
         Operateur resultat = null;
