@@ -1,5 +1,7 @@
 package fr.etic.brp.brp_back_end.metier.service;
 
+import fr.etic.brp.brp_back_end.dao.BasePrixRefDao;
+import fr.etic.brp.brp_back_end.dao.CaractDimDao;
 import fr.etic.brp.brp_back_end.dao.CategorieConstructionDao;
 import fr.etic.brp.brp_back_end.dao.CategorieDao;
 import fr.etic.brp.brp_back_end.dao.CoeffRaccordementDao;
@@ -8,9 +10,12 @@ import fr.etic.brp.brp_back_end.dao.DescriptifDao;
 import fr.etic.brp.brp_back_end.dao.FamilleDao;
 import fr.etic.brp.brp_back_end.dao.JpaUtil;
 import fr.etic.brp.brp_back_end.dao.OperateurDao;
+import fr.etic.brp.brp_back_end.dao.PrestationDao;
 import fr.etic.brp.brp_back_end.dao.ProjetDao;
 import fr.etic.brp.brp_back_end.dao.SousCategorieConstructionDao;
 import fr.etic.brp.brp_back_end.dao.SousFamilleDao;
+import fr.etic.brp.brp_back_end.metier.modele.BasePrixRef;
+import fr.etic.brp.brp_back_end.metier.modele.CaractDim;
 import fr.etic.brp.brp_back_end.metier.modele.Categorie;
 import fr.etic.brp.brp_back_end.metier.modele.CategorieConstruction;
 import fr.etic.brp.brp_back_end.metier.modele.CoeffRaccordement;
@@ -18,6 +23,7 @@ import fr.etic.brp.brp_back_end.metier.modele.CorpsEtat;
 import fr.etic.brp.brp_back_end.metier.modele.Descriptif;
 import fr.etic.brp.brp_back_end.metier.modele.Famille;
 import fr.etic.brp.brp_back_end.metier.modele.Operateur;
+import fr.etic.brp.brp_back_end.metier.modele.Prestation;
 import fr.etic.brp.brp_back_end.metier.modele.Projet;
 import fr.etic.brp.brp_back_end.metier.modele.SousCategorieConstruction;
 import fr.etic.brp.brp_back_end.metier.modele.SousFamille;
