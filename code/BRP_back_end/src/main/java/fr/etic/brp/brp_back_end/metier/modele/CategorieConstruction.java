@@ -25,7 +25,7 @@ public class CategorieConstruction implements Serializable {
     @OneToMany
     private List<SousCategorieConstruction> listeSousCategorieConstruction;
     @OneToMany
-    private List<CaracteristiqueDimensionnelle> listeCaracteristiqueDimensionnelle;
+    private List<CaractDim> listeCaractDim;
        
 
     public CategorieConstruction() {
@@ -64,16 +64,16 @@ public class CategorieConstruction implements Serializable {
         this.listeSousCategorieConstruction = listeSousCategorieConstruction;
     }
 
-    public List<CaracteristiqueDimensionnelle> getListeCaracteristiqueDimensionelle() {
-        return listeCaracteristiqueDimensionnelle;
+    public List<CaractDim> getListeCaracteristiqueDimensionelle() {
+        return listeCaractDim;
     }
 
-    public void setListeCaracteristiqueDimensionelle(List<CaracteristiqueDimensionnelle> listeCaracteristiqueDimensionelle) {
-        this.listeCaracteristiqueDimensionnelle = listeCaracteristiqueDimensionelle;
+    public void setListeCaracteristiqueDimensionelle(List<CaractDim> listeCaractDim) {
+        this.listeCaractDim = listeCaractDim;
     }
 
     @Override
     public String toString() {
-        return "CategorieConstruction{" + "idCategorieConstruction=" + idCategorieConstruction + ", intituleCategorieConstruction=" + intituleCategorieConstruction + ", codeCategorieConstruction=" + codeCategorieConstruction + ", listeSousCategorieConstruction=" + listeSousCategorieConstruction + ", listeCaracteristiqueDimensionelle=" + listeCaracteristiqueDimensionnelle + '}';
+        return "CategorieConstruction{" + "idCategorieConstruction=" + idCategorieConstruction + ", intituleCategorieConstruction=" + intituleCategorieConstruction + ", codeCategorieConstruction=" + codeCategorieConstruction + ", listeSousCategorieConstruction=" + listeSousCategorieConstruction + ", listeCaractDim=" + listeCaractDim + '}';
     }
 }

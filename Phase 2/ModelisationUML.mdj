@@ -16395,7 +16395,7 @@
 											"top": 63,
 											"width": 190.72802734375,
 											"height": 13,
-											"text": "CaracteristiqueDimensionnelle"
+											"text": "CaractDim"
 										},
 										{
 											"_type": "LabelView",
@@ -16711,16 +16711,16 @@
 										"$ref": "AAAAAAFxrNS+lqbWUD0="
 									},
 									"font": "Arial;13;0",
-									"left": 813,
-									"top": 40,
+									"left": 808,
+									"top": 63,
 									"width": 203.75341796875,
 									"height": 13,
-									"alpha": -1.189182289748992,
-									"distance": 88.60022573334675,
+									"alpha": -0.9436550132281374,
+									"distance": 75.28612089887484,
 									"hostEdge": {
 										"$ref": "AAAAAAFxrNS+lqbYa1Q="
 									},
-									"text": "-listeCaracteristiqueDimensionnelle"
+									"text": "-listeCaractDim"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -18051,7 +18051,7 @@
 								"_parent": {
 									"$ref": "AAAAAAFxrNS+lqbU8d8="
 								},
-								"name": "listeCaracteristiqueDimensionnelle",
+								"name": "listeCaractDim",
 								"reference": {
 									"$ref": "AAAAAAFxrNLFL6KWxtA="
 								},
@@ -18364,7 +18364,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFxoN0gtnuef6A="
 					},
-					"name": "CaracteristiqueDimensionnelle",
+					"name": "CaractDim",
 					"attributes": [
 						{
 							"_type": "UMLAttribute",
