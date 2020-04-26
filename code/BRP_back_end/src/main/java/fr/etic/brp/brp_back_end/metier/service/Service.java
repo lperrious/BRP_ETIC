@@ -29,7 +29,6 @@ import fr.etic.brp.brp_back_end.metier.modele.Projet;
 import fr.etic.brp.brp_back_end.metier.modele.SousCategorieConstruction;
 import fr.etic.brp.brp_back_end.metier.modele.SousFamille;
 import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -410,7 +409,6 @@ public class Service {
             return false;
     }
     
-    //TO DO
     public Boolean EditerDateProjet(Long idProjet, Date nouvelleDate){
         Projet projetAModifier = null;
         JpaUtil.creerContextePersistance();
