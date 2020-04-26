@@ -283,7 +283,8 @@ public class Service {
     }
     
     //TO DO
-    public Boolean EditerInfosProjet(String typeInfo, String nouvelleValeur){
+    public Boolean EditerInfosProjet(String typeInfo, Long idInfo){
+        
         return null;
     }
     
