@@ -30,6 +30,7 @@ import fr.etic.brp.brp_back_end.metier.modele.SousCategorieConstruction;
 import fr.etic.brp.brp_back_end.metier.modele.SousFamille;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -263,7 +264,6 @@ public class Service {
         return resultat;
     }
     
-    //TO DO
     public Boolean CreerProjet(String nomProjet){
         
         Projet newProjet = null;
@@ -304,10 +304,235 @@ public class Service {
         return resultat;
     }
     
-    //TO DO
-    public Boolean EditerInfosProjet(String typeInfo, Long idInfo){
+    public Boolean EditerNomProjet(Long idProjet, String nouveauNomProjet){
+        Projet projetAModifier = null;
+        JpaUtil.creerContextePersistance();
+        try{
+            if(idProjet != null) {
+                projetAModifier = projetDao.ChercherParId(idProjet);
+                if(projetAModifier != null) {
+                    projetAModifier.setNomProjet(nouveauNomProjet);
+                    
+                    //On enregistre dans la BD
+                    JpaUtil.ouvrirTransaction();
+                    projetDao.Update(projetAModifier);
+                    JpaUtil.validerTransaction();
+                }
+            }
+        } catch(Exception ex){
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service EditerNomProjet(idProjet, nouveauNomProjet)", ex);
+            projetAModifier = null;
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
         
-        return null;
+        if(projetAModifier != null)
+            return true;
+        else
+            return false;
+    }
+    
+    public Boolean EditerInfoEnumProjet(Long idProjet, String typeEnum, String valeurEnum){
+        Projet projetAModifier = null;
+        JpaUtil.creerContextePersistance();
+        try{
+            if(idProjet != null) {
+                projetAModifier = projetDao.ChercherParId(idProjet);
+                if(projetAModifier != null) {
+                    switch(typeEnum) {
+                        case "TypeMarche":
+                            switch(valeurEnum) {
+                                case "marchePublic":
+                                    projetAModifier.setTypeMarche(Projet.TypeMarche.marchePublic);
+                                    break;
+                                case "marchePrive":
+                                    projetAModifier.setTypeMarche(Projet.TypeMarche.marchePrive);
+                                    break;
+                                default:
+                                    System.out.println("Pas de valeur de champ trouvée !");
+                            }
+                            break;
+                        case "TypeConstruction":
+                            switch(valeurEnum) {
+                                case "neuf":
+                                    projetAModifier.setTypeConstruction(Projet.TypeConstruction.neuf);
+                                    break;
+                                case "renovation":
+                                    projetAModifier.setTypeConstruction(Projet.TypeConstruction.renovation);
+                                    break;
+                                default:
+                                    System.out.println("Pas de valeur de champ trouvée !");
+                            }
+                            break;
+                        case "TypeLot":
+                            switch(valeurEnum) {
+                                case "lotSepare":
+                                    projetAModifier.setTypeLot(Projet.TypeLot.lotSepare);
+                                    break;
+                                case "entrepriseGenerale":
+                                    projetAModifier.setTypeLot(Projet.TypeLot.entrepriseGenerale);
+                                    break;
+                                default:
+                                    System.out.println("Pas de valeur de champ trouvée !");
+                            }
+                            break;
+                        case "Site":
+                            switch(valeurEnum) {
+                                case "libre":
+                                    projetAModifier.setSite(Projet.Site.libre);
+                                    break;
+                                case "occupe":
+                                    projetAModifier.setSite(Projet.Site.occupe);
+                                    break;
+                                default:
+                                    System.out.println("Pas de valeur de champ trouvée !");
+                            }
+                            break;
+                        default:
+                            System.out.println("Pas de champ trouvé !");
+                    }
+                    //On enregistre dans la BD
+                    JpaUtil.ouvrirTransaction();
+                    projetDao.Update(projetAModifier);
+                    JpaUtil.validerTransaction();
+                }
+            }
+        } catch(Exception ex){
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service EditerInfoEnumProjet(idProjet, typeEnum, valeurEnum)", ex);
+            projetAModifier = null;
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        
+        if(projetAModifier != null)
+            return true;
+        else
+            return false;
+    }
+    
+    //TO DO
+    public Boolean EditerDateProjet(Long idProjet, Date nouvelleDate){
+        Projet projetAModifier = null;
+        JpaUtil.creerContextePersistance();
+        try{
+            if(idProjet != null) {
+                projetAModifier = projetDao.ChercherParId(idProjet);
+                if(projetAModifier != null) {
+                    projetAModifier.setDatePrixRef(nouvelleDate);
+                    
+                    //On enregistre dans la BD
+                    JpaUtil.ouvrirTransaction();
+                    projetDao.Update(projetAModifier);
+                    JpaUtil.validerTransaction();
+                }
+            }
+        } catch(Exception ex){
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service EditerDateProjet(idProjet, nouvelleDate)", ex);
+            projetAModifier = null;
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        
+        if(projetAModifier != null)
+            return true;
+        else
+            return false;
+    }
+    
+    public Boolean EditerCoeffAdaptProjet(Long idProjet, Float nouveauCoeffAdapt){
+        Projet projetAModifier = null;
+        JpaUtil.creerContextePersistance();
+        try{
+            if(idProjet != null) {
+                projetAModifier = projetDao.ChercherParId(idProjet);
+                if(projetAModifier != null) {
+                    projetAModifier.setCoeffAdapt(nouveauCoeffAdapt);
+                    
+                    //On enregistre dans la BD
+                    JpaUtil.ouvrirTransaction();
+                    projetDao.Update(projetAModifier);
+                    JpaUtil.validerTransaction();
+                }
+            }
+        } catch(Exception ex){
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service EditerCoeffAdaptProjet(idProjet, nouveauCoeffAdapt)", ex);
+            projetAModifier = null;
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        
+        if(projetAModifier != null)
+            return true;
+        else
+            return false;
+    }
+    
+    public Boolean EditerCoeffRaccordementProjet(Long idProjet, Long idCoeffRaccordement){
+        Projet projetAModifier = null;
+        CoeffRaccordement coeffRaccordement = null;
+        JpaUtil.creerContextePersistance();
+        try{
+            if(idProjet != null) {
+                projetAModifier = projetDao.ChercherParId(idProjet);
+                if(projetAModifier != null) {
+                    coeffRaccordement = coeffRaccordementDao.ChercherParId(idCoeffRaccordement);
+                    if(coeffRaccordement != null) {
+                        projetAModifier.setCoeffRaccordement(coeffRaccordement);
+                    
+                        //On enregistre dans la BD
+                        JpaUtil.ouvrirTransaction();
+                        projetDao.Update(projetAModifier);
+                        JpaUtil.validerTransaction();
+                    } else {
+                        projetAModifier = null;
+                    }
+                }
+            }
+        } catch(Exception ex){
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service EditerCoeffRaccordementProjet(idProjet, idCoeffRaccordement)", ex);
+            projetAModifier = null;
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        
+        if(projetAModifier != null)
+            return true;
+        else
+            return false;
+    }
+    
+    public Boolean EditerCategorieConstructionProjet(Long idProjet, Long idCategorieConstruction){
+        Projet projetAModifier = null;
+        CategorieConstruction categorieConstruction = null;
+        JpaUtil.creerContextePersistance();
+        try{
+            if(idProjet != null) {
+                projetAModifier = projetDao.ChercherParId(idProjet);
+                if(projetAModifier != null) {
+                    categorieConstruction = categorieConstructionDao.ChercherParId(idCategorieConstruction);
+                    if(categorieConstruction != null) {
+                        projetAModifier.setCategorieConstruction(categorieConstruction);
+                    
+                        //On enregistre dans la BD
+                        JpaUtil.ouvrirTransaction();
+                        projetDao.Update(projetAModifier);
+                        JpaUtil.validerTransaction();
+                    } else {
+                        projetAModifier = null;
+                    }
+                }
+            }
+        } catch(Exception ex){
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service EditerCategorieConstructionProjet(idProjet, idCategorieConstruction)", ex);
+            projetAModifier = null;
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        
+        if(projetAModifier != null)
+            return true;
+        else
+            return false;
     }
     
     //TO DO

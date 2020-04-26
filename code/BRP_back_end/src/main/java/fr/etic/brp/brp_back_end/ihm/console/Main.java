@@ -85,6 +85,12 @@ public class Main {
         testerCreerProjet();
         testerRechercherProjetParId();
         testerDupliquerProjet();
+        testerEditerNomProjet();
+        testerEditerInfoEnumProjet();
+        testerEditerDateProjet();
+        testerEditerCoeffAdaptProjet();
+        testerEditerCoeffRaccordementProjet();
+        testerEditerCategorieConstructionProjet();
         
       //----------tests-secondaires------//
       
@@ -700,6 +706,282 @@ public class Main {
             System.out.println("Duplication avec succès du projet n°" + idProjet2);
         } else {
             System.out.println("Erreur de duplication du projet n°" + idProjet2);
+        }
+    }
+    
+    public static void testerEditerNomProjet() {
+        
+        System.out.println();
+        System.out.println("**** testerEditerNomProjet() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        
+        //Doit fonctionner
+        Long idProjet = 1L;
+        String nouveauNomProjet = "nouveauNomTest";
+        
+        Boolean resultat = service.EditerNomProjet(idProjet, nouveauNomProjet);
+        if(resultat)
+        {
+            System.out.println("Edition avec succès du projet n°" + idProjet);
+        } else {
+            System.out.println("Erreur d'édition du projet n°" + idProjet);
+        }
+       
+        //Ne doit pas fonctionner
+        Long idProjet2 = 100L;
+        String nouveauNomProjet2 = "nouveauNomTest2";
+        
+        Boolean resultat2 = service.EditerNomProjet(idProjet2, nouveauNomProjet2);
+        if(resultat2)
+        {
+            System.out.println("Edition avec succès du projet n°" + idProjet2);
+        } else {
+            System.out.println("Erreur d'édition du projet n°" + idProjet2);
+        }
+    }
+    
+    public static void testerEditerInfoEnumProjet() {
+        
+        System.out.println();
+        System.out.println("**** testerEditerInfoEnumProjet() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        
+        //Doit fonctionner
+        Long idProjet = 1L;
+        String typeEnum = "TypeMarche";
+        String valeurEnum = "marchePublic";
+        
+        Boolean resultat = service.EditerInfoEnumProjet(idProjet, typeEnum, valeurEnum);
+        if(resultat)
+        {
+            System.out.println("Edition avec succès du projet n°" + idProjet);
+        } else {
+            System.out.println("Erreur d'édition du projet n°" + idProjet);
+        }
+       
+        //Doit fonctionner
+        Long idProjet2 = 1L;
+        String typeEnum2 = "TypeMarche";
+        String valeurEnum2 = "marchePrive";
+        
+        Boolean resultat2 = service.EditerInfoEnumProjet(idProjet2, typeEnum2, valeurEnum2);
+        if(resultat2)
+        {
+            System.out.println("Edition avec succès du projet n°" + idProjet2);
+        } else {
+            System.out.println("Erreur d'édition du projet n°" + idProjet2);
+        }
+        
+        //Ne doit pas fonctionner
+        Long idProjet3 = 1L;
+        String typeEnum3 = "Type non existant";
+        String valeurEnum3 = "valeur non existante";
+        
+        Boolean resultat3 = service.EditerInfoEnumProjet(idProjet3, typeEnum3, valeurEnum3);
+        if(resultat3)
+        {
+            System.out.println("Edition avec succès du projet n°" + idProjet3);
+        } else {
+            System.out.println("Erreur d'édition du projet n°" + idProjet3);
+        }
+        
+        //Ne doit pas fonctionner
+        Long idProjet4 = 1L;
+        String typeEnum4 = "TypeMarche";
+        String valeurEnum4 = "valeur non existante";
+        
+        Boolean resultat4 = service.EditerInfoEnumProjet(idProjet4, typeEnum4, valeurEnum4);
+        if(resultat4)
+        {
+            System.out.println("Edition avec succès du projet n°" + idProjet4);
+        } else {
+            System.out.println("Erreur d'édition du projet n°" + idProjet4);
+        }
+        
+        //Doit fonctionner
+        Long idProjet5 = 1L;
+        String typeEnum5 = "TypeConstruction";
+        String valeurEnum5 = "neuf";
+        
+        Boolean resultat5 = service.EditerInfoEnumProjet(idProjet5, typeEnum5, valeurEnum5);
+        if(resultat5)
+        {
+            System.out.println("Edition avec succès du projet n°" + idProjet5);
+        } else {
+            System.out.println("Erreur d'édition du projet n°" + idProjet5);
+        }
+        
+        //Ne doit pas fonctionner
+        Long idProjet6 = 100L;
+        String typeEnum6 = "TypeConstruction";
+        String valeurEnum6 = "neuf";
+        
+        Boolean resultat6 = service.EditerInfoEnumProjet(idProjet6, typeEnum6, valeurEnum6);
+        if(resultat6)
+        {
+            System.out.println("Edition avec succès du projet n°" + idProjet6);
+        } else {
+            System.out.println("Erreur d'édition du projet n°" + idProjet6);
+        }
+        
+        //Possibilité de faire d'autres tests
+    }
+    
+    public static void testerEditerDateProjet() {
+        
+        System.out.println();
+        System.out.println("**** testerEditerDateProjet() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        
+        //Doit fonctionner
+        Long idProjet = 1L;
+        
+        Boolean resultat = service.EditerDateProjet(idProjet, new Date());
+        if(resultat)
+        {
+            System.out.println("Edition avec succès du projet n°" + idProjet);
+        } else {
+            System.out.println("Erreur d'édition du projet n°" + idProjet);
+        }
+       
+        //Ne doit pas fonctionner
+        Long idProjet2 = 100L;
+        
+        Boolean resultat2 = service.EditerDateProjet(idProjet2, new Date());
+        if(resultat2)
+        {
+            System.out.println("Edition avec succès du projet n°" + idProjet2);
+        } else {
+            System.out.println("Erreur d'édition du projet n°" + idProjet2);
+        }
+    }
+    
+    public static void testerEditerCoeffAdaptProjet() {
+        
+        System.out.println();
+        System.out.println("**** testerEditerCoeffAdaptProjet() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        
+        //Doit fonctionner
+        Long idProjet = 1L;
+        Float nouveauCoeffAdapt = 6.F;
+        
+        Boolean resultat = service.EditerCoeffAdaptProjet(idProjet, nouveauCoeffAdapt);
+        if(resultat)
+        {
+            System.out.println("Edition avec succès du projet n°" + idProjet);
+        } else {
+            System.out.println("Erreur d'édition du projet n°" + idProjet);
+        }
+       
+        //Ne doit pas fonctionner
+        Long idProjet2 = 100L;
+        Float nouveauCoeffAdapt2 = 6.F;
+        
+        Boolean resultat2 = service.EditerCoeffAdaptProjet(idProjet2, nouveauCoeffAdapt2);
+        if(resultat2)
+        {
+            System.out.println("Edition avec succès du projet n°" + idProjet2);
+        } else {
+            System.out.println("Erreur d'édition du projet n°" + idProjet2);
+        }
+    }
+    
+    public static void testerEditerCoeffRaccordementProjet() {
+        
+        System.out.println();
+        System.out.println("**** testerEditerCoeffRaccordementProjet() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        
+        //Doit fonctionner
+        Long idProjet = 1L;
+        Long idCoeffRaccordement = 1L;
+        
+        Boolean resultat = service.EditerCoeffRaccordementProjet(idProjet, idCoeffRaccordement);
+        if(resultat)
+        {
+            System.out.println("Edition avec succès du projet n°" + idProjet);
+        } else {
+            System.out.println("Erreur d'édition du projet n°" + idProjet);
+        }
+       
+        //Ne doit pas fonctionner
+        Long idProjet2 = 100L;
+        Long idCoeffRaccordement2 = 1L;
+        
+        Boolean resultat2 = service.EditerCoeffRaccordementProjet(idProjet2, idCoeffRaccordement2);
+        if(resultat2)
+        {
+            System.out.println("Edition avec succès du projet n°" + idProjet2);
+        } else {
+            System.out.println("Erreur d'édition du projet n°" + idProjet2);
+        }
+        
+        //Ne doit pas fonctionner
+        Long idProjet3 = 1L;
+        Long idCoeffRaccordement3 = 2L;
+        
+        Boolean resultat3 = service.EditerCoeffRaccordementProjet(idProjet3, idCoeffRaccordement3);
+        if(resultat3)
+        {
+            System.out.println("Edition avec succès du projet n°" + idProjet3);
+        } else {
+            System.out.println("Erreur d'édition du projet n°" + idProjet3);
+        }
+    }
+    
+    public static void testerEditerCategorieConstructionProjet() {
+        
+        System.out.println();
+        System.out.println("**** testerEditerCategorieConstructionProjet() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        
+        //Doit fonctionner
+        Long idProjet = 1L;
+        Long idCategorieConstruction = 1L;
+        
+        Boolean resultat = service.EditerCategorieConstructionProjet(idProjet, idCategorieConstruction);
+        if(resultat)
+        {
+            System.out.println("Edition avec succès du projet n°" + idProjet);
+        } else {
+            System.out.println("Erreur d'édition du projet n°" + idProjet);
+        }
+       
+        //Ne doit pas fonctionner
+        Long idProjet2 = 100L;
+        Long idCategorieConstruction2 = 1L;
+        
+        Boolean resultat2 = service.EditerCategorieConstructionProjet(idProjet2, idCategorieConstruction2);
+        if(resultat2)
+        {
+            System.out.println("Edition avec succès du projet n°" + idProjet2);
+        } else {
+            System.out.println("Erreur d'édition du projet n°" + idProjet2);
+        }
+        
+        //Ne doit pas fonctionner
+        Long idProjet3 = 1L;
+        Long idCategorieConstruction3 = 2L;
+        
+        Boolean resultat3 = service.EditerCategorieConstructionProjet(idProjet3, idCategorieConstruction3);
+        if(resultat3)
+        {
+            System.out.println("Edition avec succès du projet n°" + idProjet3);
+        } else {
+            System.out.println("Erreur d'édition du projet n°" + idProjet3);
         }
     }
     
