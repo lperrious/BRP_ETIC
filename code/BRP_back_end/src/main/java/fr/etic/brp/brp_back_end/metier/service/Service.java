@@ -265,7 +265,29 @@ public class Service {
     
     //TO DO
     public Boolean CreerProjet(String nomProjet){
-        return null;
+        
+        Projet newProjet = null;
+        
+        JpaUtil.creerContextePersistance();
+        try {
+            //on crée l'objet projet
+            newProjet = new Projet(nomProjet);
+            //On enregistre dans la BD
+            JpaUtil.ouvrirTransaction();
+            projetDao.Creer(newProjet);
+            JpaUtil.validerTransaction();
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service CreerProjet(nomProjet)", ex);
+            newProjet = null;
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+     
+        //Si l'opération a réussi on renvoi true
+        if(newProjet != null)
+            return true;
+        else
+            return false;
     }
     
     public Projet RechercherProjetParId(Long id) {

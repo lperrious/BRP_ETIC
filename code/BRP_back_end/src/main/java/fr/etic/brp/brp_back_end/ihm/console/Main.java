@@ -83,6 +83,7 @@ public class Main {
         testerListerSousCategorieConstructions();
         testerListerSousFamilles();
         testerAuthentifierOperateur();
+        testerCreerProjet();
         testerRechercherProjetParId();
         testerDupliquerProjet();
         
@@ -608,6 +609,36 @@ public class Main {
             System.out.println("Authentification échouée avec le mail '" + mail + "' et le mot de passe '" + mdpEntre + "'");
         }
     }
+    
+    public static void testerCreerProjet() {
+        
+        System.out.println();
+        System.out.println("**** testerCreerProjet() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        
+        //Doit fonctionner
+        String nomProjet = "projet1";
+
+        Boolean projetTest1 = service.CreerProjet(nomProjet);
+        if (projetTest1) {
+            System.out.println("Succès: création du projet: "+nomProjet);
+        }
+        else {
+            System.out.println("Echec: impossible de créer: "+nomProjet);
+        }
+        
+        //Doit fonctionner (nom deja présent BD)
+        Boolean projetTest2 = service.CreerProjet(nomProjet);
+        if (projetTest2) {
+            System.out.println("Succès: création du projet: "+nomProjet);
+        }
+        else {
+            System.out.println("Echec: impossible de créer: "+nomProjet);
+        }
+    }
+    
     
     public static void testerRechercherProjetParId() {
         
