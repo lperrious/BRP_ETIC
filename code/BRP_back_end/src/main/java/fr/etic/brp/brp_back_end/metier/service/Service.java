@@ -263,6 +263,7 @@ public class Service {
         return resultat;
     }
     
+    //TO DO - Il faut créer et init le XML aussi
     public Boolean CreerProjet(String nomProjet){
         
         Projet newProjet = null;
@@ -303,6 +304,7 @@ public class Service {
         return resultat;
     }
     
+    //TO DO - Il faut modifier le nom de l'XML aussi
     public Boolean EditerNomProjet(Long idProjet, String nouveauNomProjet){
         Projet projetAModifier = null;
         JpaUtil.creerContextePersistance();
@@ -560,7 +562,8 @@ public class Service {
         
         return null;
     }    
-       
+    
+    //TO DO - Il faut créer et init le XML aussi
     //Duplique un projet en donnant par défaut le nom "Nouveau Projet"
     public Boolean DupliquerProjet(Long idProjetADupliquer){
         Projet projetADupliquer = null;
@@ -604,5 +607,100 @@ public class Service {
             return true;
         else
             return false;
+    }
+    
+    //TO DO - Permet d'avoir une vue de synthèse des couts - Demander à Benoit des précisions sur la synthèse des couts (par corps d'etat ou autre chose ?)
+    public List<Descriptif> ListerDescriptifsParCategorie(Long idCategorie) {
+        List<Descriptif> resultat = null;
+        JpaUtil.creerContextePersistance();
+        try {
+            resultat = descriptifDao.ListerDescriptifs();
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service ListerDescriptifs()", ex);
+            resultat = null;
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        return resultat;
+    }
+    
+    //TO DO - Ajoute un champ CorpsEtat dans le XML
+    public Boolean AjouterCorpsEtat(Long idProjet, Long idCorpsEtat){
+        return null;
+    }
+    
+    //TO DO - Ajoute un champ Categorie dans le XML
+    public Boolean AjouterCategorie(Long idProjet, Long idCategorie){
+        return null;
+    }
+    
+    //TO DO - Ajoute un champ Famille dans le XML
+    public Boolean AjouterFamille(Long idProjet, Long idFamille){
+        return null;
+    }
+    
+    //TO DO - Ajoute un champ SousFamille dans le XML
+    public Boolean AjouterSousFamille(Long idProjet, Long idSousFamille){
+        return null;
+    }
+    
+    //TO DO - Ajoute les champs Description, Localisation et Quantite dans le XML
+    public Boolean AjouterDescriptif(Long idProjet, Long idDescriptif){
+        return null;
+    }
+    
+    //TO DO - Ajoute un champ Localisation ainsi qu'un champ Quantite dans le XML
+    public Boolean AjouterLigneDescriptif(Long idProjet, Long idDescriptif){
+        return null;
+    }
+    
+    //TO DO - Supprime un champ CorpsEtat dans le XML
+    public Boolean SupprimerCorpsEtat(Long idProjet, Long idCorpsEtat){
+        return null;
+    }
+    
+    //TO DO - Supprime un champ Categorie dans le XML
+    public Boolean SupprimerCategorie(Long idProjet, Long idCategorie){
+        return null;
+    }
+    
+    //TO DO - Supprime un champ Famille dans le XML
+    public Boolean SupprimerFamille(Long idProjet, Long idFamille){
+        return null;
+    }
+    
+    //TO DO - Supprime un champ SousFamille dans le XML
+    public Boolean SupprimerSousFamille(Long idProjet, Long idSousFamille){
+        return null;
+    }
+    
+    //TO DO - Supprime les champs Description, Localisation et Quantite dans le XML
+    public Boolean SupprimerDescriptif(Long idProjet, Long idDescriptif){
+        return null;
+    }
+    
+    //TO DO - Supprime un champ Localisation ainsi qu'un champ Quantite dans le XML
+    public Boolean SupprimerLigneDescriptif(Long idProjet, Long idDescriptif){
+        return null;
+    }
+    
+    //TO DO - Modifie la descripition seulement dans le XML
+    public Boolean ModifierDescriptionDescriptif(Long idProjet, Long idDescriptif, String newDescription){
+        return null;
+    }
+    
+    //TO DO - Modifie la localisation seulement dans le XML
+    public Boolean ModifierLocalisationDescriptif(Long idProjet, Long idDescriptif, String newLocalisation){
+        return null;
+    }
+    
+    //TO DO - Modifie la quté seulement dans le XML
+    public Boolean ModifierQuantiteDescriptif(Long idProjet, Long idDescriptif, Double quantite){
+        return null;
+    }
+    
+    //TO DO - Applique les stylesheet XLST au XML du projet puis exporte la CCTP (Word) et la DPGF (Excel)
+    public Boolean ExporterProjet(Long idProjet){
+        return null;
     }
 }
