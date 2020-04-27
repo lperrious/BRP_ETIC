@@ -534,9 +534,32 @@ public class Service {
     }
     
     //TO DO
-    public Boolean ModifBibliotheque(){
+    public String ModifBaseDescriptif(){
+        //Importer le word
+        //Parser le document cas par cas (Vide OU ajout OU suppr)
+        //Si vide tu sautes
+        //Si ajout on collecte les infos. Puis on regarde si pas déjà ds la BD. Si c'est le cas alors on delete l'ancien. Puis on ajoute le nouveau
+        //Remarque : Il faut check d'abord les styles du RUN pour les svg sous forme de balise dans la BD !
+        //Si suppr on delete dans la BD.
+        //Dans tous les cas (sauf vide) on update l'attribut listeDescriptif de l'instance SousFamille correspondante
+        //Si erreur alors on affiche l'erreur correspondante
+        //Si succès alors on retourne "succes"
+        
         return null;
     }
+    
+    //TO DO
+    public String ModifBasePrixRef(){
+        //Importer le CSV
+        //Parser le document cas par cas (ajout OU suppr) en sautant la premiere ligne
+        //Si suppr alors on delete dans la BD
+        //Si ajout on add
+        //Dans tous les cas on met à jour soit listeBasePrixRefOuvrage soit listeBasePrixRefPrestation
+        //Si erreur alors on affiche l'erreur correspondante
+        //Si succès alors on retourne "succes"
+        
+        return null;
+    }    
        
     //Duplique un projet en donnant par défaut le nom "Nouveau Projet"
     public Boolean DupliquerProjet(Long idProjetADupliquer){
