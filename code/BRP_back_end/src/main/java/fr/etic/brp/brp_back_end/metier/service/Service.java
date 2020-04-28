@@ -304,7 +304,6 @@ public class Service {
         return resultat;
     }
     
-    //TO DO - Il faut modifier le nom de l'XML aussi
     public Boolean EditerNomProjet(Long idProjet, String nouveauNomProjet){
         Projet projetAModifier = null;
         JpaUtil.creerContextePersistance();
@@ -610,18 +609,10 @@ public class Service {
     }
     
     //TO DO - Permet d'avoir une vue de synthèse des couts - Demander à Benoit des précisions sur la synthèse des couts (par corps d'etat ou autre chose ?)
-    public List<Descriptif> ListerDescriptifsParCategorie(Long idCategorie) {
-        List<Descriptif> resultat = null;
-        JpaUtil.creerContextePersistance();
-        try {
-            resultat = descriptifDao.ListerDescriptifs();
-        } catch (Exception ex) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service ListerDescriptifs()", ex);
-            resultat = null;
-        } finally {
-            JpaUtil.fermerContextePersistance();
-        }
-        return resultat;
+    public Double CoutSynthese(Long idProjet, Long idCorpsEtat) {
+        //recuperer coeffAdapt & coeffRaccordement dans la table projet
+        //Récuperer prixUnitaire et quantite dans le XML
+        return null;
     }
     
     //TO DO - Ajoute un champ CorpsEtat dans le XML
@@ -644,13 +635,18 @@ public class Service {
         return null;
     }
     
-    //TO DO - Ajoute les champs Description, Localisation et Quantite dans le XML
-    public Boolean AjouterDescriptif(Long idProjet, Long idDescriptif){
+    //TO DO - Ajoute un ouvrage ou generique dans une sous famille
+    public Boolean AjouterOuvrageOuGenerique(Long idProjet, Long idDescriptif){
+        return null;
+    }
+    
+    //TO DO - Ajoute une prestation dans un ouvrage. Penser à retirer prix ouvrage
+    public Boolean AjouterPrestation(Long idProjet, Long idDescriptif){
         return null;
     }
     
     //TO DO - Ajoute un champ Localisation ainsi qu'un champ Quantite dans le XML
-    public Boolean AjouterLigneDescriptif(Long idProjet, Long idDescriptif){
+    public Boolean AjouterLigneChiffrage(Long idProjet, Long idDescriptif){
         return null;
     }
     
@@ -674,13 +670,13 @@ public class Service {
         return null;
     }
     
-    //TO DO - Supprime les champs Description, Localisation et Quantite dans le XML
+    //TO DO - Supprime un descriptif. Attention prestation: s'il n'y plus de prestation dans un ouvrage, remettre prixOuvrage
     public Boolean SupprimerDescriptif(Long idProjet, Long idDescriptif){
         return null;
     }
     
     //TO DO - Supprime un champ Localisation ainsi qu'un champ Quantite dans le XML
-    public Boolean SupprimerLigneDescriptif(Long idProjet, Long idDescriptif){
+    public Boolean SupprimerLigneChiffrage(Long idProjet, Long idDescriptif){
         return null;
     }
     
@@ -690,17 +686,12 @@ public class Service {
     }
     
     //TO DO - Modifie la localisation seulement dans le XML
-    public Boolean ModifierLocalisationDescriptif(Long idProjet, Long idDescriptif, String newLocalisation){
+    public Boolean ModifierLocalisationDescriptif(Long idProjet, Long idDescriptif, Long idLigneChiffrage, String newLocalisation){
         return null;
     }
     
     //TO DO - Modifie la quté seulement dans le XML
-    public Boolean ModifierQuantiteDescriptif(Long idProjet, Long idDescriptif, Double quantite){
-        return null;
-    }
-    
-    //TO DO - Applique les stylesheet XLST au XML du projet puis exporte la CCTP (Word) et la DPGF (Excel)
-    public Boolean ExporterProjet(Long idProjet){
+    public Boolean ModifierQuantiteDescriptif(Long idProjet, Long idDescriptif, Long idLigneChiffrage, Double quantite){
         return null;
     }
 }
