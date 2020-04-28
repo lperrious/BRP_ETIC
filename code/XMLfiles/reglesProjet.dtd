@@ -1,0 +1,36 @@
+<!ELEMENT projet (nomProjet?, typeMarche?, typeConstruction?, typeLot?, site?, datePrixRef?, coeffAdapte?, corpsEtat*)>
+<!ELEMENT corpsEtat (intitule, categorie*)>
+<!ELEMENT categorie (intitule, famille*)>
+<!ELEMENT famille (intitule, sousFamille*)>
+<!ELEMENT sousFamille (intitule, generique*, ouvrage*)>
+
+<!ELEMENT generique (nomDescriptif, description, courteDescription)>
+<!ELEMENT ouvrage (nomDescriptif, description, courteDescription, prestation*, unite*, prixUnitaire*, ligneChiffrage*)>
+<!ELEMENT prestation (nomDescriptif, description, courteDescription, unite*, prixUnitaire*, ligneChiffrage*)>
+
+<!ELEMENT ligneChiffrage (localisation, quantite)>
+
+<!ELEMENT nomProjet (#PCDATA)>
+<!ELEMENT typeMarche (#PCDATA)>
+<!ELEMENT typeConstruction (#PCDATA)>
+<!ELEMENT typeLot (#PCDATA)>
+<!ELEMENT site (#PCDATA)>
+<!ELEMENT datePrixRef (#PCDATA)>
+<!ELEMENT coeffAdapte (#PCDATA)>
+<!ELEMENT intitule (#PCDATA)>
+<!ELEMENT nomDescriptif (#PCDATA)>
+<!ELEMENT description (#PCDATA)>
+<!ELEMENT courteDescription (#PCDATA)>
+<!ELEMENT unite (#PCDATA)>
+<!ELEMENT prixUnitaire (#PCDATA)>
+<!ELEMENT localisation (#PCDATA)>
+<!ELEMENT quantite (#PCDATA)>
+
+<!ATTLIST corpsEtat idCorpsEtat ID #REQUIRED>
+<!ATTLIST categorie idCategorie ID #REQUIRED>
+<!ATTLIST famille idFamille ID #REQUIRED>
+<!ATTLIST sousFamille idSousFamille ID #REQUIRED>
+<!ATTLIST generique idDescriptif ID #REQUIRED>
+<!ATTLIST ouvrage idDescriptif ID #REQUIRED>
+<!ATTLIST prestation idDescriptif ID #REQUIRED>
+<!ATTLIST ligneChiffrage idLigneChiffrage CDATA #REQUIRED>

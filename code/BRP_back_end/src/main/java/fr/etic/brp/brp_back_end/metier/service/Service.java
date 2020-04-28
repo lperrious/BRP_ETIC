@@ -304,7 +304,6 @@ public class Service {
         return resultat;
     }
     
-    //TO DO - Il faut modifier le nom de l'XML aussi
     public Boolean EditerNomProjet(Long idProjet, String nouveauNomProjet){
         Projet projetAModifier = null;
         JpaUtil.creerContextePersistance();
@@ -610,18 +609,8 @@ public class Service {
     }
     
     //TO DO - Permet d'avoir une vue de synthèse des couts - Demander à Benoit des précisions sur la synthèse des couts (par corps d'etat ou autre chose ?)
-    public List<Descriptif> ListerDescriptifsParCategorie(Long idCategorie) {
-        List<Descriptif> resultat = null;
-        JpaUtil.creerContextePersistance();
-        try {
-            resultat = descriptifDao.ListerDescriptifs();
-        } catch (Exception ex) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service ListerDescriptifs()", ex);
-            resultat = null;
-        } finally {
-            JpaUtil.fermerContextePersistance();
-        }
-        return resultat;
+    public Double ListerDescriptifsParCategorie(Long idCategorie) {
+        return null;
     }
     
     //TO DO - Ajoute un champ CorpsEtat dans le XML
