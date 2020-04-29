@@ -281,12 +281,11 @@ public class Service {
         return resultat;
     }
     
-    //TO DO - rajouter le doctype !
+    //TO DO - Supprimer le projet dans la BD si erreur XML !
     public Boolean CreerProjet(String nomProjet) {
-        
+        JpaUtil.creerContextePersistance();
         Projet newProjet = null;
         
-        JpaUtil.creerContextePersistance();
         try {
             //on crée l'objet projet
             newProjet = new Projet(nomProjet);
@@ -298,27 +297,21 @@ public class Service {
             //Creation du XML si tout a fonctionné
             Projet projet = projetDao.ChercherDernierParNom(nomProjet);
             Long idProjet = projet.getIdProjet();
-            DocumentBuilder builder = DomUtil.obtenirBuilder();
-            String urlXML = "../XMLfiles/"+idProjet+".xml";
-            Document xml = builder.newDocument();
+            String uri = "../XMLfiles/"+idProjet+".xml";
+            Document xml = projetXMLDao.Creer();
             
             //Création de la racine
             Element baliseProjet = xml.createElement("projet");
             baliseProjet.setAttribute("idProjet", idProjet.toString());
             xml.appendChild(baliseProjet);
             
-            //Sortie du XML
-            projetXMLDao.Creer(urlXML, xml);
+            //Ecriture du XML
+            projetXMLDao.saveXMLContent(xml, uri);
               
-        } catch (ParserConfigurationException ex) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service CreerProjet(idProjet)", ex);
-        } catch (TransformerConfigurationException ex) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service CreerProjet(idProjet)(id)", ex);
-        } catch (TransformerException ex) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service CreerProjet(idProjet)(id)", ex);
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service CreerProjet(nomProjet)", ex);
             newProjet = null;
+            //Supprimer le projet dans la BD !
         } finally {
             JpaUtil.fermerContextePersistance();
         }
@@ -602,7 +595,7 @@ public class Service {
         return null;
     }
     
-    //TO DO - rajouter le doctype !
+    //TO DO - Supprier le projet dupliqué de la BD si erreur XML !
     //Duplique un projet en donnant par défaut le nom "Nouveau Projet"
     public Boolean DupliquerProjet(Long idProjetADupliquer){
         Projet projetADupliquer = null;
@@ -634,9 +627,8 @@ public class Service {
                     //Creation du XML si tout a fonctionné
                     Projet projet = projetDao.ChercherDernierParNom(nomProjetDuplique);
                     Long idProjet = projet.getIdProjet();
-                    String urlXML = "../XMLfiles/"+idProjet+".xml";
-                    DocumentBuilder builder = DomUtil.obtenirBuilder();
-                    Document xml = builder.newDocument();
+                    String uri = "../XMLfiles/"+idProjet+".xml";
+                    Document xml = projetXMLDao.ObtenirDocument(uri);
 
                     //Création de la racine
                     Element baliseProjet = xml.createElement("projet");
@@ -644,21 +636,16 @@ public class Service {
                     xml.appendChild(baliseProjet);
 
                     //Sortie du XML
-                    projetXMLDao.Creer(urlXML, xml);      
+                    projetXMLDao.saveXMLContent(xml, uri);      
                 } else {
                     System.out.println("Pas de projet à dupliquer trouvé !");
                 }
             }
-        } catch (ParserConfigurationException ex) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service DupliquerProjet(idProjet)", ex);
-        } catch (TransformerConfigurationException ex) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service DupliquerProjet(idProjet)", ex);
-        } catch (TransformerException ex) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service DupliquerProjet(idProjet)", ex);
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service DupliquerProjet(idProjet)", ex);
             projetADupliquer = null;
             projetDuplique = null;
+            //Supprimer le projet dupliqué de la BD !
         } finally {
             JpaUtil.fermerContextePersistance();
         }
@@ -681,40 +668,28 @@ public class Service {
         JpaUtil.creerContextePersistance();
         Boolean resultat = false;
         
-        try{ //Nouveau bloc de capture pour les erreurs du parsing
-            String uri = "../XMLfiles/"+idProjet+".xml";
-            Document xml = projetXMLDao.Ouvrir(uri);
+        try {
+            //Obtention du document
+            String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            Document xml = projetXMLDao.ObtenirDocument(uri);
             Element root = xml.getDocumentElement();
-            //Création de la balise corpsEtat et ajout à la suite dans le XML
+            //Création balise corpsEtat
             Element baliseCorpsEtat = xml.createElement("corpsEtat");
             baliseCorpsEtat.setAttribute("idCorpsEtat", idCorpsEtat.toString());
+            //Création de la balise intitule
             Element baliseIntitule = xml.createElement("intitule");
-            JpaUtil.ouvrirTransaction();
+            JpaUtil.ouvrirTransaction(); ////////////////////////////////////////////////////////////////// Nécessaire ??????
             CorpsEtat corpsEtat = corpsEtatDao.ChercherParId(idCorpsEtat);
             JpaUtil.validerTransaction();
             baliseIntitule.appendChild(xml.createTextNode(corpsEtat.getIntituleCorpsEtat()));
+   
             baliseCorpsEtat.appendChild(baliseIntitule);
             root.appendChild(baliseCorpsEtat);
             
             //On écrit par dessus l'ancien XML
-            projetXMLDao.Update(uri, xml, idProjet);
+            projetXMLDao.saveXMLContent(xml, uri);
             
             resultat = true; //Si on est arrivé jusque là alors pas d'erreur
-        } catch (SAXParseException ex){
-        } catch (ParserConfigurationException ex) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterCorpsEtat(idProjet, idCorpsEtat)", ex);
-            resultat = false;
-        } catch (SAXException ex) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterCorpsEtat(idProjet, idCorpsEtat)", ex);
-            resultat = false;
-        } catch (IOException ex) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterCorpsEtat(idProjet, idCorpsEtat)", ex);
-            resultat = false;
-        } catch (DOMException ex) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterCorpsEtat(idProjet, idCorpsEtat)", ex);
-            resultat = false;
-        } catch (TransformerException ex) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterCorpsEtat(idProjet, idCorpsEtat)", ex);
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterCorpsEtat(idProjet, idCorpsEtat)", ex);
         } finally {

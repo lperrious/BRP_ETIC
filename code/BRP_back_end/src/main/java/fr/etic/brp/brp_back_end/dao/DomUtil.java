@@ -14,11 +14,14 @@ import javax.xml.transform.TransformerFactory;
  */
 public class DomUtil {
     
-    public static DocumentBuilderFactory documentBuilderFactory = null;
+    public static DocumentBuilderFactory documentBuilderFactory = null; //Utile pour lire le XML
     
-    public static TransformerFactory transformerFactory = null;
+    public static TransformerFactory transformerFactory = null; //Utile pour écrire/modifier le XML
     
     public static DocumentBuilder builder = null;
+    
+    public static Transformer transformer = null;
+    
     
     public static synchronized void init(){
         log("Initialisation du parseur");
@@ -29,8 +32,9 @@ public class DomUtil {
     }
     
     public static synchronized void destroy() {
-        log("Libération de la factory de contexte de persistance");
+        log("Libération de la factory DocumentBuilder et TransformerBuilder");
         documentBuilderFactory = null;
+        transformerFactory = null;
     }
            
     public static DocumentBuilder obtenirBuilder() throws ParserConfigurationException {
@@ -41,7 +45,7 @@ public class DomUtil {
     
     public static Transformer obtenirTransformer() throws TransformerConfigurationException {
         log("Obtention du Transformer");
-        Transformer transformer = transformerFactory.newTransformer();
+        transformer = transformerFactory.newTransformer();
         return transformer;
     } 
 }
