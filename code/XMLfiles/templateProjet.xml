@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!DOCTYPE projet SYSTEM "reglesProjet.dtd">
 
 <projet idProjet="1">
-	
+
 	<!-- A insérer juste avant l'export -->
 	<nomProjet>Projet 1</nomProjet>
 	<typeMarche>Marche public</typeMarche>
@@ -9,7 +10,6 @@
 	<typeLot>Lot séparé</typeLot>
 	<site>Libre</site>
 	<datePrixRef>2019</datePrixRef>
-	<!-- Demander a benoit -->
 	<coeffAdapte>1.0</coeffAdapte>
 	<!-- A insérer juste avant l'export -->
 
@@ -25,7 +25,15 @@
 					<!-- Balise Générique  -->
 					<generique idDescriptif="1/1/1/1/1">
 						<nomDescriptif>Sécurité</nomDescriptif>
-						<description>Une <b>description détaillée</b> du <i>générique</i>. Cette <u>description</u> apparaitra uniquement sur la CCTP </description>
+						<description>
+							Une
+							<b>description détaillée</b>
+							du
+							<i>générique</i>
+							. Cette
+							<u>description</u>
+							apparaitra uniquement sur la CCTP
+						</description>
 						<courteDescription>Courte description (pour la DPGF)</courteDescription>
 					</generique>
 
@@ -33,11 +41,27 @@
 					<!-- Balise Ouvrage  -->
 					<ouvrage idDescriptif="1/1/1/1/2">
 						<nomDescriptif>Étanchéité bitume monocouche</nomDescriptif>
-						<description>Une <b>description détaillée</b> de <i>l'ouvrage</i>. Cette <u>description</u> apparaitra uniquement sur la CCTP </description>
+						<description>
+							Une
+							<b>description détaillée</b>
+							de
+							<i>l'ouvrage</i>
+							. Cette
+							<u>description</u>
+							apparaitra uniquement sur la CCTP
+						</description>
 						<courteDescription>Courte description (pour la DPGF)</courteDescription>
 						<prestation idDescriptif="1/1/1/1/2/1">
 							<nomDescriptif>Depose du complexe d'etancheite</nomDescriptif>
-							<description>Une <b>description détaillée</b> de <i>la prestation</i>. Cette <u>description</u> apparaitra uniquement sur la CCTP </description>
+							<description>
+								Une
+								<b>description détaillée</b>
+								de
+								<i>la prestation</i>
+								. Cette
+								<u>description</u>
+								apparaitra uniquement sur la CCTP
+							</description>
 							<courteDescription>Courte description (pour la DPGF)</courteDescription>
 							<unite>m^2</unite>
 							<prixUnitaire>200</prixUnitaire>
@@ -46,11 +70,19 @@
 								<quantite>25</quantite>
 							</ligneChiffrage>
 						</prestation>
-					</ouvrage>	
+					</ouvrage>
 
 					<ouvrage idDescriptif="1/1/1/1/3">
 						<nomDescriptif>Ouvrage numero 3</nomDescriptif>
-						<description>Une <b>description détaillée</b> de <i>l'ouvrage</i>. Cette <u>description</u> apparaitra uniquement sur la CCTP </description>
+						<description>
+							Une
+							<b>description détaillée</b>
+							de
+							<i>l'ouvrage</i>
+							. Cette
+							<u>description</u>
+							apparaitra uniquement sur la CCTP
+						</description>
 						<courteDescription>Courte description (pour la DPGF)</courteDescription>
 						<unite>m^2</unite>
 						<prixUnitaire>200</prixUnitaire>
@@ -62,7 +94,7 @@
 							<localisation>Batiment B</localisation>
 							<quantite>45</quantite>
 						</ligneChiffrage>
-					</ouvrage>	
+					</ouvrage>
 
 				</sousFamille>
 			</famille>

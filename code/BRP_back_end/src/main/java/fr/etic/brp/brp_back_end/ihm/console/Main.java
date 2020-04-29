@@ -1,6 +1,7 @@
 package fr.etic.brp.brp_back_end.ihm.console;
 
 import com.google.common.hash.Hashing;
+import fr.etic.brp.brp_back_end.dao.DomUtil;
 import fr.etic.brp.brp_back_end.dao.JpaUtil;
 import fr.etic.brp.brp_back_end.metier.modele.BasePrixRef;
 import fr.etic.brp.brp_back_end.metier.modele.CaractDim;
@@ -43,6 +44,7 @@ public class Main {
 
         // Contrôlez l'affichage du log de JpaUtil grâce à la méthode log de la classe JpaUtil
         JpaUtil.init();
+        DomUtil.init();
 
     //------------initialisations------------------
     
@@ -91,6 +93,7 @@ public class Main {
         testerEditerCoeffAdaptProjet();
         testerEditerCoeffRaccordementProjet();
         testerEditerCategorieConstructionProjet();
+        testerAjouterCorpsEtat();
         
       //----------tests-secondaires------//
       
@@ -98,6 +101,7 @@ public class Main {
 //        scenarioPlusieursDemandeConsultation(); //Pour ce scenario pensez à commenter l'initialisation des employes !
 
         JpaUtil.destroy();
+        DomUtil.destroy();
     }
     
 //------------------------------------------------------------------------------    
@@ -977,6 +981,51 @@ public class Main {
         Long idCategorieConstruction3 = 2L;
         
         Boolean resultat3 = service.EditerCategorieConstructionProjet(idProjet3, idCategorieConstruction3);
+        if(resultat3)
+        {
+            System.out.println("Edition avec succès du projet n°" + idProjet3);
+        } else {
+            System.out.println("Erreur d'édition du projet n°" + idProjet3);
+        }
+    }
+    
+    public static void testerAjouterCorpsEtat() {
+        
+        System.out.println();
+        System.out.println("**** testerAjouterCorpsEtat() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        
+        //Doit fonctionner
+        Long idProjet = 2L;
+        Long idCorpsEtat = 1L;
+        
+        Boolean resultat = service.AjouterCorpsEtat(idProjet, idCorpsEtat);
+        if(resultat)
+        {
+            System.out.println("Edition avec succès du projet n°" + idProjet);
+        } else {
+            System.out.println("Erreur d'édition du projet n°" + idProjet);
+        }
+        
+        //Ne doit pas fonctionner
+        Long idProjet2 = 1L;
+        Long idCorpsEtat2 = 1L;
+        
+        Boolean resultat2 = service.AjouterCorpsEtat(idProjet2, idCorpsEtat2);
+        if(resultat2)
+        {
+            System.out.println("Edition avec succès du projet n°" + idProjet2);
+        } else {
+            System.out.println("Erreur d'édition du projet n°" + idProjet2);
+        }
+        
+        //Ne doit pas fonctionner
+        Long idProjet3 = 1L;
+        Long idCorpsEtat3 = 2L;
+        
+        Boolean resultat3 = service.AjouterCorpsEtat(idProjet3, idCorpsEtat3);
         if(resultat3)
         {
             System.out.println("Edition avec succès du projet n°" + idProjet3);
