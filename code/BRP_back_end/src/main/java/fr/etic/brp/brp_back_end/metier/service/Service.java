@@ -9,12 +9,14 @@ import fr.etic.brp.brp_back_end.dao.CoeffRaccordementDao;
 import fr.etic.brp.brp_back_end.dao.CorpsEtatDao;
 import fr.etic.brp.brp_back_end.dao.DescriptifDao;
 import fr.etic.brp.brp_back_end.dao.DomUtil;
+import static fr.etic.brp.brp_back_end.dao.DomUtil.builder;
 import fr.etic.brp.brp_back_end.dao.FamilleDao;
 import fr.etic.brp.brp_back_end.dao.JpaUtil;
 import fr.etic.brp.brp_back_end.dao.OperateurDao;
 import fr.etic.brp.brp_back_end.dao.PrestationDao;
 import fr.etic.brp.brp_back_end.dao.ProjetDao;
 import fr.etic.brp.brp_back_end.dao.ProjetXMLDao;
+import fr.etic.brp.brp_back_end.dao.SimpleErrorHandler;
 import fr.etic.brp.brp_back_end.dao.SousCategorieConstructionDao;
 import fr.etic.brp.brp_back_end.dao.SousFamilleDao;
 import fr.etic.brp.brp_back_end.metier.modele.BasePrixRef;
@@ -30,6 +32,8 @@ import fr.etic.brp.brp_back_end.metier.modele.Prestation;
 import fr.etic.brp.brp_back_end.metier.modele.Projet;
 import fr.etic.brp.brp_back_end.metier.modele.SousCategorieConstruction;
 import fr.etic.brp.brp_back_end.metier.modele.SousFamille;
+import java.io.File;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.List;
@@ -40,8 +44,12 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.dom.DOMSource;
+import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.xml.sax.ErrorHandler;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 
 /**
  *
@@ -273,6 +281,7 @@ public class Service {
         return resultat;
     }
     
+    //TO DO - rajouter le doctype !
     public Boolean CreerProjet(String nomProjet) {
         
         Projet newProjet = null;
@@ -291,16 +300,15 @@ public class Service {
             Long idProjet = projet.getIdProjet();
             DocumentBuilder builder = DomUtil.obtenirBuilder();
             String urlXML = "../XMLfiles/"+idProjet+".xml";
-            Document docXML = builder.newDocument();
+            Document xml = builder.newDocument();
             
             //Création de la racine
-            Element baliseProjet = docXML.createElement("projet");
-            baliseProjet.setAttribute("id", idProjet.toString());
-            docXML.appendChild(baliseProjet);
+            Element baliseProjet = xml.createElement("projet");
+            baliseProjet.setAttribute("idProjet", idProjet.toString());
+            xml.appendChild(baliseProjet);
             
             //Sortie du XML
-            DOMSource source = new DOMSource(docXML);
-            projetXMLDao.Creer(urlXML, source);
+            projetXMLDao.Creer(urlXML, xml);
               
         } catch (ParserConfigurationException ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service CreerProjet(idProjet)", ex);
@@ -592,9 +600,9 @@ public class Service {
         //Si succès alors on retourne "succes"
         
         return null;
-    }    
+    }
     
-    //TO DO - Il faut créer et init le XML aussi
+    //TO DO - rajouter le doctype !
     //Duplique un projet en donnant par défaut le nom "Nouveau Projet"
     public Boolean DupliquerProjet(Long idProjetADupliquer){
         Projet projetADupliquer = null;
@@ -607,7 +615,8 @@ public class Service {
                 projetADupliquer = projetDao.ChercherParId(idProjetADupliquer); //On va chercher le projet à duppliquer
                 if(projetADupliquer != null) {
                     //On duplique ce projet en faisant attention aux liens divers
-                    projetDuplique = new Projet("Nouveau Projet");
+                    String nomProjetDuplique = "Nouveau Projet"; //Par défaut
+                    projetDuplique = new Projet(nomProjetDuplique);
                     projetDuplique.setTypeMarche(projetADupliquer.getTypeMarche());
                     projetDuplique.setTypeConstruction(projetADupliquer.getTypeConstruction());
                     projetDuplique.setTypeLot(projetADupliquer.getTypeLot());
@@ -621,10 +630,31 @@ public class Service {
                     JpaUtil.ouvrirTransaction();
                     projetDao.Creer(projetDuplique);
                     JpaUtil.validerTransaction();
+                    
+                    //Creation du XML si tout a fonctionné
+                    Projet projet = projetDao.ChercherDernierParNom(nomProjetDuplique);
+                    Long idProjet = projet.getIdProjet();
+                    String urlXML = "../XMLfiles/"+idProjet+".xml";
+                    DocumentBuilder builder = DomUtil.obtenirBuilder();
+                    Document xml = builder.newDocument();
+
+                    //Création de la racine
+                    Element baliseProjet = xml.createElement("projet");
+                    baliseProjet.setAttribute("idProjet", idProjet.toString());
+                    xml.appendChild(baliseProjet);
+
+                    //Sortie du XML
+                    projetXMLDao.Creer(urlXML, xml);      
                 } else {
                     System.out.println("Pas de projet à dupliquer trouvé !");
                 }
             }
+        } catch (ParserConfigurationException ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service DupliquerProjet(idProjet)", ex);
+        } catch (TransformerConfigurationException ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service DupliquerProjet(idProjet)", ex);
+        } catch (TransformerException ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service DupliquerProjet(idProjet)", ex);
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service DupliquerProjet(idProjet)", ex);
             projetADupliquer = null;
@@ -638,8 +668,8 @@ public class Service {
             return true;
         else
             return false;
-    }
-    
+    }    
+            
     //TO DO - Permet d'avoir une vue de synthèse des couts - Demander à Benoit des précisions sur la synthèse des couts (par corps d'etat ou autre chose ?)
     public Double CoutSynthese(Long idProjet, Long idCorpsEtat) {
         //recuperer coeffAdapt & coeffRaccordement dans la table projet
@@ -647,9 +677,50 @@ public class Service {
         return null;
     }
     
-    //TO DO - Ajoute un champ CorpsEtat dans le XML
-    public Boolean AjouterCorpsEtat(Long idProjet, Long idCorpsEtat){
-        return null;
+    public Boolean AjouterCorpsEtat(Long idProjet, Long idCorpsEtat) {
+        JpaUtil.creerContextePersistance();
+        Boolean resultat = false;
+        
+        try{ //Nouveau bloc de capture pour les erreurs du parsing
+            String uri = "../XMLfiles/"+idProjet+".xml";
+            Document xml = projetXMLDao.Ouvrir(uri);
+            Element root = xml.getDocumentElement();
+            //Création de la balise corpsEtat et ajout à la suite dans le XML
+            Element baliseCorpsEtat = xml.createElement("corpsEtat");
+            baliseCorpsEtat.setAttribute("idCorpsEtat", idCorpsEtat.toString());
+            Element baliseIntitule = xml.createElement("intitule");
+            JpaUtil.ouvrirTransaction();
+            CorpsEtat corpsEtat = corpsEtatDao.ChercherParId(idCorpsEtat);
+            JpaUtil.validerTransaction();
+            baliseIntitule.appendChild(xml.createTextNode(corpsEtat.getIntituleCorpsEtat()));
+            baliseCorpsEtat.appendChild(baliseIntitule);
+            root.appendChild(baliseCorpsEtat);
+            
+            //On écrit par dessus l'ancien XML
+            projetXMLDao.Update(uri, xml, idProjet);
+            
+            resultat = true; //Si on est arrivé jusque là alors pas d'erreur
+        } catch (SAXParseException ex){
+        } catch (ParserConfigurationException ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterCorpsEtat(idProjet, idCorpsEtat)", ex);
+            resultat = false;
+        } catch (SAXException ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterCorpsEtat(idProjet, idCorpsEtat)", ex);
+            resultat = false;
+        } catch (IOException ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterCorpsEtat(idProjet, idCorpsEtat)", ex);
+            resultat = false;
+        } catch (DOMException ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterCorpsEtat(idProjet, idCorpsEtat)", ex);
+            resultat = false;
+        } catch (TransformerException ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterCorpsEtat(idProjet, idCorpsEtat)", ex);
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterCorpsEtat(idProjet, idCorpsEtat)", ex);
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        return resultat;
     }
     
     //TO DO - Ajoute un champ Categorie dans le XML

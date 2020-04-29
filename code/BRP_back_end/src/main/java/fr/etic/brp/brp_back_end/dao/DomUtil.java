@@ -23,6 +23,8 @@ public class DomUtil {
     public static synchronized void init(){
         log("Initialisation du parseur");
         documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        documentBuilderFactory.setValidating(true); //Permet d'activer la vérification du fichier
+        documentBuilderFactory.setIgnoringElementContentWhitespace(true); //Ignore les espaces dans le XML
         transformerFactory = TransformerFactory.newInstance();
     }
     

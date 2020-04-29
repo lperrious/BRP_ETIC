@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!DOCTYPE projet SYSTEM "reglesProjet.dtd">
 
 <projet idProjet="1">
 
@@ -9,7 +10,6 @@
 	<typeLot>Lot séparé</typeLot>
 	<site>Libre</site>
 	<datePrixRef>2019</datePrixRef>
-	<!-- Demander a benoit -->
 	<coeffAdapte>1.0</coeffAdapte>
 	<!-- A insérer juste avant l'export -->
 
