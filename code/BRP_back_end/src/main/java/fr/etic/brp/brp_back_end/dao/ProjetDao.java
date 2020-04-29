@@ -3,6 +3,7 @@ package fr.etic.brp.brp_back_end.dao;
 import fr.etic.brp.brp_back_end.metier.modele.Projet;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
@@ -25,6 +26,15 @@ public class ProjetDao {
         EntityManager em = JpaUtil.obtenirContextePersistance();
         TypedQuery<Projet> query = em.createQuery("SELECT p FROM Projet p", Projet.class);
         return query.getResultList();
+    }
+    
+    public Projet ChercherDernierParNom(String nomProjet) {
+        EntityManager em = JpaUtil.obtenirContextePersistance();
+        String jpql = "SELECT p FROM Projet p WHERE p.nomProjet = :nomProjet";
+        Query query = em.createQuery(jpql);
+        query.setParameter("nomProjet", nomProjet);
+        List<Projet> resultats = query.getResultList();
+        return resultats.get(resultats.size() - 1 );
     }
     
     public void Update(Projet projet) {

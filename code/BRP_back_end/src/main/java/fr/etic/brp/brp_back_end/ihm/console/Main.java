@@ -1,6 +1,7 @@
 package fr.etic.brp.brp_back_end.ihm.console;
 
 import com.google.common.hash.Hashing;
+import fr.etic.brp.brp_back_end.dao.DomUtil;
 import fr.etic.brp.brp_back_end.dao.JpaUtil;
 import fr.etic.brp.brp_back_end.metier.modele.BasePrixRef;
 import fr.etic.brp.brp_back_end.metier.modele.CaractDim;
@@ -43,6 +44,7 @@ public class Main {
 
         // Contrôlez l'affichage du log de JpaUtil grâce à la méthode log de la classe JpaUtil
         JpaUtil.init();
+        DomUtil.init();
 
     //------------initialisations------------------
     
@@ -98,6 +100,7 @@ public class Main {
 //        scenarioPlusieursDemandeConsultation(); //Pour ce scenario pensez à commenter l'initialisation des employes !
 
         JpaUtil.destroy();
+        DomUtil.destroy();
     }
     
 //------------------------------------------------------------------------------    

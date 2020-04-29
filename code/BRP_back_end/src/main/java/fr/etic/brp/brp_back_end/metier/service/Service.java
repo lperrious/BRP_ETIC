@@ -8,11 +8,13 @@ import fr.etic.brp.brp_back_end.dao.CategorieDao;
 import fr.etic.brp.brp_back_end.dao.CoeffRaccordementDao;
 import fr.etic.brp.brp_back_end.dao.CorpsEtatDao;
 import fr.etic.brp.brp_back_end.dao.DescriptifDao;
+import fr.etic.brp.brp_back_end.dao.DomUtil;
 import fr.etic.brp.brp_back_end.dao.FamilleDao;
 import fr.etic.brp.brp_back_end.dao.JpaUtil;
 import fr.etic.brp.brp_back_end.dao.OperateurDao;
 import fr.etic.brp.brp_back_end.dao.PrestationDao;
 import fr.etic.brp.brp_back_end.dao.ProjetDao;
+import fr.etic.brp.brp_back_end.dao.ProjetXMLDao;
 import fr.etic.brp.brp_back_end.dao.SousCategorieConstructionDao;
 import fr.etic.brp.brp_back_end.dao.SousFamilleDao;
 import fr.etic.brp.brp_back_end.metier.modele.BasePrixRef;
@@ -33,6 +35,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.dom.DOMSource;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  *
@@ -53,6 +62,7 @@ public class Service {
     protected BasePrixRefDao basePrixRefDao = new BasePrixRefDao();
     protected CaractDimDao caractDimDao = new CaractDimDao();
     protected PrestationDao prestationDao = new PrestationDao();
+    protected ProjetXMLDao projetXMLDao = new ProjetXMLDao();
     
     public Descriptif RechercherDescriptifParId(Long id) {
         Descriptif resultat = null;
@@ -263,8 +273,7 @@ public class Service {
         return resultat;
     }
     
-    //TO DO - Il faut créer et init le XML aussi
-    public Boolean CreerProjet(String nomProjet){
+    public Boolean CreerProjet(String nomProjet) {
         
         Projet newProjet = null;
         
@@ -276,6 +285,29 @@ public class Service {
             JpaUtil.ouvrirTransaction();
             projetDao.Creer(newProjet);
             JpaUtil.validerTransaction();
+            
+            //Creation du XML si tout a fonctionné
+            Projet projet = projetDao.ChercherDernierParNom(nomProjet);
+            Long idProjet = projet.getIdProjet();
+            DocumentBuilder builder = DomUtil.obtenirBuilder();
+            String urlXML = "../XMLfiles/"+idProjet+".xml";
+            Document docXML = builder.newDocument();
+            
+            //Création de la racine
+            Element baliseProjet = docXML.createElement("projet");
+            baliseProjet.setAttribute("id", idProjet.toString());
+            docXML.appendChild(baliseProjet);
+            
+            //Sortie du XML
+            DOMSource source = new DOMSource(docXML);
+            projetXMLDao.Creer(urlXML, source);
+              
+        } catch (ParserConfigurationException ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service CreerProjet(idProjet)", ex);
+        } catch (TransformerConfigurationException ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service CreerProjet(idProjet)(id)", ex);
+        } catch (TransformerException ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service CreerProjet(idProjet)(id)", ex);
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service CreerProjet(nomProjet)", ex);
             newProjet = null;
