@@ -93,16 +93,16 @@ public class Main {
 //        testerListerSousCategorieConstructions();
 //        testerListerSousFamilles();
 //        testerAuthentifierOperateur();
-//        testerCreerProjet();
+        testerCreerProjet();
 //        testerRechercherProjetParId();
-//        testerDupliquerProjet();
+        testerDupliquerProjet();
 //        testerEditerNomProjet();
 //        testerEditerInfoEnumProjet();
 //        testerEditerDateProjet();
 //        testerEditerCoeffAdaptProjet();
 //        testerEditerCoeffRaccordementProjet();
 //        testerEditerCategorieConstructionProjet();
-//        testerAjouterCorpsEtat();
+        testerAjouterCorpsEtat();
         
       //----------tests-secondaires------//
       
