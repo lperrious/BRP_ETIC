@@ -33,6 +33,15 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import org.w3c.dom.DOMImplementation;
+import org.w3c.dom.Document;
+import org.w3c.dom.DocumentType;
+import org.w3c.dom.Element;
 
 /**
  *
@@ -70,31 +79,33 @@ public class Main {
     
       //---------tests-primaires--------//
       
-        testerListerBasePrixRefs();
-        testerListerCaractDims();
-        testerListerCategories();
-        testerListerCategorieConstructions();
-        testerListerCoeffRaccordements();
-        testerListerCorpsEtats();
-        testerListerDescriptifs();
-        testerListerFamilles();
-        testerListerOperateurs();
-        testerListerPrestations();
-        testerListerProjets();
-        testerListerSousCategorieConstructions();
-        testerListerSousFamilles();
-        testerAuthentifierOperateur();
+
+//        testerListerBasePrixRefs();
+//        testerListerCaractDims();
+//        testerListerCategories();
+//        testerListerCategorieConstructions();
+//        testerListerCoeffRaccordements();
+//        testerListerCorpsEtats();
+//        testerListerDescriptifs();
+//        testerListerFamilles();
+//        testerListerOperateurs();
+//        testerListerPrestations();
+//        testerListerProjets();
+//        testerListerSousCategorieConstructions();
+//        testerListerSousFamilles();
+//        testerAuthentifierOperateur();
         testerCreerProjet();
-        testerRechercherProjetParId();
+//        testerRechercherProjetParId();
         testerDupliquerProjet();
-        testerEditerNomProjet();
-        testerEditerInfoEnumProjet();
-        testerEditerDateProjet();
-        testerEditerCoeffAdaptProjet();
-        testerEditerCoeffRaccordementProjet();
-        testerEditerCategorieConstructionProjet();
+//        testerEditerNomProjet();
+//        testerEditerInfoEnumProjet();
+//        testerEditerDateProjet();
+//        testerEditerCoeffAdaptProjet();
+//        testerEditerCoeffRaccordementProjet();
+//        testerEditerCategorieConstructionProjet();
         testerAjouterCorpsEtat();
-        testerAjouterCategorie();
+        //testerAjouterCategorie();
+
         
       //----------tests-secondaires------//
       
@@ -178,6 +189,28 @@ public class Main {
             projet1.setCoeffRaccordement(coeffRaccordement);
             
             em.persist(projet1);
+            
+            //On crée le XML associé
+            String uri = "../XMLfiles/1.xml";
+            DocumentBuilder builder = DomUtil.obtenirBuilder();
+            Document xml = builder.newDocument();
+            
+            //Création de la racine
+            Element baliseProjet = xml.createElement("projet");
+            baliseProjet.setAttribute("idProjet", "1");
+            xml.appendChild(baliseProjet);
+            
+            //Ecriture du XML
+            Transformer transformer = DomUtil.obtenirTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
+            transformer.setOutputProperty(OutputKeys.METHOD, "xml");
+            DOMImplementation domImpl = xml.getImplementation();
+            DocumentType doctype = domImpl.createDocumentType("doctype", "-//Oberon//YOUR PUBLIC DOCTYPE//EN", "reglesProjet.dtd");
+            transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, doctype.getSystemId());
+            DOMSource domSource = new DOMSource(xml);
+            StreamResult streamResult = new StreamResult(uri);
+            transformer.transform(domSource, streamResult);
             
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -697,7 +730,7 @@ public class Main {
         Service service = new Service();
         
         //Doit fonctionner
-        Long idProjet = 2L;
+        Long idProjet = 1L;
         
         Boolean resultat = service.DupliquerProjet(idProjet);
         if(resultat)
@@ -1004,7 +1037,7 @@ public class Main {
         Service service = new Service();
         
         //Doit fonctionner
-        Long idProjet = 2L;
+        Long idProjet = 1L;
         Long idCorpsEtat = 1L;
         
         Boolean resultat = service.AjouterCorpsEtat(idProjet, idCorpsEtat);
@@ -1016,30 +1049,6 @@ public class Main {
         }
         
         //Doit fonctionner
-        Long idProjet4 = 2L;
-        Long idCorpsEtat4 = 2L;
-        
-        Boolean resultat4 = service.AjouterCorpsEtat(idProjet4, idCorpsEtat4);
-        if(resultat4)
-        {
-            System.out.println("Edition avec succès du projet n°" + idProjet4);
-        } else {
-            System.out.println("Erreur d'édition du projet n°" + idProjet4);
-        }
-        
-        //Ne doit pas fonctionner
-        /*Long idProjet2 = 1L;
-        Long idCorpsEtat2 = 1L;
-        
-        Boolean resultat2 = service.AjouterCorpsEtat(idProjet2, idCorpsEtat2);
-        if(resultat2)
-        {
-            System.out.println("Edition avec succès du projet n°" + idProjet2);
-        } else {
-            System.out.println("Erreur d'édition du projet n°" + idProjet2);
-        }
-        
-        //Ne doit pas fonctionner
         Long idProjet3 = 1L;
         Long idCorpsEtat3 = 2L;
         
@@ -1049,7 +1058,9 @@ public class Main {
             System.out.println("Edition avec succès du projet n°" + idProjet3);
         } else {
             System.out.println("Erreur d'édition du projet n°" + idProjet3);
-        }*/
+        }
+        
+        //idProjet n'existe pas -> echec (comme prevu)
     }
     
     public static void testerAjouterCategorie() {
@@ -1086,8 +1097,8 @@ public class Main {
             System.out.println("Erreur d'édition du projet n°" + idProjet2+" dans le corpsEtat n°"+idCorpsEtat2);
         }
         
-        //idProjet n'existe pas -> echec
-        //idCategorie n'existe pas -> echec
+        //idProjet n'existe pas -> echec (comme prevu)
+        //idCategorie n'existe pas -> echec (comme prevu)
     }
     
                 //-----------------------//

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE projet SYSTEM "reglesProjet.dtd">
+<projet idProjet="1">
+    <corpsEtat idCorpsEtat="1">
+        <intitule>corpsEtat1</intitule>
+    </corpsEtat>
+    <corpsEtat idCorpsEtat="2">
+        <intitule>corpsEtat2</intitule>
+    </corpsEtat>
+</projet>

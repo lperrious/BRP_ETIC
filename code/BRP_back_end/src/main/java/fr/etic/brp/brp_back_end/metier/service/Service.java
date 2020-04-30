@@ -283,10 +283,10 @@ public class Service {
         return resultat;
     }
     
-    //TO DO - Supprimer le projet dans la BD si erreur XML !
     public Boolean CreerProjet(String nomProjet) {
         JpaUtil.creerContextePersistance();
         Projet newProjet = null;
+        Long idProjet = null;
         
         try {
             //on crée l'objet projet
@@ -298,7 +298,7 @@ public class Service {
             
             //Creation du XML si tout a fonctionné
             Projet projet = projetDao.ChercherDernierParNom(nomProjet);
-            Long idProjet = projet.getIdProjet();
+            idProjet = projet.getIdProjet();
             String uri = "../XMLfiles/"+idProjet+".xml";
             Document xml = projetXMLDao.Creer();
             
@@ -312,8 +312,15 @@ public class Service {
               
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service CreerProjet(nomProjet)", ex);
+            //Supprimer le projet dans la BD si erreur XML
+            try {
+                JpaUtil.ouvrirTransaction();
+                projetDao.Remove(newProjet);
+                JpaUtil.validerTransaction();
+            } catch (Exception e) {
+                Logger.getAnonymousLogger().log(Level.WARNING, "Le projet n°" + idProjet + " n'a pas pu être supprimer ! Il faut le supprimer à la main !", e);
+            }
             newProjet = null;
-            //Supprimer le projet dans la BD !
         } finally {
             JpaUtil.fermerContextePersistance();
         }
@@ -384,7 +391,7 @@ public class Service {
                                     projetAModifier.setTypeMarche(Projet.TypeMarche.marchePrive);
                                     break;
                                 default:
-                                    System.out.println("Pas de valeur de champ trouvée !");
+                                    throw new Exception();
                             }
                             break;
                         case "TypeConstruction":
@@ -396,7 +403,7 @@ public class Service {
                                     projetAModifier.setTypeConstruction(Projet.TypeConstruction.renovation);
                                     break;
                                 default:
-                                    System.out.println("Pas de valeur de champ trouvée !");
+                                    throw new Exception();
                             }
                             break;
                         case "TypeLot":
@@ -408,7 +415,7 @@ public class Service {
                                     projetAModifier.setTypeLot(Projet.TypeLot.entrepriseGenerale);
                                     break;
                                 default:
-                                    System.out.println("Pas de valeur de champ trouvée !");
+                                    throw new Exception();
                             }
                             break;
                         case "Site":
@@ -420,11 +427,11 @@ public class Service {
                                     projetAModifier.setSite(Projet.Site.occupe);
                                     break;
                                 default:
-                                    System.out.println("Pas de valeur de champ trouvée !");
+                                    throw new Exception();
                             }
                             break;
                         default:
-                            System.out.println("Pas de champ trouvé !");
+                            throw new Exception();
                     }
                     //On enregistre dans la BD
                     JpaUtil.ouvrirTransaction();
@@ -597,11 +604,12 @@ public class Service {
         return null;
     }
     
-    //TO DO - Supprier le projet dupliqué de la BD si erreur XML !
     //Duplique un projet en donnant par défaut le nom "Nouveau Projet"
     public Boolean DupliquerProjet(Long idProjetADupliquer){
         Projet projetADupliquer = null;
         Projet projetDuplique = null;
+        Long idProjet = null;
+        
         JpaUtil.creerContextePersistance();
         
         try {
@@ -628,7 +636,7 @@ public class Service {
                     
                     //Copie du XML si tout a fonctionné
                     Projet projet = projetDao.ChercherDernierParNom(nomProjetDuplique);
-                    Long idProjet = projet.getIdProjet();
+                    idProjet = projet.getIdProjet();
                     String uriNewXML = "../XMLfiles/"+idProjet+".xml";
                     String uriOldXML = "../XMLfiles/"+idProjetADupliquer+".xml";
                     Document xml = projetXMLDao.ObtenirDocument(uriOldXML);
@@ -645,9 +653,16 @@ public class Service {
             }
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service DupliquerProjet(idProjet)", ex);
+            //Supprimer le projet dans la BD si erreur XML
+            try {
+                JpaUtil.ouvrirTransaction();
+                projetDao.Remove(projetDuplique);
+                JpaUtil.validerTransaction();
+            } catch (Exception e) {
+                Logger.getAnonymousLogger().log(Level.WARNING, "Le projet n°" + idProjet + " n'a pas pu être supprimer ! Il faut le supprimer à la main !", e);
+            }
             projetADupliquer = null;
             projetDuplique = null;
-            //Supprimer le projet dupliqué de la BD !
         } finally {
             JpaUtil.fermerContextePersistance();
         }
@@ -680,9 +695,7 @@ public class Service {
             baliseCorpsEtat.setAttribute("idCorpsEtat", idCorpsEtat.toString());
             //Création de la balise intitule
             Element baliseIntitule = xml.createElement("intitule");
-            JpaUtil.ouvrirTransaction(); ////////////////////////////////////////////////////////////////// Nécessaire ??????
             CorpsEtat corpsEtat = corpsEtatDao.ChercherParId(idCorpsEtat);
-            JpaUtil.validerTransaction();
             baliseIntitule.appendChild(xml.createTextNode(corpsEtat.getIntituleCorpsEtat()));
    
             baliseCorpsEtat.appendChild(baliseIntitule);
@@ -693,7 +706,7 @@ public class Service {
             
             resultat = true; //Si on est arrivé jusque là alors pas d'erreur
         } catch (Exception ex) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterCorpsEtat(idProjet, idCorpsEtat)", ex);
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterCorpsEtat(idProjet, idCorpsEtat)");
         } finally {
             JpaUtil.fermerContextePersistance();
         }
