@@ -624,19 +624,19 @@ public class Service {
                     projetDao.Creer(projetDuplique);
                     JpaUtil.validerTransaction();
                     
-                    //Creation du XML si tout a fonctionné
+                    //Copie du XML si tout a fonctionné
                     Projet projet = projetDao.ChercherDernierParNom(nomProjetDuplique);
                     Long idProjet = projet.getIdProjet();
-                    String uri = "../XMLfiles/"+idProjet+".xml";
-                    Document xml = projetXMLDao.ObtenirDocument(uri);
+                    String uriNewXML = "../XMLfiles/"+idProjet+".xml";
+                    String uriOldXML = "../XMLfiles/"+idProjetADupliquer+".xml";
+                    Document xml = projetXMLDao.ObtenirDocument(uriOldXML);
 
-                    //Création de la racine
-                    Element baliseProjet = xml.createElement("projet");
-                    baliseProjet.setAttribute("idProjet", idProjet.toString());
-                    xml.appendChild(baliseProjet);
-
+                    //MAJ de l'id de la racine projet
+                    Element root = xml.getDocumentElement();
+                    root.setAttribute("idProjet", idProjet.toString());
+                    
                     //Sortie du XML
-                    projetXMLDao.saveXMLContent(xml, uri);      
+                    projetXMLDao.saveXMLContent(xml, uriNewXML);      
                 } else {
                     System.out.println("Pas de projet à dupliquer trouvé !");
                 }

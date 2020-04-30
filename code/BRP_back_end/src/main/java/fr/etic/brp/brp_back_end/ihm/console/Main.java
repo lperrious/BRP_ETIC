@@ -691,7 +691,7 @@ public class Main {
         Service service = new Service();
         
         //Doit fonctionner
-        Long idProjet = 1L;
+        Long idProjet = 2L;
         
         Boolean resultat = service.DupliquerProjet(idProjet);
         if(resultat)
