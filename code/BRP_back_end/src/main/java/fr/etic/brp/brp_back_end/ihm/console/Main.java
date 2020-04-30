@@ -106,6 +106,7 @@ public class Main {
         testerAjouterCorpsEtat();
         testerAjouterCategorie();
         testerAjouterFamille();
+        testerAjouterSousFamille();
         
       //----------tests-secondaires------//
       
@@ -1076,25 +1077,12 @@ public class Main {
         Long idCorpsEtat = 2L;
         Long idCategorie = 1L;
         
-        Boolean resultat = service.AjouterCategorie(idProjet, idCategorie, idCorpsEtat);
+        Boolean resultat = service.AjouterCategorie(idProjet, idCorpsEtat, idCategorie);
         if(resultat)
         {
             System.out.println("Edition avec succès du projet n°" + idProjet+" dans le corpsEtat n°"+idCorpsEtat);
         } else {
             System.out.println("Erreur d'édition du projet n°" + idProjet+" dans le corpsEtat n°"+idCorpsEtat);
-        }
-        
-        //Doit échouer (idCorpsEtat n'existe pas)
-        Long idProjet2 = 1L;
-        Long idCorpsEtat2 = 3L;
-        Long idCategorie2 = 1L;
-        
-        Boolean resultat2 = service.AjouterCategorie(idProjet2, idCategorie2, idCorpsEtat2);
-        if(resultat2)
-        {
-            System.out.println("Edition avec succès du projet n°" + idProjet2+" dans le corpsEtat n°"+idCorpsEtat2);
-        } else {
-            System.out.println("Erreur d'édition du projet n°" + idProjet2+" dans le corpsEtat n°"+idCorpsEtat2);
         }
         
         //idProjet n'existe pas -> echec (comme prevu)
@@ -1116,9 +1104,8 @@ public class Main {
         Long idCategorie = 1L;
         Long idFamille = 1L;
         
-        Boolean resultat = service.AjouterFamille(idProjet, idFamille, idCorpsEtat, idCategorie);
-        if(resultat)
-        {
+        Boolean resultat = service.AjouterFamille(idProjet, idCorpsEtat, idCategorie, idFamille);
+        if(resultat){
             System.out.println("Edition avec succès du projet n°" + idProjet+", corpsEtat n°"+idCorpsEtat+", categorie n°"+idCategorie);
         } else {
             System.out.println("Erreur d'édition du projet n°" + idProjet+", corpsEtat n°"+idCorpsEtat+", categorie n°"+idCategorie);
@@ -1128,6 +1115,35 @@ public class Main {
         //idCorpsEtat n'existe pas -> echec (comme prevu)
         //idCategorie n'existe pas -> echec (comme prevu)
         //idFamille n'existe pas -> echec (comme prevu)
+    }
+    
+    public static void testerAjouterSousFamille() {
+        
+        System.out.println();
+        System.out.println("**** testerAjouterSousFamille() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        
+        //Doit fonctionner (sinsère uniquement dans le premier corpsEtat)
+        Long idProjet = 1L;
+        Long idCorpsEtat = 2L;
+        Long idCategorie = 1L;
+        Long idFamille = 1L;
+        Long idSousFamille = 1L;
+        
+        Boolean resultat = service.AjouterSousFamille(idProjet, idCorpsEtat, idCategorie, idFamille, idSousFamille);
+        if(resultat){
+            System.out.println("Edition avec succès du projet n°" + idProjet+", corpsEtat n°"+idCorpsEtat+", categorie n°"+idCategorie+", famille n°"+idFamille);
+        } else {
+            System.out.println("Erreur d'édition du projet n°" + idProjet+", corpsEtat n°"+idCorpsEtat+", categorie n°"+idCategorie+", famille n°"+idFamille);
+        }
+        
+        //idProjet n'existe pas -> echec (comme prevu)
+        //idCorpsEtat n'existe pas -> echec (comme prevu)
+        //idCategorie n'existe pas -> echec (comme prevu)
+        //idFamille n'existe pas -> echec (comme prevu)
+        //idSousFamille n'existe pas -> echec (comme prevu)
     }
     
                 //-----------------------//
