@@ -382,7 +382,7 @@ public class Service {
                                     projetAModifier.setTypeMarche(Projet.TypeMarche.marchePrive);
                                     break;
                                 default:
-                                    System.out.println("Pas de valeur de champ trouvée !");
+                                    throw new Exception();
                             }
                             break;
                         case "TypeConstruction":
@@ -394,7 +394,7 @@ public class Service {
                                     projetAModifier.setTypeConstruction(Projet.TypeConstruction.renovation);
                                     break;
                                 default:
-                                    System.out.println("Pas de valeur de champ trouvée !");
+                                    throw new Exception();
                             }
                             break;
                         case "TypeLot":
@@ -406,7 +406,7 @@ public class Service {
                                     projetAModifier.setTypeLot(Projet.TypeLot.entrepriseGenerale);
                                     break;
                                 default:
-                                    System.out.println("Pas de valeur de champ trouvée !");
+                                    throw new Exception();
                             }
                             break;
                         case "Site":
@@ -418,11 +418,11 @@ public class Service {
                                     projetAModifier.setSite(Projet.Site.occupe);
                                     break;
                                 default:
-                                    System.out.println("Pas de valeur de champ trouvée !");
+                                    throw new Exception();
                             }
                             break;
                         default:
-                            System.out.println("Pas de champ trouvé !");
+                            throw new Exception();
                     }
                     //On enregistre dans la BD
                     JpaUtil.ouvrirTransaction();
@@ -678,9 +678,7 @@ public class Service {
             baliseCorpsEtat.setAttribute("idCorpsEtat", idCorpsEtat.toString());
             //Création de la balise intitule
             Element baliseIntitule = xml.createElement("intitule");
-            JpaUtil.ouvrirTransaction(); ////////////////////////////////////////////////////////////////// Nécessaire ??????
             CorpsEtat corpsEtat = corpsEtatDao.ChercherParId(idCorpsEtat);
-            JpaUtil.validerTransaction();
             baliseIntitule.appendChild(xml.createTextNode(corpsEtat.getIntituleCorpsEtat()));
    
             baliseCorpsEtat.appendChild(baliseIntitule);
@@ -691,7 +689,7 @@ public class Service {
             
             resultat = true; //Si on est arrivé jusque là alors pas d'erreur
         } catch (Exception ex) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterCorpsEtat(idProjet, idCorpsEtat)", ex);
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterCorpsEtat(idProjet, idCorpsEtat)");
         } finally {
             JpaUtil.fermerContextePersistance();
         }
