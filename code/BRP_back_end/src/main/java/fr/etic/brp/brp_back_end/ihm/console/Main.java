@@ -104,7 +104,8 @@ public class Main {
 //        testerEditerCoeffRaccordementProjet();
 //        testerEditerCategorieConstructionProjet();
         testerAjouterCorpsEtat();
-//        testerAjouterCategorie();
+        testerAjouterCategorie();
+        testerAjouterFamille();
         
       //----------tests-secondaires------//
       
@@ -1072,7 +1073,7 @@ public class Main {
         
         //Doit fonctionner (sinsère uniquement dans le premier corpsEtat)
         Long idProjet = 1L;
-        Long idCorpsEtat = 1L;
+        Long idCorpsEtat = 2L;
         Long idCategorie = 1L;
         
         Boolean resultat = service.AjouterCategorie(idProjet, idCategorie, idCorpsEtat);
@@ -1080,7 +1081,7 @@ public class Main {
         {
             System.out.println("Edition avec succès du projet n°" + idProjet+" dans le corpsEtat n°"+idCorpsEtat);
         } else {
-            System.out.println("Erreur d'édition du projet n°" + idProjet);
+            System.out.println("Erreur d'édition du projet n°" + idProjet+" dans le corpsEtat n°"+idCorpsEtat);
         }
         
         //Doit échouer (idCorpsEtat n'existe pas)
@@ -1097,7 +1098,36 @@ public class Main {
         }
         
         //idProjet n'existe pas -> echec (comme prevu)
+        //idCorpsEtat n'existe pas -> echec (comme prevu)
         //idCategorie n'existe pas -> echec (comme prevu)
+    }
+    
+    public static void testerAjouterFamille() {
+        
+        System.out.println();
+        System.out.println("**** testerAjouterFamille() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        
+        //Doit fonctionner (sinsère uniquement dans le premier corpsEtat)
+        Long idProjet = 1L;
+        Long idCorpsEtat = 2L;
+        Long idCategorie = 1L;
+        Long idFamille = 1L;
+        
+        Boolean resultat = service.AjouterFamille(idProjet, idFamille, idCorpsEtat, idCategorie);
+        if(resultat)
+        {
+            System.out.println("Edition avec succès du projet n°" + idProjet+", corpsEtat n°"+idCorpsEtat+", categorie n°"+idCategorie);
+        } else {
+            System.out.println("Erreur d'édition du projet n°" + idProjet+", corpsEtat n°"+idCorpsEtat+", categorie n°"+idCategorie);
+        }
+        
+        //idProjet n'existe pas -> echec (comme prevu)
+        //idCorpsEtat n'existe pas -> echec (comme prevu)
+        //idCategorie n'existe pas -> echec (comme prevu)
+        //idFamille n'existe pas -> echec (comme prevu)
     }
     
                 //-----------------------//
