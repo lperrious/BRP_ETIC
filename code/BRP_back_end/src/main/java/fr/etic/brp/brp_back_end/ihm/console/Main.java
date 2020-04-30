@@ -79,6 +79,7 @@ public class Main {
     
       //---------tests-primaires--------//
       
+
 //        testerListerBasePrixRefs();
 //        testerListerCaractDims();
 //        testerListerCategories();
@@ -103,6 +104,7 @@ public class Main {
 //        testerEditerCoeffRaccordementProjet();
 //        testerEditerCategorieConstructionProjet();
         testerAjouterCorpsEtat();
+//        testerAjouterCategorie();
         
       //----------tests-secondaires------//
       
@@ -466,7 +468,8 @@ public class Main {
         EntityManager em = emf.createEntityManager();        
         
         CorpsEtat corpsEtat1 = new CorpsEtat("corpsEtat1");
-         
+        CorpsEtat corpsEtat2 = new CorpsEtat("corpsEtat2"); //REMOVE (créer un deuxième corps d'état pour les tests XML)
+        
         System.out.println("** CorpsEtat avant persistance: ");
         afficherCorpsEtat(corpsEtat1);
         System.out.println();
@@ -475,6 +478,10 @@ public class Main {
             em.getTransaction().begin();
             em.persist(corpsEtat1);
             em.getTransaction().commit();
+            
+            em.getTransaction().begin();    //REMOVE
+            em.persist(corpsEtat2);         //REMOVE
+            em.getTransaction().commit();   //REMOVE
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service initialiserCorpsEtat()", ex);
             try {
@@ -1040,19 +1047,7 @@ public class Main {
             System.out.println("Erreur d'édition du projet n°" + idProjet);
         }
         
-        //Ne doit pas fonctionner
-        Long idProjet2 = 2L;
-        Long idCorpsEtat2 = 1L;
-        
-        Boolean resultat2 = service.AjouterCorpsEtat(idProjet2, idCorpsEtat2);
-        if(resultat2)
-        {
-            System.out.println("Edition avec succès du projet n°" + idProjet2);
-        } else {
-            System.out.println("Erreur d'édition du projet n°" + idProjet2);
-        }
-        
-        //Ne doit pas fonctionner
+        //Doit fonctionner
         Long idProjet3 = 1L;
         Long idCorpsEtat3 = 2L;
         
@@ -1063,6 +1058,46 @@ public class Main {
         } else {
             System.out.println("Erreur d'édition du projet n°" + idProjet3);
         }
+        
+        //idProjet n'existe pas -> echec (comme prevu)
+    }
+    
+    public static void testerAjouterCategorie() {
+        
+        System.out.println();
+        System.out.println("**** testerAjouterCategorie() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        
+        //Doit fonctionner (sinsère uniquement dans le premier corpsEtat)
+        Long idProjet = 1L;
+        Long idCorpsEtat = 1L;
+        Long idCategorie = 1L;
+        
+        Boolean resultat = service.AjouterCategorie(idProjet, idCategorie, idCorpsEtat);
+        if(resultat)
+        {
+            System.out.println("Edition avec succès du projet n°" + idProjet+" dans le corpsEtat n°"+idCorpsEtat);
+        } else {
+            System.out.println("Erreur d'édition du projet n°" + idProjet);
+        }
+        
+        //Doit échouer (idCorpsEtat n'existe pas)
+        Long idProjet2 = 1L;
+        Long idCorpsEtat2 = 3L;
+        Long idCategorie2 = 1L;
+        
+        Boolean resultat2 = service.AjouterCategorie(idProjet2, idCategorie2, idCorpsEtat2);
+        if(resultat2)
+        {
+            System.out.println("Edition avec succès du projet n°" + idProjet2+" dans le corpsEtat n°"+idCorpsEtat2);
+        } else {
+            System.out.println("Erreur d'édition du projet n°" + idProjet2+" dans le corpsEtat n°"+idCorpsEtat2);
+        }
+        
+        //idProjet n'existe pas -> echec (comme prevu)
+        //idCategorie n'existe pas -> echec (comme prevu)
     }
     
                 //-----------------------//
