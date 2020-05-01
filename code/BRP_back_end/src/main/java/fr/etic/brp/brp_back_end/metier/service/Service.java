@@ -27,7 +27,9 @@ import fr.etic.brp.brp_back_end.metier.modele.CoeffRaccordement;
 import fr.etic.brp.brp_back_end.metier.modele.CorpsEtat;
 import fr.etic.brp.brp_back_end.metier.modele.Descriptif;
 import fr.etic.brp.brp_back_end.metier.modele.Famille;
+import fr.etic.brp.brp_back_end.metier.modele.Generique;
 import fr.etic.brp.brp_back_end.metier.modele.Operateur;
+import fr.etic.brp.brp_back_end.metier.modele.Ouvrage;
 import fr.etic.brp.brp_back_end.metier.modele.Prestation;
 import fr.etic.brp.brp_back_end.metier.modele.Projet;
 import fr.etic.brp.brp_back_end.metier.modele.SousCategorieConstruction;
@@ -74,7 +76,7 @@ public class Service {
     protected PrestationDao prestationDao = new PrestationDao();
     protected ProjetXMLDao projetXMLDao = new ProjetXMLDao();
     
-    public Descriptif RechercherDescriptifParId(Long id) {
+    public Descriptif RechercherDescriptifParId(String id) {
         Descriptif resultat = null;
         JpaUtil.creerContextePersistance();
         try {
@@ -713,7 +715,6 @@ public class Service {
         return resultat;
     }
     
-    //TO DO - Ajoute un champ Categorie dans le XML
     public Boolean AjouterCategorie(Long idProjet, Long idCorpsEtat, Long idCategorie){
         JpaUtil.creerContextePersistance();
         Boolean resultat = false;
@@ -723,7 +724,7 @@ public class Service {
             //Obtention du document
             String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
             Document xml = projetXMLDao.ObtenirDocument(uri);
-            Element root = xml.getDocumentElement();
+            NodeList rootNodes = xml.getElementsByTagName("corpsEtat");
             //Création balise categorie
             Element baliseCategorie = xml.createElement("categorie");
             baliseCategorie.setAttribute("idCategorie", idCategorie.toString());
@@ -734,17 +735,15 @@ public class Service {
    
             baliseCategorie.appendChild(baliseIntitule);
             
-            NodeList rootNodes = root.getChildNodes();
-            //on parcours le xml à la recherche du corpsEtat parent
+            //on parcours les corpsEtat 
             for (int i = 0; i<rootNodes.getLength(); i++) {
-              if(rootNodes.item(i).getNodeName().equals("corpsEtat")) {
-                  Element corpsEtat = (Element) rootNodes.item(i);
-                  if(corpsEtat.getAttribute("idCorpsEtat").equals(idCorpsEtat.toString())){
-                      rootNodes.item(i).appendChild(baliseCategorie);
-                      testInsertion = true;
-                      break;
-                  }
-              } 			
+                Element corpsEtat = (Element) rootNodes.item(i);
+                if(corpsEtat.getAttribute("idCorpsEtat").equals(idCorpsEtat.toString())){
+                    //on est dans le bon corpsEtat, on peut y insérer la categorie
+                    rootNodes.item(i).appendChild(baliseCategorie);
+                    testInsertion = true;
+                    break;
+                }			
             }
             
             //On écrit par dessus l'ancien XML
@@ -761,8 +760,7 @@ public class Service {
         return resultat;
     }
     
-    //TO DO - Ajoute un champ Famille dans le XML
-    public Boolean AjouterFamille(Long idProjet, Long idCorpsEtat, Long idCategorie, Long idFamille){
+    public Boolean AjouterFamille(Long idProjet, Long idCategorie, Long idFamille){
         JpaUtil.creerContextePersistance();
         Boolean resultat = false;
         Boolean testInsertion = false;
@@ -771,7 +769,7 @@ public class Service {
             //Obtention du document
             String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
             Document xml = projetXMLDao.ObtenirDocument(uri);
-            Element root = xml.getDocumentElement();
+            NodeList rootNodes = xml.getElementsByTagName("categorie");
             //Création balise famille
             Element baliseFamille = xml.createElement("famille");
             baliseFamille.setAttribute("idFamille", idFamille.toString());
@@ -782,26 +780,15 @@ public class Service {
    
             baliseFamille.appendChild(baliseIntitule);
             
-            NodeList rootNodesCorpsEtat = root.getChildNodes();
-            //on parcours le xml à la recherche du corpsEtat parent
-            for (int i = 0; i<rootNodesCorpsEtat.getLength(); i++) {
-                if(rootNodesCorpsEtat.item(i).getNodeName().equals("corpsEtat")) {
-                    Element corpsEtat = (Element) rootNodesCorpsEtat.item(i);
-                    if(corpsEtat.getAttribute("idCorpsEtat").equals(idCorpsEtat.toString())){
-                        //si on est dans le bon corps d'état, on boucle pour trouver la bonne catégorie
-                        NodeList rootNodesCategorie = corpsEtat.getChildNodes();
-                        for(int j = 0; j<rootNodesCategorie.getLength(); j++){
-                            if(rootNodesCategorie.item(j).getNodeName().equals("categorie")) {
-                                Element categorie = (Element) rootNodesCategorie.item(j);
-                                if(categorie.getAttribute("idCategorie").equals(idCategorie.toString())){
-                                    rootNodesCategorie.item(j).appendChild(baliseFamille);
-                                    testInsertion = true;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                } 			
+            //on parcours les categories
+            for (int i = 0; i<rootNodes.getLength(); i++) {
+                Element categorie = (Element) rootNodes.item(i);
+                if(categorie.getAttribute("idCategorie").equals(idCategorie.toString())){
+                    //on est dans la bonne categorie, on insère la famille
+                    rootNodes.item(i).appendChild(baliseFamille);
+                    testInsertion = true;
+                    break;
+                }			
             }
             
             //On écrit par dessus l'ancien XML
@@ -818,8 +805,7 @@ public class Service {
         return resultat;
     }
     
-    //TO DO - Ajoute un champ SousFamille dans le XML
-    public Boolean AjouterSousFamille(Long idProjet, Long idCorpsEtat, Long idCategorie, Long idFamille, Long idSousFamille){
+    public Boolean AjouterSousFamille(Long idProjet, Long idFamille, Long idSousFamille){
         JpaUtil.creerContextePersistance();
         Boolean resultat = false;
         Boolean testInsertion = false;
@@ -828,8 +814,8 @@ public class Service {
             //Obtention du document
             String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
             Document xml = projetXMLDao.ObtenirDocument(uri);
-            Element root = xml.getDocumentElement();
-            //Création balise famille
+            NodeList rootNodes = xml.getElementsByTagName("famille");
+            //Création balise sousFamille
             Element baliseSousFamille = xml.createElement("sousFamille");
             baliseSousFamille.setAttribute("idSousFamille", idSousFamille.toString());
             //Création de la balise intitule
@@ -839,35 +825,15 @@ public class Service {
    
             baliseSousFamille.appendChild(baliseIntitule);
             
-            NodeList rootNodesCorpsEtat = root.getChildNodes();
-            //on parcours le xml à la recherche du corpsEtat parent
-            for (int i = 0; i<rootNodesCorpsEtat.getLength(); i++) {
-                if(rootNodesCorpsEtat.item(i).getNodeName().equals("corpsEtat")) {
-                    Element corpsEtat = (Element) rootNodesCorpsEtat.item(i);
-                    if(corpsEtat.getAttribute("idCorpsEtat").equals(idCorpsEtat.toString())){
-                        //si on est dans le bon corps d'état, on boucle pour trouver la bonne catégorie
-                        NodeList rootNodesCategorie = corpsEtat.getChildNodes();
-                        for(int j = 0; j<rootNodesCategorie.getLength(); j++){
-                            if(rootNodesCategorie.item(j).getNodeName().equals("categorie")) {
-                                Element categorie = (Element) rootNodesCategorie.item(j);
-                                if(categorie.getAttribute("idCategorie").equals(idCategorie.toString())){
-                                    //si on est dans le bon corps d'état, on boucle pour trouver la bonne catégorie
-                                    NodeList rootNodesFamille = categorie.getChildNodes();
-                                    for(int k = 0; k<rootNodesFamille.getLength(); k++){
-                                        if(rootNodesFamille.item(k).getNodeName().equals("famille")) {
-                                            Element famille = (Element) rootNodesFamille.item(k);
-                                            if(famille.getAttribute("idFamille").equals(idFamille.toString())){
-                                                rootNodesFamille.item(k).appendChild(baliseSousFamille);
-                                                testInsertion = true;
-                                                break;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                } 			
+            //on parcours les familles
+            for (int i = 0; i<rootNodes.getLength(); i++) {
+                Element famille = (Element) rootNodes.item(i);
+                if(famille.getAttribute("idFamille").equals(idFamille.toString())){
+                    //on est dans la bonne famille
+                    rootNodes.item(i).appendChild(baliseSousFamille);
+                    testInsertion = true;
+                    break;
+                }			
             }
             
             //On écrit par dessus l'ancien XML
@@ -885,8 +851,100 @@ public class Service {
     }
     
     //TO DO - Ajoute un ouvrage ou generique dans une sous famille
-    public Boolean AjouterOuvrageOuGenerique(Long idProjet, Long idDescriptif){
-        return null;
+    public Boolean AjouterDescriptif(Long idProjet, Long idSousFamille, String idDescriptif){
+        JpaUtil.creerContextePersistance();
+        Boolean resultat = false;
+        Boolean testInsertion = false;
+        
+        try {
+            //Obtention du document
+            String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            Document xml = projetXMLDao.ObtenirDocument(uri);
+            NodeList rootNodes = xml.getElementsByTagName("sousFamille");
+            Element baliseDescriptif = null;
+            
+            //on récupère le descriptif
+            Descriptif descriptif = descriptifDao.ChercherParId(idDescriptif); 
+            if(descriptif instanceof Generique){
+                //Création balise descriptif
+                baliseDescriptif = xml.createElement("generique");
+            }
+            else{
+                baliseDescriptif = xml.createElement("ouvrage");
+            }
+            baliseDescriptif.setAttribute("idDescriptif", idDescriptif);
+            
+            //Création des enfants de descriptif
+            Element baliseNomDescriptif = xml.createElement("nomDescriptif");                                                                       
+            baliseNomDescriptif.appendChild(xml.createTextNode(descriptif.getNomDescriptif())); 
+            Element baliseDescription = xml.createElement("description");                                                                       
+            baliseDescription.appendChild(xml.createTextNode(descriptif.getDescription())); 
+            Element baliseCourteDescription = xml.createElement("courteDescription");                                                                      
+            baliseCourteDescription.appendChild(xml.createTextNode(descriptif.getCourteDescription())); 
+            //Remplissage de la balise descriptif
+            baliseDescriptif.appendChild(baliseNomDescriptif);    
+            baliseDescriptif.appendChild(baliseDescription); 
+            baliseDescriptif.appendChild(baliseCourteDescription); 
+            
+            //si c'est un ouvrage, on ajoute en plus tout ce qui est relatif aux prix
+            if(descriptif instanceof Ouvrage){
+                Integer annee_max = 0, indiceRef = 0;
+                Integer quantite = 1;
+                
+                Ouvrage ouvrage = (Ouvrage) descriptifDao.ChercherParId(idDescriptif); 
+               // List<BasePrixRef> listeBasePrixRef = ouvrage.getListeBasePrixRefOuvrage();          PROBLEM: le lien ne se crée pas
+                
+//                for(int i = 0; i<listeBasePrixRef.size(); i++){
+//                    if(listeBasePrixRef.get(i).getQteInf() <= quantite && listeBasePrixRef.get(i).getQteSup() >= quantite){
+//                        //on se trouve dans la bonne fourchette de quantite, on test l'annee
+//                        if(listeBasePrixRef.get(i).getAnnee() > annee_max){
+//                            annee_max = listeBasePrixRef.get(i).getAnnee();
+//                            indiceRef = i;
+//                        }
+//                    }
+//                }
+                
+                Element baliseUnite = xml.createElement("unite");                                                                       
+//                baliseUnite.appendChild(xml.createTextNode(listeBasePrixRef.get(indiceRef).getUnite())); 
+                Element balisePrixUnitaire = xml.createElement("prixUnitaire");                                                                       
+//                balisePrixUnitaire.appendChild(xml.createTextNode(listeBasePrixRef.get(indiceRef).getPrixUnitaire().toString())); 
+                
+                Element baliseLigneChiffrage = xml.createElement("ligneChiffrage"); 
+                baliseLigneChiffrage.setAttribute("idLigneChiffrage", "1");
+                Element baliseLocalisation = xml.createElement("localisation"); 
+                Element baliseQuantite = xml.createElement("quantite"); 
+                baliseQuantite.appendChild(xml.createTextNode(quantite.toString()));
+                baliseLigneChiffrage.appendChild(baliseLocalisation); 
+                baliseLigneChiffrage.appendChild(baliseQuantite);
+               
+                baliseDescriptif.appendChild(baliseUnite);    
+                baliseDescriptif.appendChild(balisePrixUnitaire); 
+                baliseDescriptif.appendChild(baliseLigneChiffrage); 
+            }
+            
+            //on parcours les sousFamilles
+            for (int i = 0; i<rootNodes.getLength(); i++) {
+                Element sousFamille = (Element) rootNodes.item(i);
+                if(sousFamille.getAttribute("idSousFamille").equals(idSousFamille.toString())){
+                    //on est dans la bonne sousFamille
+                    rootNodes.item(i).appendChild(baliseDescriptif);
+                    testInsertion = true;
+                    break;
+                }			
+            }
+            
+            //On écrit par dessus l'ancien XML
+            projetXMLDao.saveXMLContent(xml, uri);
+            
+            if(testInsertion){
+                resultat = true; //Si on est arrivé jusque là alors pas d'erreur
+            }
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterCategorie(Long idProjet, Long idCategorie)", ex);
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        return resultat;
     }
     
     //TO DO - Ajoute une prestation dans un ouvrage. Penser à retirer prix ouvrage
