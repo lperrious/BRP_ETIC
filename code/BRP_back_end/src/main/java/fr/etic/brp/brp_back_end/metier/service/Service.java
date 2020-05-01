@@ -901,7 +901,34 @@ public class Service {
     
     //TO DO - Supprime un champ CorpsEtat dans le XML
     public Boolean SupprimerCorpsEtat(Long idProjet, Long idCorpsEtat){
-        return null;
+        Boolean testSuppression = false;
+        Boolean resultat = false;
+        
+        try {
+            //Obtention du document
+            String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            Document xml = projetXMLDao.ObtenirDocument(uri);
+            
+            NodeList listNodes = xml.getElementsByTagName("corpsEtat");
+            //on parcours la liste des corps d'Etats à le recherche de celui à éliminer
+            for (int i = 0; i < listNodes.getLength(); i++) {
+                Element corpsEtat = (Element) listNodes.item(i);
+                if(corpsEtat.getAttribute("idCorpsEtat").equals(idCorpsEtat.toString())){
+                    corpsEtat.getParentNode().removeChild(corpsEtat);
+                    testSuppression = true;
+                }
+            }
+            
+            //On écrit par dessus l'ancien XML
+            projetXMLDao.saveXMLContent(xml, uri);
+            
+            if(testSuppression){
+                resultat = true; //Si on est arrivé jusque là alors pas d'erreur
+            }
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service SupprimerCorpsEtat(Long idProjet, Long idCorpsEtat)", ex);
+        }
+        return resultat;
     }
     
     //TO DO - Supprime un champ Categorie dans le XML
