@@ -108,6 +108,7 @@ public class Main {
         testerAjouterFamille();
         testerAjouterSousFamille();
         testerSupprimerCorpsEtat();
+        testerSupprimerCategorie();
         
       //----------tests-secondaires------//
       
@@ -1168,6 +1169,29 @@ public class Main {
         }
         
         //idCorpsEtat n'existe pas/plus -> echec (comme prevu)
+    }
+    
+    public static void testerSupprimerCategorie() {
+        
+        System.out.println();
+        System.out.println("**** testerSupprimerCategorie() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        
+        //Doit fonctionner
+        Long idProjet = 1L;
+        Long idCategorie = 1L;
+        
+        Boolean resultat = service.SupprimerCategorie(idProjet, idCategorie);
+        if(resultat)
+        {
+            System.out.println("Edition avec succès du projet n°" + idProjet);
+        } else {
+            System.out.println("Erreur d'édition du projet n°" + idProjet);
+        }
+        
+        //idCategorie n'existe pas/plus -> echec (comme prevu)
     }
     
                 //-----------------------//
