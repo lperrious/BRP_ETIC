@@ -108,6 +108,11 @@ public class Main {
         testerAjouterFamille();
         testerAjouterSousFamille();
         testerAjouterDescriptif();
+//        testerSupprimerCorpsEtat();
+//        testerSupprimerCategorie();
+//        testerSupprimerFamille();
+//        testerSupprimerSousFamille();
+
         
       //----------tests-secondaires------//
       
@@ -1142,6 +1147,7 @@ public class Main {
         //idSousFamille n'existe pas -> echec (comme prevu)
     }
     
+
     public static void testerAjouterDescriptif() {
         
         System.out.println();
@@ -1164,6 +1170,98 @@ public class Main {
         
         //idProjet n'existe pas -> echec (comme prevu)
         //idSousFamille n'existe pas -> echec (comme prevu)
+    }
+        
+    public static void testerSupprimerCorpsEtat() {
+        
+        System.out.println();
+        System.out.println("**** testerSupprimerCorpsEtat() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        
+        //Doit fonctionner
+        Long idProjet = 1L;
+        Long idCorpsEtat = 1L;
+        
+        Boolean resultat = service.SupprimerCorpsEtat(idProjet, idCorpsEtat);
+        if(resultat)
+        {
+            System.out.println("Edition avec succès du projet n°" + idProjet);
+        } else {
+            System.out.println("Erreur d'édition du projet n°" + idProjet);
+        }
+        
+        //idCorpsEtat n'existe pas/plus -> echec (comme prevu)
+    }
+    
+    public static void testerSupprimerCategorie() {
+        
+        System.out.println();
+        System.out.println("**** testerSupprimerCategorie() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        
+        //Doit fonctionner
+        Long idProjet = 1L;
+        Long idCategorie = 1L;
+        
+        Boolean resultat = service.SupprimerCategorie(idProjet, idCategorie);
+        if(resultat)
+        {
+            System.out.println("Edition avec succès du projet n°" + idProjet);
+        } else {
+            System.out.println("Erreur d'édition du projet n°" + idProjet);
+        }
+        
+        //idCategorie n'existe pas/plus -> echec (comme prevu)
+    }
+    
+    public static void testerSupprimerFamille() {
+        
+        System.out.println();
+        System.out.println("**** testerSupprimerFamille() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        
+        //Doit fonctionner
+        Long idProjet = 1L;
+        Long idFamille = 1L;
+        
+        Boolean resultat = service.SupprimerFamille(idProjet, idFamille);
+        if(resultat)
+        {
+            System.out.println("Edition avec succès du projet n°" + idProjet);
+        } else {
+            System.out.println("Erreur d'édition du projet n°" + idProjet);
+        }
+        
+        //idFamille n'existe pas/plus -> echec (comme prevu)
+    }
+    
+    public static void testerSupprimerSousFamille() {
+        
+        System.out.println();
+        System.out.println("**** testerSupprimerSousFamille() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        
+        //Doit fonctionner
+        Long idProjet = 1L;
+        Long idFamille = 1L;
+        
+        Boolean resultat = service.SupprimerSousFamille(idProjet, idFamille);
+        if(resultat)
+        {
+            System.out.println("Edition avec succès du projet n°" + idProjet);
+        } else {
+            System.out.println("Erreur d'édition du projet n°" + idProjet);
+        }
+        
+        //idSousFamille n'existe pas/plus -> echec (comme prevu)
     }
     
                 //-----------------------//

@@ -957,24 +957,132 @@ public class Service {
         return null;
     }
     
-    //TO DO - Supprime un champ CorpsEtat dans le XML
+    //TO DO - Mettre a jour la correspondance de l'id -> Dans les TESTS du main !
     public Boolean SupprimerCorpsEtat(Long idProjet, Long idCorpsEtat){
-        return null;
+        Boolean testSuppression = false;
+        Boolean resultat = false;
+        
+        try {
+            //Obtention du document
+            String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            Document xml = projetXMLDao.ObtenirDocument(uri);
+            
+            NodeList listNodes = xml.getElementsByTagName("corpsEtat");
+            //on parcours la liste des corps d'Etats à le recherche de celui à éliminer
+            for (int i = 0; i < listNodes.getLength(); i++) {
+                Element corpsEtat = (Element) listNodes.item(i);
+                if(corpsEtat.getAttribute("idCorpsEtat").equals(idCorpsEtat.toString())){
+                    corpsEtat.getParentNode().removeChild(corpsEtat);
+                    testSuppression = true;
+                }
+            }
+            
+            //On écrit par dessus l'ancien XML
+            projetXMLDao.saveXMLContent(xml, uri);
+            
+            if(testSuppression){
+                resultat = true; //Si on est arrivé jusque là alors pas d'erreur
+            }
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service SupprimerCorpsEtat(Long idProjet, Long idCorpsEtat)", ex);
+        }
+        return resultat;
     }
     
-    //TO DO - Supprime un champ Categorie dans le XML
+    //TO DO - Mettre a jour la correspondance de l'id -> Dans les TESTS du main !
     public Boolean SupprimerCategorie(Long idProjet, Long idCategorie){
-        return null;
+        Boolean testSuppression = false;
+        Boolean resultat = false;
+        
+        try {
+            //Obtention du document
+            String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            Document xml = projetXMLDao.ObtenirDocument(uri);
+            
+            NodeList listNodes = xml.getElementsByTagName("categorie");
+            //on parcours la liste à le recherche de celui à éliminer
+            for (int i = 0; i < listNodes.getLength(); i++) {
+                Element categorie = (Element) listNodes.item(i);
+                if(categorie.getAttribute("idCategorie").equals(idCategorie.toString())){
+                    categorie.getParentNode().removeChild(categorie);
+                    testSuppression = true;
+                }
+            }
+            
+            //On écrit par dessus l'ancien XML
+            projetXMLDao.saveXMLContent(xml, uri);
+            
+            if(testSuppression){
+                resultat = true; //Si on est arrivé jusque là alors pas d'erreur
+            }
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service SupprimerCategorie(Long idProjet, Long idCategorie)", ex);
+        }
+        return resultat;
     }
     
-    //TO DO - Supprime un champ Famille dans le XML
+    //TO DO - Mettre a jour la correspondance de l'id -> Dans les TESTS du main !
     public Boolean SupprimerFamille(Long idProjet, Long idFamille){
-        return null;
+        Boolean testSuppression = false;
+        Boolean resultat = false;
+        
+        try {
+            //Obtention du document
+            String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            Document xml = projetXMLDao.ObtenirDocument(uri);
+            
+            NodeList listNodes = xml.getElementsByTagName("famille");
+            //on parcours la liste à le recherche de celui à éliminer
+            for (int i = 0; i < listNodes.getLength(); i++) {
+                Element famille = (Element) listNodes.item(i);
+                if(famille.getAttribute("idFamille").equals(idFamille.toString())){
+                    famille.getParentNode().removeChild(famille);
+                    testSuppression = true;
+                }
+            }
+            
+            //On écrit par dessus l'ancien XML
+            projetXMLDao.saveXMLContent(xml, uri);
+            
+            if(testSuppression){
+                resultat = true; //Si on est arrivé jusque là alors pas d'erreur
+            }
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service SupprimerFamille(Long idProjet, Long idFamille)", ex);
+        }
+        return resultat;
     }
     
-    //TO DO - Supprime un champ SousFamille dans le XML
+    //TO DO - Mettre a jour la correspondance de l'id -> Dans les TESTS du main !
     public Boolean SupprimerSousFamille(Long idProjet, Long idSousFamille){
-        return null;
+        Boolean testSuppression = false;
+        Boolean resultat = false;
+        
+        try {
+            //Obtention du document
+            String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            Document xml = projetXMLDao.ObtenirDocument(uri);
+            
+            NodeList listNodes = xml.getElementsByTagName("sousFamille");
+            //on parcours la liste à le recherche de celui à éliminer
+            for (int i = 0; i < listNodes.getLength(); i++) {
+                Element sousFamille = (Element) listNodes.item(i);
+                if(sousFamille.getAttribute("idSousFamille").equals(idSousFamille.toString())){
+                    sousFamille.getParentNode().removeChild(sousFamille);
+                    testSuppression = true;
+                }
+            }
+            
+            //On écrit par dessus l'ancien XML
+            projetXMLDao.saveXMLContent(xml, uri);
+            
+            if(testSuppression){
+                resultat = true; //Si on est arrivé jusque là alors pas d'erreur
+            }
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service SupprimerSousFamille(Long idProjet, Long idSousFamille)", ex);
+        }
+        return resultat;
     }
     
     //TO DO - Supprime un descriptif. Attention prestation: s'il n'y plus de prestation dans un ouvrage, remettre prixOuvrage
