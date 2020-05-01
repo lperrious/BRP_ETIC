@@ -107,8 +107,10 @@ public class Main {
         testerAjouterCategorie();
         testerAjouterFamille();
         testerAjouterSousFamille();
-        testerSupprimerCorpsEtat();
-        testerSupprimerCategorie();
+//        testerSupprimerCorpsEtat();
+//        testerSupprimerCategorie();
+//        testerSupprimerFamille();
+//        testerSupprimerSousFamille();
         
       //----------tests-secondaires------//
       
@@ -1192,6 +1194,52 @@ public class Main {
         }
         
         //idCategorie n'existe pas/plus -> echec (comme prevu)
+    }
+    
+    public static void testerSupprimerFamille() {
+        
+        System.out.println();
+        System.out.println("**** testerSupprimerFamille() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        
+        //Doit fonctionner
+        Long idProjet = 1L;
+        Long idFamille = 1L;
+        
+        Boolean resultat = service.SupprimerFamille(idProjet, idFamille);
+        if(resultat)
+        {
+            System.out.println("Edition avec succès du projet n°" + idProjet);
+        } else {
+            System.out.println("Erreur d'édition du projet n°" + idProjet);
+        }
+        
+        //idFamille n'existe pas/plus -> echec (comme prevu)
+    }
+    
+    public static void testerSupprimerSousFamille() {
+        
+        System.out.println();
+        System.out.println("**** testerSupprimerSousFamille() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        
+        //Doit fonctionner
+        Long idProjet = 1L;
+        Long idFamille = 1L;
+        
+        Boolean resultat = service.SupprimerSousFamille(idProjet, idFamille);
+        if(resultat)
+        {
+            System.out.println("Edition avec succès du projet n°" + idProjet);
+        } else {
+            System.out.println("Erreur d'édition du projet n°" + idProjet);
+        }
+        
+        //idSousFamille n'existe pas/plus -> echec (comme prevu)
     }
     
                 //-----------------------//
