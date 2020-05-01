@@ -714,38 +714,34 @@ public class Service {
     }
     
     //TO DO - Ajoute un champ Categorie dans le XML
-    public Boolean AjouterCategorie(Long idProjet, Long idCategorie, Long idCorpsEtat){
+    public Boolean AjouterCategorie(Long idProjet, Long idCorpsEtat, Long idCategorie){
         JpaUtil.creerContextePersistance();
         Boolean resultat = false;
-        Boolean existenceCorpsEtat = false;
+        Boolean testInsertion = false;
         
         try {
             //Obtention du document
             String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
             Document xml = projetXMLDao.ObtenirDocument(uri);
             Element root = xml.getDocumentElement();
-            NodeList rootNodes = root.getChildNodes();
             //Création balise categorie
             Element baliseCategorie = xml.createElement("categorie");
             baliseCategorie.setAttribute("idCategorie", idCategorie.toString());
             //Création de la balise intitule
             Element baliseIntitule = xml.createElement("intitule");
-            JpaUtil.ouvrirTransaction(); ////////////////////////////////////////////////////////////////// Nécessaire ??????
             Categorie categorie = categorieDao.ChercherParId(idCategorie);
-            JpaUtil.validerTransaction();
             baliseIntitule.appendChild(xml.createTextNode(categorie.getIntituleCategorie()));
    
             baliseCategorie.appendChild(baliseIntitule);
             
+            NodeList rootNodes = root.getChildNodes();
             //on parcours le xml à la recherche du corpsEtat parent
-            for (int i = 0; i<rootNodes.getLength(); i++) 
-            {
-              if(rootNodes.item(i).getNodeName().equals("corpsEtat")) 
-              {
+            for (int i = 0; i<rootNodes.getLength(); i++) {
+              if(rootNodes.item(i).getNodeName().equals("corpsEtat")) {
                   Element corpsEtat = (Element) rootNodes.item(i);
                   if(corpsEtat.getAttribute("idCorpsEtat").equals(idCorpsEtat.toString())){
                       rootNodes.item(i).appendChild(baliseCategorie);
-                      existenceCorpsEtat = true;
+                      testInsertion = true;
                       break;
                   }
               } 			
@@ -754,7 +750,7 @@ public class Service {
             //On écrit par dessus l'ancien XML
             projetXMLDao.saveXMLContent(xml, uri);
             
-            if(existenceCorpsEtat){
+            if(testInsertion){
                 resultat = true; //Si on est arrivé jusque là alors pas d'erreur
             }
         } catch (Exception ex) {
@@ -766,13 +762,126 @@ public class Service {
     }
     
     //TO DO - Ajoute un champ Famille dans le XML
-    public Boolean AjouterFamille(Long idProjet, Long idFamille){
-        return null;
+    public Boolean AjouterFamille(Long idProjet, Long idCorpsEtat, Long idCategorie, Long idFamille){
+        JpaUtil.creerContextePersistance();
+        Boolean resultat = false;
+        Boolean testInsertion = false;
+        
+        try {
+            //Obtention du document
+            String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            Document xml = projetXMLDao.ObtenirDocument(uri);
+            Element root = xml.getDocumentElement();
+            //Création balise famille
+            Element baliseFamille = xml.createElement("famille");
+            baliseFamille.setAttribute("idFamille", idFamille.toString());
+            //Création de la balise intitule
+            Element baliseIntitule = xml.createElement("intitule");
+            Famille famille = familleDao.ChercherParId(idFamille);
+            baliseIntitule.appendChild(xml.createTextNode(famille.getIntituleFamille()));
+   
+            baliseFamille.appendChild(baliseIntitule);
+            
+            NodeList rootNodesCorpsEtat = root.getChildNodes();
+            //on parcours le xml à la recherche du corpsEtat parent
+            for (int i = 0; i<rootNodesCorpsEtat.getLength(); i++) {
+                if(rootNodesCorpsEtat.item(i).getNodeName().equals("corpsEtat")) {
+                    Element corpsEtat = (Element) rootNodesCorpsEtat.item(i);
+                    if(corpsEtat.getAttribute("idCorpsEtat").equals(idCorpsEtat.toString())){
+                        //si on est dans le bon corps d'état, on boucle pour trouver la bonne catégorie
+                        NodeList rootNodesCategorie = corpsEtat.getChildNodes();
+                        for(int j = 0; j<rootNodesCategorie.getLength(); j++){
+                            if(rootNodesCategorie.item(j).getNodeName().equals("categorie")) {
+                                Element categorie = (Element) rootNodesCategorie.item(j);
+                                if(categorie.getAttribute("idCategorie").equals(idCategorie.toString())){
+                                    rootNodesCategorie.item(j).appendChild(baliseFamille);
+                                    testInsertion = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                } 			
+            }
+            
+            //On écrit par dessus l'ancien XML
+            projetXMLDao.saveXMLContent(xml, uri);
+            
+            if(testInsertion){
+                resultat = true; //Si on est arrivé jusque là alors pas d'erreur
+            }
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterCategorie(Long idProjet, Long idCategorie)", ex);
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        return resultat;
     }
     
     //TO DO - Ajoute un champ SousFamille dans le XML
-    public Boolean AjouterSousFamille(Long idProjet, Long idSousFamille){
-        return null;
+    public Boolean AjouterSousFamille(Long idProjet, Long idCorpsEtat, Long idCategorie, Long idFamille, Long idSousFamille){
+        JpaUtil.creerContextePersistance();
+        Boolean resultat = false;
+        Boolean testInsertion = false;
+        
+        try {
+            //Obtention du document
+            String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            Document xml = projetXMLDao.ObtenirDocument(uri);
+            Element root = xml.getDocumentElement();
+            //Création balise famille
+            Element baliseSousFamille = xml.createElement("sousFamille");
+            baliseSousFamille.setAttribute("idSousFamille", idSousFamille.toString());
+            //Création de la balise intitule
+            Element baliseIntitule = xml.createElement("intitule");
+            SousFamille sousFamille = sousFamilleDao.ChercherParId(idSousFamille);
+            baliseIntitule.appendChild(xml.createTextNode(sousFamille.getIntituleSousFamille()));
+   
+            baliseSousFamille.appendChild(baliseIntitule);
+            
+            NodeList rootNodesCorpsEtat = root.getChildNodes();
+            //on parcours le xml à la recherche du corpsEtat parent
+            for (int i = 0; i<rootNodesCorpsEtat.getLength(); i++) {
+                if(rootNodesCorpsEtat.item(i).getNodeName().equals("corpsEtat")) {
+                    Element corpsEtat = (Element) rootNodesCorpsEtat.item(i);
+                    if(corpsEtat.getAttribute("idCorpsEtat").equals(idCorpsEtat.toString())){
+                        //si on est dans le bon corps d'état, on boucle pour trouver la bonne catégorie
+                        NodeList rootNodesCategorie = corpsEtat.getChildNodes();
+                        for(int j = 0; j<rootNodesCategorie.getLength(); j++){
+                            if(rootNodesCategorie.item(j).getNodeName().equals("categorie")) {
+                                Element categorie = (Element) rootNodesCategorie.item(j);
+                                if(categorie.getAttribute("idCategorie").equals(idCategorie.toString())){
+                                    //si on est dans le bon corps d'état, on boucle pour trouver la bonne catégorie
+                                    NodeList rootNodesFamille = categorie.getChildNodes();
+                                    for(int k = 0; k<rootNodesFamille.getLength(); k++){
+                                        if(rootNodesFamille.item(k).getNodeName().equals("famille")) {
+                                            Element famille = (Element) rootNodesFamille.item(k);
+                                            if(famille.getAttribute("idFamille").equals(idFamille.toString())){
+                                                rootNodesFamille.item(k).appendChild(baliseSousFamille);
+                                                testInsertion = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } 			
+            }
+            
+            //On écrit par dessus l'ancien XML
+            projetXMLDao.saveXMLContent(xml, uri);
+            
+            if(testInsertion){
+                resultat = true; //Si on est arrivé jusque là alors pas d'erreur
+            }
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterCategorie(Long idProjet, Long idCategorie)", ex);
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        return resultat;
     }
     
     //TO DO - Ajoute un ouvrage ou generique dans une sous famille
