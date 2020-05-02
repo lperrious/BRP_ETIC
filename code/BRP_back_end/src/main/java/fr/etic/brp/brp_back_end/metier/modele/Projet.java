@@ -3,6 +3,7 @@ package fr.etic.brp.brp_back_end.metier.modele;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -40,6 +41,8 @@ public class Projet implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idProjet;
+    @Column(unique = true)
+    private String refBRP;
     private String nomProjet;
     private TypeMarche typeMarche;
     private TypeConstruction typeConstruction;
@@ -60,11 +63,20 @@ public class Projet implements Serializable {
 
     public Projet(String nomProjet) {
         this.nomProjet = nomProjet;
+        this.refBRP = null;
         this.categorieConstruction = null;
         this.coeffAdapt = null;
         this.coeffRaccordement = null;
         this.datePrixRef = null;
         this.idProjet = null;
+    }
+
+    public String getRefBRP() {
+        return refBRP;
+    }
+
+    public void setRefBRP(String refBRP) {
+        this.refBRP = refBRP;
     }
 
     public CoeffRaccordement getCoeffRaccordement() {
@@ -145,6 +157,6 @@ public class Projet implements Serializable {
 
     @Override
     public String toString() {
-        return "Projet{" + "idProjet=" + idProjet + ", nomProjet=" + nomProjet + ", typeMarche=" + typeMarche + ", typeConstruction=" + typeConstruction + ", typeLot=" + typeLot + ", site=" + site + ", datePrixRef=" + datePrixRef + ", coeffAdapt=" + coeffAdapt + ", coeffRaccordement=" + coeffRaccordement + ", categorieConstruction=" + categorieConstruction + '}';
-    } 
+        return "Projet{" + "idProjet=" + idProjet + ", refBRP=" + refBRP + ", nomProjet=" + nomProjet + ", typeMarche=" + typeMarche + ", typeConstruction=" + typeConstruction + ", typeLot=" + typeLot + ", site=" + site + ", datePrixRef=" + datePrixRef + ", coeffAdapt=" + coeffAdapt + ", coeffRaccordement=" + coeffRaccordement + ", categorieConstruction=" + categorieConstruction + '}';
+    }
 }

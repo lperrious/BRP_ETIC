@@ -111,6 +111,7 @@ public class Main {
 //        testerSupprimerCategorie();
 //        testerSupprimerFamille();
 //        testerSupprimerSousFamille();
+        testerSupprimerDescriptif();
         
       //----------tests-secondaires------//
       
@@ -1240,6 +1241,29 @@ public class Main {
         }
         
         //idSousFamille n'existe pas/plus -> echec (comme prevu)
+    }
+    
+    public static void testerSupprimerDescriptif() {
+        
+        System.out.println();
+        System.out.println("**** testerSupprimerDescriptif() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        
+        //Doit fonctionner
+        Long idProjet = 1L;
+        Long idDescriptif = 1L;
+        
+        Boolean resultat = service.SupprimerDescriptif(idProjet, idDescriptif);
+        if(resultat)
+        {
+            System.out.println("Edition avec succès du projet n°" + idProjet);
+        } else {
+            System.out.println("Erreur d'édition du projet n°" + idProjet);
+        }
+        
+        //idDescriptif n'existe pas/plus -> echec (comme prevu)
     }
     
                 //-----------------------//

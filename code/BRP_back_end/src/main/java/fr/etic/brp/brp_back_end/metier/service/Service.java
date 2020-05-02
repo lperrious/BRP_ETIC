@@ -8,15 +8,12 @@ import fr.etic.brp.brp_back_end.dao.CategorieDao;
 import fr.etic.brp.brp_back_end.dao.CoeffRaccordementDao;
 import fr.etic.brp.brp_back_end.dao.CorpsEtatDao;
 import fr.etic.brp.brp_back_end.dao.DescriptifDao;
-import fr.etic.brp.brp_back_end.dao.DomUtil;
-import static fr.etic.brp.brp_back_end.dao.DomUtil.builder;
 import fr.etic.brp.brp_back_end.dao.FamilleDao;
 import fr.etic.brp.brp_back_end.dao.JpaUtil;
 import fr.etic.brp.brp_back_end.dao.OperateurDao;
 import fr.etic.brp.brp_back_end.dao.PrestationDao;
 import fr.etic.brp.brp_back_end.dao.ProjetDao;
 import fr.etic.brp.brp_back_end.dao.ProjetXMLDao;
-import fr.etic.brp.brp_back_end.dao.SimpleErrorHandler;
 import fr.etic.brp.brp_back_end.dao.SousCategorieConstructionDao;
 import fr.etic.brp.brp_back_end.dao.SousFamilleDao;
 import fr.etic.brp.brp_back_end.metier.modele.BasePrixRef;
@@ -32,26 +29,15 @@ import fr.etic.brp.brp_back_end.metier.modele.Prestation;
 import fr.etic.brp.brp_back_end.metier.modele.Projet;
 import fr.etic.brp.brp_back_end.metier.modele.SousCategorieConstruction;
 import fr.etic.brp.brp_back_end.metier.modele.SousFamille;
-import java.io.File;
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.dom.DOMSource;
-import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.ErrorHandler;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
 
 /**
  *
@@ -674,7 +660,7 @@ public class Service {
             return false;
     }    
             
-    //TO DO - Permet d'avoir une vue de synthèse des couts - Demander à Benoit des précisions sur la synthèse des couts (par corps d'etat ou autre chose ?)
+    //TO DO - Permet d'avoir une vue de synthèse des couts à chaque étage de l'arborescence
     public Double CoutSynthese(Long idProjet, Long idCorpsEtat) {
         //recuperer coeffAdapt & coeffRaccordement dans la table projet
         //Récuperer prixUnitaire et quantite dans le XML
@@ -1027,14 +1013,114 @@ public class Service {
         return resultat;
     }
     
-    //TO DO - Supprime un descriptif. Attention prestation: s'il n'y plus de prestation dans un ouvrage, remettre prixOuvrage
+    //TO DO - Mettre a jour la correspondance de l'id -> Dans les TESTS du main !
+    //TO DO - Supprime un descriptif
     public Boolean SupprimerDescriptif(Long idProjet, Long idDescriptif){
-        return null;
+        Boolean testSuppression = false;
+        Boolean resultat = false;
+        
+        try {
+            //Obtention du document
+            String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            Document xml = projetXMLDao.ObtenirDocument(uri);
+            
+            NodeList listNodes = xml.getElementsByTagName("descriptif");
+            Boolean testPrestation = false;
+            //on parcours la liste à le recherche de celui à éliminer
+            for (int i = 0; i < listNodes.getLength(); i++) {
+                Element descriptif = (Element) listNodes.item(i);
+                Node ouvrage = descriptif.getParentNode(); //On met de côté le parent car on peut en avoir besoin
+                if(descriptif.getAttribute("idDescriptif").equals(idDescriptif.toString())){
+                    if(listNodes.item(i).getNodeName().equals("prestation"))
+                        testPrestation = true;
+                    descriptif.getParentNode().removeChild(descriptif);
+                    testSuppression = true;
+                    
+                    //Si prestation supprimée -> s'il n'y plus de prestation dans un ouvrage, remettre prixOuvrage
+                    if(testPrestation){
+                        testSuppression = false;
+                        NodeList listeEnfantOuvrage = ouvrage.getChildNodes();
+                        if(listeEnfantOuvrage.getLength() == 0){
+                            //On remet donc les balises unite, prixUnitaire et une ligneChiffrage dans le XML
+                            Element baliseOuvrage = (Element) ouvrage;
+                            
+                            Element baliseUnite = xml.createElement("unite");
+                            baliseOuvrage.appendChild(baliseUnite);
+                            
+                            Element balisePrixUnitaire = xml.createElement("prixUnitaire");
+                            baliseOuvrage.appendChild(balisePrixUnitaire);
+                            
+                            Element baliseLocalisation = xml.createElement("localisation");
+                            Element baliseQuantite = xml.createElement("quantite");
+                            Element baliseLigneChiffrage = xml.createElement("ligneChiffrage");
+                            baliseLigneChiffrage.setAttribute("idLigneChiffrage", "1");
+                            baliseLigneChiffrage.appendChild(baliseLocalisation);
+                            baliseLigneChiffrage.appendChild(baliseQuantite);
+                            baliseOuvrage.appendChild(baliseLigneChiffrage);
+                            
+                            testSuppression = true;
+                        }
+                    }
+                }
+            }
+            
+            //On écrit par dessus l'ancien XML
+            projetXMLDao.saveXMLContent(xml, uri);
+            
+            if(testSuppression){
+                resultat = true; //Si on est arrivé jusque là alors pas d'erreur
+            }
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service SupprimerDescriptif(Long idProjet, Long idDescriptif)", ex);
+        }
+        return resultat;
     }
     
     //TO DO - Supprime un champ Localisation ainsi qu'un champ Quantite dans le XML
-    public Boolean SupprimerLigneChiffrage(Long idProjet, Long idDescriptif){
-        return null;
+    public Boolean SupprimerLigneChiffrage(Long idProjet, Long idDescriptif, Long idLigneChiffrage){
+        Boolean testSuppression = false;
+        Boolean resultat = false;
+        
+        try {
+            //Obtention du document
+            String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            Document xml = projetXMLDao.ObtenirDocument(uri);
+            
+            NodeList listeDescriptif = xml.getElementsByTagName("descriptif");
+            //on parcours la liste à le recherche de celui ou se trouve la ligne à supprimer
+            for (int i = 0; i < listeDescriptif.getLength(); i++) {
+                Element descriptif = (Element) listeDescriptif.item(i);
+                if(descriptif.getAttribute("idDescriptif").equals(idDescriptif.toString())){
+                    NodeList listeEnfantOuvrage = listeDescriptif.item(i).getChildNodes();
+                    Element ligneChiffrageASupprimer = null;
+                    int nbLigneChiffrage = 0;
+                    for(int j = 0; j < listeEnfantOuvrage.getLength(); j++){
+                        if(listeEnfantOuvrage.item(j).getNodeName().equals("ligneChiffrage")){
+                            nbLigneChiffrage++;
+                            Element ligneChiffrage = (Element) listeEnfantOuvrage.item(j);
+                            if(ligneChiffrage.getAttribute("idLigneChiffrage").equals(idLigneChiffrage.toString()))
+                            {
+                                ligneChiffrageASupprimer = ligneChiffrage;
+                            }
+                        }
+                    }
+                    if(nbLigneChiffrage > 1){ //On ne supprime pas la ligne s'il en reste qu'une
+                        ligneChiffrageASupprimer.getParentNode().removeChild(ligneChiffrageASupprimer);
+                        testSuppression = true;
+                    }
+                }
+            }
+            
+            //On écrit par dessus l'ancien XML
+            projetXMLDao.saveXMLContent(xml, uri);
+            
+            if(testSuppression){
+                resultat = true; //Si on est arrivé jusque là alors pas d'erreur
+            }
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service SupprimerLigneChiffrage(Long idProjet, Long idDescriptif)", ex);
+        }
+        return resultat;
     }
     
     //TO DO - Modifie la descripition seulement dans le XML
