@@ -16,7 +16,7 @@ public class BasePrixRef implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idBasePrixRef;
-    private String annee;
+    private Integer annee;
     private Double BT;
     private Double qteInf;
     private Double qteSup;
@@ -26,7 +26,7 @@ public class BasePrixRef implements Serializable {
     public BasePrixRef() {
     }
 
-    public BasePrixRef(String annee, Double BT, Double qteInf, Double qteSup, String unite, Double prixUnitaire) {
+    public BasePrixRef(Integer annee, Double BT, Double qteInf, Double qteSup, String unite, Double prixUnitaire) {
         this.annee = annee;
         this.BT = BT;
         this.qteInf = qteInf;
@@ -39,11 +39,11 @@ public class BasePrixRef implements Serializable {
         return idBasePrixRef;
     }
 
-    public String getAnnee() {
+    public Integer getAnnee() {
         return annee;
     }
 
-    public void setAnnee(String annee) {
+    public void setAnnee(Integer annee) {
         this.annee = annee;
     }
 

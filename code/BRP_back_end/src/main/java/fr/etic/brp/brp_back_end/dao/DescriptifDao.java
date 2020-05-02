@@ -16,9 +16,9 @@ public class DescriptifDao {
         em.persist(descriptif);
     }
     
-    public Descriptif ChercherParId(Long idCoeffRaccordement) {
+    public Descriptif ChercherParId(String idDescriptif) {
         EntityManager em = JpaUtil.obtenirContextePersistance();
-        return em.find(Descriptif.class, idCoeffRaccordement); // renvoie null si l'identifiant n'existe pas
+        return em.find(Descriptif.class, idDescriptif); // renvoie null si l'identifiant n'existe pas
     }
     
     public List<Descriptif> ListerDescriptifs() {

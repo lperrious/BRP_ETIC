@@ -107,11 +107,13 @@ public class Main {
         testerAjouterCategorie();
         testerAjouterFamille();
         testerAjouterSousFamille();
+        testerAjouterDescriptif();
 //        testerSupprimerCorpsEtat();
 //        testerSupprimerCategorie();
 //        testerSupprimerFamille();
 //        testerSupprimerSousFamille();
-        testerSupprimerDescriptif();
+//        testerSupprimerDescriptif();
+
         
       //----------tests-secondaires------//
       
@@ -135,7 +137,7 @@ public class Main {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("BRP_PU");
         EntityManager em = emf.createEntityManager();        
         
-        BasePrixRef basePrixRef = new BasePrixRef("anne1", 1.0, 2.0, 3.0, "ml", 4.0);
+        BasePrixRef basePrixRef = new BasePrixRef(2018, 1.0, 1.0, 3.0, "m2", 4.0);
         System.out.println("** BasePrixRef avant persistance: ");
         afficherBasePrixRef(basePrixRef);
         System.out.println();
@@ -349,7 +351,7 @@ public class Main {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("BRP_PU");
         EntityManager em = emf.createEntityManager();        
         
-        Generique generique1 = new Generique("idDesceriptif1", "nomDescriptif1", "descriptionGenerique1", "courteDescriptionGenerique1");
+        Generique generique1 = new Generique("idDescriptif1", "nomDescriptif1", "descriptionGenerique1", "courteDescriptionGenerique1");
         Ouvrage ouvrage1 = new Ouvrage("idOuvrage1", "nomOuvrage1", "descriptionOuvrage1", "courteDescriptionOuvrage1");
         Prestation prestation1 = new Prestation("idPrestation1", "nomPrestation1", "descriptionPrestation1", "courteDescriptionPrestation1");
          
@@ -362,6 +364,7 @@ public class Main {
         try {
             em.getTransaction().begin();
             em.persist(generique1);
+            //lier avec la base de PRIX? ou faire ca dans initialiserBasePrixRef()?
             em.persist(ouvrage1);
             em.persist(prestation1);
             em.getTransaction().commit();
@@ -1105,19 +1108,17 @@ public class Main {
         
         //Doit fonctionner (sinsère uniquement dans le premier corpsEtat)
         Long idProjet = 1L;
-        Long idCorpsEtat = 2L;
         Long idCategorie = 1L;
         Long idFamille = 1L;
         
-        Boolean resultat = service.AjouterFamille(idProjet, idCorpsEtat, idCategorie, idFamille);
+        Boolean resultat = service.AjouterFamille(idProjet, idCategorie, idFamille);
         if(resultat){
-            System.out.println("Edition avec succès du projet n°" + idProjet+", corpsEtat n°"+idCorpsEtat+", categorie n°"+idCategorie);
+            System.out.println("Edition avec succès du projet n°" + idProjet+", categorie n°"+idCategorie);
         } else {
-            System.out.println("Erreur d'édition du projet n°" + idProjet+", corpsEtat n°"+idCorpsEtat+", categorie n°"+idCategorie);
+            System.out.println("Erreur d'édition du projet n°" + idProjet+", categorie n°"+idCategorie);
         }
         
         //idProjet n'existe pas -> echec (comme prevu)
-        //idCorpsEtat n'existe pas -> echec (comme prevu)
         //idCategorie n'existe pas -> echec (comme prevu)
         //idFamille n'existe pas -> echec (comme prevu)
     }
@@ -1132,25 +1133,46 @@ public class Main {
         
         //Doit fonctionner (sinsère uniquement dans le premier corpsEtat)
         Long idProjet = 1L;
-        Long idCorpsEtat = 2L;
-        Long idCategorie = 1L;
         Long idFamille = 1L;
         Long idSousFamille = 1L;
         
-        Boolean resultat = service.AjouterSousFamille(idProjet, idCorpsEtat, idCategorie, idFamille, idSousFamille);
+        Boolean resultat = service.AjouterSousFamille(idProjet, idFamille, idSousFamille);
         if(resultat){
-            System.out.println("Edition avec succès du projet n°" + idProjet+", corpsEtat n°"+idCorpsEtat+", categorie n°"+idCategorie+", famille n°"+idFamille);
+            System.out.println("Edition avec succès du projet n°" + idProjet+", famille n°"+idFamille);
         } else {
-            System.out.println("Erreur d'édition du projet n°" + idProjet+", corpsEtat n°"+idCorpsEtat+", categorie n°"+idCategorie+", famille n°"+idFamille);
+            System.out.println("Erreur d'édition du projet n°" + idProjet+", famille n°"+idFamille);
         }
         
         //idProjet n'existe pas -> echec (comme prevu)
-        //idCorpsEtat n'existe pas -> echec (comme prevu)
-        //idCategorie n'existe pas -> echec (comme prevu)
         //idFamille n'existe pas -> echec (comme prevu)
         //idSousFamille n'existe pas -> echec (comme prevu)
     }
     
+
+    public static void testerAjouterDescriptif() {
+        
+        System.out.println();
+        System.out.println("**** testerAjouterDescriptif() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        
+        //Doit fonctionner (sinsère uniquement dans le premier corpsEtat)
+        Long idProjet = 1L;
+        Long idSousFamille = 1L;
+        String idDescriptif = "idOuvrage1";
+        
+        Boolean resultat = service.AjouterDescriptif(idProjet, idSousFamille, idDescriptif);
+        if(resultat){
+            System.out.println("Edition avec succès du projet n°" + idProjet+", sousFamille n°"+idSousFamille);
+        } else {
+            System.out.println("Erreur d'édition du projet n°" + idProjet+", sousFamille n°"+idSousFamille);
+        }
+        
+        //idProjet n'existe pas -> echec (comme prevu)
+        //idSousFamille n'existe pas -> echec (comme prevu)
+    }
+        
     public static void testerSupprimerCorpsEtat() {
         
         System.out.println();
