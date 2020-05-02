@@ -1174,8 +1174,8 @@ public class Service {
     }
     
     //TO DO - Mettre a jour la correspondance de l'id -> Dans les TESTS du main !
-    //TO DO - Supprime un descriptif
     public Boolean SupprimerDescriptif(Long idProjet, String idDescriptif){
+        JpaUtil.creerContextePersistance();
         Boolean testSuppression = false;
         Boolean resultat = false;
         
@@ -1201,7 +1201,7 @@ public class Service {
                             Element prestation = (Element) enfantsOuvrage.item(k);
                             if(prestation.getAttribute("idDescriptif").equals(idDescriptif)){
                                 ouvrageEnfantDetruit = (Element) enfantsSousFamille.item(j);
-                                descriptif.getParentNode().removeChild(descriptif);
+                                prestation.getParentNode().removeChild(prestation);
                                 testPrestation = true; //On devra donc checker si c'est la dernière prestation
                             }
                         }   
@@ -1213,14 +1213,14 @@ public class Service {
             if(testPrestation && ouvrageEnfantDetruit != null){
                 testSuppression = false;
                 NodeList listeEnfantOuvrage = ouvrageEnfantDetruit.getChildNodes();
-                if(listeEnfantOuvrage.getLength() == 0){
+                if(listeEnfantOuvrage.getLength() == 3){ //S'il ne reste plus que nomDescriptif / description / courteDescription
                     //On remet donc les balises unite, prixUnitaire et une ligneChiffrage dans le XML
                     Integer annee_max = 0;
                     int indiceRef = -1;
                     Double quantite = 1.0;
-
-                    Ouvrage ouvrage = (Ouvrage) descriptifDao.ChercherParId(ouvrageEnfantDetruit.getAttribute("idOuvrage")); 
-                    List<BasePrixRef> listeBasePrixRef = ouvrage.getListeBasePrixRefOuvrage();          
+                    
+                    Ouvrage ouvrage = (Ouvrage) descriptifDao.ChercherParId(ouvrageEnfantDetruit.getAttribute("idDescriptif"));
+                    List<BasePrixRef> listeBasePrixRef = ouvrage.getListeBasePrixRefOuvrage();        
 
                     for(int l = 0; l < listeBasePrixRef.size(); l++){
                         if(listeBasePrixRef.get(l).getQteInf() <= quantite && listeBasePrixRef.get(l).getQteSup() >= quantite){
@@ -1269,11 +1269,13 @@ public class Service {
             }
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service SupprimerDescriptif(Long idProjet, Long idDescriptif)", ex);
+        } finally {
+            JpaUtil.fermerContextePersistance();
         }
         return resultat;
     }
     
-    //TO DO - Supprime un champ Localisation ainsi qu'un champ Quantite dans le XML
+    //TO DO - A Tester une fois qu'ajouterLigneChiffrage sera faite
     public Boolean SupprimerLigneChiffrage(Long idProjet, String idDescriptif, String idLigneChiffrage){
         Boolean testSuppression = false;
         Boolean resultat = false;
@@ -1287,7 +1289,7 @@ public class Service {
             Element ligneChiffrageASupprimer = null;
             //Element descriptifLigneASupprimer = null;
             int nbLigneChiffrage = 0;
-            //on parcours la liste à le recherche de celui à éliminer
+            //on parcours la liste à la recherche de celui à éliminer
             for (int i = 0; i < listeSousFamille.getLength(); i++) {
                 NodeList enfantsSousFamille = listeSousFamille.item(i).getChildNodes();
                 for(int j = 0; j < enfantsSousFamille.getLength(); j++){
@@ -1298,7 +1300,7 @@ public class Service {
                             if(enfantsOuvrage.item(k).getNodeName().equals("ligneChiffrage")){
                                 nbLigneChiffrage++; //Utile pour savoir si c'est pas la dernière ligneChiffrage
                                 Element ligneChiffrage = (Element) enfantsOuvrage.item(k);
-                                if(ligneChiffrage.getAttribute("idLigneChiffrage").equals(idLigneChiffrage)){
+                                if(ligneChiffrage.getAttribute("idLigneChiffrage").equals(idLigneChiffrage)){   
                                     ligneChiffrageASupprimer = ligneChiffrage;
                                     //descriptifLigneASupprimer = (Element) enfantsSousFamille.item(i);
                                 }
@@ -1332,6 +1334,8 @@ public class Service {
             if(nbLigneChiffrage > 1 && ligneChiffrageASupprimer != null){
                 ligneChiffrageASupprimer.getParentNode().removeChild(ligneChiffrageASupprimer);
                 testSuppression = true;
+            } else {
+                System.out.println("Il ne reste qu'une ligne !");
             }
 
             //On écrit par dessus l'ancien XML

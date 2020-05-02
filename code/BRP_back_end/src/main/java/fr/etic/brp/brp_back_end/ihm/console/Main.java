@@ -1,7 +1,6 @@
 package fr.etic.brp.brp_back_end.ihm.console;
 
 import com.google.common.hash.Hashing;
-import fr.etic.brp.brp_back_end.dao.BasePrixRefDao;
 import fr.etic.brp.brp_back_end.dao.DomUtil;
 import fr.etic.brp.brp_back_end.dao.JpaUtil;
 import fr.etic.brp.brp_back_end.metier.modele.BasePrixRef;
@@ -114,8 +113,8 @@ public class Main {
 //        testerSupprimerCategorie();
 //        testerSupprimerFamille();
 //        testerSupprimerSousFamille();
-//        testerSupprimerDescriptif();
-        testerSupprimerLigneChiffrage();
+        testerSupprimerDescriptif();
+//        testerSupprimerLigneChiffrage();
 
         
       //----------tests-secondaires------//
@@ -1323,7 +1322,7 @@ public class Main {
         
         //Doit fonctionner
         Long idProjet = 1L;
-        String idDescriptif = "idOuvrage1";
+        String idDescriptif = "idPrestation1";
         
         Boolean resultat = service.SupprimerDescriptif(idProjet, idDescriptif);
         if(resultat)
@@ -1332,8 +1331,12 @@ public class Main {
         } else {
             System.out.println("Erreur d'édition du projet n°" + idProjet);
         }
+        
+        //test avec prestation ou ouvrage : ok
+        //test pas de descriptif existant : ok
     }
     
+    //TO DO : plus de tests
     public static void testerSupprimerLigneChiffrage() {
         
         System.out.println();
@@ -1344,7 +1347,7 @@ public class Main {
         
         //Doit fonctionner
         Long idProjet = 1L;
-        String idDescriptif = "idOuvrage1";
+        String idDescriptif = "idPrestation1";
         String idLigneChiffrage = "1";
         
         Boolean resultat = service.SupprimerLigneChiffrage(idProjet, idDescriptif, idLigneChiffrage);
