@@ -837,7 +837,7 @@ public class Service {
     }
     
     //TO DO - Ajoute un ouvrage ou generique dans une sous famille
-    public Boolean AjouterDescriptif(Long idProjet, Long idSousFamille, String idDescriptif){
+    public Boolean AjouterOuvrageOuGenerique(Long idProjet, Long idSousFamille, String idDescriptif){
         JpaUtil.creerContextePersistance();
         Boolean resultat = false;
         Boolean testInsertion = false;
@@ -874,26 +874,27 @@ public class Service {
             
             //si c'est un ouvrage, on ajoute en plus tout ce qui est relatif aux prix
             if(descriptif instanceof Ouvrage){
-                Integer annee_max = 0, indiceRef = 0;
-                Integer quantite = 1;
+                Integer annee_max = 0;
+                int indiceRef = -1;
+                Double quantite = 1.0;
                 
                 Ouvrage ouvrage = (Ouvrage) descriptifDao.ChercherParId(idDescriptif); 
-               // List<BasePrixRef> listeBasePrixRef = ouvrage.getListeBasePrixRefOuvrage();          PROBLEM: le lien ne se crée pas
+                List<BasePrixRef> listeBasePrixRef = ouvrage.getListeBasePrixRefOuvrage();          
                 
-//                for(int i = 0; i<listeBasePrixRef.size(); i++){
-//                    if(listeBasePrixRef.get(i).getQteInf() <= quantite && listeBasePrixRef.get(i).getQteSup() >= quantite){
-//                        //on se trouve dans la bonne fourchette de quantite, on test l'annee
-//                        if(listeBasePrixRef.get(i).getAnnee() > annee_max){
-//                            annee_max = listeBasePrixRef.get(i).getAnnee();
-//                            indiceRef = i;
-//                        }
-//                    }
-//                }
+                for(int i = 0; i<listeBasePrixRef.size(); i++){
+                    if(listeBasePrixRef.get(i).getQteInf() <= quantite && listeBasePrixRef.get(i).getQteSup() >= quantite){
+                        //on se trouve dans la bonne fourchette de quantite, on test l'annee
+                        if(listeBasePrixRef.get(i).getAnnee() > annee_max){
+                            annee_max = listeBasePrixRef.get(i).getAnnee();
+                            indiceRef = i;
+                        }
+                    }
+                }
                 
                 Element baliseUnite = xml.createElement("unite");                                                                       
-//                baliseUnite.appendChild(xml.createTextNode(listeBasePrixRef.get(indiceRef).getUnite())); 
+                baliseUnite.appendChild(xml.createTextNode(listeBasePrixRef.get(indiceRef).getUnite())); 
                 Element balisePrixUnitaire = xml.createElement("prixUnitaire");                                                                       
-//                balisePrixUnitaire.appendChild(xml.createTextNode(listeBasePrixRef.get(indiceRef).getPrixUnitaire().toString())); 
+                balisePrixUnitaire.appendChild(xml.createTextNode(listeBasePrixRef.get(indiceRef).getPrixUnitaire().toString())); 
                 
                 Element baliseLigneChiffrage = xml.createElement("ligneChiffrage"); 
                 baliseLigneChiffrage.setAttribute("idLigneChiffrage", "1");
@@ -1073,7 +1074,7 @@ public class Service {
     
     //TO DO - Mettre a jour la correspondance de l'id -> Dans les TESTS du main !
     //TO DO - Supprime un descriptif
-    public Boolean SupprimerDescriptif(Long idProjet, Long idDescriptif){
+    public Boolean SupprimerDescriptif(Long idProjet, String idDescriptif){
         Boolean testSuppression = false;
         Boolean resultat = false;
         
@@ -1082,44 +1083,81 @@ public class Service {
             String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
             Document xml = projetXMLDao.ObtenirDocument(uri);
             
-            NodeList listNodes = xml.getElementsByTagName("descriptif");
+            NodeList listeSousFamille = xml.getElementsByTagName("sousFamille"); //On doit parcourir les sousFamilles car pas de balise descriptif
             Boolean testPrestation = false;
+            Element ouvrageEnfantDetruit = null;
             //on parcours la liste à le recherche de celui à éliminer
-            for (int i = 0; i < listNodes.getLength(); i++) {
-                Element descriptif = (Element) listNodes.item(i);
-                Node ouvrage = descriptif.getParentNode(); //On met de côté le parent car on peut en avoir besoin
-                if(descriptif.getAttribute("idDescriptif").equals(idDescriptif.toString())){
-                    if(listNodes.item(i).getNodeName().equals("prestation"))
-                        testPrestation = true;
-                    descriptif.getParentNode().removeChild(descriptif);
-                    testSuppression = true;
-                    
-                    //Si prestation supprimée -> s'il n'y plus de prestation dans un ouvrage, remettre prixOuvrage
-                    if(testPrestation){
-                        testSuppression = false;
-                        NodeList listeEnfantOuvrage = ouvrage.getChildNodes();
-                        if(listeEnfantOuvrage.getLength() == 0){
-                            //On remet donc les balises unite, prixUnitaire et une ligneChiffrage dans le XML
-                            Element baliseOuvrage = (Element) ouvrage;
-                            
-                            Element baliseUnite = xml.createElement("unite");
-                            baliseOuvrage.appendChild(baliseUnite);
-                            
-                            Element balisePrixUnitaire = xml.createElement("prixUnitaire");
-                            baliseOuvrage.appendChild(balisePrixUnitaire);
-                            
-                            Element baliseLocalisation = xml.createElement("localisation");
-                            Element baliseQuantite = xml.createElement("quantite");
-                            Element baliseLigneChiffrage = xml.createElement("ligneChiffrage");
-                            baliseLigneChiffrage.setAttribute("idLigneChiffrage", "1");
-                            baliseLigneChiffrage.appendChild(baliseLocalisation);
-                            baliseLigneChiffrage.appendChild(baliseQuantite);
-                            baliseOuvrage.appendChild(baliseLigneChiffrage);
-                            
-                            testSuppression = true;
+            for (int i = 0; i < listeSousFamille.getLength(); i++) {
+                NodeList enfantsSousFamille = listeSousFamille.item(i).getChildNodes();
+                for(int j = 0; j < enfantsSousFamille.getLength(); j++){
+                    Element descriptif = (Element) enfantsSousFamille.item(j);
+                    if(descriptif.getAttribute("idDescriptif").equals(idDescriptif)){ //Si ça match direct alors Generique ou Ouvrage -> pas de test supplémentaire
+                        descriptif.getParentNode().removeChild(descriptif);
+                        testSuppression = true;
+                    } else if (enfantsSousFamille.item(j).getNodeName().equals("ouvrage")){
+                        NodeList enfantsOuvrage = enfantsSousFamille.item(j).getChildNodes();
+                        for(int k = 0; k < enfantsOuvrage.getLength(); k++){
+                            Element prestation = (Element) enfantsOuvrage.item(k);
+                            if(prestation.getAttribute("idDescriptif").equals(idDescriptif)){
+                                ouvrageEnfantDetruit = (Element) enfantsSousFamille.item(j);
+                                descriptif.getParentNode().removeChild(descriptif);
+                                testPrestation = true; //On devra donc checker si c'est la dernière prestation
+                            }
+                        }   
+                    }
+                }    
+            }
+            
+            //Si prestation supprimée -> s'il n'y plus de prestation dans un ouvrage, remettre les infos BasePrixRef
+            if(testPrestation && ouvrageEnfantDetruit != null){
+                testSuppression = false;
+                NodeList listeEnfantOuvrage = ouvrageEnfantDetruit.getChildNodes();
+                if(listeEnfantOuvrage.getLength() == 0){
+                    //On remet donc les balises unite, prixUnitaire et une ligneChiffrage dans le XML
+                    Integer annee_max = 0;
+                    int indiceRef = -1;
+                    Double quantite = 1.0;
+
+                    Ouvrage ouvrage = (Ouvrage) descriptifDao.ChercherParId(ouvrageEnfantDetruit.getAttribute("idOuvrage")); 
+                    List<BasePrixRef> listeBasePrixRef = ouvrage.getListeBasePrixRefOuvrage();          
+
+                    for(int l = 0; l < listeBasePrixRef.size(); l++){
+                        if(listeBasePrixRef.get(l).getQteInf() <= quantite && listeBasePrixRef.get(l).getQteSup() >= quantite){
+                            //on se trouve dans la bonne fourchette de quantite, on test l'annee
+                            if(listeBasePrixRef.get(l).getAnnee() > annee_max){
+                                annee_max = listeBasePrixRef.get(l).getAnnee();
+                                indiceRef = l;
+                            }
                         }
                     }
-                }
+
+                    //Balise unite
+                    Element baliseUnite = xml.createElement("unite");                                                                       
+                    baliseUnite.appendChild(xml.createTextNode(listeBasePrixRef.get(indiceRef).getUnite()));
+
+                    //Balise prixUnitaire
+                    Element balisePrixUnitaire = xml.createElement("prixUnitaire");                                                                       
+                    balisePrixUnitaire.appendChild(xml.createTextNode(listeBasePrixRef.get(indiceRef).getPrixUnitaire().toString())); 
+
+                    //Balise ligneChiffrage
+                    Element baliseLigneChiffrage = xml.createElement("ligneChiffrage"); 
+                    baliseLigneChiffrage.setAttribute("idLigneChiffrage", "1");
+                    //Balise localisation
+                    Element baliseLocalisation = xml.createElement("localisation");
+                    //Balise quantite
+                    Element baliseQuantite = xml.createElement("quantite");
+                    baliseQuantite.appendChild(xml.createTextNode(quantite.toString()));
+
+                    baliseLigneChiffrage.appendChild(baliseLocalisation); 
+                    baliseLigneChiffrage.appendChild(baliseQuantite);
+
+
+                    Element baliseOuvrage = (Element) ouvrageEnfantDetruit;
+                    baliseOuvrage.appendChild(baliseUnite);    
+                    baliseOuvrage.appendChild(balisePrixUnitaire); 
+                    baliseOuvrage.appendChild(baliseLigneChiffrage); 
+                }   
+                    testSuppression = true;
             }
             
             //On écrit par dessus l'ancien XML
@@ -1135,7 +1173,7 @@ public class Service {
     }
     
     //TO DO - Supprime un champ Localisation ainsi qu'un champ Quantite dans le XML
-    public Boolean SupprimerLigneChiffrage(Long idProjet, Long idDescriptif, Long idLigneChiffrage){
+    public Boolean SupprimerLigneChiffrage(Long idProjet, String idDescriptif, String idLigneChiffrage){
         Boolean testSuppression = false;
         Boolean resultat = false;
         
@@ -1144,31 +1182,57 @@ public class Service {
             String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
             Document xml = projetXMLDao.ObtenirDocument(uri);
             
-            NodeList listeDescriptif = xml.getElementsByTagName("descriptif");
-            //on parcours la liste à le recherche de celui ou se trouve la ligne à supprimer
-            for (int i = 0; i < listeDescriptif.getLength(); i++) {
-                Element descriptif = (Element) listeDescriptif.item(i);
-                if(descriptif.getAttribute("idDescriptif").equals(idDescriptif.toString())){
-                    NodeList listeEnfantOuvrage = listeDescriptif.item(i).getChildNodes();
-                    Element ligneChiffrageASupprimer = null;
-                    int nbLigneChiffrage = 0;
-                    for(int j = 0; j < listeEnfantOuvrage.getLength(); j++){
-                        if(listeEnfantOuvrage.item(j).getNodeName().equals("ligneChiffrage")){
-                            nbLigneChiffrage++;
-                            Element ligneChiffrage = (Element) listeEnfantOuvrage.item(j);
-                            if(ligneChiffrage.getAttribute("idLigneChiffrage").equals(idLigneChiffrage.toString()))
-                            {
-                                ligneChiffrageASupprimer = ligneChiffrage;
+            NodeList listeSousFamille = xml.getElementsByTagName("sousFamille"); //On doit parcourir les sousFamilles car pas de balise descriptif
+            Element ligneChiffrageASupprimer = null;
+            //Element descriptifLigneASupprimer = null;
+            int nbLigneChiffrage = 0;
+            //on parcours la liste à le recherche de celui à éliminer
+            for (int i = 0; i < listeSousFamille.getLength(); i++) {
+                NodeList enfantsSousFamille = listeSousFamille.item(i).getChildNodes();
+                for(int j = 0; j < enfantsSousFamille.getLength(); j++){
+                    Element descriptif = (Element) enfantsSousFamille.item(j);
+                    if(descriptif.getAttribute("idDescriptif").equals(idDescriptif)){ //Si ça match direct alors Ouvrage -> On va chercher la ligneChiffrage
+                        NodeList enfantsOuvrage = enfantsSousFamille.item(j).getChildNodes();
+                        for(int k = 0; k < enfantsOuvrage.getLength(); k++){
+                            if(enfantsOuvrage.item(k).getNodeName().equals("ligneChiffrage")){
+                                nbLigneChiffrage++; //Utile pour savoir si c'est pas la dernière ligneChiffrage
+                                Element ligneChiffrage = (Element) enfantsOuvrage.item(k);
+                                if(ligneChiffrage.getAttribute("idLigneChiffrage").equals(idLigneChiffrage)){
+                                    ligneChiffrageASupprimer = ligneChiffrage;
+                                    //descriptifLigneASupprimer = (Element) enfantsSousFamille.item(i);
+                                }
                             }
                         }
+                    } else if (enfantsSousFamille.item(j).getNodeName().equals("ouvrage")){
+                        NodeList enfantsOuvrage = enfantsSousFamille.item(j).getChildNodes();
+                        for(int m = 0; m < enfantsOuvrage.getLength(); m++){
+                            if(enfantsOuvrage.item(m).getNodeName().equals("prestation")){
+                                Element prestationAnalyser = (Element) enfantsOuvrage.item(m);
+                                if(prestationAnalyser.getAttribute("idDescriptif").equals(idDescriptif)){
+                                   NodeList enfantsPrestation = enfantsOuvrage.item(m).getChildNodes();
+                                    for(int l = 0; l < enfantsPrestation.getLength(); l++){
+                                        if(enfantsPrestation.item(l).getNodeName().equals("ligneChiffrage")){
+                                           nbLigneChiffrage++;
+                                           Element ligneChiffrage = (Element) enfantsPrestation.item(l);
+                                            if(ligneChiffrage.getAttribute("idLigneChiffrage").equals(idLigneChiffrage)){
+                                                ligneChiffrageASupprimer = ligneChiffrage;
+                                                //descriptifLigneASupprimer = (Element) enfantsOuvrage.item(m); 
+                                            }
+                                        }
+                                    } 
+                                }
+                            }
+                        }   
                     }
-                    if(nbLigneChiffrage > 1){ //On ne supprime pas la ligne s'il en reste qu'une
-                        ligneChiffrageASupprimer.getParentNode().removeChild(ligneChiffrageASupprimer);
-                        testSuppression = true;
-                    }
-                }
+                }    
             }
             
+            //On vérifie qu'il ne s'agit pas de la dernière ligne avant de supprimer
+            if(nbLigneChiffrage > 1 && ligneChiffrageASupprimer != null){
+                ligneChiffrageASupprimer.getParentNode().removeChild(ligneChiffrageASupprimer);
+                testSuppression = true;
+            }
+
             //On écrit par dessus l'ancien XML
             projetXMLDao.saveXMLContent(xml, uri);
             
@@ -1176,7 +1240,7 @@ public class Service {
                 resultat = true; //Si on est arrivé jusque là alors pas d'erreur
             }
         } catch (Exception ex) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service SupprimerLigneChiffrage(Long idProjet, Long idDescriptif)", ex);
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service SupprimerLigneChiffrage(Long idProjet, String idDescriptif, String idLigneChiffrage)", ex);
         }
         return resultat;
     }

@@ -1,6 +1,7 @@
 package fr.etic.brp.brp_back_end.ihm.console;
 
 import com.google.common.hash.Hashing;
+import fr.etic.brp.brp_back_end.dao.BasePrixRefDao;
 import fr.etic.brp.brp_back_end.dao.DomUtil;
 import fr.etic.brp.brp_back_end.dao.JpaUtil;
 import fr.etic.brp.brp_back_end.metier.modele.BasePrixRef;
@@ -107,12 +108,13 @@ public class Main {
         testerAjouterCategorie();
         testerAjouterFamille();
         testerAjouterSousFamille();
-        testerAjouterDescriptif();
+        testerAjouterOuvrageOuGenerique();
 //        testerSupprimerCorpsEtat();
 //        testerSupprimerCategorie();
 //        testerSupprimerFamille();
 //        testerSupprimerSousFamille();
 //        testerSupprimerDescriptif();
+        testerSupprimerLigneChiffrage();
 
         
       //----------tests-secondaires------//
@@ -137,14 +139,18 @@ public class Main {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("BRP_PU");
         EntityManager em = emf.createEntityManager();        
         
-        BasePrixRef basePrixRef = new BasePrixRef(2018, 1.0, 1.0, 3.0, "m2", 4.0);
+        BasePrixRef basePrixRef = new BasePrixRef(2018, 1.0, 1.0, 4.0, "m2", 10.0);
+        BasePrixRef basePrixRef2 = new BasePrixRef(2017, 1.0, 2.0, 3.0, "m2", 4.0);
         System.out.println("** BasePrixRef avant persistance: ");
         afficherBasePrixRef(basePrixRef);
+        afficherBasePrixRef(basePrixRef2);
         System.out.println();
+        
 
         try {
             em.getTransaction().begin();
             em.persist(basePrixRef);
+            em.persist(basePrixRef2);
             em.getTransaction().commit();
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service InitialiserBasePrixRef()", ex);
@@ -160,6 +166,7 @@ public class Main {
         
         System.out.println("** BasePrixRef après persistance: ");
         afficherBasePrixRef(basePrixRef);
+        afficherBasePrixRef(basePrixRef2);
         System.out.println();
     }
     public static void InitialiserProjets() {
@@ -363,8 +370,13 @@ public class Main {
 
         try {
             em.getTransaction().begin();
+            //ajout des basePrixRef à l'ouvrage
+            List<BasePrixRef> listeBasePrixRefOuvrage = new ArrayList();
+            listeBasePrixRefOuvrage.add(em.find(BasePrixRef.class, 1L));
+            listeBasePrixRefOuvrage.add(em.find(BasePrixRef.class, 2L));
+            ouvrage1.setListeBasePrixRefOuvrage(listeBasePrixRefOuvrage);
+            
             em.persist(generique1);
-            //lier avec la base de PRIX? ou faire ca dans initialiserBasePrixRef()?
             em.persist(ouvrage1);
             em.persist(prestation1);
             em.getTransaction().commit();
@@ -1149,10 +1161,10 @@ public class Main {
     }
     
 
-    public static void testerAjouterDescriptif() {
+    public static void testerAjouterOuvrageOuGenerique() {
         
         System.out.println();
-        System.out.println("**** testerAjouterDescriptif() ****");
+        System.out.println("**** testerAjouterOuvrageOuGenerique() ****");
         System.out.println();
         
         Service service = new Service();
@@ -1162,7 +1174,7 @@ public class Main {
         Long idSousFamille = 1L;
         String idDescriptif = "idOuvrage1";
         
-        Boolean resultat = service.AjouterDescriptif(idProjet, idSousFamille, idDescriptif);
+        Boolean resultat = service.AjouterOuvrageOuGenerique(idProjet, idSousFamille, idDescriptif);
         if(resultat){
             System.out.println("Edition avec succès du projet n°" + idProjet+", sousFamille n°"+idSousFamille);
         } else {
@@ -1265,6 +1277,7 @@ public class Main {
         //idSousFamille n'existe pas/plus -> echec (comme prevu)
     }
     
+    //TO DO : plus de test
     public static void testerSupprimerDescriptif() {
         
         System.out.println();
@@ -1275,7 +1288,7 @@ public class Main {
         
         //Doit fonctionner
         Long idProjet = 1L;
-        Long idDescriptif = 1L;
+        String idDescriptif = "idOuvrage1";
         
         Boolean resultat = service.SupprimerDescriptif(idProjet, idDescriptif);
         if(resultat)
@@ -1284,8 +1297,28 @@ public class Main {
         } else {
             System.out.println("Erreur d'édition du projet n°" + idProjet);
         }
+    }
+    
+    public static void testerSupprimerLigneChiffrage() {
         
-        //idDescriptif n'existe pas/plus -> echec (comme prevu)
+        System.out.println();
+        System.out.println("**** testerSupprimerLigneChiffrage() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        
+        //Doit fonctionner
+        Long idProjet = 1L;
+        String idDescriptif = "idOuvrage1";
+        String idLigneChiffrage = "1";
+        
+        Boolean resultat = service.SupprimerLigneChiffrage(idProjet, idDescriptif, idLigneChiffrage);
+        if(resultat)
+        {
+            System.out.println("Edition avec succès du projet n°" + idProjet);
+        } else {
+            System.out.println("Erreur d'édition du projet n°" + idProjet);
+        }
     }
     
                 //-----------------------//
