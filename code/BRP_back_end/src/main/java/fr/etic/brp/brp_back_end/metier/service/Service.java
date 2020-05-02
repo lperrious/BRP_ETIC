@@ -948,9 +948,110 @@ public class Service {
         return resultat;
     }
     
-    //TO DO - Ajoute une prestation dans un ouvrage. Penser à retirer prix ouvrage
-    public Boolean AjouterPrestation(Long idProjet, Long idDescriptif){
-        return null;
+    public Boolean AjouterPrestation(Long idProjet, String idDescriptif, String idPrestation){
+        JpaUtil.creerContextePersistance();
+        Boolean resultat = false;
+        Boolean testInsertion = false;
+        
+        try {
+            //Obtention du document
+            String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            Document xml = projetXMLDao.ObtenirDocument(uri);
+            NodeList rootNodes = xml.getElementsByTagName("ouvrage");
+            Element balisePrestation = null;
+            
+            //on récupère la prestation
+            Prestation prestation = prestationDao.ChercherParId(idPrestation); 
+            balisePrestation = xml.createElement("prestation");
+            balisePrestation.setAttribute("idDescriptif", idPrestation);
+            
+            //Création des enfants de prestation
+            Element baliseNomDescriptif = xml.createElement("nomDescriptif");                                                                       
+            baliseNomDescriptif.appendChild(xml.createTextNode(prestation.getNomDescriptif())); 
+            Element baliseDescription = xml.createElement("description");                                                                       
+            baliseDescription.appendChild(xml.createTextNode(prestation.getDescription())); 
+            Element baliseCourteDescription = xml.createElement("courteDescription");                                                                      
+            baliseCourteDescription.appendChild(xml.createTextNode(prestation.getCourteDescription())); 
+            //Remplissage de la balise descriptif
+            balisePrestation.appendChild(baliseNomDescriptif);    
+            balisePrestation.appendChild(baliseDescription); 
+            balisePrestation.appendChild(baliseCourteDescription);   
+     
+            //on ajoute tout ce qui est relatif aux prix
+            Integer annee_max = 0;
+            int indiceRef = -1;
+            Double quantite = 1.0;
+
+            List<BasePrixRef> listeBasePrixRef = prestation.getListeBasePrixRefPrestation();          
+
+            for(int i = 0; i<listeBasePrixRef.size(); i++){
+                if(listeBasePrixRef.get(i).getQteInf() <= quantite && listeBasePrixRef.get(i).getQteSup() >= quantite){
+                    //on se trouve dans la bonne fourchette de quantite, on test l'annee
+                    if(listeBasePrixRef.get(i).getAnnee() > annee_max){
+                        annee_max = listeBasePrixRef.get(i).getAnnee();
+                        indiceRef = i;
+                    }
+                }
+            }
+
+            Element baliseUnite = xml.createElement("unite");                                                                       
+            baliseUnite.appendChild(xml.createTextNode(listeBasePrixRef.get(indiceRef).getUnite())); 
+            Element balisePrixUnitaire = xml.createElement("prixUnitaire");                                                                       
+            balisePrixUnitaire.appendChild(xml.createTextNode(listeBasePrixRef.get(indiceRef).getPrixUnitaire().toString())); 
+
+            Element baliseLigneChiffrage = xml.createElement("ligneChiffrage"); 
+            baliseLigneChiffrage.setAttribute("idLigneChiffrage", "1");
+            Element baliseLocalisation = xml.createElement("localisation"); 
+            Element baliseQuantite = xml.createElement("quantite"); 
+            baliseQuantite.appendChild(xml.createTextNode(quantite.toString()));
+            baliseLigneChiffrage.appendChild(baliseLocalisation); 
+            baliseLigneChiffrage.appendChild(baliseQuantite);
+
+            balisePrestation.appendChild(baliseUnite);    
+            balisePrestation.appendChild(balisePrixUnitaire); 
+            balisePrestation.appendChild(baliseLigneChiffrage);
+            
+            //on parcours les ouvrages
+            for (int i = 0; i<rootNodes.getLength(); i++) {
+                Element ouvrage = (Element) rootNodes.item(i);
+                if(ouvrage.getAttribute("idDescriptif").equals(idDescriptif)){
+                    //on est dans le bon ouvrage. On supprime d'éventuelles infos liées aux prix
+                    NodeList nodeUnite = ouvrage.getElementsByTagName("unite");
+                    if(nodeUnite != null){
+                        Element unite = (Element) nodeUnite.item(0);
+                        rootNodes.item(i).removeChild(unite);
+                    }
+                    NodeList nodePrixUnitaire = ouvrage.getElementsByTagName("prixUnitaire");
+                    if(nodePrixUnitaire != null){
+                        Element prixUnitaire = (Element) nodePrixUnitaire.item(0);
+                        rootNodes.item(i).removeChild(prixUnitaire);
+                    }
+                    NodeList nodeListeLigneChiffrage = ouvrage.getElementsByTagName("ligneChiffrage");
+                    if(nodeListeLigneChiffrage != null){
+                        for(int j=0; j < nodeListeLigneChiffrage.getLength(); j++){
+                            Element ligneChiffrage = (Element) nodeListeLigneChiffrage.item(j);
+                            rootNodes.item(i).removeChild(ligneChiffrage);
+                        }
+                    }
+                    
+                    rootNodes.item(i).appendChild(balisePrestation);
+                    testInsertion = true;
+                    break;
+                }			
+            }
+            
+            //On écrit par dessus l'ancien XML
+            projetXMLDao.saveXMLContent(xml, uri);
+            
+            if(testInsertion){
+                resultat = true; //Si on est arrivé jusque là alors pas d'erreur
+            }
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterCategorie(Long idProjet, Long idCategorie)", ex);
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        return resultat;
     }
     
     //TO DO - Ajoute un champ Localisation ainsi qu'un champ Quantite dans le XML
