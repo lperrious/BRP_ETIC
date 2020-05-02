@@ -109,6 +109,7 @@ public class Main {
         testerAjouterFamille();
         testerAjouterSousFamille();
         testerAjouterOuvrageOuGenerique();
+        testerAjouterPrestation();
 //        testerSupprimerCorpsEtat();
 //        testerSupprimerCategorie();
 //        testerSupprimerFamille();
@@ -141,9 +142,11 @@ public class Main {
         
         BasePrixRef basePrixRef = new BasePrixRef(2018, 1.0, 1.0, 4.0, "m2", 10.0);
         BasePrixRef basePrixRef2 = new BasePrixRef(2017, 1.0, 2.0, 3.0, "m2", 4.0);
+        BasePrixRef basePrixRef3 = new BasePrixRef(2019, 1.0, 1.0, 3.0, "m2", 120.0);
         System.out.println("** BasePrixRef avant persistance: ");
         afficherBasePrixRef(basePrixRef);
         afficherBasePrixRef(basePrixRef2);
+        afficherBasePrixRef(basePrixRef3);
         System.out.println();
         
 
@@ -151,6 +154,7 @@ public class Main {
             em.getTransaction().begin();
             em.persist(basePrixRef);
             em.persist(basePrixRef2);
+            em.persist(basePrixRef3);
             em.getTransaction().commit();
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service InitialiserBasePrixRef()", ex);
@@ -167,6 +171,7 @@ public class Main {
         System.out.println("** BasePrixRef après persistance: ");
         afficherBasePrixRef(basePrixRef);
         afficherBasePrixRef(basePrixRef2);
+        afficherBasePrixRef(basePrixRef3);
         System.out.println();
     }
     public static void InitialiserProjets() {
@@ -370,11 +375,15 @@ public class Main {
 
         try {
             em.getTransaction().begin();
-            //ajout des basePrixRef à l'ouvrage
+            //ajout des basePrixRef à un ouvrage et à une prestation
             List<BasePrixRef> listeBasePrixRefOuvrage = new ArrayList();
             listeBasePrixRefOuvrage.add(em.find(BasePrixRef.class, 1L));
             listeBasePrixRefOuvrage.add(em.find(BasePrixRef.class, 2L));
             ouvrage1.setListeBasePrixRefOuvrage(listeBasePrixRefOuvrage);
+            
+            List<BasePrixRef> listeBasePrixRefPrestation = new ArrayList();
+            listeBasePrixRefPrestation.add(em.find(BasePrixRef.class, 3L));
+            prestation1.setListeBasePrixRefPrestation(listeBasePrixRefPrestation);
             
             em.persist(generique1);
             em.persist(ouvrage1);
@@ -1183,6 +1192,32 @@ public class Main {
         
         //idProjet n'existe pas -> echec (comme prevu)
         //idSousFamille n'existe pas -> echec (comme prevu)
+        //choisit bien en fonction de l'année la plus récente et de la fourchette de prix
+    }
+    
+    public static void testerAjouterPrestation() {
+        
+        System.out.println();
+        System.out.println("**** testerAjouterPrestation() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        
+        //Doit fonctionner (sinsère uniquement dans le premier corpsEtat)
+        Long idProjet = 1L;
+        Long idSousFamille = 1L;
+        String idDescriptif = "idOuvrage1";
+        String idPrestation = "idPrestation1";
+        
+        Boolean resultat = service.AjouterPrestation(idProjet, idDescriptif, idPrestation);
+        if(resultat){
+            System.out.println("Edition avec succès du projet n°" + idProjet+", descriptif n°"+idDescriptif);
+        } else {
+            System.out.println("Erreur d'édition du projet n°" + idProjet+", descriptif n°"+idDescriptif);
+        }
+        
+        //idProjet n'existe pas -> echec (comme prevu)
+        //idOuvrage n'existe pas -> echec (comme prevu)
     }
         
     public static void testerSupprimerCorpsEtat() {

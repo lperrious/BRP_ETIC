@@ -16,7 +16,7 @@ public class PrestationDao {
         em.persist(prestation);
     }
     
-    public Prestation ChercherParId(Long idPrestation) {
+    public Prestation ChercherParId(String idPrestation) {
         EntityManager em = JpaUtil.obtenirContextePersistance();
         return em.find(Prestation.class, idPrestation); // renvoie null si l'identifiant n'existe pas
     }
