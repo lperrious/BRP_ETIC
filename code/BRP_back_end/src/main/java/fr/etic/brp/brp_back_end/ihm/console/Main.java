@@ -1,6 +1,7 @@
 package fr.etic.brp.brp_back_end.ihm.console;
 
 import com.google.common.hash.Hashing;
+import fr.etic.brp.brp_back_end.dao.BasePrixRefDao;
 import fr.etic.brp.brp_back_end.dao.DomUtil;
 import fr.etic.brp.brp_back_end.dao.JpaUtil;
 import fr.etic.brp.brp_back_end.metier.modele.BasePrixRef;
@@ -107,7 +108,7 @@ public class Main {
         testerAjouterCategorie();
         testerAjouterFamille();
         testerAjouterSousFamille();
-        testerAjouterDescriptif();
+        testerAjouterOuvrageOuGenerique();
 //        testerSupprimerCorpsEtat();
 //        testerSupprimerCategorie();
 //        testerSupprimerFamille();
@@ -136,14 +137,18 @@ public class Main {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("BRP_PU");
         EntityManager em = emf.createEntityManager();        
         
-        BasePrixRef basePrixRef = new BasePrixRef(2018, 1.0, 1.0, 3.0, "m2", 4.0);
+        BasePrixRef basePrixRef = new BasePrixRef(2018, 1.0, 1.0, 4.0, "m2", 10.0);
+        BasePrixRef basePrixRef2 = new BasePrixRef(2017, 1.0, 2.0, 3.0, "m2", 4.0);
         System.out.println("** BasePrixRef avant persistance: ");
         afficherBasePrixRef(basePrixRef);
+        afficherBasePrixRef(basePrixRef2);
         System.out.println();
+        
 
         try {
             em.getTransaction().begin();
             em.persist(basePrixRef);
+            em.persist(basePrixRef2);
             em.getTransaction().commit();
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service InitialiserBasePrixRef()", ex);
@@ -159,6 +164,7 @@ public class Main {
         
         System.out.println("** BasePrixRef après persistance: ");
         afficherBasePrixRef(basePrixRef);
+        afficherBasePrixRef(basePrixRef2);
         System.out.println();
     }
     public static void InitialiserProjets() {
@@ -362,8 +368,13 @@ public class Main {
 
         try {
             em.getTransaction().begin();
+            //ajout des basePrixRef à l'ouvrage
+            List<BasePrixRef> listeBasePrixRefOuvrage = new ArrayList();
+            listeBasePrixRefOuvrage.add(em.find(BasePrixRef.class, 1L));
+            listeBasePrixRefOuvrage.add(em.find(BasePrixRef.class, 2L));
+            ouvrage1.setListeBasePrixRefOuvrage(listeBasePrixRefOuvrage);
+            
             em.persist(generique1);
-            //lier avec la base de PRIX? ou faire ca dans initialiserBasePrixRef()?
             em.persist(ouvrage1);
             em.persist(prestation1);
             em.getTransaction().commit();
@@ -1148,10 +1159,10 @@ public class Main {
     }
     
 
-    public static void testerAjouterDescriptif() {
+    public static void testerAjouterOuvrageOuGenerique() {
         
         System.out.println();
-        System.out.println("**** testerAjouterDescriptif() ****");
+        System.out.println("**** testerAjouterOuvrageOuGenerique() ****");
         System.out.println();
         
         Service service = new Service();
@@ -1161,7 +1172,7 @@ public class Main {
         Long idSousFamille = 1L;
         String idDescriptif = "idOuvrage1";
         
-        Boolean resultat = service.AjouterDescriptif(idProjet, idSousFamille, idDescriptif);
+        Boolean resultat = service.AjouterOuvrageOuGenerique(idProjet, idSousFamille, idDescriptif);
         if(resultat){
             System.out.println("Edition avec succès du projet n°" + idProjet+", sousFamille n°"+idSousFamille);
         } else {

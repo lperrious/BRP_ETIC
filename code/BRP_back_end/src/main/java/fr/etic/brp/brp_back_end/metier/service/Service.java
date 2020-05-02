@@ -851,7 +851,7 @@ public class Service {
     }
     
     //TO DO - Ajoute un ouvrage ou generique dans une sous famille
-    public Boolean AjouterDescriptif(Long idProjet, Long idSousFamille, String idDescriptif){
+    public Boolean AjouterOuvrageOuGenerique(Long idProjet, Long idSousFamille, String idDescriptif){
         JpaUtil.creerContextePersistance();
         Boolean resultat = false;
         Boolean testInsertion = false;
@@ -888,26 +888,27 @@ public class Service {
             
             //si c'est un ouvrage, on ajoute en plus tout ce qui est relatif aux prix
             if(descriptif instanceof Ouvrage){
-                Integer annee_max = 0, indiceRef = 0;
-                Integer quantite = 1;
+                Integer annee_max = 0;
+                int indiceRef = -1;
+                Double quantite = 1.0;
                 
                 Ouvrage ouvrage = (Ouvrage) descriptifDao.ChercherParId(idDescriptif); 
-               // List<BasePrixRef> listeBasePrixRef = ouvrage.getListeBasePrixRefOuvrage();          PROBLEM: le lien ne se crée pas
+                List<BasePrixRef> listeBasePrixRef = ouvrage.getListeBasePrixRefOuvrage();          
                 
-//                for(int i = 0; i<listeBasePrixRef.size(); i++){
-//                    if(listeBasePrixRef.get(i).getQteInf() <= quantite && listeBasePrixRef.get(i).getQteSup() >= quantite){
-//                        //on se trouve dans la bonne fourchette de quantite, on test l'annee
-//                        if(listeBasePrixRef.get(i).getAnnee() > annee_max){
-//                            annee_max = listeBasePrixRef.get(i).getAnnee();
-//                            indiceRef = i;
-//                        }
-//                    }
-//                }
+                for(int i = 0; i<listeBasePrixRef.size(); i++){
+                    if(listeBasePrixRef.get(i).getQteInf() <= quantite && listeBasePrixRef.get(i).getQteSup() >= quantite){
+                        //on se trouve dans la bonne fourchette de quantite, on test l'annee
+                        if(listeBasePrixRef.get(i).getAnnee() > annee_max){
+                            annee_max = listeBasePrixRef.get(i).getAnnee();
+                            indiceRef = i;
+                        }
+                    }
+                }
                 
                 Element baliseUnite = xml.createElement("unite");                                                                       
-//                baliseUnite.appendChild(xml.createTextNode(listeBasePrixRef.get(indiceRef).getUnite())); 
+                baliseUnite.appendChild(xml.createTextNode(listeBasePrixRef.get(indiceRef).getUnite())); 
                 Element balisePrixUnitaire = xml.createElement("prixUnitaire");                                                                       
-//                balisePrixUnitaire.appendChild(xml.createTextNode(listeBasePrixRef.get(indiceRef).getPrixUnitaire().toString())); 
+                balisePrixUnitaire.appendChild(xml.createTextNode(listeBasePrixRef.get(indiceRef).getPrixUnitaire().toString())); 
                 
                 Element baliseLigneChiffrage = xml.createElement("ligneChiffrage"); 
                 baliseLigneChiffrage.setAttribute("idLigneChiffrage", "1");
