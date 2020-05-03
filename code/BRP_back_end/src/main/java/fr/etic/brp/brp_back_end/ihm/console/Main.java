@@ -1182,7 +1182,7 @@ public class Main {
         Long idSousFamille = 1L;
         String idDescriptif = "idOuvrage1";
         
-        Boolean resultat = service.AjouterOuvrageOuGenerique2(idProjet, idSousFamille, idDescriptif);
+        Boolean resultat = service.AjouterOuvrageOuGenerique(idProjet, idSousFamille, idDescriptif);
         if(resultat){
             System.out.println("Edition avec succès du projet n°" + idProjet+", sousFamille n°"+idSousFamille);
         } else {
@@ -1207,7 +1207,7 @@ public class Main {
         String idDescriptif = "idOuvrage1";
         String idPrestation = "idPrestation1";
         
-        Boolean resultat = service.AjouterPrestation2(idProjet, idDescriptif, idPrestation);
+        Boolean resultat = service.AjouterPrestation(idProjet, idDescriptif, idPrestation);
         if(resultat){
             System.out.println("Edition avec succès du projet n°" + idProjet+", descriptif n°"+idDescriptif);
         } else {
