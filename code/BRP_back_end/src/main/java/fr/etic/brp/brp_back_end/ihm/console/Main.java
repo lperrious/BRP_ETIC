@@ -113,9 +113,12 @@ public class Main {
 //        testerSupprimerCategorie();
 //        testerSupprimerFamille();
 //        testerSupprimerSousFamille();
-        testerSupprimerDescriptif();
+//        testerSupprimerDescriptif();
 //        testerSupprimerLigneChiffrage();
-
+//        testerModifierDescriptionDescriptif();
+//        testerModifierCourteDescriptionDescriptif();
+//        testerModifierLocalisationDescriptif();
+//        testerModifierQuantiteDescriptif();
         
       //----------tests-secondaires------//
       
@@ -1323,7 +1326,7 @@ public class Main {
         Long idProjet = 1L;
         String idDescriptif = "idPrestation1";
         
-        Boolean resultat = service.SupprimerDescriptif2(idProjet, idDescriptif);
+        Boolean resultat = service.SupprimerDescriptif(idProjet, idDescriptif);
         if(resultat)
         {
             System.out.println("Edition avec succès du projet n°" + idProjet);
