@@ -836,7 +836,6 @@ public class Service {
         return resultat;
     }
     
-    //TO DO - Ajoute un ouvrage ou generique dans une sous famille
     public Boolean AjouterOuvrageOuGenerique(Long idProjet, Long idSousFamille, String idDescriptif){
         JpaUtil.creerContextePersistance();
         Boolean resultat = false;
@@ -851,14 +850,15 @@ public class Service {
             
             //on récupère le descriptif
             Descriptif descriptif = descriptifDao.ChercherParId(idDescriptif); 
+            baliseDescriptif = xml.createElement("descriptif");
+            baliseDescriptif.setAttribute("idDescriptif", idDescriptif);
             if(descriptif instanceof Generique){
                 //Création balise descriptif
-                baliseDescriptif = xml.createElement("generique");
+                baliseDescriptif.setAttribute("type", "generique");
             }
             else{
-                baliseDescriptif = xml.createElement("ouvrage");
+                baliseDescriptif.setAttribute("type", "ouvrage");
             }
-            baliseDescriptif.setAttribute("idDescriptif", idDescriptif);
             
             //Création des enfants de descriptif
             Element baliseNomDescriptif = xml.createElement("nomDescriptif");                                                                       
@@ -943,13 +943,14 @@ public class Service {
             //Obtention du document
             String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
             Document xml = projetXMLDao.ObtenirDocument(uri);
-            NodeList rootNodes = xml.getElementsByTagName("ouvrage");
+            NodeList rootNodes = xml.getElementsByTagName("descriptif");
             Element balisePrestation = null;
             
             //on récupère la prestation
             Prestation prestation = prestationDao.ChercherParId(idPrestation); 
-            balisePrestation = xml.createElement("prestation");
+            balisePrestation = xml.createElement("descriptif");
             balisePrestation.setAttribute("idDescriptif", idPrestation);
+            balisePrestation.setAttribute("type", "prestation");
             
             //Création des enfants de prestation
             Element baliseNomDescriptif = xml.createElement("nomDescriptif");                                                                       
@@ -997,22 +998,22 @@ public class Service {
             balisePrestation.appendChild(balisePrixUnitaire); 
             balisePrestation.appendChild(baliseLigneChiffrage);
             
-            //on parcours les ouvrages
+            //on parcours les descriptifs
             for (int i = 0; i<rootNodes.getLength(); i++) {
-                Element ouvrage = (Element) rootNodes.item(i);
-                if(ouvrage.getAttribute("idDescriptif").equals(idDescriptif)){
+                Element descriptif = (Element) rootNodes.item(i);
+                if(descriptif.getAttribute("idDescriptif").equals(idDescriptif)){
                     //on est dans le bon ouvrage. On supprime d'éventuelles infos liées aux prix
-                    NodeList nodeUnite = ouvrage.getElementsByTagName("unite");
+                    NodeList nodeUnite = descriptif.getElementsByTagName("unite");
                     if(nodeUnite != null){
                         Element unite = (Element) nodeUnite.item(0);
                         rootNodes.item(i).removeChild(unite);
                     }
-                    NodeList nodePrixUnitaire = ouvrage.getElementsByTagName("prixUnitaire");
+                    NodeList nodePrixUnitaire = descriptif.getElementsByTagName("prixUnitaire");
                     if(nodePrixUnitaire != null){
                         Element prixUnitaire = (Element) nodePrixUnitaire.item(0);
                         rootNodes.item(i).removeChild(prixUnitaire);
                     }
-                    NodeList nodeListeLigneChiffrage = ouvrage.getElementsByTagName("ligneChiffrage");
+                    NodeList nodeListeLigneChiffrage = descriptif.getElementsByTagName("ligneChiffrage");
                     if(nodeListeLigneChiffrage != null){
                         for(int j=0; j < nodeListeLigneChiffrage.getLength(); j++){
                             Element ligneChiffrage = (Element) nodeListeLigneChiffrage.item(j);

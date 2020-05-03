@@ -362,7 +362,7 @@ public class Main {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("BRP_PU");
         EntityManager em = emf.createEntityManager();        
         
-        Generique generique1 = new Generique("idDescriptif1", "nomDescriptif1", "descriptionGenerique1", "courteDescriptionGenerique1");
+        Generique generique1 = new Generique("idGenerique1", "nomDescriptif1", "descriptionGenerique1", "courteDescriptionGenerique1");
         Ouvrage ouvrage1 = new Ouvrage("idOuvrage1", "nomOuvrage1", "descriptionOuvrage1", "courteDescriptionOuvrage1");
         Prestation prestation1 = new Prestation("idPrestation1", "nomPrestation1", "descriptionPrestation1", "courteDescriptionPrestation1");
          
@@ -1204,7 +1204,6 @@ public class Main {
         
         //Doit fonctionner (sinsère uniquement dans le premier corpsEtat)
         Long idProjet = 1L;
-        Long idSousFamille = 1L;
         String idDescriptif = "idOuvrage1";
         String idPrestation = "idPrestation1";
         
