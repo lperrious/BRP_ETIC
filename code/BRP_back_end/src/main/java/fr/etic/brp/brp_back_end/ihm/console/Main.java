@@ -1362,7 +1362,6 @@ public class Main {
         //test pas de descriptif existant : ok
     }
     
-    //TO DO : plus de tests
     public static void testerSupprimerLigneChiffrage() {
         
         System.out.println();
@@ -1376,13 +1375,17 @@ public class Main {
         String idDescriptif = "idPrestation1";
         String idLigneChiffrage = "1";
         
-        Boolean resultat = service.SupprimerLigneChiffrage2(idProjet, idDescriptif, idLigneChiffrage);
+        Boolean resultat = service.SupprimerLigneChiffrage(idProjet, idDescriptif, idLigneChiffrage);
         if(resultat)
         {
             System.out.println("Edition avec succès du projet n°" + idProjet);
         } else {
             System.out.println("Erreur d'édition du projet n°" + idProjet);
         }
+        
+        //test pas de descrpitif existant : echec comme prévu
+        //test pas de ligne chiffrage existante : echec comme prévu
+        
     }
     
     public static void testerModifierDescriptionDescriptif() {
@@ -1462,6 +1465,7 @@ public class Main {
         //test ouvrage ou prestation : ok
     }
     
+    //TO DO
     public static void testerModifierQuantiteDescriptif() {
         
         System.out.println();
