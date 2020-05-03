@@ -1229,83 +1229,76 @@ public class Service {
             String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
             Document xml = projetXMLDao.ObtenirDocument(uri);
             
-            NodeList listeSousFamille = xml.getElementsByTagName("sousFamille"); //On doit parcourir les sousFamilles car pas de balise descriptif
-            Boolean testPrestation = false;
-            Element ouvrageEnfantDetruit = null;
-            //on parcours la liste à le recherche de celui à éliminer
-            for (int i = 0; i < listeSousFamille.getLength(); i++) {
-                NodeList enfantsSousFamille = listeSousFamille.item(i).getChildNodes();
-                for(int j = 0; j < enfantsSousFamille.getLength(); j++){
-                    Element descriptif = (Element) enfantsSousFamille.item(j);
-                    if(descriptif.getAttribute("idDescriptif").equals(idDescriptif)){ //Si ça match direct alors Generique ou Ouvrage -> pas de test supplémentaire
-                        descriptif.getParentNode().removeChild(descriptif);
-                        testSuppression = true;
-                    } else if (enfantsSousFamille.item(j).getNodeName().equals("ouvrage")){
-                        NodeList enfantsOuvrage = enfantsSousFamille.item(j).getChildNodes();
-                        for(int k = 0; k < enfantsOuvrage.getLength(); k++){
-                            Element prestation = (Element) enfantsOuvrage.item(k);
-                            if(prestation.getAttribute("idDescriptif").equals(idDescriptif)){
-                                ouvrageEnfantDetruit = (Element) enfantsSousFamille.item(j);
-                                prestation.getParentNode().removeChild(prestation);
-                                testPrestation = true; //On devra donc checker si c'est la dernière prestation
-                            }
-                        }   
-                    }
-                }    
-            }
-            
-            //Si prestation supprimée -> s'il n'y plus de prestation dans un ouvrage, remettre les infos BasePrixRef
-            if(testPrestation && ouvrageEnfantDetruit != null){
-                testSuppression = false;
-                NodeList listeEnfantOuvrage = ouvrageEnfantDetruit.getChildNodes();
-                if(listeEnfantOuvrage.getLength() == 3){ //S'il ne reste plus que nomDescriptif / description / courteDescription
-                    //On remet donc les balises unite, prixUnitaire et une ligneChiffrage dans le XML
-                    Integer annee_max = 0;
-                    int indiceRef = -1;
-                    Double quantite = 1.0;
-                    
-                    Ouvrage ouvrage = (Ouvrage) descriptifDao.ChercherParId(ouvrageEnfantDetruit.getAttribute("idDescriptif"));
-                    List<BasePrixRef> listeBasePrixRef = ouvrage.getListeBasePrixRefOuvrage();        
-
-                    for(int l = 0; l < listeBasePrixRef.size(); l++){
-                        if(listeBasePrixRef.get(l).getQteInf() <= quantite && listeBasePrixRef.get(l).getQteSup() >= quantite){
-                            //on se trouve dans la bonne fourchette de quantite, on test l'annee
-                            if(listeBasePrixRef.get(l).getAnnee() > annee_max){
-                                annee_max = listeBasePrixRef.get(l).getAnnee();
-                                indiceRef = l;
+            NodeList listeDescriptif = xml.getElementsByTagName("descriptif");
+            int nbPrestation = 0;
+            //On va chercher celui à supprimer
+            for(int i = 0; i < listeDescriptif.getLength(); i++){
+                Element descriptif = (Element) listeDescriptif.item(i);
+                if(descriptif.getAttribute("idDescriptif").equals(idDescriptif)){
+                    if(descriptif.getAttribute("type").equals("prestation")){
+                        //On check d'abord que ce n'est pas la dernière prestation
+                        NodeList filsOuvrage = descriptif.getParentNode().getChildNodes();
+                        for(int j = 0; j < filsOuvrage.getLength(); j++){
+                            if(filsOuvrage.item(j).getNodeName().equals("descriptif")){
+                                nbPrestation++;
                             }
                         }
+                        if(nbPrestation > 1){
+                            descriptif.getParentNode().removeChild(descriptif);
+                        } else { //Il faut mettre les infos BasePrixRef les plus récentes dans l'ouvrage
+                            Integer annee_max = 0;
+                            int indiceRef = -1;
+                            Double quantite = 1.0;
+                            
+                            Node ouvrageNode = descriptif.getParentNode();
+                            Element ouvrageElement = (Element) ouvrageNode;
+                            Ouvrage ouvrage = (Ouvrage) descriptifDao.ChercherParId(ouvrageElement.getAttribute("idDescriptif"));
+                            List<BasePrixRef> listeBasePrixRef = ouvrage.getListeBasePrixRefOuvrage();        
+
+                            for(int l = 0; l < listeBasePrixRef.size(); l++){
+                                if(listeBasePrixRef.get(l).getQteInf() <= quantite && listeBasePrixRef.get(l).getQteSup() >= quantite){
+                                    //on se trouve dans la bonne fourchette de quantite, on test l'annee
+                                    if(listeBasePrixRef.get(l).getAnnee() > annee_max){
+                                        annee_max = listeBasePrixRef.get(l).getAnnee();
+                                        indiceRef = l;
+                                    }
+                                }
+                            }
+
+                            //Balise unite
+                            Element baliseUnite = xml.createElement("unite");                                                                       
+                            baliseUnite.appendChild(xml.createTextNode(listeBasePrixRef.get(indiceRef).getUnite()));
+
+                            //Balise prixUnitaire
+                            Element balisePrixUnitaire = xml.createElement("prixUnitaire");                                                                       
+                            balisePrixUnitaire.appendChild(xml.createTextNode(listeBasePrixRef.get(indiceRef).getPrixUnitaire().toString())); 
+
+                            //Balise ligneChiffrage
+                            Element baliseLigneChiffrage = xml.createElement("ligneChiffrage"); 
+                            baliseLigneChiffrage.setAttribute("idLigneChiffrage", "1");
+                            //Balise localisation
+                            Element baliseLocalisation = xml.createElement("localisation");
+                            //Balise quantite
+                            Element baliseQuantite = xml.createElement("quantite");
+                            baliseQuantite.appendChild(xml.createTextNode(quantite.toString()));
+
+                            baliseLigneChiffrage.appendChild(baliseLocalisation); 
+                            baliseLigneChiffrage.appendChild(baliseQuantite);
+
+                            ouvrageElement.appendChild(baliseUnite);    
+                            ouvrageElement.appendChild(balisePrixUnitaire); 
+                            ouvrageElement.appendChild(baliseLigneChiffrage);
+                            
+                            //On peut donc supprimer la prestation
+                            descriptif.getParentNode().removeChild(descriptif);
+                        }
+                    } else {
+                       descriptif.getParentNode().removeChild(descriptif); 
                     }
-
-                    //Balise unite
-                    Element baliseUnite = xml.createElement("unite");                                                                       
-                    baliseUnite.appendChild(xml.createTextNode(listeBasePrixRef.get(indiceRef).getUnite()));
-
-                    //Balise prixUnitaire
-                    Element balisePrixUnitaire = xml.createElement("prixUnitaire");                                                                       
-                    balisePrixUnitaire.appendChild(xml.createTextNode(listeBasePrixRef.get(indiceRef).getPrixUnitaire().toString())); 
-
-                    //Balise ligneChiffrage
-                    Element baliseLigneChiffrage = xml.createElement("ligneChiffrage"); 
-                    baliseLigneChiffrage.setAttribute("idLigneChiffrage", "1");
-                    //Balise localisation
-                    Element baliseLocalisation = xml.createElement("localisation");
-                    //Balise quantite
-                    Element baliseQuantite = xml.createElement("quantite");
-                    baliseQuantite.appendChild(xml.createTextNode(quantite.toString()));
-
-                    baliseLigneChiffrage.appendChild(baliseLocalisation); 
-                    baliseLigneChiffrage.appendChild(baliseQuantite);
-
-
-                    Element baliseOuvrage = (Element) ouvrageEnfantDetruit;
-                    baliseOuvrage.appendChild(baliseUnite);    
-                    baliseOuvrage.appendChild(balisePrixUnitaire); 
-                    baliseOuvrage.appendChild(baliseLigneChiffrage); 
-                }   
                     testSuppression = true;
+                }
             }
-            
+           
             //On écrit par dessus l'ancien XML
             projetXMLDao.saveXMLContent(xml, uri);
             
@@ -1395,8 +1388,100 @@ public class Service {
         return resultat;
     }
     
+    //TO DO - A Tester une fois qu'ajouterLigneChiffrage sera faite
+    public Boolean SupprimerLigneChiffrage2(Long idProjet, String idDescriptif, String idLigneChiffrage){
+        Boolean testSuppression = false;
+        Boolean resultat = false;
+        
+        try {
+            //Obtention du document
+            String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            Document xml = projetXMLDao.ObtenirDocument(uri);
+            
+            NodeList listeDescriptif = xml.getElementsByTagName("descriptif");
+            int nbLigneChiffrage = 0;
+            Element ligneChiffrageASupprimer = null;
+            //On va cherche le descriptif dans lequel sa trouve la ligneChiffrage à supprimer
+            for(int i = 0; i < listeDescriptif.getLength(); i++){
+                Element baliseDescriptif = (Element) listeDescriptif.item(i);
+                if(baliseDescriptif.getAttribute("idDescriptif").equals(idDescriptif)){
+                    NodeList listeEnfantsDescriptif = baliseDescriptif.getChildNodes();
+                    for(int j = 0; j < listeEnfantsDescriptif.getLength(); j++){
+                        if(listeEnfantsDescriptif.item(j).getNodeName().equals("ligneChiffrage")){
+                            nbLigneChiffrage++;
+                            Element ligneChiffrage = (Element) listeEnfantsDescriptif.item(j);
+                            if(ligneChiffrage.getAttribute("idLigneChiffrage").equals(idLigneChiffrage)){
+                                ligneChiffrageASupprimer = ligneChiffrage;
+                            }
+                        }
+                    }
+                    if(nbLigneChiffrage > 1 && ligneChiffrageASupprimer != null){
+                        ligneChiffrageASupprimer.getParentNode().removeChild(ligneChiffrageASupprimer);
+                        testSuppression = true;
+                    }
+                }
+            }
+
+            //On écrit par dessus l'ancien XML
+            projetXMLDao.saveXMLContent(xml, uri);
+            
+            if(testSuppression){
+                resultat = true; //Si on est arrivé jusque là alors pas d'erreur
+            }
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service SupprimerLigneChiffrage(Long idProjet, String idDescriptif, String idLigneChiffrage)", ex);
+        }
+        return resultat;
+    }
+    
     //TO DO - Modifie la descripition seulement dans le XML
-    public Boolean ModifierDescriptionDescriptif(Long idProjet, Long idDescriptif, String newDescription){
+    /*public Boolean ModifierDescriptionDescriptif(Long idProjet, Long idDescriptif, String newDescription){
+        Boolean testSuppression = false;
+        Boolean resultat = false;
+        
+        try {
+            //Obtention du document
+            String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            Document xml = projetXMLDao.ObtenirDocument(uri);
+            
+            NodeList listeDescriptif = xml.getElementsByTagName("descriptif");
+            int nbLigneChiffrage = 0;
+            Element ligneChiffrageASupprimer = null;
+            //On va cherche le descriptif dans lequel sa trouve la ligneChiffrage à supprimer
+            for(int i = 0; i < listeDescriptif.getLength(); i++){
+                Element baliseDescriptif = (Element) listeDescriptif.item(i);
+                if(baliseDescriptif.getAttribute("idDescriptif").equals(idDescriptif)){
+                    NodeList listeEnfantsDescriptif = baliseDescriptif.getChildNodes();
+                    for(int j = 0; j < listeEnfantsDescriptif.getLength(); j++){
+                        if(listeEnfantsDescriptif.item(j).getNodeName().equals("ligneChiffrage")){
+                            nbLigneChiffrage++;
+                            Element ligneChiffrage = (Element) listeEnfantsDescriptif.item(j);
+                            if(ligneChiffrage.getAttribute("idLigneChiffrage").equals(idLigneChiffrage)){
+                                ligneChiffrageASupprimer = ligneChiffrage;
+                            }
+                        }
+                    }
+                    if(nbLigneChiffrage > 1 && ligneChiffrageASupprimer != null){
+                        ligneChiffrageASupprimer.getParentNode().removeChild(ligneChiffrageASupprimer);
+                        testSuppression = true;
+                    }
+                }
+            }
+
+            //On écrit par dessus l'ancien XML
+            projetXMLDao.saveXMLContent(xml, uri);
+            
+            if(testSuppression){
+                resultat = true; //Si on est arrivé jusque là alors pas d'erreur
+            }
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service SupprimerLigneChiffrage(Long idProjet, String idDescriptif, String idLigneChiffrage)", ex);
+        }
+        return resultat;
+    }*/
+    
+    //TO DO - Modifie la courteDescripition seulement dans le XML
+    public Boolean ModifierCourteDescriptionDescriptif(Long idProjet, Long idDescriptif, String newDescription){
         return null;
     }
     

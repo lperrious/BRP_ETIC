@@ -114,9 +114,12 @@ public class Main {
 //        testerSupprimerCategorie();
 //        testerSupprimerFamille();
 //        testerSupprimerSousFamille();
-        testerSupprimerDescriptif();
+//        testerSupprimerDescriptif();
 //        testerSupprimerLigneChiffrage();
-
+//        testerModifierDescriptionDescriptif();
+//        testerModifierCourteDescriptionDescriptif();
+//        testerModifierLocalisationDescriptif();
+//        testerModifierQuantiteDescriptif();
         
       //----------tests-secondaires------//
       
@@ -1373,7 +1376,7 @@ public class Main {
         String idDescriptif = "idPrestation1";
         String idLigneChiffrage = "1";
         
-        Boolean resultat = service.SupprimerLigneChiffrage(idProjet, idDescriptif, idLigneChiffrage);
+        Boolean resultat = service.SupprimerLigneChiffrage2(idProjet, idDescriptif, idLigneChiffrage);
         if(resultat)
         {
             System.out.println("Edition avec succès du projet n°" + idProjet);
