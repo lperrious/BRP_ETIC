@@ -10,7 +10,7 @@
 	<typeLot>Lot séparé</typeLot>
 	<site>Libre</site>
 	<datePrixRef>2019</datePrixRef>
-	<coeffAdapte>1.0</coeffAdapte>
+	<coeffAdapt>1.0</coeffAdapt>
 	<!-- A insérer juste avant l'export -->
 
 	<corpsEtat idCorpsEtat="1">
@@ -72,7 +72,7 @@
 						</descriptif>
 					</descriptif>
 
-					<descrptif type="ouvrage" idDescriptif="1/1/1/1/3">
+					<descriptif type="ouvrage" idDescriptif="1/1/1/1/3">
 						<nomDescriptif>Ouvrage numero 3</nomDescriptif>
 						<description>
 							Une
@@ -94,7 +94,7 @@
 							<localisation>Batiment B</localisation>
 							<quantite>45</quantite>
 						</ligneChiffrage>
-					</descrptif>
+					</descriptif>
 
 				</sousFamille>
 			</famille>
