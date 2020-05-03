@@ -836,7 +836,8 @@ public class Service {
         return resultat;
     }
     
-    //TO DO - Ajoute un ouvrage ou generique dans une sous famille
+    
+    //REMOVE?
     public Boolean AjouterOuvrageOuGenerique(Long idProjet, Long idSousFamille, String idDescriptif){
         JpaUtil.creerContextePersistance();
         Boolean resultat = false;
@@ -858,6 +859,97 @@ public class Service {
             else{
                 baliseDescriptif = xml.createElement("ouvrage");
             }
+            baliseDescriptif.setAttribute("idDescriptif", idDescriptif);
+            
+            //Création des enfants de descriptif
+            Element baliseNomDescriptif = xml.createElement("nomDescriptif");                                                                       
+            baliseNomDescriptif.appendChild(xml.createTextNode(descriptif.getNomDescriptif())); 
+            Element baliseDescription = xml.createElement("description");                                                                       
+            baliseDescription.appendChild(xml.createTextNode(descriptif.getDescription())); 
+            Element baliseCourteDescription = xml.createElement("courteDescription");                                                                      
+            baliseCourteDescription.appendChild(xml.createTextNode(descriptif.getCourteDescription())); 
+            //Remplissage de la balise descriptif
+            baliseDescriptif.appendChild(baliseNomDescriptif);    
+            baliseDescriptif.appendChild(baliseDescription); 
+            baliseDescriptif.appendChild(baliseCourteDescription); 
+            
+            //si c'est un ouvrage, on ajoute en plus tout ce qui est relatif aux prix
+            if(descriptif instanceof Ouvrage){
+                Integer annee_max = 0;
+                int indiceRef = -1;
+                Double quantite = 1.0;
+                
+                Ouvrage ouvrage = (Ouvrage) descriptifDao.ChercherParId(idDescriptif); 
+                List<BasePrixRef> listeBasePrixRef = ouvrage.getListeBasePrixRefOuvrage();          
+                
+                for(int i = 0; i<listeBasePrixRef.size(); i++){
+                    if(listeBasePrixRef.get(i).getQteInf() <= quantite && listeBasePrixRef.get(i).getQteSup() >= quantite){
+                        //on se trouve dans la bonne fourchette de quantite, on test l'annee
+                        if(listeBasePrixRef.get(i).getAnnee() > annee_max){
+                            annee_max = listeBasePrixRef.get(i).getAnnee();
+                            indiceRef = i;
+                        }
+                    }
+                }
+                
+                Element baliseUnite = xml.createElement("unite");                                                                       
+                baliseUnite.appendChild(xml.createTextNode(listeBasePrixRef.get(indiceRef).getUnite())); 
+                Element balisePrixUnitaire = xml.createElement("prixUnitaire");                                                                       
+                balisePrixUnitaire.appendChild(xml.createTextNode(listeBasePrixRef.get(indiceRef).getPrixUnitaire().toString())); 
+                
+                Element baliseLigneChiffrage = xml.createElement("ligneChiffrage"); 
+                baliseLigneChiffrage.setAttribute("idLigneChiffrage", "1");
+                Element baliseLocalisation = xml.createElement("localisation"); 
+                Element baliseQuantite = xml.createElement("quantite"); 
+                baliseQuantite.appendChild(xml.createTextNode(quantite.toString()));
+                baliseLigneChiffrage.appendChild(baliseLocalisation); 
+                baliseLigneChiffrage.appendChild(baliseQuantite);
+               
+                baliseDescriptif.appendChild(baliseUnite);    
+                baliseDescriptif.appendChild(balisePrixUnitaire); 
+                baliseDescriptif.appendChild(baliseLigneChiffrage); 
+            }
+            
+            //on parcours les sousFamilles
+            for (int i = 0; i<rootNodes.getLength(); i++) {
+                Element sousFamille = (Element) rootNodes.item(i);
+                if(sousFamille.getAttribute("idSousFamille").equals(idSousFamille.toString())){
+                    //on est dans la bonne sousFamille
+                    rootNodes.item(i).appendChild(baliseDescriptif);
+                    testInsertion = true;
+                    break;
+                }			
+            }
+            
+            //On écrit par dessus l'ancien XML
+            projetXMLDao.saveXMLContent(xml, uri);
+            
+            if(testInsertion){
+                resultat = true; //Si on est arrivé jusque là alors pas d'erreur
+            }
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterCategorie(Long idProjet, Long idCategorie)", ex);
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        return resultat;
+    }
+    
+    public Boolean AjouterOuvrageOuGenerique2(Long idProjet, Long idSousFamille, String idDescriptif){
+        JpaUtil.creerContextePersistance();
+        Boolean resultat = false;
+        Boolean testInsertion = false;
+        
+        try {
+            //Obtention du document
+            String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            Document xml = projetXMLDao.ObtenirDocument(uri);
+            NodeList rootNodes = xml.getElementsByTagName("sousFamille");
+            Element baliseDescriptif = null;
+            
+            //on récupère le descriptif
+            Descriptif descriptif = descriptifDao.ChercherParId(idDescriptif); 
+            baliseDescriptif = xml.createElement("descriptif");
             baliseDescriptif.setAttribute("idDescriptif", idDescriptif);
             
             //Création des enfants de descriptif
@@ -1013,6 +1105,112 @@ public class Service {
                         rootNodes.item(i).removeChild(prixUnitaire);
                     }
                     NodeList nodeListeLigneChiffrage = ouvrage.getElementsByTagName("ligneChiffrage");
+                    if(nodeListeLigneChiffrage != null){
+                        for(int j=0; j < nodeListeLigneChiffrage.getLength(); j++){
+                            Element ligneChiffrage = (Element) nodeListeLigneChiffrage.item(j);
+                            rootNodes.item(i).removeChild(ligneChiffrage);
+                        }
+                    }
+                    
+                    rootNodes.item(i).appendChild(balisePrestation);
+                    testInsertion = true;
+                    break;
+                }			
+            }
+            
+            //On écrit par dessus l'ancien XML
+            projetXMLDao.saveXMLContent(xml, uri);
+            
+            if(testInsertion){
+                resultat = true; //Si on est arrivé jusque là alors pas d'erreur
+            }
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterCategorie(Long idProjet, Long idCategorie)", ex);
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        return resultat;
+    }
+    
+    public Boolean AjouterPrestation2(Long idProjet, String idDescriptif, String idPrestation){
+        JpaUtil.creerContextePersistance();
+        Boolean resultat = false;
+        Boolean testInsertion = false;
+        
+        try {
+            //Obtention du document
+            String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            Document xml = projetXMLDao.ObtenirDocument(uri);
+            NodeList rootNodes = xml.getElementsByTagName("descriptif");
+            Element balisePrestation = null;
+            
+            //on récupère la prestation
+            Prestation prestation = prestationDao.ChercherParId(idPrestation); 
+            balisePrestation = xml.createElement("prestation");
+            balisePrestation.setAttribute("idDescriptif", idPrestation);
+            
+            //Création des enfants de prestation
+            Element baliseNomDescriptif = xml.createElement("nomDescriptif");                                                                       
+            baliseNomDescriptif.appendChild(xml.createTextNode(prestation.getNomDescriptif())); 
+            Element baliseDescription = xml.createElement("description");                                                                       
+            baliseDescription.appendChild(xml.createTextNode(prestation.getDescription())); 
+            Element baliseCourteDescription = xml.createElement("courteDescription");                                                                      
+            baliseCourteDescription.appendChild(xml.createTextNode(prestation.getCourteDescription())); 
+            //Remplissage de la balise descriptif
+            balisePrestation.appendChild(baliseNomDescriptif);    
+            balisePrestation.appendChild(baliseDescription); 
+            balisePrestation.appendChild(baliseCourteDescription);   
+     
+            //on ajoute tout ce qui est relatif aux prix
+            Integer annee_max = 0;
+            int indiceRef = -1;
+            Double quantite = 1.0;
+
+            List<BasePrixRef> listeBasePrixRef = prestation.getListeBasePrixRefPrestation();          
+
+            for(int i = 0; i<listeBasePrixRef.size(); i++){
+                if(listeBasePrixRef.get(i).getQteInf() <= quantite && listeBasePrixRef.get(i).getQteSup() >= quantite){
+                    //on se trouve dans la bonne fourchette de quantite, on test l'annee
+                    if(listeBasePrixRef.get(i).getAnnee() > annee_max){
+                        annee_max = listeBasePrixRef.get(i).getAnnee();
+                        indiceRef = i;
+                    }
+                }
+            }
+
+            Element baliseUnite = xml.createElement("unite");                                                                       
+            baliseUnite.appendChild(xml.createTextNode(listeBasePrixRef.get(indiceRef).getUnite())); 
+            Element balisePrixUnitaire = xml.createElement("prixUnitaire");                                                                       
+            balisePrixUnitaire.appendChild(xml.createTextNode(listeBasePrixRef.get(indiceRef).getPrixUnitaire().toString())); 
+
+            Element baliseLigneChiffrage = xml.createElement("ligneChiffrage"); 
+            baliseLigneChiffrage.setAttribute("idLigneChiffrage", "1");
+            Element baliseLocalisation = xml.createElement("localisation"); 
+            Element baliseQuantite = xml.createElement("quantite"); 
+            baliseQuantite.appendChild(xml.createTextNode(quantite.toString()));
+            baliseLigneChiffrage.appendChild(baliseLocalisation); 
+            baliseLigneChiffrage.appendChild(baliseQuantite);
+
+            balisePrestation.appendChild(baliseUnite);    
+            balisePrestation.appendChild(balisePrixUnitaire); 
+            balisePrestation.appendChild(baliseLigneChiffrage);
+            
+            //on parcours les descriptifs
+            for (int i = 0; i<rootNodes.getLength(); i++) {
+                Element descriptif = (Element) rootNodes.item(i);
+                if(descriptif.getAttribute("idDescriptif").equals(idDescriptif)){
+                    //on est dans le bon ouvrage. On supprime d'éventuelles infos liées aux prix
+                    NodeList nodeUnite = descriptif.getElementsByTagName("unite");
+                    if(nodeUnite != null){
+                        Element unite = (Element) nodeUnite.item(0);
+                        rootNodes.item(i).removeChild(unite);
+                    }
+                    NodeList nodePrixUnitaire = descriptif.getElementsByTagName("prixUnitaire");
+                    if(nodePrixUnitaire != null){
+                        Element prixUnitaire = (Element) nodePrixUnitaire.item(0);
+                        rootNodes.item(i).removeChild(prixUnitaire);
+                    }
+                    NodeList nodeListeLigneChiffrage = descriptif.getElementsByTagName("ligneChiffrage");
                     if(nodeListeLigneChiffrage != null){
                         for(int j=0; j < nodeListeLigneChiffrage.getLength(); j++){
                             Element ligneChiffrage = (Element) nodeListeLigneChiffrage.item(j);
