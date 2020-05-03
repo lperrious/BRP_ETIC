@@ -114,7 +114,7 @@ public class Main {
 //        testerSupprimerFamille();
 //        testerSupprimerSousFamille();
 //        testerSupprimerDescriptif();
-//        testerSupprimerLigneChiffrage();
+        testerSupprimerLigneChiffrage();
 //        testerModifierDescriptionDescriptif();
 //        testerModifierCourteDescriptionDescriptif();
 //        testerModifierLocalisationDescriptif();
@@ -1359,6 +1359,108 @@ public class Main {
         } else {
             System.out.println("Erreur d'édition du projet n°" + idProjet);
         }
+    }
+    
+    public static void testerModifierDescriptionDescriptif() {
+        
+        System.out.println();
+        System.out.println("**** testerModifierDescriptionDescriptif() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        
+        //Doit fonctionner
+        Long idProjet = 1L;
+        String idDescriptif = "idPrestation1";
+        String newDescription = "testNew";
+        
+        Boolean resultat = service.ModifierDescriptionDescriptif(idProjet, idDescriptif, newDescription);
+        if(resultat)
+        {
+            System.out.println("Edition avec succès du projet n°" + idProjet);
+        } else {
+            System.out.println("Erreur d'édition du projet n°" + idProjet);
+        }
+        
+        //test pas de descriptif existant : echec comme prévu
+        //test ouvrage ou prestation : ok
+    }
+    
+    public static void testerModifierCourteDescriptionDescriptif() {
+        
+        System.out.println();
+        System.out.println("**** testerModifierCourteDescriptionDescriptif() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        
+        //Doit fonctionner
+        Long idProjet = 1L;
+        String idDescriptif = "idOuvrage1";
+        String newDescription = "testNew";
+        
+        Boolean resultat = service.ModifierCourteDescriptionDescriptif(idProjet, idDescriptif, newDescription);
+        if(resultat)
+        {
+            System.out.println("Edition avec succès du projet n°" + idProjet);
+        } else {
+            System.out.println("Erreur d'édition du projet n°" + idProjet);
+        }
+        
+        //test pas de descriptif existant : echec comme prévu
+        //test ouvrage ou prestation : ok
+    }
+    
+    public static void testerModifierLocalisationDescriptif() {
+        
+        System.out.println();
+        System.out.println("**** testerModifierLocalisationDescriptif() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        
+        //Doit fonctionner
+        Long idProjet = 1L;
+        String idDescriptif = "idPrestation1";
+        String idLigneChiffrage = "2";
+        String newLocalisation = "newLoc";
+        
+        Boolean resultat = service.ModifierLocalisationDescriptif(idProjet, idDescriptif, idLigneChiffrage, newLocalisation);
+        if(resultat)
+        {
+            System.out.println("Edition avec succès du projet n°" + idProjet);
+        } else {
+            System.out.println("Erreur d'édition du projet n°" + idProjet);
+        }
+        
+        //test pas de descriptif existant : echec comme prévu
+        //test pas de ligneChiffrage existante: echec comme prévu
+        //test ouvrage ou prestation : ok
+    }
+    
+    public static void testerModifierQuantiteDescriptif() {
+        
+        System.out.println();
+        System.out.println("**** testerModifierQuantiteDescriptif() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        
+        //Doit fonctionner
+        Long idProjet = 1L;
+        String idDescriptif = "idPrestation1";
+        String idLigneChiffrage = "1";
+        Double quantite = 1.0;
+        
+        Boolean resultat = service.ModifierQuantiteDescriptif(idProjet, idDescriptif, idLigneChiffrage, quantite);
+        if(resultat)
+        {
+            System.out.println("Edition avec succès du projet n°" + idProjet);
+        } else {
+            System.out.println("Erreur d'édition du projet n°" + idProjet);
+        }
+        
+        //
     }
     
                 //-----------------------//
