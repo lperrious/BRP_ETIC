@@ -1324,7 +1324,7 @@ public class Main {
         Long idProjet = 1L;
         String idDescriptif = "idPrestation1";
         
-        Boolean resultat = service.SupprimerDescriptif(idProjet, idDescriptif);
+        Boolean resultat = service.SupprimerDescriptif2(idProjet, idDescriptif);
         if(resultat)
         {
             System.out.println("Edition avec succès du projet n°" + idProjet);
@@ -1350,7 +1350,7 @@ public class Main {
         String idDescriptif = "idPrestation1";
         String idLigneChiffrage = "1";
         
-        Boolean resultat = service.SupprimerLigneChiffrage(idProjet, idDescriptif, idLigneChiffrage);
+        Boolean resultat = service.SupprimerLigneChiffrage2(idProjet, idDescriptif, idLigneChiffrage);
         if(resultat)
         {
             System.out.println("Edition avec succès du projet n°" + idProjet);
