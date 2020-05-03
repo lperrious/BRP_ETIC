@@ -663,10 +663,25 @@ public class Service {
     }    
             
     //TO DO - Permet d'avoir une vue de synthèse des couts à chaque étage de l'arborescence
-    public Double CoutSynthese(Long idProjet, Long idCorpsEtat) {
+    public Double CoutSynthese(Long idProjet, String typeCorps, String idCorps) {
+        
+        Double total = 0.0;
+        
         //recuperer coeffAdapt & coeffRaccordement dans la table projet
+        
+        //on se positionne dans le corps souhaite
+        
+        //on récupère tous les descriptifs
+        
+        //on boucle les descriptifs
+        
+        //si un descriptif possède un prix unitaire
+        
         //Récuperer prixUnitaire et quantite dans le XML
-        return null;
+        
+        //ajouter au total
+        
+        return total;
     }
     
     public Boolean AjouterCorpsEtat(Long idProjet, Long idCorpsEtat) {
