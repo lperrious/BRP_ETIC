@@ -1,11 +1,9 @@
-<!ELEMENT projet (nomProjet?, typeMarche?, typeConstruction?, typeLot?, site?, datePrixRef?, coeffAdapte?, corpsEtat*)>
+<!ELEMENT projet (nomProjet?, typeMarche?, typeConstruction?, typeLot?, site?, datePrixRef?, coeffAdapt?, corpsEtat*)>
 <!ELEMENT corpsEtat (intitule, categorie*)>
 <!ELEMENT categorie (intitule, famille*)>
 <!ELEMENT famille (intitule, sousFamille*)>
-<!ELEMENT sousFamille (intitule, generique*, ouvrage*)>
-<!ELEMENT generique (nomDescriptif, description, courteDescription)>
-<!ELEMENT ouvrage (nomDescriptif, description, courteDescription, prestation*, unite*, prixUnitaire*, ligneChiffrage*)>
-<!ELEMENT prestation (nomDescriptif, description, courteDescription, unite*, prixUnitaire*, ligneChiffrage*)>
+<!ELEMENT sousFamille (intitule, descriptif*)>
+<!ELEMENT descriptif (nomDescriptif, description, courteDescription, prestation*, unite*, prixUnitaire*, ligneChiffrage*)>
 <!ELEMENT ligneChiffrage (localisation, quantite)>
 <!ELEMENT nomProjet (#PCDATA)>
 <!ELEMENT typeMarche (#PCDATA)>
@@ -30,7 +28,6 @@
 <!ATTLIST categorie idCategorie CDATA #REQUIRED>
 <!ATTLIST famille idFamille CDATA #REQUIRED>
 <!ATTLIST sousFamille idSousFamille CDATA #REQUIRED>
-<!ATTLIST generique idDescriptif CDATA #REQUIRED>
-<!ATTLIST ouvrage idDescriptif CDATA #REQUIRED>
-<!ATTLIST prestation idDescriptif CDATA #REQUIRED>
+<!ATTLIST descriptif idDescriptif CDATA #REQUIRED>
+<!ATTLIST descriptif type CDATA #REQUIRED>
 <!ATTLIST ligneChiffrage idLigneChiffrage CDATA #REQUIRED>
