@@ -109,6 +109,7 @@ public class Main {
         testerAjouterSousFamille();
         testerAjouterOuvrageOuGenerique();
         testerAjouterPrestation();
+        testerAjouterLigneChiffrage();
 //        testerSupprimerCorpsEtat();
 //        testerSupprimerCategorie();
 //        testerSupprimerFamille();
@@ -1211,6 +1212,29 @@ public class Main {
         String idPrestation = "idPrestation1";
         
         Boolean resultat = service.AjouterPrestation(idProjet, idDescriptif, idPrestation);
+        if(resultat){
+            System.out.println("Edition avec succès du projet n°" + idProjet+", descriptif n°"+idDescriptif);
+        } else {
+            System.out.println("Erreur d'édition du projet n°" + idProjet+", descriptif n°"+idDescriptif);
+        }
+        
+        //idProjet n'existe pas -> echec (comme prevu)
+        //idOuvrage n'existe pas -> echec (comme prevu)
+    }
+    
+    public static void testerAjouterLigneChiffrage() {
+        
+        System.out.println();
+        System.out.println("**** testerAjouterLigneChiffrage() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        
+        //Doit fonctionner (sinsère uniquement dans le premier corpsEtat)
+        Long idProjet = 1L;
+        String idDescriptif = "idPrestation1";
+        
+        Boolean resultat = service.AjouterLigneChiffrage(idProjet, idDescriptif);
         if(resultat){
             System.out.println("Edition avec succès du projet n°" + idProjet+", descriptif n°"+idDescriptif);
         } else {

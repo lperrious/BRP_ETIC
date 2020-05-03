@@ -663,10 +663,25 @@ public class Service {
     }    
             
     //TO DO - Permet d'avoir une vue de synthèse des couts à chaque étage de l'arborescence
-    public Double CoutSynthese(Long idProjet, Long idCorpsEtat) {
+    public Double CoutSynthese(Long idProjet, String typeCorps, String idCorps) {
+        
+        Double total = 0.0;
+        
         //recuperer coeffAdapt & coeffRaccordement dans la table projet
+        
+        //on se positionne dans le corps souhaite
+        
+        //on récupère tous les descriptifs
+        
+        //on boucle les descriptifs
+        
+        //si un descriptif possède un prix unitaire
+        
         //Récuperer prixUnitaire et quantite dans le XML
-        return null;
+        
+        //ajouter au total
+        
+        return total;
     }
     
     public Boolean AjouterCorpsEtat(Long idProjet, Long idCorpsEtat) {
@@ -1042,79 +1057,53 @@ public class Service {
     }
     
     //TO DO - Ajoute un champ Localisation ainsi qu'un champ Quantite dans le XML
-    public Boolean AjouterLigneChiffrage(Long idProjet, Long idDescriptif){
-//        JpaUtil.creerContextePersistance();
-//        Boolean resultat = false;
-//        Boolean testInsertion = false;
-//        
-//        try {
-//            //Obtention du document
-//            String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
-//            Document xml = projetXMLDao.ObtenirDocument(uri);
-//            NodeList rootNodes = xml.getElementsByTagName("ouvrage");
-//            Element balisePrestation = null;
-//            
-//            //on récupère la prestation
-//            Prestation prestation = prestationDao.ChercherParId(idPrestation); 
-//            balisePrestation = xml.createElement("prestation");
-//            balisePrestation.setAttribute("idDescriptif", idPrestation);
-//            
-//            //Création de la balise ligne chiffrage
-//            Element baliseNomDescriptif = xml.createElement("nomDescriptif");                                                                       
-//            baliseNomDescriptif.appendChild(xml.createTextNode(prestation.getNomDescriptif())); 
-//            Element baliseDescription = xml.createElement("description");                                                                       
-//            baliseDescription.appendChild(xml.createTextNode(prestation.getDescription())); 
-//            Element baliseCourteDescription = xml.createElement("courteDescription");                                                                      
-//            baliseCourteDescription.appendChild(xml.createTextNode(prestation.getCourteDescription())); 
-//            //Remplissage de la balise descriptif
-//            balisePrestation.appendChild(baliseNomDescriptif);    
-//            balisePrestation.appendChild(baliseDescription); 
-//            balisePrestation.appendChild(baliseCourteDescription);   
-//     
-//           
-//            
-//            //on parcours les ouvrages
-//            for (int i = 0; i<rootNodes.getLength(); i++) {
-//                Element ouvrage = (Element) rootNodes.item(i);
-//                if(ouvrage.getAttribute("idDescriptif").equals(idDescriptif)){
-//                    //on est dans le bon ouvrage. On supprime d'éventuelles infos liées aux prix
-//                    NodeList nodeUnite = ouvrage.getElementsByTagName("unite");
-//                    if(nodeUnite != null){
-//                        Element unite = (Element) nodeUnite.item(0);
-//                        rootNodes.item(i).removeChild(unite);
-//                    }
-//                    NodeList nodePrixUnitaire = ouvrage.getElementsByTagName("prixUnitaire");
-//                    if(nodePrixUnitaire != null){
-//                        Element prixUnitaire = (Element) nodePrixUnitaire.item(0);
-//                        rootNodes.item(i).removeChild(prixUnitaire);
-//                    }
-//                    NodeList nodeListeLigneChiffrage = ouvrage.getElementsByTagName("ligneChiffrage");
-//                    if(nodeListeLigneChiffrage != null){
-//                        for(int j=0; j < nodeListeLigneChiffrage.getLength(); j++){
-//                            Element ligneChiffrage = (Element) nodeListeLigneChiffrage.item(j);
-//                            rootNodes.item(i).removeChild(ligneChiffrage);
-//                        }
-//                    }
-//                    
-//                    rootNodes.item(i).appendChild(balisePrestation);
-//                    testInsertion = true;
-//                    break;
-//                }			
-//            }
-//            
-//            //On écrit par dessus l'ancien XML
-//            projetXMLDao.saveXMLContent(xml, uri);
-//            
-//            if(testInsertion){
-//                resultat = true; //Si on est arrivé jusque là alors pas d'erreur
-//            }
-//        } catch (Exception ex) {
-//            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterCategorie(Long idProjet, Long idCategorie)", ex);
-//        } finally {
-//            JpaUtil.fermerContextePersistance();
-//        }
-//        return resultat;
-        return null;
+    public Boolean AjouterLigneChiffrage(Long idProjet, String idDescriptif){
+        JpaUtil.creerContextePersistance();
+        Boolean resultat = false;
+        Boolean testInsertion = false;
+        
+        try {
+            //Obtention du document
+            String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            Document xml = projetXMLDao.ObtenirDocument(uri);
+            NodeList rootNodes = xml.getElementsByTagName("descriptif");
+            
+            //Création de ligneChiffrage
+            Element baliseLigneChiffrage = xml.createElement("ligneChiffrage"); 
+            Element baliseLocalisation = xml.createElement("localisation"); 
+            Element baliseQuantite = xml.createElement("quantite"); 
+            baliseQuantite.appendChild(xml.createTextNode("1.0"));
+            baliseLigneChiffrage.appendChild(baliseLocalisation); 
+            baliseLigneChiffrage.appendChild(baliseQuantite); 
+            
+            //on parcours les descriptifs
+            for (int i = 0; i<rootNodes.getLength(); i++) {
+                Element descriptif = (Element) rootNodes.item(i);
+                if(descriptif.getAttribute("idDescriptif").equals(idDescriptif)){
+                    
+                    //on compte les lignes chiffrages qu'il y a 
+                    NodeList ligneChiffrageNodes = descriptif.getElementsByTagName("ligneChiffrage");
+                    Integer nbLigneChiffrage = ligneChiffrageNodes.getLength()+1;
+                    baliseLigneChiffrage.setAttribute("idLigneChiffrage", nbLigneChiffrage.toString());
+                    
+                    rootNodes.item(i).appendChild(baliseLigneChiffrage);
+                    testInsertion = true;
+                    break;
+                }			
+            }
+            
+            //On écrit par dessus l'ancien XML
+            projetXMLDao.saveXMLContent(xml, uri);
+            
+            if(testInsertion){
+                resultat = true; //Si on est arrivé jusque là alors pas d'erreur
+            }
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterCategorie(Long idProjet, Long idCategorie)", ex);
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        return resultat;
     }
     
     //TO DO - Mettre a jour la correspondance de l'id -> Dans les TESTS du main !
