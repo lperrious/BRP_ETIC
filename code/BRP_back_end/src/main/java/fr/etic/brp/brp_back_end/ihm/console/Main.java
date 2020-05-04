@@ -115,12 +115,12 @@ public class Main {
 //        testerSupprimerCategorie();
 //        testerSupprimerFamille();
 //        testerSupprimerSousFamille();
-        testerSupprimerDescriptif();
+//       testerSupprimerDescriptif();
 //        testerSupprimerLigneChiffrage();
 //        testerModifierDescriptionDescriptif();
 //        testerModifierCourteDescriptionDescriptif();
 //        testerModifierLocalisationDescriptif();
-        testerModifierQuantiteDescriptif();
+      //  testerModifierQuantiteDescriptif();
         
       //----------tests-secondaires------//
       
@@ -1258,7 +1258,7 @@ public class Main {
         
         //Doit fonctionner (sinsère uniquement dans le premier corpsEtat)
         Long idProjet = 1L;
-        String idDescriptif = "idOuvrage1";
+        String idDescriptif = "idPrestation1";
         
         Boolean resultat = service.AjouterLigneChiffrage(idProjet, idDescriptif);
         if(resultat){
