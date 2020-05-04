@@ -663,23 +663,56 @@ public class Service {
     }    
             
     //TO DO - Permet d'avoir une vue de synthèse des couts à chaque étage de l'arborescence
-    public Double CoutSynthese(Long idProjet, String typeCorps, String idCorps) {
+    public Double CoutSynthese(Long idProjet, String typeBalise, String idBalise) {
         
-        Double total = 0.0;
-        
-        //recuperer coeffAdapt & coeffRaccordement dans la table projet
-        
-        //on se positionne dans le corps souhaite
-        
-        //on récupère tous les descriptifs
-        
-        //on boucle les descriptifs
-        
-        //si un descriptif possède un prix unitaire
-        
-        //Récuperer prixUnitaire et quantite dans le XML
-        
-        //ajouter au total
+        Double total = null;
+        Double quantite = 0.0;
+        Double prixUnitaire = 0.0;
+        JpaUtil.creerContextePersistance();
+        try {
+            Projet projet = projetDao.ChercherParId(idProjet);
+            
+            //recuperer coeffAdapt & coeffRaccordement dans la table projet
+            Float coeffAdapt = projet.getCoeffAdapt();
+            Double coeffraccordement = projet.getCoeffRaccordement().getValeur();
+            
+            //on se positionne dans le corps souhaite
+            String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            Document xml = projetXMLDao.ObtenirDocument(uri);
+            NodeList rootNodes = xml.getElementsByTagName(typeBalise);
+                    
+            String attribut = "id".concat(typeBalise.replaceFirst(".",(typeBalise.charAt(0)+"").toUpperCase()));   //on met l'attribut au bon format
+            
+            //on parcours les balises selectionnées 
+            for (int i = 0; i<rootNodes.getLength(); i++) {
+                Element balise = (Element) rootNodes.item(i);
+                if(balise.getAttribute(attribut).equals(idBalise)){
+                    total = 0.0;        //si on est ici c'est que la balise existe, on initialise le prix à 0€
+                    //on est dans la bonne balise, on récupère toutes les lignes chiffrage
+                    NodeList ligneChiffrageNodes = balise.getElementsByTagName("ligneChiffrage");
+                    //on boucle les lignes chiffrage
+                    for (int j = 0; j<ligneChiffrageNodes.getLength(); j++) {
+                        Element ligneChiffrage = (Element) ligneChiffrageNodes.item(j);
+                        
+                        //Récuperer prixUnitaire et quantite dans le XML
+                        NodeList quantiteNode = ligneChiffrage.getElementsByTagName("quantite");
+                        NodeList prixUnitaireNode = ligneChiffrage.getElementsByTagName("prixUnitaire");
+                        Element quantiteBalise = (Element) quantiteNode.item(0);
+                        Element prixUnitaireBalise = (Element) prixUnitaireNode.item(0);
+                        
+                        quantite = Double.valueOf(quantiteBalise.getTextContent());
+                        prixUnitaire = Double.valueOf(prixUnitaireBalise.getTextContent());
+                          
+                        //ajouter au total
+                        total += coeffAdapt*coeffraccordement*quantite*prixUnitaire;
+                    }
+                }			
+            }
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service CoutSynthese(idProjet, typeBalise, idBalise)", ex);
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
         
         return total;
     }

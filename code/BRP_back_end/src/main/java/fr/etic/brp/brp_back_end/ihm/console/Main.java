@@ -110,6 +110,7 @@ public class Main {
         testerAjouterOuvrageOuGenerique();
         testerAjouterPrestation();
         testerAjouterLigneChiffrage();
+        testerCoutSynthese();
 //        testerSupprimerCorpsEtat();
 //        testerSupprimerCategorie();
 //        testerSupprimerFamille();
@@ -1059,6 +1060,31 @@ public class Main {
         } else {
             System.out.println("Erreur d'édition du projet n°" + idProjet3);
         }
+    }
+    
+    public static void testerCoutSynthese() {
+        
+        System.out.println();
+        System.out.println("**** testerCoutSynthese() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        
+        //Doit fonctionner
+        Long idProjet = 1L;
+        String typeBalise = "corpsEtat";
+        String idBalise = "2";
+        
+        Double resultat = service.CoutSynthese(idProjet, typeBalise, idBalise);
+        if(resultat != null){
+            System.out.println("Cout de synthèse calculé: "+resultat+"€");
+        } else {
+            System.out.println("Erreur lors du calcul du cout de synthèse");
+        }
+        
+        //si la balise n'existe pas -> echec(comme prevu)
+        //si la balise existe mais ne possède pas de prix -> 0€ (comme prevu)
+        //si la balise existe et possède un prix -> prix renvoyé (comme prévu)
     }
     
     public static void testerAjouterCorpsEtat() {
