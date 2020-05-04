@@ -66,8 +66,8 @@
 							<unite>m^2</unite>
 							<ligneChiffrage idLigneChiffrage="1">
 								<localisation>Batiment A</localisation>
-								<prixUnitaire>200</prixUnitaire>
 								<quantite>25</quantite>
+								<prixUnitaire>200</prixUnitaire>
 							</ligneChiffrage>
 						</descriptif>
 					</descriptif>
@@ -87,13 +87,13 @@
 						<unite>m^2</unite>
 						<ligneChiffrage idLigneChiffrage="1">
 							<localisation>Batiment A</localisation>
-							<prixUnitaire>200</prixUnitaire>
 							<quantite>25</quantite>
+							<prixUnitaire>200</prixUnitaire>
 						</ligneChiffrage>
 						<ligneChiffrage idLigneChiffrage="2">
 							<localisation>Batiment B</localisation>
-							<prixUnitaire>200</prixUnitaire>
 							<quantite>45</quantite>
+							<prixUnitaire>200</prixUnitaire>
 						</ligneChiffrage>
 					</descriptif>
 

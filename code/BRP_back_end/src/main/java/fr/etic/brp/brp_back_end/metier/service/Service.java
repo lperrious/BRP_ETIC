@@ -1341,11 +1341,7 @@ public class Service {
 
                             //Balise unite
                             Element baliseUnite = xml.createElement("unite");                                                                       
-                            baliseUnite.appendChild(xml.createTextNode(listeBasePrixRef.get(indiceRef).getUnite()));
-
-                            //Balise prixUnitaire
-                            Element balisePrixUnitaire = xml.createElement("prixUnitaire");                                                                       
-                            balisePrixUnitaire.appendChild(xml.createTextNode(listeBasePrixRef.get(indiceRef).getPrixUnitaire().toString())); 
+                            baliseUnite.appendChild(xml.createTextNode(listeBasePrixRef.get(indiceRef).getUnite())); 
 
                             //Balise ligneChiffrage
                             Element baliseLigneChiffrage = xml.createElement("ligneChiffrage"); 
@@ -1355,12 +1351,15 @@ public class Service {
                             //Balise quantite
                             Element baliseQuantite = xml.createElement("quantite");
                             baliseQuantite.appendChild(xml.createTextNode(quantite.toString()));
-
+                            //Balise prixUnitaire
+                            Element balisePrixUnitaire = xml.createElement("prixUnitaire");                                                                       
+                            balisePrixUnitaire.appendChild(xml.createTextNode(listeBasePrixRef.get(indiceRef).getPrixUnitaire().toString()));
+                            
                             baliseLigneChiffrage.appendChild(baliseLocalisation); 
                             baliseLigneChiffrage.appendChild(baliseQuantite);
+                            baliseLigneChiffrage.appendChild(balisePrixUnitaire);
 
                             ouvrageElement.appendChild(baliseUnite);    
-                            ouvrageElement.appendChild(balisePrixUnitaire); 
                             ouvrageElement.appendChild(baliseLigneChiffrage);
                             
                             //On peut donc supprimer la prestation
@@ -1559,7 +1558,7 @@ public class Service {
         return resultat;
     }
     
-    //TO DO - Modifie la qte seulement dans le XML - Mettre prix unitaire dans la ligneChiffrage ???!!!
+    //TO DO - Modifie la qte seulement dans le XML
     public Boolean ModifierQuantiteDescriptif(Long idProjet, String idDescriptif, String idLigneChiffrage, Double quantite){
         JpaUtil.creerContextePersistance();
         Boolean testModif = false;
@@ -1597,40 +1596,26 @@ public class Service {
                                         List<BasePrixRef> listeBasePrixRef = null;
                                         if(baliseDescriptif.getAttribute("type").equals("ouvrage")){ //On va cherche la liste des prix dans BasePrixRef
                                             Ouvrage ouvrage = (Ouvrage) descriptifDao.ChercherParId(baliseDescriptif.getAttribute("idDescriptif"));
-                                            listeBasePrixRef = ouvrage.getListeBasePrixRefOuvrage();      
-                                        } else if(baliseDescriptif.getAttribute("idDescriptif").equals("prestation")) {
+                                            listeBasePrixRef = ouvrage.getListeBasePrixRefOuvrage();
+                                        } else if(baliseDescriptif.getAttribute("type").equals("prestation")) {
                                             Prestation prestation = (Prestation) descriptifDao.ChercherParId(baliseDescriptif.getAttribute("idDescriptif"));
-                                            listeBasePrixRef = prestation.getListeBasePrixRefPrestation();      
+                                            listeBasePrixRef = prestation.getListeBasePrixRefPrestation();
                                         }
-                                        
-                                        for(int l = 0; l < listeBasePrixRef.size(); l++){
-                                            if(listeBasePrixRef.get(l).getQteInf() <= quantite && listeBasePrixRef.get(l).getQteSup() >= quantite){
-                                                //on se trouve dans la bonne fourchette de quantite, on test l'annee
-                                                if(listeBasePrixRef.get(l).getAnnee() > annee_max){
-                                                    annee_max = listeBasePrixRef.get(l).getAnnee();
-                                                    indiceRef = l;
+                                        if(listeBasePrixRef != null){
+                                            for(int l = 0; l < listeBasePrixRef.size(); l++){
+                                                if(listeBasePrixRef.get(l).getQteInf() <= quantite && listeBasePrixRef.get(l).getQteSup() >= quantite){
+                                                    //on se trouve dans la bonne fourchette de quantite, on test l'annee
+                                                    if(listeBasePrixRef.get(l).getAnnee() > annee_max){
+                                                      annee_max = listeBasePrixRef.get(l).getAnnee();
+                                                      indiceRef = l;
+                                                    }
                                                 }
                                             }
+
+                                            //Balise prixUnitaire
+                                            Element balisePrixUnitaire = (Element) enfantsLigneChiffrage.item(k);                                                                   
+                                            balisePrixUnitaire.setTextContent(listeBasePrixRef.get(indiceRef).getPrixUnitaire().toString());
                                         }
-
-                                        //Balise prixUnitaire
-                                        Element balisePrixUnitaire = (Element) enfantsLigneChiffrage.item(k);                                                                   
-                                        balisePrixUnitaire.setTextContent(listeBasePrixRef.get(indiceRef).getPrixUnitaire().toString());
-
-                                        /*//Balise ligneChiffrage
-                                        Element baliseLigneChiffrage = xml.createElement("ligneChiffrage"); 
-                                        baliseLigneChiffrage.setAttribute("idLigneChiffrage", "1");
-                                        //Balise localisation
-                                        Element baliseLocalisation = xml.createElement("localisation");
-                                        //Balise quantite
-                                        Element baliseQuantite = xml.createElement("quantite");
-                                        baliseQuantite.appendChild(xml.createTextNode(quantite.toString()));
-
-                                        baliseLigneChiffrage.appendChild(baliseLocalisation); 
-                                        baliseLigneChiffrage.appendChild(baliseQuantite);*/
-
-                                        baliseDescriptif.appendChild(balisePrixUnitaire); 
-                                        //ouvrageElement.appendChild(baliseLigneChiffrage);
                                     }
                                 }
                             }

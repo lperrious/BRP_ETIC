@@ -110,17 +110,17 @@ public class Main {
         testerAjouterOuvrageOuGenerique();
         testerAjouterPrestation();
         testerAjouterLigneChiffrage();
-        testerCoutSynthese();
+//        testerCoutSynthese();
 //        testerSupprimerCorpsEtat();
 //        testerSupprimerCategorie();
 //        testerSupprimerFamille();
 //        testerSupprimerSousFamille();
-//        testerSupprimerDescriptif();
+        testerSupprimerDescriptif();
 //        testerSupprimerLigneChiffrage();
 //        testerModifierDescriptionDescriptif();
 //        testerModifierCourteDescriptionDescriptif();
 //        testerModifierLocalisationDescriptif();
-//        testerModifierQuantiteDescriptif();
+        testerModifierQuantiteDescriptif();
         
       //----------tests-secondaires------//
       
@@ -1491,7 +1491,7 @@ public class Main {
         //test ouvrage ou prestation : ok
     }
     
-    //TO DO
+    //TO DO : test modif ouvrage
     public static void testerModifierQuantiteDescriptif() {
         
         System.out.println();
@@ -1502,9 +1502,9 @@ public class Main {
         
         //Doit fonctionner
         Long idProjet = 1L;
-        String idDescriptif = "idPrestation1";
+        String idDescriptif = "idOuvrage1";
         String idLigneChiffrage = "1";
-        Double quantite = 1.0;
+        Double quantite = 2.0;
         
         Boolean resultat = service.ModifierQuantiteDescriptif(idProjet, idDescriptif, idLigneChiffrage, quantite);
         if(resultat)
@@ -1514,7 +1514,10 @@ public class Main {
             System.out.println("Erreur d'édition du projet n°" + idProjet);
         }
         
-        //
+        //test modif prestation : ok
+        //test modif prestation avec ligneChiffrage non existante : ok
+        //test modif mauvaise quantité : ok
+        //test modif ouvrage : A FAIRE
     }
     
                 //-----------------------//
