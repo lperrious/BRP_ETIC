@@ -1125,7 +1125,7 @@ public class Service {
                         listeBasePrixRef = ouvrage.getListeBasePrixRefOuvrage(); 
                     }
                     else{
-                        Prestation descriptifBD = prestationDao.ChercherParId(descriptif.getAttribute("idDescriptif"));
+                        Prestation descriptifBD = prestationDao.ChercherParId(idDescriptif);
                         listeBasePrixRef = descriptifBD.getListeBasePrixRefPrestation(); 
                     }       
                     
