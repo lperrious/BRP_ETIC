@@ -64,9 +64,9 @@
 							</description>
 							<courteDescription>Courte description (pour la DPGF)</courteDescription>
 							<unite>m^2</unite>
-							<prixUnitaire>200</prixUnitaire>
 							<ligneChiffrage idLigneChiffrage="1">
 								<localisation>Batiment A</localisation>
+								<prixUnitaire>200</prixUnitaire>
 								<quantite>25</quantite>
 							</ligneChiffrage>
 						</descriptif>
@@ -85,13 +85,14 @@
 						</description>
 						<courteDescription>Courte description (pour la DPGF)</courteDescription>
 						<unite>m^2</unite>
-						<prixUnitaire>200</prixUnitaire>
 						<ligneChiffrage idLigneChiffrage="1">
 							<localisation>Batiment A</localisation>
+							<prixUnitaire>200</prixUnitaire>
 							<quantite>25</quantite>
 						</ligneChiffrage>
 						<ligneChiffrage idLigneChiffrage="2">
 							<localisation>Batiment B</localisation>
+							<prixUnitaire>200</prixUnitaire>
 							<quantite>45</quantite>
 						</ligneChiffrage>
 					</descriptif>

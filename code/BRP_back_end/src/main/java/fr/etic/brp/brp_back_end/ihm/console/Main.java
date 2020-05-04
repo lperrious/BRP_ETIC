@@ -110,12 +110,13 @@ public class Main {
         testerAjouterOuvrageOuGenerique();
         testerAjouterPrestation();
         testerAjouterLigneChiffrage();
+        testerCoutSynthese();
 //        testerSupprimerCorpsEtat();
 //        testerSupprimerCategorie();
 //        testerSupprimerFamille();
 //        testerSupprimerSousFamille();
 //        testerSupprimerDescriptif();
-        testerSupprimerLigneChiffrage();
+//        testerSupprimerLigneChiffrage();
 //        testerModifierDescriptionDescriptif();
 //        testerModifierCourteDescriptionDescriptif();
 //        testerModifierLocalisationDescriptif();
@@ -143,8 +144,8 @@ public class Main {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("BRP_PU");
         EntityManager em = emf.createEntityManager();        
         
-        BasePrixRef basePrixRef = new BasePrixRef(2018, 1.0, 1.0, 4.0, "m2", 10.0);
-        BasePrixRef basePrixRef2 = new BasePrixRef(2017, 1.0, 2.0, 3.0, "m2", 4.0);
+        BasePrixRef basePrixRef = new BasePrixRef(2018, 1.0, 1.0, 3.0, "m2", 10.0);
+        BasePrixRef basePrixRef2 = new BasePrixRef(2017, 1.0, 4.0, 6.0, "m2", 4.0);
         BasePrixRef basePrixRef3 = new BasePrixRef(2019, 1.0, 1.0, 3.0, "m2", 120.0);
         System.out.println("** BasePrixRef avant persistance: ");
         afficherBasePrixRef(basePrixRef);
@@ -1061,6 +1062,31 @@ public class Main {
         }
     }
     
+    public static void testerCoutSynthese() {
+        
+        System.out.println();
+        System.out.println("**** testerCoutSynthese() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        
+        //Doit fonctionner
+        Long idProjet = 1L;
+        String typeBalise = "corpsEtat";
+        String idBalise = "2";
+        
+        Double resultat = service.CoutSynthese(idProjet, typeBalise, idBalise);
+        if(resultat != null){
+            System.out.println("Cout de synthèse calculé: "+resultat+"€");
+        } else {
+            System.out.println("Erreur lors du calcul du cout de synthèse");
+        }
+        
+        //si la balise n'existe pas -> echec(comme prevu)
+        //si la balise existe mais ne possède pas de prix -> 0€ (comme prevu)
+        //si la balise existe et possède un prix -> prix renvoyé (comme prévu)
+    }
+    
     public static void testerAjouterCorpsEtat() {
         
         System.out.println();
@@ -1232,7 +1258,7 @@ public class Main {
         
         //Doit fonctionner (sinsère uniquement dans le premier corpsEtat)
         Long idProjet = 1L;
-        String idDescriptif = "idPrestation1";
+        String idDescriptif = "idOuvrage1";
         
         Boolean resultat = service.AjouterLigneChiffrage(idProjet, idDescriptif);
         if(resultat){

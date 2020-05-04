@@ -663,23 +663,56 @@ public class Service {
     }    
             
     //TO DO - Permet d'avoir une vue de synthèse des couts à chaque étage de l'arborescence
-    public Double CoutSynthese(Long idProjet, String typeCorps, String idCorps) {
+    public Double CoutSynthese(Long idProjet, String typeBalise, String idBalise) {
         
-        Double total = 0.0;
-        
-        //recuperer coeffAdapt & coeffRaccordement dans la table projet
-        
-        //on se positionne dans le corps souhaite
-        
-        //on récupère tous les descriptifs
-        
-        //on boucle les descriptifs
-        
-        //si un descriptif possède un prix unitaire
-        
-        //Récuperer prixUnitaire et quantite dans le XML
-        
-        //ajouter au total
+        Double total = null;
+        Double quantite = 0.0;
+        Double prixUnitaire = 0.0;
+        JpaUtil.creerContextePersistance();
+        try {
+            Projet projet = projetDao.ChercherParId(idProjet);
+            
+            //recuperer coeffAdapt & coeffRaccordement dans la table projet
+            Float coeffAdapt = projet.getCoeffAdapt();
+            Double coeffraccordement = projet.getCoeffRaccordement().getValeur();
+            
+            //on se positionne dans le corps souhaite
+            String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            Document xml = projetXMLDao.ObtenirDocument(uri);
+            NodeList rootNodes = xml.getElementsByTagName(typeBalise);
+                    
+            String attribut = "id".concat(typeBalise.replaceFirst(".",(typeBalise.charAt(0)+"").toUpperCase()));   //on met l'attribut au bon format
+            
+            //on parcours les balises selectionnées 
+            for (int i = 0; i<rootNodes.getLength(); i++) {
+                Element balise = (Element) rootNodes.item(i);
+                if(balise.getAttribute(attribut).equals(idBalise)){
+                    total = 0.0;        //si on est ici c'est que la balise existe, on initialise le prix à 0€
+                    //on est dans la bonne balise, on récupère toutes les lignes chiffrage
+                    NodeList ligneChiffrageNodes = balise.getElementsByTagName("ligneChiffrage");
+                    //on boucle les lignes chiffrage
+                    for (int j = 0; j<ligneChiffrageNodes.getLength(); j++) {
+                        Element ligneChiffrage = (Element) ligneChiffrageNodes.item(j);
+                        
+                        //Récuperer prixUnitaire et quantite dans le XML
+                        NodeList quantiteNode = ligneChiffrage.getElementsByTagName("quantite");
+                        NodeList prixUnitaireNode = ligneChiffrage.getElementsByTagName("prixUnitaire");
+                        Element quantiteBalise = (Element) quantiteNode.item(0);
+                        Element prixUnitaireBalise = (Element) prixUnitaireNode.item(0);
+                        
+                        quantite = Double.valueOf(quantiteBalise.getTextContent());
+                        prixUnitaire = Double.valueOf(prixUnitaireBalise.getTextContent());
+                          
+                        //ajouter au total
+                        total += coeffAdapt*coeffraccordement*quantite*prixUnitaire;
+                    }
+                }			
+            }
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service CoutSynthese(idProjet, typeBalise, idBalise)", ex);
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
         
         return total;
     }
@@ -799,7 +832,7 @@ public class Service {
                 resultat = true; //Si on est arrivé jusque là alors pas d'erreur
             }
         } catch (Exception ex) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterCategorie(Long idProjet, Long idCategorie)", ex);
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterFamille(Long idProjet, Long idCategorie, Long idFamille)", ex);
         } finally {
             JpaUtil.fermerContextePersistance();
         }
@@ -844,7 +877,7 @@ public class Service {
                 resultat = true; //Si on est arrivé jusque là alors pas d'erreur
             }
         } catch (Exception ex) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterCategorie(Long idProjet, Long idCategorie)", ex);
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterSousFamille(Long idProjet, Long idFamille, Long idSousFamille)", ex);
         } finally {
             JpaUtil.fermerContextePersistance();
         }
@@ -908,19 +941,20 @@ public class Service {
                 
                 Element baliseUnite = xml.createElement("unite");                                                                       
                 baliseUnite.appendChild(xml.createTextNode(listeBasePrixRef.get(indiceRef).getUnite())); 
-                Element balisePrixUnitaire = xml.createElement("prixUnitaire");                                                                       
-                balisePrixUnitaire.appendChild(xml.createTextNode(listeBasePrixRef.get(indiceRef).getPrixUnitaire().toString())); 
+                
                 
                 Element baliseLigneChiffrage = xml.createElement("ligneChiffrage"); 
                 baliseLigneChiffrage.setAttribute("idLigneChiffrage", "1");
                 Element baliseLocalisation = xml.createElement("localisation"); 
                 Element baliseQuantite = xml.createElement("quantite"); 
+                Element balisePrixUnitaire = xml.createElement("prixUnitaire");                                                                       
+                balisePrixUnitaire.appendChild(xml.createTextNode(listeBasePrixRef.get(indiceRef).getPrixUnitaire().toString())); 
                 baliseQuantite.appendChild(xml.createTextNode(quantite.toString()));
-                baliseLigneChiffrage.appendChild(baliseLocalisation); 
+                baliseLigneChiffrage.appendChild(baliseLocalisation);
                 baliseLigneChiffrage.appendChild(baliseQuantite);
+                baliseLigneChiffrage.appendChild(balisePrixUnitaire);
                
                 baliseDescriptif.appendChild(baliseUnite);    
-                baliseDescriptif.appendChild(balisePrixUnitaire); 
                 baliseDescriptif.appendChild(baliseLigneChiffrage); 
             }
             
@@ -942,7 +976,7 @@ public class Service {
                 resultat = true; //Si on est arrivé jusque là alors pas d'erreur
             }
         } catch (Exception ex) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterCategorie(Long idProjet, Long idCategorie)", ex);
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterOuvrageOuGenerique(Long idProjet, Long idSousFamille, String idDescriptif)", ex);
         } finally {
             JpaUtil.fermerContextePersistance();
         }
@@ -998,19 +1032,19 @@ public class Service {
 
             Element baliseUnite = xml.createElement("unite");                                                                       
             baliseUnite.appendChild(xml.createTextNode(listeBasePrixRef.get(indiceRef).getUnite())); 
-            Element balisePrixUnitaire = xml.createElement("prixUnitaire");                                                                       
-            balisePrixUnitaire.appendChild(xml.createTextNode(listeBasePrixRef.get(indiceRef).getPrixUnitaire().toString())); 
 
             Element baliseLigneChiffrage = xml.createElement("ligneChiffrage"); 
             baliseLigneChiffrage.setAttribute("idLigneChiffrage", "1");
             Element baliseLocalisation = xml.createElement("localisation"); 
             Element baliseQuantite = xml.createElement("quantite"); 
+            Element balisePrixUnitaire = xml.createElement("prixUnitaire");                                                                       
+            balisePrixUnitaire.appendChild(xml.createTextNode(listeBasePrixRef.get(indiceRef).getPrixUnitaire().toString())); 
             baliseQuantite.appendChild(xml.createTextNode(quantite.toString()));
-            baliseLigneChiffrage.appendChild(baliseLocalisation); 
+            baliseLigneChiffrage.appendChild(baliseLocalisation);
             baliseLigneChiffrage.appendChild(baliseQuantite);
+            baliseLigneChiffrage.appendChild(balisePrixUnitaire);
 
             balisePrestation.appendChild(baliseUnite);    
-            balisePrestation.appendChild(balisePrixUnitaire); 
             balisePrestation.appendChild(baliseLigneChiffrage);
             
             //on parcours les descriptifs
@@ -1022,11 +1056,6 @@ public class Service {
                     if(nodeUnite != null){
                         Element unite = (Element) nodeUnite.item(0);
                         rootNodes.item(i).removeChild(unite);
-                    }
-                    NodeList nodePrixUnitaire = descriptif.getElementsByTagName("prixUnitaire");
-                    if(nodePrixUnitaire != null){
-                        Element prixUnitaire = (Element) nodePrixUnitaire.item(0);
-                        rootNodes.item(i).removeChild(prixUnitaire);
                     }
                     NodeList nodeListeLigneChiffrage = descriptif.getElementsByTagName("ligneChiffrage");
                     if(nodeListeLigneChiffrage != null){
@@ -1049,7 +1078,7 @@ public class Service {
                 resultat = true; //Si on est arrivé jusque là alors pas d'erreur
             }
         } catch (Exception ex) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterCategorie(Long idProjet, Long idCategorie)", ex);
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterPrestation(Long idProjet, String idDescriptif, String idPrestation)", ex);
         } finally {
             JpaUtil.fermerContextePersistance();
         }
@@ -1061,6 +1090,9 @@ public class Service {
         JpaUtil.creerContextePersistance();
         Boolean resultat = false;
         Boolean testInsertion = false;
+        Double quantite = 1.0;
+        Integer annee_max = 0;
+        Integer indiceRef = -1;
         
         try {
             //Obtention du document
@@ -1072,7 +1104,7 @@ public class Service {
             Element baliseLigneChiffrage = xml.createElement("ligneChiffrage"); 
             Element baliseLocalisation = xml.createElement("localisation"); 
             Element baliseQuantite = xml.createElement("quantite"); 
-            baliseQuantite.appendChild(xml.createTextNode("1.0"));
+            baliseQuantite.appendChild(xml.createTextNode(quantite.toString()));
             baliseLigneChiffrage.appendChild(baliseLocalisation); 
             baliseLigneChiffrage.appendChild(baliseQuantite); 
             
@@ -1085,6 +1117,32 @@ public class Service {
                     NodeList ligneChiffrageNodes = descriptif.getElementsByTagName("ligneChiffrage");
                     Integer nbLigneChiffrage = ligneChiffrageNodes.getLength()+1;
                     baliseLigneChiffrage.setAttribute("idLigneChiffrage", nbLigneChiffrage.toString());
+                    
+                    //on va chercher l'idDescriptif du parent
+                    List<BasePrixRef> listeBasePrixRef = null;
+                    if(descriptif.getAttribute("type").equals("ouvrage")){
+                        Ouvrage ouvrage = (Ouvrage) descriptifDao.ChercherParId(idDescriptif); 
+                        listeBasePrixRef = ouvrage.getListeBasePrixRefOuvrage(); 
+                    }
+                    else{
+                        Prestation descriptifBD = prestationDao.ChercherParId(descriptif.getAttribute("idDescriptif"));
+                        listeBasePrixRef = descriptifBD.getListeBasePrixRefPrestation(); 
+                    }       
+                    
+                    //on va chercher le prix unitaire lié au parent
+                    for(int j = 0; j<listeBasePrixRef.size(); j++){
+                        if(listeBasePrixRef.get(j).getQteInf() <= quantite && listeBasePrixRef.get(j).getQteSup() >= quantite){
+                            //on se trouve dans la bonne fourchette de quantite, on test l'annee
+                            if(listeBasePrixRef.get(j).getAnnee() > annee_max){
+                                annee_max = listeBasePrixRef.get(j).getAnnee();
+                                indiceRef = j;
+                            }
+                        }
+                    }
+                    
+                    Element balisePrixUnitaire = xml.createElement("prixUnitaire");                                                                       
+                    balisePrixUnitaire.appendChild(xml.createTextNode(listeBasePrixRef.get(indiceRef).getPrixUnitaire().toString())); 
+                    baliseLigneChiffrage.appendChild(balisePrixUnitaire);
                     
                     rootNodes.item(i).appendChild(baliseLigneChiffrage);
                     testInsertion = true;
@@ -1099,7 +1157,7 @@ public class Service {
                 resultat = true; //Si on est arrivé jusque là alors pas d'erreur
             }
         } catch (Exception ex) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterCategorie(Long idProjet, Long idCategorie)", ex);
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterPrestation(Long idProjet, String idDescriptif, String idPrestation)", ex);
         } finally {
             JpaUtil.fermerContextePersistance();
         }
