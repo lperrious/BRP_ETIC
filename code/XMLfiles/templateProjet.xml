@@ -13,7 +13,7 @@
 	<coeffAdapt>1.0</coeffAdapt>
 	<!-- A insérer juste avant l'export -->
 
-	<corpsEtat idCorpsEtat="1">
+	<chapitre idChapitre="1">
 		<intitule>Nom corps Etat</intitule>
 		<categorie idCategorie="1/1">
 			<intitule>Nom categorie</intitule>
@@ -100,5 +100,5 @@
 				</sousFamille>
 			</famille>
 		</categorie>
-	</corpsEtat>
+	</chapitre>
 </projet>

@@ -5,7 +5,6 @@
     <class>fr.etic.brp.brp_back_end.metier.modele.Categorie</class>
     <class>fr.etic.brp.brp_back_end.metier.modele.CategorieConstruction</class>
     <class>fr.etic.brp.brp_back_end.metier.modele.CoeffRaccordement</class>
-    <class>fr.etic.brp.brp_back_end.metier.modele.CorpsEtat</class>
     <class>fr.etic.brp.brp_back_end.metier.modele.Descriptif</class>
     <class>fr.etic.brp.brp_back_end.metier.modele.Famille</class>
     <class>fr.etic.brp.brp_back_end.metier.modele.Generique</class>
@@ -17,6 +16,7 @@
     <class>fr.etic.brp.brp_back_end.metier.modele.BasePrixRef</class>
     <class>fr.etic.brp.brp_back_end.metier.modele.Prestation</class>
     <class>fr.etic.brp.brp_back_end.metier.modele.CaractDim</class>
+    <class>fr.etic.brp.brp_back_end.metier.modele.Chapitre</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/BD_BRP?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

@@ -6,7 +6,7 @@ import fr.etic.brp.brp_back_end.dao.CaractDimDao;
 import fr.etic.brp.brp_back_end.dao.CategorieConstructionDao;
 import fr.etic.brp.brp_back_end.dao.CategorieDao;
 import fr.etic.brp.brp_back_end.dao.CoeffRaccordementDao;
-import fr.etic.brp.brp_back_end.dao.CorpsEtatDao;
+import fr.etic.brp.brp_back_end.dao.ChapitreDao;
 import fr.etic.brp.brp_back_end.dao.DescriptifDao;
 import fr.etic.brp.brp_back_end.dao.FamilleDao;
 import fr.etic.brp.brp_back_end.dao.JpaUtil;
@@ -21,7 +21,7 @@ import fr.etic.brp.brp_back_end.metier.modele.CaractDim;
 import fr.etic.brp.brp_back_end.metier.modele.Categorie;
 import fr.etic.brp.brp_back_end.metier.modele.CategorieConstruction;
 import fr.etic.brp.brp_back_end.metier.modele.CoeffRaccordement;
-import fr.etic.brp.brp_back_end.metier.modele.CorpsEtat;
+import fr.etic.brp.brp_back_end.metier.modele.Chapitre;
 import fr.etic.brp.brp_back_end.metier.modele.Descriptif;
 import fr.etic.brp.brp_back_end.metier.modele.Famille;
 import fr.etic.brp.brp_back_end.metier.modele.Generique;
@@ -50,7 +50,7 @@ public class Service {
     protected CategorieConstructionDao categorieConstructionDao = new CategorieConstructionDao();
     protected CategorieDao categorieDao = new CategorieDao();
     protected CoeffRaccordementDao coeffRaccordementDao = new CoeffRaccordementDao();
-    protected CorpsEtatDao corpsEtatDao = new CorpsEtatDao();
+    protected ChapitreDao chapitreDao = new ChapitreDao();
     protected DescriptifDao descriptifDao = new DescriptifDao();
     protected FamilleDao familleDao = new FamilleDao();
     protected OperateurDao operateurDao = new OperateurDao();
@@ -115,13 +115,13 @@ public class Service {
         }
         return resultat;
     }
-    public List<CorpsEtat> ListerCorpsEtats() {
-        List<CorpsEtat> resultat = null;
+    public List<Chapitre> ListerChapitres() {
+        List<Chapitre> resultat = null;
         JpaUtil.creerContextePersistance();
         try {
-            resultat = corpsEtatDao.ListerCorpsEtat();
+            resultat = chapitreDao.ListerChapitre();
         } catch (Exception ex) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service ListerCorpsEtat()", ex);
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service ListerChapitre()", ex);
             resultat = null;
         } finally {
             JpaUtil.fermerContextePersistance();
@@ -716,7 +716,7 @@ public class Service {
         return total;
     }
     
-    public Boolean AjouterCorpsEtat(Long idProjet, String idCorpsEtat) {
+    public Boolean AjouterChapitre(Long idProjet, String idChapitre) {
         JpaUtil.creerContextePersistance();
         Boolean resultat = false;
         
@@ -725,23 +725,23 @@ public class Service {
             String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
             Document xml = projetXMLDao.ObtenirDocument(uri);
             Element root = xml.getDocumentElement();
-            //Création balise corpsEtat
-            Element baliseCorpsEtat = xml.createElement("corpsEtat");
-            baliseCorpsEtat.setAttribute("idCorpsEtat", idCorpsEtat);
+            //Création balise chapitre
+            Element baliseChapitre = xml.createElement("chapitre");
+            baliseChapitre.setAttribute("idChapitre", idChapitre);
             //Création de la balise intitule
             Element baliseIntitule = xml.createElement("intitule");
-            CorpsEtat corpsEtat = corpsEtatDao.ChercherParId(idCorpsEtat);
-            baliseIntitule.appendChild(xml.createTextNode(corpsEtat.getIntituleCorpsEtat()));
+            Chapitre chapitre = chapitreDao.ChercherParId(idChapitre);
+            baliseIntitule.appendChild(xml.createTextNode(chapitre.getIntituleChapitre()));
    
-            baliseCorpsEtat.appendChild(baliseIntitule);
-            root.appendChild(baliseCorpsEtat);
+            baliseChapitre.appendChild(baliseIntitule);
+            root.appendChild(baliseChapitre);
             
             //On écrit par dessus l'ancien XML
             projetXMLDao.saveXMLContent(xml, uri);
             
             resultat = true; //Si on est arrivé jusque là alors pas d'erreur
         } catch (Exception ex) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterCorpsEtat(idProjet, idCorpsEtat)");
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterChapitre(idProjet, idChapitre)");
         } finally {
             JpaUtil.fermerContextePersistance();
         }
@@ -753,13 +753,13 @@ public class Service {
         Boolean resultat = false;
         Boolean testInsertion = false;
         
-        String idCorpsEtat = idCategorie.substring(0, idCategorie.lastIndexOf("_"));            //extraction de l'ID du parent
+        String idChapitre = idCategorie.substring(0, idCategorie.lastIndexOf("_"));            //extraction de l'ID du parent
         
         try {
             //Obtention du document
             String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
             Document xml = projetXMLDao.ObtenirDocument(uri);
-            NodeList rootNodes = xml.getElementsByTagName("corpsEtat");
+            NodeList rootNodes = xml.getElementsByTagName("chapitre");
             //Création balise categorie
             Element baliseCategorie = xml.createElement("categorie");
             baliseCategorie.setAttribute("idCategorie", idCategorie);
@@ -770,11 +770,11 @@ public class Service {
    
             baliseCategorie.appendChild(baliseIntitule);
             
-            //on parcours les corpsEtat 
+            //on parcours les chapitre 
             for (int i = 0; i<rootNodes.getLength(); i++) {
-                Element corpsEtat = (Element) rootNodes.item(i);
-                if(corpsEtat.getAttribute("idCorpsEtat").equals(idCorpsEtat)){
-                    //on est dans le bon corpsEtat, on peut y insérer la categorie
+                Element chapitre = (Element) rootNodes.item(i);
+                if(chapitre.getAttribute("idChapitre").equals(idChapitre)){
+                    //on est dans le bon chapitre, on peut y insérer la categorie
                     rootNodes.item(i).appendChild(baliseCategorie);
                     testInsertion = true;
                     break;
@@ -1174,7 +1174,7 @@ public class Service {
         return resultat;
     }
     
-    public Boolean SupprimerCorpsEtat(Long idProjet, String idCorpsEtat){
+    public Boolean SupprimerChapitre(Long idProjet, String idChapitre){
         Boolean testSuppression = false;
         Boolean resultat = false;
         
@@ -1183,12 +1183,12 @@ public class Service {
             String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
             Document xml = projetXMLDao.ObtenirDocument(uri);
             
-            NodeList listNodes = xml.getElementsByTagName("corpsEtat");
+            NodeList listNodes = xml.getElementsByTagName("chapitre");
             //on parcours la liste des corps d'Etats à le recherche de celui à éliminer
             for (int i = 0; i < listNodes.getLength(); i++) {
-                Element corpsEtat = (Element) listNodes.item(i);
-                if(corpsEtat.getAttribute("idCorpsEtat").equals(idCorpsEtat)){
-                    corpsEtat.getParentNode().removeChild(corpsEtat);
+                Element chapitre = (Element) listNodes.item(i);
+                if(chapitre.getAttribute("idChapitre").equals(idChapitre)){
+                    chapitre.getParentNode().removeChild(chapitre);
                     testSuppression = true;
                 }
             }
@@ -1200,7 +1200,7 @@ public class Service {
                 resultat = true; //Si on est arrivé jusque là alors pas d'erreur
             }
         } catch (Exception ex) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service SupprimerCorpsEtat(Long idProjet, Long idCorpsEtat)", ex);
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service SupprimerChapitre(Long idProjet, Long idChapitre)", ex);
         }
         return resultat;
     }

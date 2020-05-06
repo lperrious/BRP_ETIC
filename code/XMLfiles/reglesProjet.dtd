@@ -1,5 +1,5 @@
-<!ELEMENT projet (nomProjet?, typeMarche?, typeConstruction?, typeLot?, site?, datePrixRef?, coeffAdapt?, corpsEtat*)>
-<!ELEMENT corpsEtat (intitule, categorie*)>
+<!ELEMENT projet (nomProjet?, typeMarche?, typeConstruction?, typeLot?, site?, datePrixRef?, coeffAdapt?, chapitre*)>
+<!ELEMENT chapitre (intitule, categorie*)>
 <!ELEMENT categorie (intitule, famille*)>
 <!ELEMENT famille (intitule, sousFamille*)>
 <!ELEMENT sousFamille (intitule, descriptif*)>
@@ -24,7 +24,7 @@
 <!ELEMENT i ANY>
 <!ELEMENT u ANY>
 <!ATTLIST projet idProjet CDATA #REQUIRED>
-<!ATTLIST corpsEtat idCorpsEtat CDATA #REQUIRED>
+<!ATTLIST chapitre idChapitre CDATA #REQUIRED>
 <!ATTLIST categorie idCategorie CDATA #REQUIRED>
 <!ATTLIST famille idFamille CDATA #REQUIRED>
 <!ATTLIST sousFamille idSousFamille CDATA #REQUIRED>

@@ -8,7 +8,7 @@ import fr.etic.brp.brp_back_end.metier.modele.CaractDim;
 import fr.etic.brp.brp_back_end.metier.modele.Categorie;
 import fr.etic.brp.brp_back_end.metier.modele.CategorieConstruction;
 import fr.etic.brp.brp_back_end.metier.modele.CoeffRaccordement;
-import fr.etic.brp.brp_back_end.metier.modele.CorpsEtat;
+import fr.etic.brp.brp_back_end.metier.modele.Chapitre;
 import fr.etic.brp.brp_back_end.metier.modele.Descriptif;
 import fr.etic.brp.brp_back_end.metier.modele.Famille;
 import fr.etic.brp.brp_back_end.metier.modele.Generique;
@@ -64,7 +64,7 @@ public class Main {
         InitialiserCategorie();
         InitialiserCategorieConstruction();
         InitialiserCoeffRaccordement();
-        InitialiserCorpsEtat();
+        InitialiserChapitre();
         InitialiserDescriptif();
         InitialiserFamille();
         InitialiserOperateur();
@@ -85,7 +85,7 @@ public class Main {
 //        testerListerCategories();
 //        testerListerCategorieConstructions();
 //        testerListerCoeffRaccordements();
-//        testerListerCorpsEtats();
+//        testerListerChapitres();
 //        testerListerDescriptifs();
 //        testerListerFamilles();
 //        testerListerOperateurs();
@@ -103,7 +103,7 @@ public class Main {
 //        testerEditerCoeffAdaptProjet();
 //        testerEditerCoeffRaccordementProjet();
 //        testerEditerCategorieConstructionProjet();
-        testerAjouterCorpsEtat();
+        testerAjouterChapitre();
         testerAjouterCategorie();
         testerAjouterFamille();
         testerAjouterSousFamille();
@@ -111,7 +111,7 @@ public class Main {
         testerAjouterPrestation();
         testerAjouterLigneChiffrage();
 //        testerCoutSynthese();
-//        testerSupprimerCorpsEtat();
+//        testerSupprimerChapitre();
 //        testerSupprimerCategorie();
 //        testerSupprimerFamille();
 //        testerSupprimerSousFamille();
@@ -493,32 +493,32 @@ public class Main {
         afficherCategorieConstruction(categorieConstruction1);
         System.out.println();
     } 
-    public static void InitialiserCorpsEtat() {
+    public static void InitialiserChapitre() {
         
         System.out.println();
-        System.out.println("**** initialiserCorpsEtat() ****");
+        System.out.println("**** initialiserChapitre() ****");
         System.out.println();
         
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("BRP_PU");
         EntityManager em = emf.createEntityManager();        
         
-        CorpsEtat corpsEtat1 = new CorpsEtat("01","corpsEtat1");
-        CorpsEtat corpsEtat2 = new CorpsEtat("02","corpsEtat2"); 
+        Chapitre chapitre1 = new Chapitre("01","chapitre1");
+        Chapitre chapitre2 = new Chapitre("02","chapitre2"); 
         
-        System.out.println("** CorpsEtat avant persistance: ");
-        afficherCorpsEtat(corpsEtat1);
+        System.out.println("** Chapitre avant persistance: ");
+        afficherChapitre(chapitre1);
         System.out.println();
 
         try {
             em.getTransaction().begin();
-            em.persist(corpsEtat1);
+            em.persist(chapitre1);
             em.getTransaction().commit();
             
             em.getTransaction().begin();    //REMOVE
-            em.persist(corpsEtat2);         //REMOVE
+            em.persist(chapitre2);         //REMOVE
             em.getTransaction().commit();   //REMOVE
         } catch (Exception ex) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service initialiserCorpsEtat()", ex);
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service initialiserChapitre()", ex);
             try {
                 em.getTransaction().rollback();
             }
@@ -529,8 +529,8 @@ public class Main {
             em.close();
         }
         
-        System.out.println("** CorpsEtat après persistance: ");
-        afficherCorpsEtat(corpsEtat1);
+        System.out.println("** Chapitre après persistance: ");
+        afficherChapitre(chapitre1);
         System.out.println();
     }
     public static void InitialiserFamille() {
@@ -544,7 +544,7 @@ public class Main {
         
         Famille famille1 = new Famille("02_AAA_01","famille1");
          
-        System.out.println("** CorpsEtat avant persistance: ");
+        System.out.println("** Chapitre avant persistance: ");
         afficherFamille(famille1);
         System.out.println();
 
@@ -1072,7 +1072,7 @@ public class Main {
         
         //Doit fonctionner
         Long idProjet = 1L;
-        String typeBalise = "corpsEtat";
+        String typeBalise = "chapitre";
         String idBalise = "2";
         
         Double resultat = service.CoutSynthese(idProjet, typeBalise, idBalise);
@@ -1087,36 +1087,36 @@ public class Main {
         //si la balise existe et possède un prix -> prix renvoyé (comme prévu)
     }
     
-    public static void testerAjouterCorpsEtat() {
+    public static void testerAjouterChapitre() {
         
         System.out.println();
-        System.out.println("**** testerAjouterCorpsEtat() ****");
+        System.out.println("**** testerAjouterChapitre() ****");
         System.out.println();
         
         Service service = new Service();
         
         //Doit fonctionner
         Long idProjet = 1L;
-        String idCorpsEtat = "01";
+        String idChapitre = "01";
         
-        Boolean resultat = service.AjouterCorpsEtat(idProjet, idCorpsEtat);
+        Boolean resultat = service.AjouterChapitre(idProjet, idChapitre);
         if(resultat)
         {
-            System.out.println("Ajout avec succès du corpsEtat "+idCorpsEtat);
+            System.out.println("Ajout avec succès du chapitre "+idChapitre);
         } else {
-            System.out.println("Echec lors de l'ajout du corpsEtat "+idCorpsEtat);
+            System.out.println("Echec lors de l'ajout du chapitre "+idChapitre);
         }
         
         //Doit fonctionner
         Long idProjet2 = 1L;
-        String idCorpsEtat2 = "02";
+        String idChapitre2 = "02";
         
-        Boolean resultat3 = service.AjouterCorpsEtat(idProjet2, idCorpsEtat2);
+        Boolean resultat3 = service.AjouterChapitre(idProjet2, idChapitre2);
         if(resultat3)
         {
-            System.out.println("Ajout avec succès du corpsEtat "+idCorpsEtat2);
+            System.out.println("Ajout avec succès du chapitre "+idChapitre2);
         } else {
-            System.out.println("Echec lors de l'ajout du corpsEtat "+idCorpsEtat2);
+            System.out.println("Echec lors de l'ajout du chapitre "+idChapitre2);
         }
         
         //idProjet n'existe pas -> echec (comme prevu)
@@ -1224,7 +1224,7 @@ public class Main {
         
         Service service = new Service();
         
-        //Doit fonctionner (sinsère uniquement dans le premier corpsEtat)
+        //Doit fonctionner (sinsère uniquement dans le premier chapitre)
         Long idProjet = 1L;
         String idPrestation = "02_AAA_01_01_02_01";
         
@@ -1247,7 +1247,7 @@ public class Main {
         
         Service service = new Service();
         
-        //Doit fonctionner (sinsère uniquement dans le premier corpsEtat)
+        //Doit fonctionner (sinsère uniquement dans le premier chapitre)
         Long idProjet = 1L;
         String idDescriptif = "02_AAA_01_01_02_01";
         
@@ -1262,19 +1262,19 @@ public class Main {
         //idDescriptif n'existe pas -> echec (comme prevu)
     }
         
-    public static void testerSupprimerCorpsEtat() {
+    public static void testerSupprimerChapitre() {
         
         System.out.println();
-        System.out.println("**** testerSupprimerCorpsEtat() ****");
+        System.out.println("**** testerSupprimerChapitre() ****");
         System.out.println();
         
         Service service = new Service();
         
         //Doit fonctionner
         Long idProjet = 1L;
-        String idCorpsEtat = "02";
+        String idChapitre = "02";
         
-        Boolean resultat = service.SupprimerCorpsEtat(idProjet, idCorpsEtat);
+        Boolean resultat = service.SupprimerChapitre(idProjet, idChapitre);
         if(resultat)
         {
             System.out.println("Edition avec succès du projet n°" + idProjet);
@@ -1282,7 +1282,7 @@ public class Main {
             System.out.println("Erreur d'édition du projet n°" + idProjet);
         }
         
-        //idCorpsEtat n'existe pas/plus -> echec (comme prevu)
+        //idChapitre n'existe pas/plus -> echec (comme prevu)
     }
     
     public static void testerSupprimerCategorie() {
@@ -1565,18 +1565,18 @@ public class Main {
             System.out.println("=> ERREUR...");
         }
     }
-    public static void testerListerCorpsEtats() {
+    public static void testerListerChapitres() {
         
         System.out.println();
-        System.out.println("**** testerListerCorpsEtats() ****");
+        System.out.println("**** testerListerChapitres() ****");
         System.out.println();
         
         Service service = new Service();
-        List<CorpsEtat> listeCorpsEtats = service.ListerCorpsEtats();
-        System.out.println("*** Liste des CorpsEtats");
-        if (listeCorpsEtats != null) {
-            listeCorpsEtats.forEach((corpsEtat) -> {
-                afficherCorpsEtat(corpsEtat);
+        List<Chapitre> listeChapitres = service.ListerChapitres();
+        System.out.println("*** Liste des Chapitres");
+        if (listeChapitres != null) {
+            listeChapitres.forEach((chapitre) -> {
+                afficherChapitre(chapitre);
             });
         }
         else {
@@ -1831,8 +1831,8 @@ public class Main {
     public static void afficherCoeffRaccordement(CoeffRaccordement coeffRaccordement) {
         System.out.println("-> " + coeffRaccordement);
     }
-    public static void afficherCorpsEtat(CorpsEtat corpsEtat) {
-        System.out.println("-> " + corpsEtat);
+    public static void afficherChapitre(Chapitre chapitre) {
+        System.out.println("-> " + chapitre);
     }
     public static void afficherDescriptif(Descriptif descriptif) {
         if (descriptif.getClass() == Generique.class) afficherGenerique((Generique)descriptif);
