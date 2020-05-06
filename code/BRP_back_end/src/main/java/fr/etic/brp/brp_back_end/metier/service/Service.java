@@ -717,7 +717,7 @@ public class Service {
         return total;
     }
     
-    public Boolean AjouterCorpsEtat(Long idProjet, Long idCorpsEtat) {
+    public Boolean AjouterCorpsEtat(Long idProjet, String idCorpsEtat) {
         JpaUtil.creerContextePersistance();
         Boolean resultat = false;
         
@@ -728,7 +728,7 @@ public class Service {
             Element root = xml.getDocumentElement();
             //Création balise corpsEtat
             Element baliseCorpsEtat = xml.createElement("corpsEtat");
-            baliseCorpsEtat.setAttribute("idCorpsEtat", idCorpsEtat.toString());
+            baliseCorpsEtat.setAttribute("idCorpsEtat", idCorpsEtat);
             //Création de la balise intitule
             Element baliseIntitule = xml.createElement("intitule");
             CorpsEtat corpsEtat = corpsEtatDao.ChercherParId(idCorpsEtat);
@@ -749,10 +749,12 @@ public class Service {
         return resultat;
     }
     
-    public Boolean AjouterCategorie(Long idProjet, Long idCorpsEtat, Long idCategorie){
+    public Boolean AjouterCategorie(Long idProjet, String idCategorie){
         JpaUtil.creerContextePersistance();
         Boolean resultat = false;
         Boolean testInsertion = false;
+        
+        String idCorpsEtat = idCategorie.substring(0, idCategorie.lastIndexOf("_"));            //extraction de l'ID du parent
         
         try {
             //Obtention du document
@@ -761,7 +763,7 @@ public class Service {
             NodeList rootNodes = xml.getElementsByTagName("corpsEtat");
             //Création balise categorie
             Element baliseCategorie = xml.createElement("categorie");
-            baliseCategorie.setAttribute("idCategorie", idCategorie.toString());
+            baliseCategorie.setAttribute("idCategorie", idCategorie);
             //Création de la balise intitule
             Element baliseIntitule = xml.createElement("intitule");
             Categorie categorie = categorieDao.ChercherParId(idCategorie);
@@ -772,7 +774,7 @@ public class Service {
             //on parcours les corpsEtat 
             for (int i = 0; i<rootNodes.getLength(); i++) {
                 Element corpsEtat = (Element) rootNodes.item(i);
-                if(corpsEtat.getAttribute("idCorpsEtat").equals(idCorpsEtat.toString())){
+                if(corpsEtat.getAttribute("idCorpsEtat").equals(idCorpsEtat)){
                     //on est dans le bon corpsEtat, on peut y insérer la categorie
                     rootNodes.item(i).appendChild(baliseCategorie);
                     testInsertion = true;
@@ -794,10 +796,12 @@ public class Service {
         return resultat;
     }
     
-    public Boolean AjouterFamille(Long idProjet, Long idCategorie, Long idFamille){
+    public Boolean AjouterFamille(Long idProjet, String idFamille){
         JpaUtil.creerContextePersistance();
         Boolean resultat = false;
         Boolean testInsertion = false;
+        
+        String idCategorie = idFamille.substring(0, idFamille.lastIndexOf("_"));            //extraction de l'ID du parent
         
         try {
             //Obtention du document
@@ -806,7 +810,7 @@ public class Service {
             NodeList rootNodes = xml.getElementsByTagName("categorie");
             //Création balise famille
             Element baliseFamille = xml.createElement("famille");
-            baliseFamille.setAttribute("idFamille", idFamille.toString());
+            baliseFamille.setAttribute("idFamille", idFamille);
             //Création de la balise intitule
             Element baliseIntitule = xml.createElement("intitule");
             Famille famille = familleDao.ChercherParId(idFamille);
@@ -817,7 +821,7 @@ public class Service {
             //on parcours les categories
             for (int i = 0; i<rootNodes.getLength(); i++) {
                 Element categorie = (Element) rootNodes.item(i);
-                if(categorie.getAttribute("idCategorie").equals(idCategorie.toString())){
+                if(categorie.getAttribute("idCategorie").equals(idCategorie)){
                     //on est dans la bonne categorie, on insère la famille
                     rootNodes.item(i).appendChild(baliseFamille);
                     testInsertion = true;
@@ -839,10 +843,12 @@ public class Service {
         return resultat;
     }
     
-    public Boolean AjouterSousFamille(Long idProjet, Long idFamille, Long idSousFamille){
+    public Boolean AjouterSousFamille(Long idProjet, String idSousFamille){
         JpaUtil.creerContextePersistance();
         Boolean resultat = false;
         Boolean testInsertion = false;
+        
+        String idFamille = idSousFamille.substring(0, idSousFamille.lastIndexOf("_"));            //extraction de l'ID du parent
         
         try {
             //Obtention du document
@@ -851,7 +857,7 @@ public class Service {
             NodeList rootNodes = xml.getElementsByTagName("famille");
             //Création balise sousFamille
             Element baliseSousFamille = xml.createElement("sousFamille");
-            baliseSousFamille.setAttribute("idSousFamille", idSousFamille.toString());
+            baliseSousFamille.setAttribute("idSousFamille", idSousFamille);
             //Création de la balise intitule
             Element baliseIntitule = xml.createElement("intitule");
             SousFamille sousFamille = sousFamilleDao.ChercherParId(idSousFamille);
@@ -862,7 +868,7 @@ public class Service {
             //on parcours les familles
             for (int i = 0; i<rootNodes.getLength(); i++) {
                 Element famille = (Element) rootNodes.item(i);
-                if(famille.getAttribute("idFamille").equals(idFamille.toString())){
+                if(famille.getAttribute("idFamille").equals(idFamille)){
                     //on est dans la bonne famille
                     rootNodes.item(i).appendChild(baliseSousFamille);
                     testInsertion = true;
@@ -885,10 +891,12 @@ public class Service {
     }
     
     //TO DO - si les infos ne sont pas renseigné dans la BDD alors chaine vide
-    public Boolean AjouterOuvrageOuGenerique(Long idProjet, Long idSousFamille, String idDescriptif){
+    public Boolean AjouterOuvrageOuGenerique(Long idProjet, String idDescriptif){
         JpaUtil.creerContextePersistance();
         Boolean resultat = false;
         Boolean testInsertion = false;
+        
+        String idSousFamille = idDescriptif.substring(0, idDescriptif.lastIndexOf("_"));            //extraction de l'ID du parent
         
         try {
             //Obtention du document
@@ -961,7 +969,7 @@ public class Service {
             //on parcours les sousFamilles
             for (int i = 0; i<rootNodes.getLength(); i++) {
                 Element sousFamille = (Element) rootNodes.item(i);
-                if(sousFamille.getAttribute("idSousFamille").equals(idSousFamille.toString())){
+                if(sousFamille.getAttribute("idSousFamille").equals(idSousFamille)){
                     //on est dans la bonne sousFamille
                     rootNodes.item(i).appendChild(baliseDescriptif);
                     testInsertion = true;
@@ -984,10 +992,12 @@ public class Service {
     }
     
     //TO DO - si les infos ne sont pas renseigné dans la BDD alors chaine vide
-    public Boolean AjouterPrestation(Long idProjet, String idDescriptif, String idPrestation){
+    public Boolean AjouterPrestation(Long idProjet, String idPrestation){
         JpaUtil.creerContextePersistance();
         Boolean resultat = false;
         Boolean testInsertion = false;
+        
+        String idDescriptif = idPrestation.substring(0, idPrestation.lastIndexOf("_"));            //extraction de l'ID du parent
         
         try {
             //Obtention du document
@@ -1001,6 +1011,7 @@ public class Service {
             balisePrestation = xml.createElement("descriptif");
             balisePrestation.setAttribute("idDescriptif", idPrestation);
             balisePrestation.setAttribute("type", "prestation");
+            
             
             //Création des enfants de prestation
             Element baliseNomDescriptif = xml.createElement("nomDescriptif");                                                                       
@@ -1019,7 +1030,7 @@ public class Service {
             int indiceRef = -1;
             Double quantite = 1.0;
 
-            List<BasePrixRef> listeBasePrixRef = prestation.getListeBasePrixRefPrestation();          
+            List<BasePrixRef> listeBasePrixRef = prestation.getListeBasePrixRefPrestation(); 
 
             for(int i = 0; i<listeBasePrixRef.size(); i++){
                 if(listeBasePrixRef.get(i).getQteInf() <= quantite && listeBasePrixRef.get(i).getQteSup() >= quantite){
@@ -1030,7 +1041,7 @@ public class Service {
                     }
                 }
             }
-
+            
             Element baliseUnite = xml.createElement("unite");                                                                       
             baliseUnite.appendChild(xml.createTextNode(listeBasePrixRef.get(indiceRef).getUnite())); 
 

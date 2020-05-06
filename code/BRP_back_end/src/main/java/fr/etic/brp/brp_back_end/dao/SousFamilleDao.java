@@ -16,7 +16,7 @@ public class SousFamilleDao {
         em.persist(sousFamille);
     }
     
-    public SousFamille ChercherParId(Long idSousFamille) {
+    public SousFamille ChercherParId(String idSousFamille) {
         EntityManager em = JpaUtil.obtenirContextePersistance();
         return em.find(SousFamille.class, idSousFamille); // renvoie null si l'identifiant n'existe pas
     }

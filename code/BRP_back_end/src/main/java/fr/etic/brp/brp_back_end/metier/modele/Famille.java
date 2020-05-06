@@ -16,8 +16,7 @@ import javax.persistence.OneToMany;
 public class Famille implements Serializable {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idFamille;
+    private String idFamille;
     private String intituleFamille;
     
     @OneToMany
@@ -26,13 +25,20 @@ public class Famille implements Serializable {
     public Famille(){ 
     }
 
-    public Famille(String intituleFamille) {
+    public Famille(String idFamille, String intituleFamille) {
+        this.idFamille = idFamille;
         this.intituleFamille = intituleFamille;
         this.listSousFamille = null;
     }
 
-    public Long getIdFamille() {
+   
+
+    public String getIdFamille() {
         return idFamille;
+    }
+
+    public void setIdFamille(String idFamille) {
+        this.idFamille = idFamille;
     }
 
     public String getIntituleFamille() {
