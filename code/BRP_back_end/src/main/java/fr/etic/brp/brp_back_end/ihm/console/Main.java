@@ -103,13 +103,13 @@ public class Main {
 //        testerEditerCoeffAdaptProjet();
 //        testerEditerCoeffRaccordementProjet();
 //        testerEditerCategorieConstructionProjet();
-        testerAjouterCorpsEtat();
-        testerAjouterCategorie();
-        testerAjouterFamille();
-        testerAjouterSousFamille();
-        testerAjouterOuvrageOuGenerique();
-        testerAjouterPrestation();
-        testerAjouterLigneChiffrage();
+//        testerAjouterCorpsEtat();
+//        testerAjouterCategorie();
+//        testerAjouterFamille();
+//        testerAjouterSousFamille();
+//        testerAjouterOuvrageOuGenerique();
+//        testerAjouterPrestation();
+//        testerAjouterLigneChiffrage();
 //        testerCoutSynthese();
 //        testerSupprimerCorpsEtat();
 //        testerSupprimerCategorie();
@@ -120,7 +120,7 @@ public class Main {
 //        testerModifierDescriptionDescriptif();
 //        testerModifierCourteDescriptionDescriptif();
 //        testerModifierLocalisationDescriptif();
-      //  testerModifierQuantiteDescriptif();
+//        testerModifierQuantiteDescriptif();
         
       //----------tests-secondaires------//
       
@@ -1491,7 +1491,6 @@ public class Main {
         //test ouvrage ou prestation : ok
     }
     
-    //TO DO : test modif ouvrage
     public static void testerModifierQuantiteDescriptif() {
         
         System.out.println();
@@ -1517,7 +1516,7 @@ public class Main {
         //test modif prestation : ok
         //test modif prestation avec ligneChiffrage non existante : ok
         //test modif mauvaise quantité : ok
-        //test modif ouvrage : A FAIRE
+        //test modif ouvrage : ok
     }
     
                 //-----------------------//
