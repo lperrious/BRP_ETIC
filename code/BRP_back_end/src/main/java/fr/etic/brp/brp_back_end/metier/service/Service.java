@@ -904,8 +904,7 @@ public class Service {
             if(descriptif instanceof Generique){
                 //Création balise descriptif
                 baliseDescriptif.setAttribute("type", "generique");
-            }
-            else{
+            } else {
                 baliseDescriptif.setAttribute("type", "ouvrage");
             }
             
@@ -1087,7 +1086,6 @@ public class Service {
         return resultat;
     }
     
-    //TO DO - Ajoute un champ Localisation ainsi qu'un champ Quantite dans le XML
     public Boolean AjouterLigneChiffrage(Long idProjet, String idDescriptif){
         JpaUtil.creerContextePersistance();
         Boolean resultat = false;
@@ -1295,6 +1293,7 @@ public class Service {
     }
     
     //TO DO - Mettre a jour la correspondance de l'id -> Dans les TESTS du main !
+    //TO DO - si les infos ne sont pas renseigné dans la BDD alors chaine vide
     public Boolean SupprimerDescriptif(Long idProjet, String idDescriptif){
         JpaUtil.creerContextePersistance();
         Boolean testSuppression = false;
@@ -1435,6 +1434,7 @@ public class Service {
         return resultat;
     }
     
+    //TO DO - si les infos ne sont pas renseigné dans la BDD alors chaine vide
     public Boolean ModifierDescriptionDescriptif(Long idProjet, String idDescriptif, String newDescription){
         Boolean testModif = false;
         Boolean resultat = false;
@@ -1474,6 +1474,7 @@ public class Service {
         return resultat;
     }
     
+    //TO DO - si les infos ne sont pas renseigné dans la BDD alors chaine vide
     public Boolean ModifierCourteDescriptionDescriptif(Long idProjet, String idDescriptif, String newDescription){
         Boolean testModif = false;
         Boolean resultat = false;
@@ -1513,6 +1514,7 @@ public class Service {
         return resultat;
     }
     
+    //TO DO - si les infos ne sont pas renseigné dans la BDD alors chaine vide
     public Boolean ModifierLocalisationDescriptif(Long idProjet, String idDescriptif, String idLigneChiffrage, String newLocalisation){
         Boolean testModif = false;
         Boolean resultat = false;
@@ -1560,7 +1562,7 @@ public class Service {
         return resultat;
     }
     
-    //TO DO - Modifie la qte seulement dans le XML
+    //TO DO - si les infos ne sont pas renseigné dans la BDD alors chaine vide
     public Boolean ModifierQuantiteDescriptif(Long idProjet, String idDescriptif, String idLigneChiffrage, Double quantite){
         JpaUtil.creerContextePersistance();
         Boolean testModif = false;
