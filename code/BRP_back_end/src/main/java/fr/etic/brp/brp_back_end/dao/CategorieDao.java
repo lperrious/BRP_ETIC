@@ -16,7 +16,7 @@ public class CategorieDao {
         em.persist(categorie);
     }
     
-    public Categorie ChercherParId(Long idCategorie) {
+    public Categorie ChercherParId(String idCategorie) {
         EntityManager em = JpaUtil.obtenirContextePersistance();
         return em.find(Categorie.class, idCategorie); // renvoie null si l'identifiant n'existe pas
     }

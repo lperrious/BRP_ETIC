@@ -61,7 +61,7 @@ public class Main {
         InitialiserBasePrixRef();
         InitialiserCaractDim();
         InitialiserSousCategorieConstruction();
-        InitialiserCategories();
+        InitialiserCategorie();
         InitialiserCategorieConstruction();
         InitialiserCoeffRaccordement();
         InitialiserCorpsEtat();
@@ -96,20 +96,20 @@ public class Main {
 //        testerAuthentifierOperateur();
         testerCreerProjet();
 //        testerRechercherProjetParId();
-        testerDupliquerProjet();
+//        testerDupliquerProjet();
 //        testerEditerNomProjet();
 //        testerEditerInfoEnumProjet();
 //        testerEditerDateProjet();
 //        testerEditerCoeffAdaptProjet();
 //        testerEditerCoeffRaccordementProjet();
 //        testerEditerCategorieConstructionProjet();
-//        testerAjouterCorpsEtat();
-//        testerAjouterCategorie();
-//        testerAjouterFamille();
-//        testerAjouterSousFamille();
-//        testerAjouterOuvrageOuGenerique();
-//        testerAjouterPrestation();
-//        testerAjouterLigneChiffrage();
+        testerAjouterCorpsEtat();
+        testerAjouterCategorie();
+        testerAjouterFamille();
+        testerAjouterSousFamille();
+        testerAjouterOuvrageOuGenerique();
+        testerAjouterPrestation();
+        testerAjouterLigneChiffrage();
 //        testerCoutSynthese();
 //        testerSupprimerCorpsEtat();
 //        testerSupprimerCategorie();
@@ -145,7 +145,7 @@ public class Main {
         EntityManager em = emf.createEntityManager();        
         
         BasePrixRef basePrixRef = new BasePrixRef(2018, 1.0, 1.0, 3.0, "m2", 10.0);
-        BasePrixRef basePrixRef2 = new BasePrixRef(2017, 1.0, 4.0, 6.0, "m2", 4.0);
+        BasePrixRef basePrixRef2 = new BasePrixRef(2017, 1.0, 1.0, 6.0, "m2", 4.0);
         BasePrixRef basePrixRef3 = new BasePrixRef(2019, 1.0, 1.0, 3.0, "m2", 120.0);
         System.out.println("** BasePrixRef avant persistance: ");
         afficherBasePrixRef(basePrixRef);
@@ -288,16 +288,16 @@ public class Main {
         afficherCaractDim(caractDim1);
         System.out.println();
     }
-    public static void InitialiserCategories() {
+    public static void InitialiserCategorie() {
         
         System.out.println();
-        System.out.println("**** initialiserCategories() ****");
+        System.out.println("**** InitialiserCategorie() ****");
         System.out.println();
         
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("BRP_PU");
         EntityManager em = emf.createEntityManager();        
         
-        Categorie categorie1 = new Categorie("intitule1");
+        Categorie categorie1 = new Categorie("02_AAA","intitule1");
          
         System.out.println("** Categorie avant persistance: ");
         afficherCategorie(categorie1);
@@ -367,9 +367,9 @@ public class Main {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("BRP_PU");
         EntityManager em = emf.createEntityManager();        
         
-        Generique generique1 = new Generique("idGenerique1", "nomDescriptif1", "descriptionGenerique1", "courteDescriptionGenerique1");
-        Ouvrage ouvrage1 = new Ouvrage("idOuvrage1", "nomOuvrage1", "descriptionOuvrage1", "courteDescriptionOuvrage1");
-        Prestation prestation1 = new Prestation("idPrestation1", "nomPrestation1", "descriptionPrestation1", "courteDescriptionPrestation1");
+        Generique generique1 = new Generique("02_AAA_01_01_01", "nomDescriptif1", "descriptionGenerique1", "courteDescriptionGenerique1");
+        Ouvrage ouvrage1 = new Ouvrage("02_AAA_01_01_02", "nomOuvrage1", "descriptionOuvrage1", "courteDescriptionOuvrage1");
+        Prestation prestation1 = new Prestation("02_AAA_01_01_02_01", "nomPrestation1", "descriptionPrestation1", "courteDescriptionPrestation1");
          
         System.out.println("** Descriptif avant persistance: ");
         afficherGenerique(generique1);
@@ -420,7 +420,7 @@ public class Main {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("BRP_PU");
         EntityManager em = emf.createEntityManager();        
         
-        SousFamille sousFamille1 = new SousFamille("intituleSousFamille1");
+        SousFamille sousFamille1 = new SousFamille("02_AAA_01_01","intituleSousFamille1");
          
         System.out.println("** SousFamille avant persistance: ");
         afficherSousFamille(sousFamille1);
@@ -502,8 +502,8 @@ public class Main {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("BRP_PU");
         EntityManager em = emf.createEntityManager();        
         
-        CorpsEtat corpsEtat1 = new CorpsEtat("corpsEtat1");
-        CorpsEtat corpsEtat2 = new CorpsEtat("corpsEtat2"); //REMOVE (créer un deuxième corps d'état pour les tests XML)
+        CorpsEtat corpsEtat1 = new CorpsEtat("01","corpsEtat1");
+        CorpsEtat corpsEtat2 = new CorpsEtat("02","corpsEtat2"); 
         
         System.out.println("** CorpsEtat avant persistance: ");
         afficherCorpsEtat(corpsEtat1);
@@ -542,7 +542,7 @@ public class Main {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("BRP_PU");
         EntityManager em = emf.createEntityManager();        
         
-        Famille famille1 = new Famille("famille1");
+        Famille famille1 = new Famille("02_AAA_01","famille1");
          
         System.out.println("** CorpsEtat avant persistance: ");
         afficherFamille(famille1);
@@ -1097,26 +1097,26 @@ public class Main {
         
         //Doit fonctionner
         Long idProjet = 1L;
-        Long idCorpsEtat = 1L;
+        String idCorpsEtat = "01";
         
         Boolean resultat = service.AjouterCorpsEtat(idProjet, idCorpsEtat);
         if(resultat)
         {
-            System.out.println("Edition avec succès du projet n°" + idProjet);
+            System.out.println("Ajout avec succès du corpsEtat "+idCorpsEtat);
         } else {
-            System.out.println("Erreur d'édition du projet n°" + idProjet);
+            System.out.println("Echec lors de l'ajout du corpsEtat "+idCorpsEtat);
         }
         
         //Doit fonctionner
-        Long idProjet3 = 1L;
-        Long idCorpsEtat3 = 2L;
+        Long idProjet2 = 1L;
+        String idCorpsEtat2 = "02";
         
-        Boolean resultat3 = service.AjouterCorpsEtat(idProjet3, idCorpsEtat3);
+        Boolean resultat3 = service.AjouterCorpsEtat(idProjet2, idCorpsEtat2);
         if(resultat3)
         {
-            System.out.println("Edition avec succès du projet n°" + idProjet3);
+            System.out.println("Ajout avec succès du corpsEtat "+idCorpsEtat2);
         } else {
-            System.out.println("Erreur d'édition du projet n°" + idProjet3);
+            System.out.println("Echec lors de l'ajout du corpsEtat "+idCorpsEtat2);
         }
         
         //idProjet n'existe pas -> echec (comme prevu)
@@ -1130,21 +1130,19 @@ public class Main {
         
         Service service = new Service();
         
-        //Doit fonctionner (sinsère uniquement dans le premier corpsEtat)
+        //Doit fonctionner 
         Long idProjet = 1L;
-        Long idCorpsEtat = 2L;
-        Long idCategorie = 1L;
+        String idCategorie = "02_AAA";
         
-        Boolean resultat = service.AjouterCategorie(idProjet, idCorpsEtat, idCategorie);
+        Boolean resultat = service.AjouterCategorie(idProjet, idCategorie);
         if(resultat)
         {
-            System.out.println("Edition avec succès du projet n°" + idProjet+" dans le corpsEtat n°"+idCorpsEtat);
+            System.out.println("Ajout avec succès de la categorie "+idCategorie);
         } else {
-            System.out.println("Erreur d'édition du projet n°" + idProjet+" dans le corpsEtat n°"+idCorpsEtat);
+            System.out.println("Echec lors de l'ajout de la categorie "+idCategorie);
         }
         
         //idProjet n'existe pas -> echec (comme prevu)
-        //idCorpsEtat n'existe pas -> echec (comme prevu)
         //idCategorie n'existe pas -> echec (comme prevu)
     }
     
@@ -1156,20 +1154,18 @@ public class Main {
         
         Service service = new Service();
         
-        //Doit fonctionner (sinsère uniquement dans le premier corpsEtat)
+        //Doit fonctionner 
         Long idProjet = 1L;
-        Long idCategorie = 1L;
-        Long idFamille = 1L;
+        String idFamille = "02_AAA_01";
         
-        Boolean resultat = service.AjouterFamille(idProjet, idCategorie, idFamille);
+        Boolean resultat = service.AjouterFamille(idProjet, idFamille);
         if(resultat){
-            System.out.println("Edition avec succès du projet n°" + idProjet+", categorie n°"+idCategorie);
+            System.out.println("Ajout avec succès de la famille "+idFamille);
         } else {
-            System.out.println("Erreur d'édition du projet n°" + idProjet+", categorie n°"+idCategorie);
+            System.out.println("Echec lors de l'ajout de la famille "+idFamille);
         }
         
         //idProjet n'existe pas -> echec (comme prevu)
-        //idCategorie n'existe pas -> echec (comme prevu)
         //idFamille n'existe pas -> echec (comme prevu)
     }
     
@@ -1181,20 +1177,18 @@ public class Main {
         
         Service service = new Service();
         
-        //Doit fonctionner (sinsère uniquement dans le premier corpsEtat)
+        //Doit fonctionner
         Long idProjet = 1L;
-        Long idFamille = 1L;
-        Long idSousFamille = 1L;
+        String idSousFamille = "02_AAA_01_01";
         
-        Boolean resultat = service.AjouterSousFamille(idProjet, idFamille, idSousFamille);
+        Boolean resultat = service.AjouterSousFamille(idProjet, idSousFamille);
         if(resultat){
-            System.out.println("Edition avec succès du projet n°" + idProjet+", famille n°"+idFamille);
+            System.out.println("Ajout avec succès de la sousFamille "+idSousFamille);
         } else {
-            System.out.println("Erreur d'édition du projet n°" + idProjet+", famille n°"+idFamille);
+            System.out.println("Echec lors de l'ajout de la sousFamille "+idSousFamille);
         }
         
         //idProjet n'existe pas -> echec (comme prevu)
-        //idFamille n'existe pas -> echec (comme prevu)
         //idSousFamille n'existe pas -> echec (comme prevu)
     }
     
@@ -1207,20 +1201,18 @@ public class Main {
         
         Service service = new Service();
         
-        //Doit fonctionner (sinsère uniquement dans le premier corpsEtat)
+        //Doit fonctionner 
         Long idProjet = 1L;
-        Long idSousFamille = 1L;
-        String idDescriptif = "idOuvrage1";
+        String idDescriptif = "02_AAA_01_01_02";
         
-        Boolean resultat = service.AjouterOuvrageOuGenerique(idProjet, idSousFamille, idDescriptif);
+        Boolean resultat = service.AjouterOuvrageOuGenerique(idProjet, idDescriptif);
         if(resultat){
-            System.out.println("Edition avec succès du projet n°" + idProjet+", sousFamille n°"+idSousFamille);
+            System.out.println("Ajout avec succès du descriptif "+idDescriptif);
         } else {
-            System.out.println("Erreur d'édition du projet n°" + idProjet+", sousFamille n°"+idSousFamille);
+            System.out.println("Echec lors de l'ajout du descriptif "+idDescriptif);
         }
         
         //idProjet n'existe pas -> echec (comme prevu)
-        //idSousFamille n'existe pas -> echec (comme prevu)
         //choisit bien en fonction de l'année la plus récente et de la fourchette de prix
     }
     
@@ -1234,14 +1226,13 @@ public class Main {
         
         //Doit fonctionner (sinsère uniquement dans le premier corpsEtat)
         Long idProjet = 1L;
-        String idDescriptif = "idOuvrage1";
-        String idPrestation = "idPrestation1";
+        String idPrestation = "02_AAA_01_01_02_01";
         
-        Boolean resultat = service.AjouterPrestation(idProjet, idDescriptif, idPrestation);
+        Boolean resultat = service.AjouterPrestation(idProjet, idPrestation);
         if(resultat){
-            System.out.println("Edition avec succès du projet n°" + idProjet+", descriptif n°"+idDescriptif);
+            System.out.println("Ajout avec succès de la prestation "+idPrestation);
         } else {
-            System.out.println("Erreur d'édition du projet n°" + idProjet+", descriptif n°"+idDescriptif);
+            System.out.println("Echec lors de l'ajout de la prestation "+idPrestation);
         }
         
         //idProjet n'existe pas -> echec (comme prevu)
@@ -1258,7 +1249,7 @@ public class Main {
         
         //Doit fonctionner (sinsère uniquement dans le premier corpsEtat)
         Long idProjet = 1L;
-        String idDescriptif = "idPrestation1";
+        String idDescriptif = "02_AAA_01_01_02_01";
         
         Boolean resultat = service.AjouterLigneChiffrage(idProjet, idDescriptif);
         if(resultat){
@@ -1268,7 +1259,7 @@ public class Main {
         }
         
         //idProjet n'existe pas -> echec (comme prevu)
-        //idOuvrage n'existe pas -> echec (comme prevu)
+        //idDescriptif n'existe pas -> echec (comme prevu)
     }
         
     public static void testerSupprimerCorpsEtat() {
@@ -1281,7 +1272,7 @@ public class Main {
         
         //Doit fonctionner
         Long idProjet = 1L;
-        Long idCorpsEtat = 1L;
+        String idCorpsEtat = "02";
         
         Boolean resultat = service.SupprimerCorpsEtat(idProjet, idCorpsEtat);
         if(resultat)
@@ -1304,7 +1295,7 @@ public class Main {
         
         //Doit fonctionner
         Long idProjet = 1L;
-        Long idCategorie = 1L;
+        String idCategorie = "02_AAA";
         
         Boolean resultat = service.SupprimerCategorie(idProjet, idCategorie);
         if(resultat)
@@ -1327,7 +1318,7 @@ public class Main {
         
         //Doit fonctionner
         Long idProjet = 1L;
-        Long idFamille = 1L;
+        String idFamille = "02_AAA_01";
         
         Boolean resultat = service.SupprimerFamille(idProjet, idFamille);
         if(resultat)
@@ -1350,7 +1341,7 @@ public class Main {
         
         //Doit fonctionner
         Long idProjet = 1L;
-        Long idFamille = 1L;
+        String idFamille = "02_AAA_01_01";
         
         Boolean resultat = service.SupprimerSousFamille(idProjet, idFamille);
         if(resultat)
@@ -1363,7 +1354,6 @@ public class Main {
         //idSousFamille n'existe pas/plus -> echec (comme prevu)
     }
     
-    //TO DO : plus de test
     public static void testerSupprimerDescriptif() {
         
         System.out.println();
@@ -1374,7 +1364,7 @@ public class Main {
         
         //Doit fonctionner
         Long idProjet = 1L;
-        String idDescriptif = "idPrestation1";
+        String idDescriptif = "02_AAA_01_01_02_01";
         
         Boolean resultat = service.SupprimerDescriptif(idProjet, idDescriptif);
         if(resultat)
@@ -1398,7 +1388,7 @@ public class Main {
         
         //Doit fonctionner
         Long idProjet = 1L;
-        String idDescriptif = "idPrestation1";
+        String idDescriptif = "02_AAA_01_01_02_01";
         String idLigneChiffrage = "1";
         
         Boolean resultat = service.SupprimerLigneChiffrage(idProjet, idDescriptif, idLigneChiffrage);
@@ -1424,7 +1414,7 @@ public class Main {
         
         //Doit fonctionner
         Long idProjet = 1L;
-        String idDescriptif = "idPrestation1";
+        String idDescriptif = "02_AAA_01_01_02_01";
         String newDescription = "testNew";
         
         Boolean resultat = service.ModifierDescriptionDescriptif(idProjet, idDescriptif, newDescription);
@@ -1449,7 +1439,7 @@ public class Main {
         
         //Doit fonctionner
         Long idProjet = 1L;
-        String idDescriptif = "idOuvrage1";
+        String idDescriptif = "02_AAA_01_01_02";
         String newDescription = "testNew";
         
         Boolean resultat = service.ModifierCourteDescriptionDescriptif(idProjet, idDescriptif, newDescription);
@@ -1474,7 +1464,7 @@ public class Main {
         
         //Doit fonctionner
         Long idProjet = 1L;
-        String idDescriptif = "idPrestation1";
+        String idDescriptif = "02_AAA_01_01_02_01";
         String idLigneChiffrage = "2";
         String newLocalisation = "newLoc";
         
@@ -1501,7 +1491,7 @@ public class Main {
         
         //Doit fonctionner
         Long idProjet = 1L;
-        String idDescriptif = "idOuvrage1";
+        String idDescriptif = "02_AAA_01_01_02_01";
         String idLigneChiffrage = "1";
         Double quantite = 2.0;
         

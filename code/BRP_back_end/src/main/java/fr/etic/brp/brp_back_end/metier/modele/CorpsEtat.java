@@ -15,8 +15,7 @@ import javax.persistence.OneToMany;
 public class CorpsEtat implements Serializable {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idCorpsEtat;
+    private String idCorpsEtat;
     private String intituleCorpsEtat;
     
     @OneToMany
@@ -25,13 +24,18 @@ public class CorpsEtat implements Serializable {
     public CorpsEtat(){  
     }
 
-    public CorpsEtat(String intituleCorpsEtat) {
+    public CorpsEtat(String idCorpsEtat, String intituleCorpsEtat) {
+        this.idCorpsEtat = idCorpsEtat;
         this.intituleCorpsEtat = intituleCorpsEtat;
         this.listCategorie = null;
     }
-
-    public Long getIdCorpsEtat() {
+    
+    public String getIdCorpsEtat() {
         return idCorpsEtat;
+    }
+
+    public void setIdCorpsEtat(String idCorpsEtat) {
+        this.idCorpsEtat = idCorpsEtat;
     }
 
     public String getIntituleCorpsEtat() {

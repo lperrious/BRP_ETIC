@@ -5,3 +5,4 @@
 /code/BRP_back_end/target/*
 /code/XMLfiles
 .DS_Store
+persistence.xml

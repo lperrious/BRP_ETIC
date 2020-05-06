@@ -16,7 +16,7 @@ public class CorpsEtatDao {
         em.persist(corpsEtat);
     }
     
-    public CorpsEtat ChercherParId(Long idCorpsEtat) {
+    public CorpsEtat ChercherParId(String idCorpsEtat) {
         EntityManager em = JpaUtil.obtenirContextePersistance();
         return em.find(CorpsEtat.class, idCorpsEtat); // renvoie null si l'identifiant n'existe pas
     }
