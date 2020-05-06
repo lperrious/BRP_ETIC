@@ -884,6 +884,7 @@ public class Service {
         return resultat;
     }
     
+    //TO DO - si les infos ne sont pas renseigné dans la BDD alors chaine vide
     public Boolean AjouterOuvrageOuGenerique(Long idProjet, Long idSousFamille, String idDescriptif){
         JpaUtil.creerContextePersistance();
         Boolean resultat = false;
@@ -983,6 +984,7 @@ public class Service {
         return resultat;
     }
     
+    //TO DO - si les infos ne sont pas renseigné dans la BDD alors chaine vide
     public Boolean AjouterPrestation(Long idProjet, String idDescriptif, String idPrestation){
         JpaUtil.creerContextePersistance();
         Boolean resultat = false;
