@@ -94,7 +94,7 @@ public class Main {
 //        testerListerSousCategorieConstructions();
 //        testerListerSousFamilles();
 //        testerAuthentifierOperateur();
-        testerCreerProjet();
+//        testerCreerProjet();
 //        testerRechercherProjetParId();
 //        testerDupliquerProjet();
 //        testerEditerNomProjet();
@@ -103,13 +103,13 @@ public class Main {
 //        testerEditerCoeffAdaptProjet();
 //        testerEditerCoeffRaccordementProjet();
 //        testerEditerCategorieConstructionProjet();
-        testerAjouterChapitre();
-        testerAjouterCategorie();
-        testerAjouterFamille();
-        testerAjouterSousFamille();
-        testerAjouterOuvrageOuGenerique();
-        testerAjouterPrestation();
-        testerAjouterLigneChiffrage();
+//        testerAjouterChapitre();
+//        testerAjouterCategorie();
+//        testerAjouterFamille();
+//        testerAjouterSousFamille();
+//        testerAjouterOuvrageOuGenerique();
+//        testerAjouterPrestation();
+//        testerAjouterLigneChiffrage();
 //        testerCoutSynthese();
 //        testerSupprimerChapitre();
 //        testerSupprimerCategorie();
@@ -121,6 +121,7 @@ public class Main {
 //        testerModifierCourteDescriptionDescriptif();
 //        testerModifierLocalisationDescriptif();
 //        testerModifierQuantiteDescriptif();
+          testerModifBaseDescriptif();
         
       //----------tests-secondaires------//
       
@@ -1744,6 +1745,16 @@ public class Main {
         else {
             System.out.println("=> ERREUR...");
         }
+    }
+    
+//------------------------------------------------------------------------------
+//----------------------------------- Imports  ---------------------------------
+//------------------------------------------------------------------------------
+    
+    public static void testerModifBaseDescriptif(){
+        Service service = new Service();
+        String msgState = service.ModifBaseDescriptif();
+        System.out.println(msgState);
     }
     
                 //-----------------------//

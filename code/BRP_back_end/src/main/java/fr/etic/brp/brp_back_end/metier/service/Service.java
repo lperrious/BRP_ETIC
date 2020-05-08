@@ -31,15 +31,23 @@ import fr.etic.brp.brp_back_end.metier.modele.Prestation;
 import fr.etic.brp.brp_back_end.metier.modele.Projet;
 import fr.etic.brp.brp_back_end.metier.modele.SousCategorieConstruction;
 import fr.etic.brp.brp_back_end.metier.modele.SousFamille;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.poi.openxml4j.opc.OPCPackage;
+import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
 
 /**
  *
@@ -566,7 +574,19 @@ public class Service {
     
     //TO DO
     public String ModifBaseDescriptif(){
+        
+        String msgStatement = null;
         //Importer le word
+        try {
+            FileInputStream fis = new FileInputStream("../import_files/baseDescriptifs.docx");
+            XWPFDocument xdoc = new XWPFDocument(OPCPackage.open(fis));
+            XWPFWordExtractor extractor = new XWPFWordExtractor(xdoc);
+            System.out.println(extractor.getText());
+            msgStatement = "Succès";
+         } catch(Exception ex) {
+             msgStatement = "Une erreur est survenue. Source: inconnue";
+         }
+        
         //Parser le document cas par cas (Vide OU ajout OU suppr)
         //Si vide tu sautes
         //Si ajout on collecte les infos. Puis on regarde si pas déjà ds la BD. Si c'est le cas alors on delete l'ancien. Puis on ajoute le nouveau
@@ -576,7 +596,7 @@ public class Service {
         //Si erreur alors on affiche l'erreur correspondante
         //Si succès alors on retourne "succes"
         
-        return null;
+        return msgStatement;
     }
     
     //TO DO
