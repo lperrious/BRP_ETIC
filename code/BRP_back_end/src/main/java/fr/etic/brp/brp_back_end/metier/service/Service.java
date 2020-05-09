@@ -35,14 +35,19 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+import org.apache.poi.xwpf.usermodel.XWPFTable;
+import org.apache.poi.xwpf.usermodel.XWPFTableCell;
+import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -576,25 +581,83 @@ public class Service {
     public String ModifBaseDescriptif(){
         
         String msgStatement = null;
-        //Importer le word
+        String idActuel = null;
+        int countUnderscore = 0;
+        ArrayList<ArrayList<String>> docListe =  new ArrayList<ArrayList<String>> ();       //Création d'un format indicé
+        
         try {
+            //Importer le word
             FileInputStream fis = new FileInputStream("../import_files/baseDescriptifs.docx");
-            XWPFDocument xdoc = new XWPFDocument(OPCPackage.open(fis));
-            XWPFWordExtractor extractor = new XWPFWordExtractor(xdoc);
-            System.out.println(extractor.getText());
+            XWPFDocument doc = new XWPFDocument(OPCPackage.open(fis));
+            List<XWPFTable> table = doc.getTables();        //on extrait tous les tableaux 
+            
+            //Extraction des informations dans un format rigoureux et indicé
+            for (XWPFTable xwpfTable : table) { 
+                //On se trouve dans un tableau particulier. On en extrait les lignes
+                ArrayList<String> tableau = new ArrayList<String>();
+                List<XWPFTableRow> row = xwpfTable.getRows(); 
+                for (XWPFTableRow xwpfTableRow : row) { 
+                    List<XWPFTableCell> cell = xwpfTableRow.getTableCells();
+                    //on extrait les cellules (même si on en a qu'une par ligne)
+                    for (XWPFTableCell xwpfTableCell : cell) { 
+                        if(xwpfTableCell!=null) { 
+                            tableau.add(xwpfTableCell.getText());
+                        }
+                    }
+                }
+                docListe.add(tableau);
+            }
+            
+            //On peut démarrer l'extraction des données
+            //on extrait l'identifiant et on déduit le type d'objet
+            for(int i = 0; i < docListe.size(); i++){
+                idActuel = docListe.get(i).get(0);
+                //on compte le nombre de "_" dans l'ID
+                countUnderscore = 0;
+                for (int j = 0; j < idActuel.length(); j++) {
+                    if (idActuel.charAt(j) == '_') 
+                        countUnderscore++;
+                }
+                
+//                //on procède à l'insertion d'un titre
+//                if(countUnderscore < 4){
+//                    switch(countUnderscore){
+//                        case 0:
+//                            
+//                            break;
+//                        case 1:
+//                            
+//                            break;  
+//                        case 2:
+//                            
+//                            break; 
+//                        case 3:
+//                            
+//                            break;
+//                    }
+//                }
+//                //on procède au traitement d'un descriptif
+//                else{
+//                    
+//                }
+            }
+            
             msgStatement = "Succès";
-         } catch(Exception ex) {
-             msgStatement = "Une erreur est survenue. Source: inconnue";
+         } catch(IOException | InvalidFormatException ex) {
+             msgStatement = "Une erreur est survenue lors du traitément de "+idActuel;
          }
         
-        //Parser le document cas par cas (Vide OU ajout OU suppr)
-        //Si vide tu sautes
-        //Si ajout on collecte les infos. Puis on regarde si pas déjà ds la BD. Si c'est le cas alors on delete l'ancien. Puis on ajoute le nouveau
-        //Remarque : Il faut check d'abord les styles du RUN pour les svg sous forme de balise dans la BD !
-        //Si suppr on delete dans la BD.
-        //Dans tous les cas (sauf vide) on update l'attribut listeDescriptif de l'instance SousFamille correspondante
+        //si c'est un titre: on ajoute
+        //si c'est un descriptif: on extrait le type d'opération
+        //si c'est suppr: on suppr
+        //sinon si le descriptif existe: on suppr
+        //extraction des infos
+        //extraction des styles
+        //puis on ajoute
+        //on update l'attribut listeDescriptif de l'instance SousFamille correspondante
         //Si erreur alors on affiche l'erreur correspondante
         //Si succès alors on retourne "succes"
+        
         
         return msgStatement;
     }
