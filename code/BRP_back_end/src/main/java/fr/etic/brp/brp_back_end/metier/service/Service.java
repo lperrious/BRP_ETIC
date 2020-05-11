@@ -631,69 +631,69 @@ public class Service {
                     //on procède à l'insertion d'un "titre" dans la BD
                     if(countUnderscore < 4){
                         switch(countUnderscore){
-                            case 0:             //chapitre
+                            case 0:             //on importe un chapitre en BD
                                 Chapitre chapitre = null;
                                 chapitre = chapitreDao.ChercherParId(idActuel);
+                                JpaUtil.ouvrirTransaction();
                                 if(chapitre == null){   //on crée le chapitre
                                     chapitre = new Chapitre(idActuel, docListe.get(i).get(1));
-                                    JpaUtil.ouvrirTransaction();
                                     chapitreDao.Creer(chapitre);
-                                    JpaUtil.validerTransaction();
                                 }
-                                else{   //on modifie le titre du chapitre
+                                else{   //on modifie l'intitule du chapitre
                                     chapitre.setIntituleChapitre(docListe.get(i).get(1));
-                                    JpaUtil.ouvrirTransaction();
                                     chapitreDao.Update(chapitre);
-                                    JpaUtil.validerTransaction();
-                                }    
+                                }  
+                                JpaUtil.validerTransaction();
                                 break;
-                            case 1:             //categorie
+                            case 1:             //on importe une categorie en BD
                                 Categorie categorie = null;
-                                categorie = categorieDao.ChercherParId(idActuel);
-                                if(categorie == null){   //on crée le chapitre
+                                categorie = categorieDao.ChercherParId(idActuel);       //idActuel est l'identifiant de l'objet que l'on traite
+                                JpaUtil.ouvrirTransaction();
+                                if(categorie == null){   //on crée la categorie
                                     categorie = new Categorie(idActuel, docListe.get(i).get(1));
-                                    JpaUtil.ouvrirTransaction();
-                                    categorieDao.Creer(categorie);
-                                    JpaUtil.validerTransaction();
+                                    categorieDao.Creer(categorie);  
                                 }
-                                else{   //on modifie le titre du chapitre
+                                else{   //on modifie l'initule de la categorie
                                     categorie.setIntituleCategorie(docListe.get(i).get(1));
-                                    JpaUtil.ouvrirTransaction();
                                     categorieDao.Update(categorie);
-                                    JpaUtil.validerTransaction();
                                 } 
+                                //on va chercher le chapitre parent pour update listeCategorie
+                                Chapitre chapitreParent = chapitreDao.ChercherParId(idActuel.substring(0, idActuel.lastIndexOf('_'))); //on prend idActuel et on retire le dernier _ et ce qu'il y a derrière
+                                List<Categorie> listeCategorie = chapitreParent.getListCategorie();
+                                System.out.println(listeCategorie.toString());  //WTF: affiche "{IndirectList: not instantiated}"
+                                listeCategorie.add(categorie);
+                                chapitreParent.setListCategorie(listeCategorie);
+                                chapitreDao.Update(chapitreParent);
+                                JpaUtil.validerTransaction();
                                 break;  
-                            case 2:             //famille
+  
+                            case 2:             //on importe une categorie en BD
                                 Famille famille = null;
                                 famille = familleDao.ChercherParId(idActuel);
-                                if(famille == null){   //on crée le chapitre
+                                JpaUtil.ouvrirTransaction();
+                                if(famille == null){   //on crée la famille
                                     famille = new Famille(idActuel, docListe.get(i).get(1));
-                                    JpaUtil.ouvrirTransaction();
                                     familleDao.Creer(famille);
-                                    JpaUtil.validerTransaction();
                                 }
-                                else{   //on modifie le titre du chapitre
+                                else{   //on modifie l'intitule de la famille
                                     famille.setIntituleFamille(docListe.get(i).get(1));
-                                    JpaUtil.ouvrirTransaction();
                                     familleDao.Update(famille);
-                                    JpaUtil.validerTransaction();
                                 } 
+                                JpaUtil.validerTransaction();
                                 break; 
-                            case 3:             //sousFamille
+                            case 3:             //on importe une sousFamille en BD
                                 SousFamille sousFamille = null;
                                 sousFamille = sousFamilleDao.ChercherParId(idActuel);
-                                if(sousFamille == null){   //on crée le chapitre
+                                JpaUtil.ouvrirTransaction();
+                                if(sousFamille == null){   //on crée la sousFamille
                                     sousFamille = new SousFamille(idActuel, docListe.get(i).get(1));
-                                    JpaUtil.ouvrirTransaction();
                                     sousFamilleDao.Creer(sousFamille);
-                                    JpaUtil.validerTransaction();
                                 }
-                                else{   //on modifie le titre du chapitre
+                                else{   //on modifie l'intitule de la sousFamille
                                     sousFamille.setIntituleSousFamille(docListe.get(i).get(1));
-                                    JpaUtil.ouvrirTransaction();
                                     sousFamilleDao.Update(sousFamille);
-                                    JpaUtil.validerTransaction();
                                 } 
+                                JpaUtil.validerTransaction();
                                 break;
                         }
                     }
@@ -705,56 +705,50 @@ public class Service {
                                 case "OUVRAGE": 
                                     Ouvrage ouvrage = null;
                                     ouvrage = (Ouvrage) descriptifDao.ChercherParId(idActuel);
+                                    JpaUtil.ouvrirTransaction();
                                     if(ouvrage == null){   //on crée le chapitre
                                         ouvrage = new Ouvrage(idActuel, docListe.get(i).get(3), docListe.get(i).get(4), docListe.get(i).get(5));
-                                        JpaUtil.ouvrirTransaction();
                                         descriptifDao.Creer(ouvrage);
-                                        JpaUtil.validerTransaction();
                                     }
                                     else{   //on modifie le titre du chapitre
                                         ouvrage.setNomDescriptif(docListe.get(i).get(3));
                                         ouvrage.setDescription(docListe.get(i).get(4));
                                         ouvrage.setCourteDescription(docListe.get(i).get(5));
-                                        JpaUtil.ouvrirTransaction();
                                         descriptifDao.Update(ouvrage);
-                                        JpaUtil.validerTransaction();
                                     } 
+                                    JpaUtil.validerTransaction();
                                     break;
                                 case "GENERIQUE":  
                                     Generique generique = null;
                                     generique = (Generique) descriptifDao.ChercherParId(idActuel);
+                                    JpaUtil.ouvrirTransaction();
                                     if(generique == null){   //on crée le chapitre
                                         generique = new Generique(idActuel, docListe.get(i).get(3), docListe.get(i).get(4), docListe.get(i).get(5));
-                                        JpaUtil.ouvrirTransaction();
                                         descriptifDao.Creer(generique);
-                                        JpaUtil.validerTransaction();
                                     }
                                     else{   //on modifie le titre du chapitre
                                         generique.setNomDescriptif(docListe.get(i).get(3));
                                         generique.setDescription(docListe.get(i).get(4));
                                         generique.setCourteDescription(docListe.get(i).get(5));
-                                        JpaUtil.ouvrirTransaction();
                                         descriptifDao.Update(generique);
-                                        JpaUtil.validerTransaction();
                                     } 
+                                    JpaUtil.validerTransaction();
                                     break;  
                                 case "PRESTATION":  
                                     Prestation prestation = null;
                                     prestation = prestationDao.ChercherParId(idActuel);
+                                    JpaUtil.ouvrirTransaction();
                                     if(prestation == null){   //on crée le chapitre
                                         prestation = new Prestation(idActuel, docListe.get(i).get(3), docListe.get(i).get(4), docListe.get(i).get(5));
-                                        JpaUtil.ouvrirTransaction();
                                         prestationDao.Creer(prestation);
-                                        JpaUtil.validerTransaction();
                                     }
                                     else{   //on modifie le titre du chapitre
                                         prestation.setNomDescriptif(docListe.get(i).get(3));
                                         prestation.setDescription(docListe.get(i).get(4));
                                         prestation.setCourteDescription(docListe.get(i).get(5));
-                                        JpaUtil.ouvrirTransaction();
                                         prestationDao.Update(prestation);
-                                        JpaUtil.validerTransaction();
                                     } 
+                                    JpaUtil.validerTransaction();
                                     break; 
                             }
                         }
