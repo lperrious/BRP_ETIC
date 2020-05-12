@@ -660,7 +660,6 @@ public class Service {
                                 //on va chercher le chapitre parent pour update listeCategorie
                                 Chapitre chapitreParent = chapitreDao.ChercherParId(idActuel.substring(0, idActuel.lastIndexOf('_'))); //on prend idActuel et on retire le dernier _ et ce qu'il y a derrière
                                 List<Categorie> listeCategorie = chapitreParent.getListCategorie();
-                                System.out.println(listeCategorie.toString());  //WTF: affiche "{IndirectList: not instantiated}"
                                 listeCategorie.add(categorie);
                                 chapitreParent.setListCategorie(listeCategorie);
                                 chapitreDao.Update(chapitreParent);
@@ -679,6 +678,12 @@ public class Service {
                                     famille.setIntituleFamille(docListe.get(i).get(1));
                                     familleDao.Update(famille);
                                 } 
+                                //on va chercher la categorie parent pour update listeFamille
+                                Categorie categorieParent = categorieDao.ChercherParId(idActuel.substring(0, idActuel.lastIndexOf('_'))); //on prend idActuel et on retire le dernier _ et ce qu'il y a derrière
+                                List<Famille> listeFamille = categorieParent.getListeFamille();
+                                listeFamille.add(famille);
+                                categorieParent.setListeFamille(listeFamille);
+                                categorieDao.Update(categorieParent);
                                 JpaUtil.validerTransaction();
                                 break; 
                             case 3:             //on importe une sousFamille en BD
@@ -693,6 +698,12 @@ public class Service {
                                     sousFamille.setIntituleSousFamille(docListe.get(i).get(1));
                                     sousFamilleDao.Update(sousFamille);
                                 } 
+                                //on va chercher la famille parent pour update listeSousFamille
+                                Famille familleParent = familleDao.ChercherParId(idActuel.substring(0, idActuel.lastIndexOf('_'))); //on prend idActuel et on retire le dernier _ et ce qu'il y a derrière
+                                List<SousFamille> listeSousFamille = familleParent.getListSousFamille();
+                                listeSousFamille.add(sousFamille);
+                                familleParent.setListSousFamille(listeSousFamille);
+                                familleDao.Update(familleParent);
                                 JpaUtil.validerTransaction();
                                 break;
                         }
