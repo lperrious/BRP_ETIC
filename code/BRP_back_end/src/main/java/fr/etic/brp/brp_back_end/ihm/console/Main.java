@@ -61,15 +61,15 @@ public class Main {
         InitialiserBasePrixRef();
         InitialiserCaractDim();
         InitialiserSousCategorieConstruction();
-        InitialiserCategorie();
+//        InitialiserCategorie();
         InitialiserCategorieConstruction();
         InitialiserCoeffRaccordement();
-        InitialiserChapitre();
-        InitialiserDescriptif();
-        InitialiserFamille();
+//        InitialiserChapitre();
+//        InitialiserDescriptif();
+//        InitialiserFamille();
         InitialiserOperateur();
         InitialiserProjets();
-        InitialiserSousFamille();
+//        InitialiserSousFamille();
 
         // Pour les tests primaires mais pas secondaires
         //initialiserClients();

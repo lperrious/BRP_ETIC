@@ -727,6 +727,12 @@ public class Service {
                                         ouvrage.setCourteDescription(docListe.get(i).get(5));
                                         descriptifDao.Update(ouvrage);
                                     } 
+                                    //on va chercher la sousFamille parent pour update listeDescriptif
+                                    SousFamille sousFamilleParent = sousFamilleDao.ChercherParId(idActuel.substring(0, idActuel.lastIndexOf('_'))); //on prend idActuel et on retire le dernier _ et ce qu'il y a derrière
+                                    List<Descriptif> listeDescriptif = sousFamilleParent.getListDescriptif();
+                                    listeDescriptif.add(ouvrage);
+                                    sousFamilleParent.setListDescriptif(listeDescriptif);
+                                    sousFamilleDao.Update(sousFamilleParent);
                                     JpaUtil.validerTransaction();
                                     break;
                                 case "GENERIQUE":  
@@ -743,6 +749,12 @@ public class Service {
                                         generique.setCourteDescription(docListe.get(i).get(5));
                                         descriptifDao.Update(generique);
                                     } 
+                                    //on va chercher la sousFamille parent pour update listeDescriptif
+                                    SousFamille sousFamilleParent2 = sousFamilleDao.ChercherParId(idActuel.substring(0, idActuel.lastIndexOf('_'))); //on prend idActuel et on retire le dernier _ et ce qu'il y a derrière
+                                    List<Descriptif> listeDescriptif2 = sousFamilleParent2.getListDescriptif();
+                                    listeDescriptif2.add(generique);
+                                    sousFamilleParent2.setListDescriptif(listeDescriptif2);
+                                    sousFamilleDao.Update(sousFamilleParent2);
                                     JpaUtil.validerTransaction();
                                     break;  
                                 case "PRESTATION":  
@@ -759,33 +771,45 @@ public class Service {
                                         prestation.setCourteDescription(docListe.get(i).get(5));
                                         prestationDao.Update(prestation);
                                     } 
+                                    //on va chercher l'ouvrage  parent pour update listeprestation
+                                    Ouvrage ouvrageParent = (Ouvrage) descriptifDao.ChercherParId(idActuel.substring(0, idActuel.lastIndexOf('_'))); //on prend idActuel et on retire le dernier _ et ce qu'il y a derrière
+                                    List<Prestation> listePrestation = ouvrageParent.getListePrestation();
+                                    listePrestation.add(prestation);
+                                    ouvrageParent.setListePrestation(listePrestation);
+                                    descriptifDao.Update(ouvrageParent);
                                     JpaUtil.validerTransaction();
                                     break; 
                             }
                         }
                         //on traite les suppressions
-                        else{
-                            switch(countUnderscore){
-                                case 4:         //on supprime un ouvrage ou un generique
-                                    Descriptif descriptif = null;
-                                    descriptif = descriptifDao.ChercherParId(idActuel);
-                                    if(descriptif != null){   //on crée le chapitre
-                                        JpaUtil.ouvrirTransaction();
-                                        descriptifDao.Remove(descriptif);
-                                        JpaUtil.validerTransaction();
-                                    }
-                                    break; 
-                                case 5:         //on supprime une prestation
-                                    Prestation prestation = null;
-                                    prestation = prestationDao.ChercherParId(idActuel);
-                                    if(prestation != null){   //on crée le chapitre
-                                        JpaUtil.ouvrirTransaction();
-                                        prestationDao.Remove(prestation);
-                                        JpaUtil.validerTransaction();
-                                    }
-                                    break; 
-                            }
-                        }
+//                        else{
+//                            switch(countUnderscore){
+//                                case 4:         //on supprime un ouvrage ou un generique
+//                                    Descriptif descriptif = null;
+//                                    descriptif = descriptifDao.ChercherParId(idActuel);
+//                                    if(descriptif != null){   //on crée le chapitre
+//                                        JpaUtil.ouvrirTransaction();
+//                                          //on va chercher la sousFamille parent pour update listeDescriptif
+//                                        SousFamille sousFamilleParent = sousFamilleDao.ChercherParId(idActuel.substring(0, idActuel.lastIndexOf('_'))); //on prend idActuel et on retire le dernier _ et ce qu'il y a derrière
+//                                        List<Descriptif> listeDescriptif = sousFamilleParent.getListDescriptif();
+//                                        listeDescriptif.remove(descriptif);
+//                                        sousFamilleParent.setListDescriptif(listeDescriptif);
+//                                        sousFamilleDao.Update(sousFamilleParent);
+//                                        descriptifDao.Remove(descriptif);
+//                                        JpaUtil.validerTransaction();
+//                                    }
+//                                    break; 
+//                                case 5:         //on supprime une prestation
+//                                    Prestation prestation = null;
+//                                    prestation = prestationDao.ChercherParId(idActuel);
+//                                    if(prestation != null){   //on crée le chapitre
+//                                        JpaUtil.ouvrirTransaction();
+//                                        prestationDao.Remove(prestation);
+//                                        JpaUtil.validerTransaction();
+//                                    }
+//                                    break; 
+//                            }
+//                        }
                     }
                     msgStatement = "Traitement avec succès du fichier baseDescriptif.docx";
                 } catch(Exception ex){
