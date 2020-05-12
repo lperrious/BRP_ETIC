@@ -31,15 +31,28 @@ import fr.etic.brp.brp_back_end.metier.modele.Prestation;
 import fr.etic.brp.brp_back_end.metier.modele.Projet;
 import fr.etic.brp.brp_back_end.metier.modele.SousCategorieConstruction;
 import fr.etic.brp.brp_back_end.metier.modele.SousFamille;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.openxml4j.opc.OPCPackage;
+import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+import org.apache.poi.xwpf.usermodel.XWPFTable;
+import org.apache.poi.xwpf.usermodel.XWPFTableCell;
+import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
 
 /**
  *
@@ -566,17 +579,218 @@ public class Service {
     
     //TO DO
     public String ModifBaseDescriptif(){
-        //Importer le word
-        //Parser le document cas par cas (Vide OU ajout OU suppr)
-        //Si vide tu sautes
-        //Si ajout on collecte les infos. Puis on regarde si pas déjà ds la BD. Si c'est le cas alors on delete l'ancien. Puis on ajoute le nouveau
-        //Remarque : Il faut check d'abord les styles du RUN pour les svg sous forme de balise dans la BD !
-        //Si suppr on delete dans la BD.
-        //Dans tous les cas (sauf vide) on update l'attribut listeDescriptif de l'instance SousFamille correspondante
-        //Si erreur alors on affiche l'erreur correspondante
-        //Si succès alors on retourne "succes"
         
-        return null;
+        String msgStatement = null;
+        String idActuel = null;
+        Boolean erreur = false;
+        int countUnderscore = 0;
+        ArrayList<ArrayList<String>> docListe =  new ArrayList<ArrayList<String>> ();       //Création d'un format indicé
+        
+        try {
+            //Importer le word
+            FileInputStream fis = new FileInputStream("../import_files/baseDescriptifs.docx");
+            XWPFDocument doc = new XWPFDocument(OPCPackage.open(fis));
+            List<XWPFTable> table = doc.getTables();        //on extrait tous les tableaux 
+            
+            //Extraction des informations dans un format rigoureux et indicé
+            for (XWPFTable xwpfTable : table) { 
+                //On se trouve dans un tableau particulier. On en extrait les lignes
+                ArrayList<String> tableau = new ArrayList<String>();
+                List<XWPFTableRow> row = xwpfTable.getRows(); 
+                for (XWPFTableRow xwpfTableRow : row) { 
+                    List<XWPFTableCell> cell = xwpfTableRow.getTableCells();
+                    //on extrait les cellules (même si on en a qu'une par ligne)
+                    for (XWPFTableCell xwpfTableCell : cell) { 
+                        if(xwpfTableCell!=null) { 
+                            tableau.add(xwpfTableCell.getText());
+                        }
+                    }
+                }
+                docListe.add(tableau);
+            }           
+         } catch(IOException | InvalidFormatException ex) {
+             msgStatement = "Erreur système: l'API POI ne parvient pas à extraire les données";
+             erreur = true;
+         }
+        
+        //si on a réussi à extraire les données du word, on peut démarrer l'exploitation des données
+        if(!erreur){
+            //on parcourt la liste des objets
+            for(int i = 0; i < docListe.size(); i++){
+                //on extrait l'identifiant et on déduit le type d'objet
+                idActuel = docListe.get(i).get(0);
+                //on compte le nombre de "_" dans l'ID
+                countUnderscore = 0;
+                for (int j = 0; j < idActuel.length(); j++) {
+                    if (idActuel.charAt(j) == '_') 
+                        countUnderscore++;
+                }
+
+                JpaUtil.creerContextePersistance();
+                try {
+                    //on procède à l'insertion d'un "titre" dans la BD
+                    if(countUnderscore < 4){
+                        switch(countUnderscore){
+                            case 0:             //on importe un chapitre en BD
+                                Chapitre chapitre = null;
+                                chapitre = chapitreDao.ChercherParId(idActuel);
+                                JpaUtil.ouvrirTransaction();
+                                if(chapitre == null){   //on crée le chapitre
+                                    chapitre = new Chapitre(idActuel, docListe.get(i).get(1));
+                                    chapitreDao.Creer(chapitre);
+                                }
+                                else{   //on modifie l'intitule du chapitre
+                                    chapitre.setIntituleChapitre(docListe.get(i).get(1));
+                                    chapitreDao.Update(chapitre);
+                                }  
+                                JpaUtil.validerTransaction();
+                                break;
+                            case 1:             //on importe une categorie en BD
+                                Categorie categorie = null;
+                                categorie = categorieDao.ChercherParId(idActuel);       //idActuel est l'identifiant de l'objet que l'on traite
+                                JpaUtil.ouvrirTransaction();
+                                if(categorie == null){   //on crée la categorie
+                                    categorie = new Categorie(idActuel, docListe.get(i).get(1));
+                                    categorieDao.Creer(categorie);  
+                                }
+                                else{   //on modifie l'initule de la categorie
+                                    categorie.setIntituleCategorie(docListe.get(i).get(1));
+                                    categorieDao.Update(categorie);
+                                } 
+                                //on va chercher le chapitre parent pour update listeCategorie
+                                Chapitre chapitreParent = chapitreDao.ChercherParId(idActuel.substring(0, idActuel.lastIndexOf('_'))); //on prend idActuel et on retire le dernier _ et ce qu'il y a derrière
+                                List<Categorie> listeCategorie = chapitreParent.getListCategorie();
+                                System.out.println(listeCategorie.toString());  //WTF: affiche "{IndirectList: not instantiated}"
+                                listeCategorie.add(categorie);
+                                chapitreParent.setListCategorie(listeCategorie);
+                                chapitreDao.Update(chapitreParent);
+                                JpaUtil.validerTransaction();
+                                break;  
+  
+                            case 2:             //on importe une categorie en BD
+                                Famille famille = null;
+                                famille = familleDao.ChercherParId(idActuel);
+                                JpaUtil.ouvrirTransaction();
+                                if(famille == null){   //on crée la famille
+                                    famille = new Famille(idActuel, docListe.get(i).get(1));
+                                    familleDao.Creer(famille);
+                                }
+                                else{   //on modifie l'intitule de la famille
+                                    famille.setIntituleFamille(docListe.get(i).get(1));
+                                    familleDao.Update(famille);
+                                } 
+                                JpaUtil.validerTransaction();
+                                break; 
+                            case 3:             //on importe une sousFamille en BD
+                                SousFamille sousFamille = null;
+                                sousFamille = sousFamilleDao.ChercherParId(idActuel);
+                                JpaUtil.ouvrirTransaction();
+                                if(sousFamille == null){   //on crée la sousFamille
+                                    sousFamille = new SousFamille(idActuel, docListe.get(i).get(1));
+                                    sousFamilleDao.Creer(sousFamille);
+                                }
+                                else{   //on modifie l'intitule de la sousFamille
+                                    sousFamille.setIntituleSousFamille(docListe.get(i).get(1));
+                                    sousFamilleDao.Update(sousFamille);
+                                } 
+                                JpaUtil.validerTransaction();
+                                break;
+                        }
+                    }
+                    //on procède au traitement d'un descriptif
+                    else{
+                        //on traite les ajouts
+                        if(docListe.get(i).get(1).equals("AJOUT")){
+                            switch(docListe.get(i).get(2)){
+                                case "OUVRAGE": 
+                                    Ouvrage ouvrage = null;
+                                    ouvrage = (Ouvrage) descriptifDao.ChercherParId(idActuel);
+                                    JpaUtil.ouvrirTransaction();
+                                    if(ouvrage == null){   //on crée le chapitre
+                                        ouvrage = new Ouvrage(idActuel, docListe.get(i).get(3), docListe.get(i).get(4), docListe.get(i).get(5));
+                                        descriptifDao.Creer(ouvrage);
+                                    }
+                                    else{   //on modifie le titre du chapitre
+                                        ouvrage.setNomDescriptif(docListe.get(i).get(3));
+                                        ouvrage.setDescription(docListe.get(i).get(4));
+                                        ouvrage.setCourteDescription(docListe.get(i).get(5));
+                                        descriptifDao.Update(ouvrage);
+                                    } 
+                                    JpaUtil.validerTransaction();
+                                    break;
+                                case "GENERIQUE":  
+                                    Generique generique = null;
+                                    generique = (Generique) descriptifDao.ChercherParId(idActuel);
+                                    JpaUtil.ouvrirTransaction();
+                                    if(generique == null){   //on crée le chapitre
+                                        generique = new Generique(idActuel, docListe.get(i).get(3), docListe.get(i).get(4), docListe.get(i).get(5));
+                                        descriptifDao.Creer(generique);
+                                    }
+                                    else{   //on modifie le titre du chapitre
+                                        generique.setNomDescriptif(docListe.get(i).get(3));
+                                        generique.setDescription(docListe.get(i).get(4));
+                                        generique.setCourteDescription(docListe.get(i).get(5));
+                                        descriptifDao.Update(generique);
+                                    } 
+                                    JpaUtil.validerTransaction();
+                                    break;  
+                                case "PRESTATION":  
+                                    Prestation prestation = null;
+                                    prestation = prestationDao.ChercherParId(idActuel);
+                                    JpaUtil.ouvrirTransaction();
+                                    if(prestation == null){   //on crée le chapitre
+                                        prestation = new Prestation(idActuel, docListe.get(i).get(3), docListe.get(i).get(4), docListe.get(i).get(5));
+                                        prestationDao.Creer(prestation);
+                                    }
+                                    else{   //on modifie le titre du chapitre
+                                        prestation.setNomDescriptif(docListe.get(i).get(3));
+                                        prestation.setDescription(docListe.get(i).get(4));
+                                        prestation.setCourteDescription(docListe.get(i).get(5));
+                                        prestationDao.Update(prestation);
+                                    } 
+                                    JpaUtil.validerTransaction();
+                                    break; 
+                            }
+                        }
+                        //on traite les suppressions
+                        else{
+                            switch(countUnderscore){
+                                case 4:         //on supprime un ouvrage ou un generique
+                                    Descriptif descriptif = null;
+                                    descriptif = descriptifDao.ChercherParId(idActuel);
+                                    if(descriptif != null){   //on crée le chapitre
+                                        JpaUtil.ouvrirTransaction();
+                                        descriptifDao.Remove(descriptif);
+                                        JpaUtil.validerTransaction();
+                                    }
+                                    break; 
+                                case 5:         //on supprime une prestation
+                                    Prestation prestation = null;
+                                    prestation = prestationDao.ChercherParId(idActuel);
+                                    if(prestation != null){   //on crée le chapitre
+                                        JpaUtil.ouvrirTransaction();
+                                        prestationDao.Remove(prestation);
+                                        JpaUtil.validerTransaction();
+                                    }
+                                    break; 
+                            }
+                        }
+                    }
+                    msgStatement = "Traitement avec succès du fichier baseDescriptif.docx";
+                } catch(Exception ex){
+                    msgStatement = "Problème d'insertion dans la base de donnée (problème de format?). ID: "+idActuel;
+                } finally {
+                    JpaUtil.fermerContextePersistance();
+                }
+            }
+        }
+        
+        
+        //extraction des styles
+        //on update l'attribut listeDescriptif de l'instance SousFamille correspondante
+        //Si erreur alors on affiche l'erreur correspondante (verif si idActuel est retourné)
+        
+        return msgStatement;
     }
     
     //TO DO
