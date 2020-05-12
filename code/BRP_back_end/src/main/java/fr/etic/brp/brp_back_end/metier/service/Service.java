@@ -45,6 +45,7 @@ import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableCell;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
@@ -584,6 +585,7 @@ public class Service {
         String idActuel = null;
         Boolean erreur = false;
         int countUnderscore = 0;
+        int countRows = 0;
         ArrayList<ArrayList<String>> docListe =  new ArrayList<ArrayList<String>> ();       //Création d'un format indicé
         
         try {
@@ -595,6 +597,7 @@ public class Service {
             //Extraction des informations dans un format rigoureux et indicé
             for (XWPFTable xwpfTable : table) { 
                 //On se trouve dans un tableau particulier. On en extrait les lignes
+                countRows = 0;
                 ArrayList<String> tableau = new ArrayList<String>();
                 List<XWPFTableRow> row = xwpfTable.getRows(); 
                 for (XWPFTableRow xwpfTableRow : row) { 
@@ -602,9 +605,37 @@ public class Service {
                     //on extrait les cellules (même si on en a qu'une par ligne)
                     for (XWPFTableCell xwpfTableCell : cell) { 
                         if(xwpfTableCell!=null) { 
-                            tableau.add(xwpfTableCell.getText());
+                            if(countRows != 4){ //on est pas dans une description, pas besoin de traiter les styles
+                                tableau.add(xwpfTableCell.getText());
+                            }
+                            else{
+                                //on est dans une description. On extrait les styles
+                                for (XWPFParagraph paragraph : xwpfTableCell.getParagraphs()) {
+                                    for (XWPFRun run : paragraph.getRuns()) {   //on extrait les runs
+                                        System.out.println(run.text()+": "+run.getPictureText());
+//                                        for (char c : run.text().toCharArray()) {
+//
+//                                            System.out.print(c);
+//                                            pos++;
+//                                        }
+//                                        System.out.println();
+                                    }
+                                }
+                            }
+                            
+                            //run.getColor()
+                            //run.isBold()
+                            //run.isItalic()
+                            //run.getUnderline() --SINGLE / DASH / NONE --
+                            //run.getTextHightlightColor() jaune et cyan
+                            
+                            //on prend une chaine vide et on concatene
+                            //pour chaque run avec un style, on concatene avec une balise ouvrante et fermante
+                            //on enregistre la chaine dans le tableau
+                            //verif les sauts de ligne
                         }
                     }
+                    countRows++;
                 }
                 docListe.add(tableau);
             }           
