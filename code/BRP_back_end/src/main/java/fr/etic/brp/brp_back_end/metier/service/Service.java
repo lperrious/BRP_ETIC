@@ -612,7 +612,7 @@ public class Service {
                                 //on est dans une description. On extrait les styles
                                 for (XWPFParagraph paragraph : xwpfTableCell.getParagraphs()) {
                                     for (XWPFRun run : paragraph.getRuns()) {   //on extrait les runs
-                                        System.out.println(run.text()+": "+run.getPictureText());
+                                        System.out.println(run.text()+": "+run.getStyleId());
 //                                        for (char c : run.text().toCharArray()) {
 //
 //                                            System.out.print(c);
