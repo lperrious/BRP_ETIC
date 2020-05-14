@@ -31,8 +31,10 @@ import fr.etic.brp.brp_back_end.metier.modele.Prestation;
 import fr.etic.brp.brp_back_end.metier.modele.Projet;
 import fr.etic.brp.brp_back_end.metier.modele.SousCategorieConstruction;
 import fr.etic.brp.brp_back_end.metier.modele.SousFamille;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -922,15 +924,135 @@ public class Service {
     
     //TO DO
     public String ModifBasePrixRef(){
-        //Importer le CSV
-        //Parser le document cas par cas (ajout OU suppr) en sautant la premiere ligne
-        //Si suppr alors on delete dans la BD
-        //Si ajout on add
-        //Dans tous les cas on met à jour soit listeBasePrixRefOuvrage soit listeBasePrixRefPrestation
-        //Si erreur alors on affiche l'erreur correspondante
-        //Si succès alors on retourne "succes"
+        //Importer le CSV - OK
+        //Parser le document cas par cas (ajout OU suppr) en sautant la premiere ligne - OK
+        //Si suppr alors on delete dans la BD - OK
+        //Si ajout on add - OK
+        //Dans tous les cas on met à jour soit listeBasePrixRefOuvrage soit listeBasePrixRefPrestation - OK
+        //Si erreur alors on affiche l'erreur correspondante - OK
+        //Si succès alors on retourne "succes" - OK
         
-        return null;
+        JpaUtil.creerContextePersistance();
+        
+        String rapport = null;
+        //Input file which needs to be parsed
+        String fileToParse = "../import_files/ModifBasePrixRef.csv";
+        BufferedReader fileReader = null;
+         
+        //Delimiter used in CSV file
+        final String DELIMITER = ";";
+        try
+        {
+            //Create the file reader
+            fileReader = new BufferedReader(new FileReader(fileToParse));
+             
+            //We skip the first line then we read the file line by line
+            String line = fileReader.readLine();
+            while ((line = fileReader.readLine()) != null) 
+            {
+                //Get all attributes available in line
+                String[] attributes = line.split(DELIMITER);
+                
+                //On cherche à savoir s'il s'agit d'un ouvrage ou d'une prestation
+                String typeDescriptif = null;
+                if(attributes[2].equals("/"))
+                    typeDescriptif = "Prestation";
+                else
+                    typeDescriptif = "Ouvrage";
+                
+                //Utile pour la suite
+                BasePrixRef newBasePrixRef = null;
+                Ouvrage ouvrageAModifier = null;
+                Prestation prestationAModifier = null;
+                
+                switch(attributes[1])
+                {
+                    case "AJOUT":
+                        try {
+                            JpaUtil.ouvrirTransaction();
+                            newBasePrixRef = new BasePrixRef(Integer.parseInt(attributes[9]), Double.parseDouble(attributes[4]), Double.parseDouble(attributes[5]), Double.parseDouble(attributes[6]), attributes[7], Double.parseDouble(attributes[8]));
+                            basePrixRefDao.Creer(newBasePrixRef);
+                            JpaUtil.validerTransaction();
+                        } catch (Exception ex) {
+                            rapport += " | Erreur lors de l'insertion de " + attributes[0];
+                            throw new Exception();
+                        }
+                        break;
+                    case "SUPPR":
+                        try {
+                            JpaUtil.ouvrirTransaction();
+                            List<BasePrixRef> listBasePrixRef = basePrixRefDao.ListerBasePrixRefs();
+                            for(BasePrixRef basePrixRef : listBasePrixRef){
+                                //! Comment on choisit pour supprimer ???
+                                if(basePrixRef.getAnnee() == Integer.parseInt(attributes[9]) && basePrixRef.getBT() == Double.parseDouble(attributes[4]) && basePrixRef.getPrixUnitaire() == Double.parseDouble(attributes[8]) && basePrixRef.getQteInf() == Double.parseDouble(attributes[5]) && basePrixRef.getQteSup() == Double.parseDouble(attributes[6]) && basePrixRef.getUnite().equals(attributes[7])){
+                                    basePrixRefDao.Remove(basePrixRef);
+                                }
+                            }
+                            JpaUtil.validerTransaction(); 
+                        } catch (Exception ex) {
+                            rapport += " | Erreur lors de la suppression de " + attributes[0];
+                            throw new Exception();
+                        }
+                        break;
+                    default:
+                        rapport += " opération non reconnue";
+                        break;
+                }
+                if(rapport == null) { //MAJ du descriptif lié
+                    try {
+                        JpaUtil.ouvrirTransaction();
+                        if(attributes[1].equals("AJOUT")) {
+                            if(typeDescriptif.equals("Ouvrage")) {
+                                ouvrageAModifier = (Ouvrage)descriptifDao.ChercherParId(attributes[2]);
+                                List<BasePrixRef> listeBasePrixRef = ouvrageAModifier.getListeBasePrixRefOuvrage();
+                                listeBasePrixRef.add(newBasePrixRef);
+                                ouvrageAModifier.setListeBasePrixRefOuvrage(listeBasePrixRef);
+                                descriptifDao.Update(ouvrageAModifier);
+                            } else {
+                                prestationAModifier = (Prestation)descriptifDao.ChercherParId(attributes[3]);
+                                List<BasePrixRef> listeBasePrixRef = prestationAModifier.getListeBasePrixRefPrestation();
+                                listeBasePrixRef.add(newBasePrixRef);
+                                prestationAModifier.setListeBasePrixRefPrestation(listeBasePrixRef);
+                                descriptifDao.Update(prestationAModifier);
+                            }
+                        } else {
+                            if(typeDescriptif.equals("Ouvrage")) {
+                                ouvrageAModifier = (Ouvrage)descriptifDao.ChercherParId(attributes[2]);
+                                List<BasePrixRef> listeBasePrixRef = ouvrageAModifier.getListeBasePrixRefOuvrage();
+                                listeBasePrixRef.remove(newBasePrixRef);
+                                ouvrageAModifier.setListeBasePrixRefOuvrage(listeBasePrixRef);
+                                descriptifDao.Update(prestationAModifier);
+                            } else {
+                                prestationAModifier = (Prestation)descriptifDao.ChercherParId(attributes[3]);
+                                List<BasePrixRef> listeBasePrixRef = prestationAModifier.getListeBasePrixRefPrestation();
+                                listeBasePrixRef.remove(newBasePrixRef);
+                                prestationAModifier.setListeBasePrixRefPrestation(listeBasePrixRef);
+                                descriptifDao.Update(prestationAModifier);
+                            }
+                        }
+                        JpaUtil.validerTransaction();
+                    } catch (Exception e) {
+                        rapport += " | Erreur avec " + attributes[0];
+                        throw new Exception();
+                    }
+                }
+            }
+        } 
+        catch (Exception e) {
+            //L'exception aura déjà été collectée et traitée en amont
+        } 
+        finally
+        {
+            JpaUtil.fermerContextePersistance();
+            if(rapport == null)
+                rapport = "Succès !";
+            try {
+                fileReader.close();
+            } catch (IOException e) {
+                Logger.getAnonymousLogger().log(Level.WARNING, "Erreur lors de la fermeture du fichier", e);
+            }
+        }
+        return rapport;
     }
     
     //Duplique un projet en donnant par défaut le nom "Nouveau Projet"

@@ -65,15 +65,12 @@ public class Main {
         InitialiserCategorieConstruction();
         InitialiserCoeffRaccordement();
 //        InitialiserChapitre();
-//        InitialiserDescriptif();
+        InitialiserDescriptif();
 //        InitialiserFamille();
         InitialiserOperateur();
         InitialiserProjets();
 //        InitialiserSousFamille();
 
-        // Pour les tests primaires mais pas secondaires
-        //initialiserClients();
-        //initialiserConsultations(); 
         
     //----------tests-des-services-----------------
     
@@ -121,7 +118,8 @@ public class Main {
 //        testerModifierCourteDescriptionDescriptif();
 //        testerModifierLocalisationDescriptif();
 //        testerModifierQuantiteDescriptif();
-          testerModifBaseDescriptif();
+//        testerModifBaseDescriptif();
+//          testerModifBasePrixRef();
         
       //----------tests-secondaires------//
       
@@ -1754,6 +1752,12 @@ public class Main {
     public static void testerModifBaseDescriptif(){
         Service service = new Service();
         String msgState = service.ModifBaseDescriptif();
+        System.out.println(msgState);
+    }
+    
+    public static void testerModifBasePrixRef(){
+        Service service = new Service();
+        String msgState = service.ModifBasePrixRef();
         System.out.println(msgState);
     }
     
