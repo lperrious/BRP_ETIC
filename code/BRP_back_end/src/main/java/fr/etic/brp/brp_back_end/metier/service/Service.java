@@ -598,6 +598,10 @@ public class Service {
             for (XWPFTable xwpfTable : table) { 
                 //On se trouve dans un tableau particulier. On en extrait les lignes
                 countRows = 0;
+                String chaineDescription = "";
+                String chaineParagraph = "";
+                String runStyle = "normal";
+                String testingRunStyle = "normal";
                 ArrayList<String> tableau = new ArrayList<String>();
                 List<XWPFTableRow> row = xwpfTable.getRows(); 
                 for (XWPFTableRow xwpfTableRow : row) { 
@@ -611,28 +615,85 @@ public class Service {
                             else{
                                 //on est dans une description. On extrait les styles
                                 for (XWPFParagraph paragraph : xwpfTableCell.getParagraphs()) {
-                                    for (XWPFRun run : paragraph.getRuns()) {   //on extrait les runs
-                                        System.out.println(run.text()+": "+run.getStyleId());
-//                                        for (char c : run.text().toCharArray()) {
-//
-//                                            System.out.print(c);
-//                                            pos++;
-//                                        }
-//                                        System.out.println();
+                                    if(!paragraph.getText().equals("")){
+                                        
+                                        chaineParagraph = "";
+                                        runStyle = "normal";
+                                        
+                                        for (XWPFRun run : paragraph.getRuns()) {   //on extrait les runs
+                                            
+                                            testingRunStyle = "normal";
+                                            
+                                            //on test les textures
+                                            if(!run.isBold() && run.getUnderline().toString().equals("SINGLE") && !run.isItalic())
+                                                testingRunStyle = "u";
+                                            if(!run.isBold() && run.getUnderline().toString().equals("DASH") && !run.isItalic())
+                                                testingRunStyle = "underlineDash";
+                                            if(!run.isBold() && run.getUnderline().toString().equals("NONE") && run.isItalic())
+                                                testingRunStyle = "i";
+                                            if(!run.isBold() && run.getUnderline().toString().equals("SINGLE") && run.isItalic())
+                                                testingRunStyle = "italic_underline";
+                                            if(run.isBold() && run.getUnderline().toString().equals("NONE") && !run.isItalic())
+                                                testingRunStyle = "b";
+                                            if(run.isBold() && run.getUnderline().toString().equals("SINGLE") && !run.isItalic())
+                                                testingRunStyle = "bold_underline";
+                                            if(run.isBold() && run.getUnderline().toString().equals("NONE") && run.isItalic())
+                                                testingRunStyle = "bold_italic";
+                                            if(run.isBold() && run.getUnderline().toString().equals("SINGLE") && run.isItalic())
+                                                testingRunStyle = "bold_underline_italic";
+                                            
+                                            //on test les couleurs
+                                            if("FF0000".equals(run.getColor()))
+                                                testingRunStyle = "colorRed";
+                                            if("E36C0A".equals(run.getColor()))
+                                                testingRunStyle = "colorOrange";
+                                            if("00B050".equals(run.getColor()))
+                                                testingRunStyle = "colorGreen";
+                                            if("0070C0".equals(run.getColor()))
+                                                testingRunStyle = "colorBlue";
+                                            
+                                            //on test les surlignages
+                                            if("yellow".equals(run.getTextHightlightColor().toString()))
+                                                testingRunStyle = "highlightYellow";
+                                            if("cyan".equals(run.getTextHightlightColor().toString()))
+                                                testingRunStyle = "highlightCyan";
+                                            if("red".equals(run.getTextHightlightColor().toString()))
+                                                testingRunStyle = "highlightRed";
+                                            if("green".equals(run.getTextHightlightColor().toString()))
+                                                testingRunStyle = "highlightGreen";
+                                            if("magenta".equals(run.getTextHightlightColor().toString()))
+                                                testingRunStyle = "highlightMagenta";
+                                            
+                                            //si le style est différent de celui d'avant, on ferme le style d'avant et on ouvre le suivant
+                                            if(!runStyle.equals(testingRunStyle)){
+                                                //s'il y avait un style avant, on le ferme
+                                                if(!"normal".equals(runStyle)){
+                                                    chaineParagraph += "</"+runStyle+">";
+                                                }
+                                                if(!"normal".equals(testingRunStyle)){
+                                                    chaineParagraph += "<"+testingRunStyle+">"; //on ouvre la nouvelle balise de style
+                                                }
+                                                chaineParagraph += run.text();
+                                                runStyle = testingRunStyle;
+                                            }
+                                            else{
+                                                chaineParagraph+= run.text();
+                                            }
+                                        }
+                                        
+                                        chaineParagraph += "</"+runStyle+">"; //on ferme la dernière balise
+               
+                                        if(paragraph.getNumFmt() == "bullet"){
+                                            chaineDescription += "<ul>"+chaineParagraph+"</ul>"; //verif si fermante
+                                        }
+                                        else{
+                                            chaineDescription += "<p>"+chaineParagraph+"</p>";
+                                        }
                                     }
                                 }
+                                System.out.println(chaineDescription);
+                                tableau.add(chaineDescription);             //DATA TOO LONG MYSQL TRUNCATE
                             }
-                            
-                            //run.getColor()
-                            //run.isBold()
-                            //run.isItalic()
-                            //run.getUnderline() --SINGLE / DASH / NONE --
-                            //run.getTextHightlightColor() jaune et cyan
-                            
-                            //on prend une chaine vide et on concatene
-                            //pour chaque run avec un style, on concatene avec une balise ouvrante et fermante
-                            //on enregistre la chaine dans le tableau
-                            //verif les sauts de ligne
                         }
                     }
                     countRows++;
