@@ -922,15 +922,15 @@ public class Service {
         return msgStatement;
     }
     
-    //TO DO
+    //TO DO - Essayer sur un jeu de test
     public String ModifBasePrixRef(){
-        //Importer le CSV - OK
-        //Parser le document cas par cas (ajout OU suppr) en sautant la premiere ligne - OK
-        //Si suppr alors on delete dans la BD - OK
-        //Si ajout on add - OK
-        //Dans tous les cas on met à jour soit listeBasePrixRefOuvrage soit listeBasePrixRefPrestation - OK
-        //Si erreur alors on affiche l'erreur correspondante - OK
-        //Si succès alors on retourne "succes" - OK
+        //Importer le CSV
+        //Parser le document cas par cas (ajout OU suppr) en sautant la premiere ligne
+        //Si suppr alors on delete dans la BD - ????
+        //Si ajout on add
+        //Dans tous les cas on met à jour soit listeBasePrixRefOuvrage soit listeBasePrixRefPrestation
+        //Si erreur alors on affiche l'erreur correspondante
+        //Si succès alors on retourne "succes"
         
         JpaUtil.creerContextePersistance();
         
@@ -978,9 +978,9 @@ public class Service {
                             throw new Exception();
                         }
                         break;
-                    case "SUPPR":
+                    case "SUPPR": //A développer ?
                         try {
-                            JpaUtil.ouvrirTransaction();
+                            /*JpaUtil.ouvrirTransaction();
                             List<BasePrixRef> listBasePrixRef = basePrixRefDao.ListerBasePrixRefs();
                             for(BasePrixRef basePrixRef : listBasePrixRef){
                                 //! Comment on choisit pour supprimer ???
@@ -988,7 +988,7 @@ public class Service {
                                     basePrixRefDao.Remove(basePrixRef);
                                 }
                             }
-                            JpaUtil.validerTransaction(); 
+                            JpaUtil.validerTransaction();*/
                         } catch (Exception ex) {
                             rapport += " | Erreur lors de la suppression de " + attributes[0];
                             throw new Exception();
@@ -1761,7 +1761,6 @@ public class Service {
         return resultat;
     }
     
-    //TO DO - si les infos ne sont pas renseigné dans la BDD alors chaine vide
     public Boolean SupprimerDescriptif(Long idProjet, String idDescriptif){
         JpaUtil.creerContextePersistance();
         Boolean testSuppression = false;
@@ -1808,13 +1807,12 @@ public class Service {
                                 }
                             }
 
-                            //Balise unite
-                            Element baliseUnite = xml.createElement("unite");                                                                       
-                            baliseUnite.appendChild(xml.createTextNode(listeBasePrixRef.get(indiceRef).getUnite())); 
-
                             //Balise ligneChiffrage
                             Element baliseLigneChiffrage = xml.createElement("ligneChiffrage"); 
                             baliseLigneChiffrage.setAttribute("idLigneChiffrage", "1");
+                            //Balise unite
+                            Element baliseUnite = xml.createElement("unite");                                                                       
+                            baliseUnite.appendChild(xml.createTextNode(listeBasePrixRef.get(indiceRef).getUnite())); 
                             //Balise localisation
                             Element baliseLocalisation = xml.createElement("localisation");
                             //Balise quantite
@@ -1824,11 +1822,11 @@ public class Service {
                             Element balisePrixUnitaire = xml.createElement("prixUnitaire");                                                                       
                             balisePrixUnitaire.appendChild(xml.createTextNode(listeBasePrixRef.get(indiceRef).getPrixUnitaire().toString()));
                             
+                            baliseLigneChiffrage.appendChild(baliseUnite);
                             baliseLigneChiffrage.appendChild(baliseLocalisation); 
                             baliseLigneChiffrage.appendChild(baliseQuantite);
                             baliseLigneChiffrage.appendChild(balisePrixUnitaire);
-
-                            ouvrageElement.appendChild(baliseUnite);    
+  
                             ouvrageElement.appendChild(baliseLigneChiffrage);
                             
                             //On peut donc supprimer la prestation
@@ -1902,7 +1900,6 @@ public class Service {
         return resultat;
     }
     
-    //TO DO - si les infos ne sont pas renseigné dans la BDD alors chaine vide
     public Boolean ModifierDescriptionDescriptif(Long idProjet, String idDescriptif, String newDescription){
         Boolean testModif = false;
         Boolean resultat = false;
@@ -1942,7 +1939,6 @@ public class Service {
         return resultat;
     }
     
-    //TO DO - si les infos ne sont pas renseigné dans la BDD alors chaine vide
     public Boolean ModifierCourteDescriptionDescriptif(Long idProjet, String idDescriptif, String newDescription){
         Boolean testModif = false;
         Boolean resultat = false;
@@ -1982,7 +1978,6 @@ public class Service {
         return resultat;
     }
     
-    //TO DO - si les infos ne sont pas renseigné dans la BDD alors chaine vide
     public Boolean ModifierLocalisationDescriptif(Long idProjet, String idDescriptif, String idLigneChiffrage, String newLocalisation){
         Boolean testModif = false;
         Boolean resultat = false;
@@ -2030,7 +2025,6 @@ public class Service {
         return resultat;
     }
     
-    //TO DO - si les infos ne sont pas renseigné dans la BDD alors chaine vide
     public Boolean ModifierQuantiteDescriptif(Long idProjet, String idDescriptif, String idLigneChiffrage, Double quantite){
         JpaUtil.creerContextePersistance();
         Boolean testModif = false;

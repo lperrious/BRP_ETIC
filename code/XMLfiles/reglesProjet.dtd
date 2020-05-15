@@ -3,8 +3,8 @@
 <!ELEMENT categorie (intitule, famille*)>
 <!ELEMENT famille (intitule, sousFamille*)>
 <!ELEMENT sousFamille (intitule, descriptif*)>
-<!ELEMENT descriptif (nomDescriptif, description, courteDescription, descriptif*, unite*, ligneChiffrage*)>
-<!ELEMENT ligneChiffrage (localisation, quantite, prixUnitaire)>
+<!ELEMENT descriptif (nomDescriptif, description, courteDescription, descriptif*, ligneChiffrage*)>
+<!ELEMENT ligneChiffrage (unite, localisation, quantite, prixUnitaire)>
 <!ELEMENT nomProjet (#PCDATA)>
 <!ELEMENT typeMarche (#PCDATA)>
 <!ELEMENT typeConstruction (#PCDATA)>
@@ -23,6 +23,8 @@
 <!ELEMENT b ANY>
 <!ELEMENT i ANY>
 <!ELEMENT u ANY>
+<!ELEMENT ul (li+)>
+<!ELEMENT li ANY>
 <!ATTLIST projet idProjet CDATA #REQUIRED>
 <!ATTLIST chapitre idChapitre CDATA #REQUIRED>
 <!ATTLIST categorie idCategorie CDATA #REQUIRED>
