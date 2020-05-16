@@ -1,0 +1,4 @@
+﻿Nom (aide operateur);Operation;Ouvrage (/);Prestation (/);indice BT;quantiteInf;quantiteSup;unite;prixUnitaire;anneeRef
+Etancheite bitume monocouche;AJOUT;04_AAA_01_01_01;/;0.98;10;100;m2;200;2019
+Depose du complexe d'etancheite;AJOUT;/;04_AAA_01_01_01_01;0.34;2;10;m3;500;2019
+Depose des releves d'etancheite;SUPPR;/;04_AAA_01_01_01_02;;;;;;

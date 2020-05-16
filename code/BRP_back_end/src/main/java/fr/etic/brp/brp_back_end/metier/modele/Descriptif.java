@@ -1,10 +1,12 @@
 package fr.etic.brp.brp_back_end.metier.modele;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.Lob;
 
 /**
  *
@@ -17,6 +19,8 @@ public abstract class Descriptif implements Serializable {
     @Id
     protected String idDescriptif;
     protected String nomDescriptif;
+    @Lob
+    @Column
     protected String description;
     protected String courteDescription;
     
