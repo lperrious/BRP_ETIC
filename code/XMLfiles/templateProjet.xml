@@ -3,102 +3,75 @@
 
 <projet idProjet="1">
 
-	<!-- A insérer juste avant l'export -->
-	<nomProjet>Projet 1</nomProjet>
-	<typeMarche>Marche public</typeMarche>
-	<typeConstruction>Renovation</typeConstruction>
-	<typeLot>Lot séparé</typeLot>
-	<site>Libre</site>
-	<datePrixRef>2019</datePrixRef>
-	<coeffAdapt>1.0</coeffAdapt>
-	<!-- A insérer juste avant l'export -->
+    <!-- A insérer juste avant l'export -->
+    <nomProjet>Projet 1</nomProjet>
+    <typeMarche>Marche public</typeMarche>
+    <typeConstruction>Renovation</typeConstruction>
+    <typeLot>Lot séparé</typeLot>
+    <site>Libre</site>
+    <datePrixRef>2019</datePrixRef>
+    <coeffAdapt>1.0</coeffAdapt>
+    <!-- A insérer juste avant l'export -->
 
-	<chapitre idChapitre="1">
-		<intitule>Nom corps Etat</intitule>
-		<categorie idCategorie="1/1">
-			<intitule>Nom categorie</intitule>
-			<famille idFamille="1/1/1">
-				<intitule>Nom famille</intitule>
-				<sousFamille idSousFamille="1/1/1/1">
-					<intitule>Nom sous famille</intitule>
-
-					<!-- Balise Générique  -->
-					<descriptif type="generique" idDescriptif="1/1/1/1/1">
-						<nomDescriptif>Sécurité</nomDescriptif>
-						<description>
-							Une
-							<b>description détaillée</b>
-							du
-							<i>générique</i>
-							. Cette
-							<u>description</u>
-							apparaitra uniquement sur la CCTP
-						</description>
-						<courteDescription>Courte description (pour la DPGF)</courteDescription>
-					</descriptif>
-
-
-					<!-- Balise Ouvrage  -->
-					<descriptif type="ouvrage" idDescriptif="1/1/1/1/2">
-						<nomDescriptif>Étanchéité bitume monocouche</nomDescriptif>
-						<description>
-							Une
-							<b>description détaillée</b>
-							de
-							<i>l'ouvrage</i>
-							. Cette
-							<u>description</u>
-							apparaitra uniquement sur la CCTP
-						</description>
-						<courteDescription>Courte description (pour la DPGF)</courteDescription>
-						<descriptif type="prestation" idDescriptif="1/1/1/1/2/1">
-							<nomDescriptif>Depose du complexe d'etancheite</nomDescriptif>
-							<description>
-								Une
-								<b>description détaillée</b>
-								de
-								<i>la prestation</i>
-								. Cette
-								<u>description</u>
-								apparaitra uniquement sur la CCTP
-							</description>
-							<courteDescription>Courte description (pour la DPGF)</courteDescription>
-							<unite>m^2</unite>
-							<ligneChiffrage idLigneChiffrage="1">
-								<localisation>Batiment A</localisation>
-								<quantite>25</quantite>
-								<prixUnitaire>200</prixUnitaire>
-							</ligneChiffrage>
-						</descriptif>
-					</descriptif>
-
-					<descriptif type="ouvrage" idDescriptif="1/1/1/1/3">
-						<nomDescriptif>Ouvrage numero 3</nomDescriptif>
-						<description>
-							Une
-							<b>description détaillée</b>
-							de
-							<i>l'ouvrage</i>
-							. Cette
-							<u>description</u>
-							apparaitra uniquement sur la CCTP
-						</description>
-						<courteDescription>Courte description (pour la DPGF)</courteDescription>
-						<unite>m^2</unite>
-						<ligneChiffrage idLigneChiffrage="1">
-							<localisation>Batiment A</localisation>
-							<quantite>25</quantite>
-							<prixUnitaire>200</prixUnitaire>
-						</ligneChiffrage>
-						<ligneChiffrage idLigneChiffrage="2">
-							<localisation>Batiment B</localisation>
-							<quantite>45</quantite>
-							<prixUnitaire>200</prixUnitaire>
-						</ligneChiffrage>
-					</descriptif>
-
-				</sousFamille>
-			</famille>
-		</categorie>
-	</chapitre>
+    <titre1 id="1" intitule="Nom titre 1">
+        <titre2 id="2" intitule="Nom titre 2">
+            <titre3 id="3" intitule="Nom titre 3">
+                <titre4 id="4" intitule="Nom titre 4"></titre4>
+            </titre3>
+        </titre2>
+    </titre1>
+    <titre1 id="5" intitule="Nom titre 1">
+        <!-- Balise Générique  -->
+        <descriptif type="generique" id="6">
+            <nomDescriptif>Sécurité</nomDescriptif>
+            <description>
+                Une
+                <b>description détaillée</b>
+                du
+                <i>générique</i>
+                . Cette
+                <u>description</u>
+                apparaitra uniquement sur la CCTP
+            </description>
+            <courteDescription>Courte description (pour la DPGF)</courteDescription>
+        </descriptif>
+        <titre2 id="1" intitule="Nom titre 2">
+            <!-- Balise Ouvrage  -->
+            <descriptif type="ouvrage" id="7">
+                <nomDescriptif>Étanchéité bitume monocouche</nomDescriptif>
+                <description>
+                    Une
+                    <b>description détaillée</b>
+                    de
+                    <i>l'ouvrage</i>
+                    . Cette
+                    <u>description</u>
+                    apparaitra uniquement sur la CCTP
+                </description>
+                <courteDescription>Courte description (pour la DPGF)</courteDescription>
+                <descriptif type="prestation" id="8">
+                    <nomDescriptif>Depose du complexe d'etancheite</nomDescriptif>
+                    <description>
+                        Une
+                        <b>description détaillée</b>
+                        de
+                        <i>la prestation</i>
+                        . Cette
+                        <u>description</u>
+                        apparaitra uniquement sur la CCTP
+                    </description>
+                    <courteDescription>Courte description (pour la DPGF)</courteDescription>
+                    <ligneChiffrage idLigneChiffrage="1">
+                        <unite>m^2</unite>
+                        <localisation>Batiment A</localisation>
+                        <quantite>25</quantite>
+                        <prixUnitaire>200</prixUnitaire>
+                    </ligneChiffrage>
+                </descriptif>
+            </descriptif>
+            <titre3 id="9" intitule="Nom titre 3">
+                <titre4 id="10" intitule="Nom titre 4"></titre4>
+            </titre3>
+        </titre2>
+    </titre1>
 </projet>
