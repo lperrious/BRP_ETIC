@@ -20,11 +20,25 @@
 <!ELEMENT prixUnitaire (#PCDATA)>
 <!ELEMENT localisation (#PCDATA)>
 <!ELEMENT quantite (#PCDATA)>
-<!ELEMENT b ANY>
-<!ELEMENT i ANY>
-<!ELEMENT u ANY>
 <!ELEMENT ul (li+)>
-<!ELEMENT li ANY>
+<!ELEMENT u ANY>
+<!ELEMENT underlineDash ANY>
+<!ELEMENT i ANY>
+<!ELEMENT italic_underline ANY>
+<!ELEMENT b ANY>
+<!ELEMENT bold_underline ANY>
+<!ELEMENT bold_italic ANY>
+<!ELEMENT bold_underline_italic ANY>
+<!ELEMENT colorRed ANY>
+<!ELEMENT colorOrange ANY>
+<!ELEMENT colorGreen ANY>
+<!ELEMENT colorBlue ANY>
+<!ELEMENT highlightYellow ANY>
+<!ELEMENT highlightCyan ANY>
+<!ELEMENT highlightRed ANY>
+<!ELEMENT highlightGreen ANY>
+<!ELEMENT highlightMagenta ANY>
+
 <!ATTLIST projet idProjet CDATA #REQUIRED>
 <!ATTLIST chapitre idChapitre CDATA #REQUIRED>
 <!ATTLIST categorie idCategorie CDATA #REQUIRED>
