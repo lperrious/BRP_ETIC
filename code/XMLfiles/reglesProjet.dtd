@@ -1,8 +1,8 @@
-<!ELEMENT projet (nomProjet?, typeMarche?, typeConstruction?, typeLot?, site?, datePrixRef?, coeffAdapt?, chapitre*)>
-<!ELEMENT chapitre (intitule, categorie*)>
-<!ELEMENT categorie (intitule, famille*)>
-<!ELEMENT famille (intitule, sousFamille*)>
-<!ELEMENT sousFamille (intitule, descriptif*)>
+<!ELEMENT projet (nomProjet?, typeMarche?, typeConstruction?, typeLot?, site?, datePrixRef?, coeffAdapt?, titre1*)>
+<!ELEMENT titre1 ANY>
+<!ELEMENT titre2 ANY>
+<!ELEMENT titre3 ANY>
+<!ELEMENT titre4 ANY>
 <!ELEMENT descriptif (nomDescriptif, description, courteDescription, descriptif*, ligneChiffrage*)>
 <!ELEMENT ligneChiffrage (unite, localisation, quantite, prixUnitaire)>
 <!ELEMENT nomProjet (#PCDATA)>
@@ -12,7 +12,6 @@
 <!ELEMENT site (#PCDATA)>
 <!ELEMENT datePrixRef (#PCDATA)>
 <!ELEMENT coeffAdapt (#PCDATA)>
-<!ELEMENT intitule (#PCDATA)>
 <!ELEMENT nomDescriptif (#PCDATA)>
 <!ELEMENT description ANY>
 <!ELEMENT courteDescription (#PCDATA)>
@@ -38,12 +37,15 @@
 <!ELEMENT highlightRed ANY>
 <!ELEMENT highlightGreen ANY>
 <!ELEMENT highlightMagenta ANY>
-
 <!ATTLIST projet idProjet CDATA #REQUIRED>
-<!ATTLIST chapitre idChapitre CDATA #REQUIRED>
-<!ATTLIST categorie idCategorie CDATA #REQUIRED>
-<!ATTLIST famille idFamille CDATA #REQUIRED>
-<!ATTLIST sousFamille idSousFamille CDATA #REQUIRED>
-<!ATTLIST descriptif idDescriptif CDATA #REQUIRED>
+<!ATTLIST titre1 id CDATA #REQUIRED>
+<!ATTLIST titre2 id CDATA #REQUIRED>
+<!ATTLIST titre3 id CDATA #REQUIRED>
+<!ATTLIST titre4 id CDATA #REQUIRED>
+<!ATTLIST titre1 intitule CDATA #REQUIRED>
+<!ATTLIST titre2 intitule CDATA #REQUIRED>
+<!ATTLIST titre3 intitule CDATA #REQUIRED>
+<!ATTLIST titre4 intitule CDATA #REQUIRED>
+<!ATTLIST descriptif id CDATA #REQUIRED>
 <!ATTLIST descriptif type CDATA #REQUIRED>
 <!ATTLIST ligneChiffrage idLigneChiffrage CDATA #REQUIRED>

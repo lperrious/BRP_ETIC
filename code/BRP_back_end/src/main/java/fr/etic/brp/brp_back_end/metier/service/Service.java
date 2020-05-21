@@ -655,16 +655,18 @@ public class Service {
                                                 testingRunStyle = "colorBlue";
                                             
                                             //on test les surlignages
-                                            if("yellow".equals(run.getTextHightlightColor().toString()))
-                                                testingRunStyle = "highlightYellow";
-                                            if("cyan".equals(run.getTextHightlightColor().toString()))
-                                                testingRunStyle = "highlightCyan";
-                                            if("red".equals(run.getTextHightlightColor().toString()))
-                                                testingRunStyle = "highlightRed";
-                                            if("green".equals(run.getTextHightlightColor().toString()))
-                                                testingRunStyle = "highlightGreen";
-                                            if("magenta".equals(run.getTextHightlightColor().toString()))
-                                                testingRunStyle = "highlightMagenta";
+//                                            if("yellow".equals(run.getTextHightlightColor().toString()))
+//                                                testingRunStyle = "highlightYellow";
+//                                            if("cyan".equals(run.getTextHightlightColor().toString()))
+//                                                testingRunStyle = "highlightCyan";
+//                                            if("red".equals(run.getTextHightlightColor().toString()))
+//                                                testingRunStyle = "highlightRed";
+//                                            if("green".equals(run.getTextHightlightColor().toString()))
+//                                                testingRunStyle = "highlightGreen";
+//                                            if("magenta".equals(run.getTextHightlightColor().toString()))
+//                                                testingRunStyle = "highlightMagenta";
+                                            //TODO
+                                            System.out.println("coucou");
                                             
                                             //si le style est différent de celui d'avant, on ferme le style d'avant et on ouvre le suivant
                                             if(!runStyle.equals(testingRunStyle)){
