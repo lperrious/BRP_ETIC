@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package fr.etic.brp.brp_back_end.metier.service;
 
 import fr.etic.brp.brp_back_end.dao.BasePrixRefDao;
@@ -451,8 +446,42 @@ public class ImportService {
                 {
                     case "AJOUT":
                         try {
+                            //TO DO
                             JpaUtil.ouvrirTransaction();
-                            newBasePrixRef = new BasePrixRef(Integer.parseInt(attributes[9]), Double.parseDouble(attributes[4]), Double.parseDouble(attributes[5]), Double.parseDouble(attributes[6]), attributes[7], Double.parseDouble(attributes[8]));
+                            //Si des valeurs chaines vides alors on le prend en compte pour la BDD en tant que null
+                            Integer annee;
+                            if(attributes[9].equals("-")) {
+                                annee = null;
+                            } else
+                                annee = Integer.parseInt(attributes[9]);
+                            Double BT;
+                            if(attributes[4].equals("-"))
+                                BT = null;
+                            else
+                                BT = Double.parseDouble(attributes[4]);
+                            Double qteInf;
+                            if(attributes[5].equals("-"))
+                                qteInf = null;
+                            else
+                                qteInf = Double.parseDouble(attributes[5]);
+                            Double qteSup;
+                            if(attributes[6].equals("-"))
+                                qteSup = null;
+                            else
+                                qteSup = Double.parseDouble(attributes[6]);
+                            String unite = null;
+                            if(attributes[7].equals("-"))
+                                qteSup = null;
+                            else
+                                unite = attributes[7];
+                            Double prixUnitaire;
+                            if(attributes[8].equals("-"))
+                                prixUnitaire = null;
+                            else
+                                prixUnitaire = Double.parseDouble(attributes[8]);
+                            
+                            //On peut maintenant créer une nouvelle instance de BasePrixRef
+                            newBasePrixRef = new BasePrixRef(annee, BT, qteInf, qteSup, unite, prixUnitaire);
                             basePrixRefDao.Creer(newBasePrixRef);
                             JpaUtil.validerTransaction();
                         } catch (Exception ex) {
@@ -460,12 +489,11 @@ public class ImportService {
                             throw new Exception();
                         }
                         break;
-                    case "SUPPR": //A développer ?
+                    case "SUPPR":
                         try {
                             /*JpaUtil.ouvrirTransaction();
                             List<BasePrixRef> listBasePrixRef = basePrixRefDao.ListerBasePrixRefs();
                             for(BasePrixRef basePrixRef : listBasePrixRef){
-                                //! Comment on choisit pour supprimer ???
                                 if(basePrixRef.getAnnee() == Integer.parseInt(attributes[9]) && basePrixRef.getBT() == Double.parseDouble(attributes[4]) && basePrixRef.getPrixUnitaire() == Double.parseDouble(attributes[8]) && basePrixRef.getQteInf() == Double.parseDouble(attributes[5]) && basePrixRef.getQteSup() == Double.parseDouble(attributes[6]) && basePrixRef.getUnite().equals(attributes[7])){
                                     basePrixRefDao.Remove(basePrixRef);
                                 }
