@@ -20,23 +20,23 @@
 <!ELEMENT localisation (#PCDATA)>
 <!ELEMENT quantite (#PCDATA)>
 <!ELEMENT ul (li+)>
-<!ELEMENT u ANY>
-<!ELEMENT underlineDash ANY>
-<!ELEMENT i ANY>
-<!ELEMENT italic_underline ANY>
-<!ELEMENT b ANY>
-<!ELEMENT bold_underline ANY>
-<!ELEMENT bold_italic ANY>
-<!ELEMENT bold_underline_italic ANY>
-<!ELEMENT colorRed ANY>
-<!ELEMENT colorOrange ANY>
-<!ELEMENT colorGreen ANY>
-<!ELEMENT colorBlue ANY>
-<!ELEMENT highlightYellow ANY>
-<!ELEMENT highlightCyan ANY>
-<!ELEMENT highlightRed ANY>
-<!ELEMENT highlightGreen ANY>
-<!ELEMENT highlightMagenta ANY>
+<!ELEMENT u (#PCDATA)>
+<!ELEMENT underlineDash (#PCDATA)>
+<!ELEMENT i (#PCDATA)>
+<!ELEMENT italic_underline (#PCDATA)>
+<!ELEMENT b (#PCDATA)>
+<!ELEMENT bold_underline (#PCDATA)>
+<!ELEMENT bold_italic (#PCDATA)>
+<!ELEMENT bold_underline_italic (#PCDATA)>
+<!ELEMENT colorRed (#PCDATA)>
+<!ELEMENT colorOrange (#PCDATA)>
+<!ELEMENT colorGreen (#PCDATA)>
+<!ELEMENT colorBlue (#PCDATA)>
+<!ELEMENT highlightYellow (#PCDATA)>
+<!ELEMENT highlightCyan (#PCDATA)>
+<!ELEMENT highlightRed (#PCDATA)>
+<!ELEMENT highlightGreen (#PCDATA)>
+<!ELEMENT highlightMagenta (#PCDATA)>
 <!ATTLIST projet idProjet CDATA #REQUIRED>
 <!ATTLIST titre1 id CDATA #REQUIRED>
 <!ATTLIST titre2 id CDATA #REQUIRED>

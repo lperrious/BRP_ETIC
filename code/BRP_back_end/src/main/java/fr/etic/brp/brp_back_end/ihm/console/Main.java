@@ -22,6 +22,7 @@ import fr.etic.brp.brp_back_end.metier.modele.Projet.TypeLot;
 import fr.etic.brp.brp_back_end.metier.modele.Projet.TypeMarche;
 import fr.etic.brp.brp_back_end.metier.modele.SousCategorieConstruction;
 import fr.etic.brp.brp_back_end.metier.modele.SousFamille;
+import fr.etic.brp.brp_back_end.metier.service.ImportService;
 import fr.etic.brp.brp_back_end.metier.service.Service;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -1750,13 +1751,13 @@ public class Main {
 //------------------------------------------------------------------------------
     
     public static void testerModifBaseDescriptif(){
-        Service service = new Service();
+        ImportService service = new ImportService();
         String msgState = service.ModifBaseDescriptif();
         System.out.println(msgState);
     }
     
     public static void testerModifBasePrixRef(){
-        Service service = new Service();
+        ImportService service = new ImportService();
         String msgState = service.ModifBasePrixRef();
         System.out.println(msgState);
     }
