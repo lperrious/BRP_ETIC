@@ -1752,15 +1752,28 @@ public class Main {
     
     public static void testerModifBaseDescriptif(){
         ImportService service = new ImportService();
+        String msgSuppr = "";
         
         //returnListe[0] = status
         //les autres contiennent les identifiants à supprimer
         ArrayList<String> returnListe = service.ModifBaseDescriptif();
         
-        for(int i = 1; i < returnListe.size(); i++){
-            //on envoie au comptage des enfants
-            //on affiche le nombre d'enfants si > 0
-            //si ok, on supprime
+        //les ajouts se sont bien passés, on passe aux suppressions
+        if(returnListe.get(0).equals("Succes")){
+            for(int i = 1; i < returnListe.size(); i++){
+                msgSuppr = service.CompterEnfants(returnListe.get(i));
+                //on envoie au comptage des enfants
+                if(msgSuppr.equals("suppr ok")){ //on supprime direct car pas d'enfant
+                    System.out.println(service.SupprObjet(returnListe.get(i)));
+                }
+                else{ //on demande la permission au client
+                    System.out.println(msgSuppr);
+                    System.out.println(service.SupprObjet(returnListe.get(i)));
+                }
+            }
+        }
+        else{       //on affiche l'erreur
+            System.out.println(returnListe.get(0));
         }
     }
     

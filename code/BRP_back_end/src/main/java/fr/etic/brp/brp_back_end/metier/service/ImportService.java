@@ -202,84 +202,89 @@ public class ImportService {
 
                 JpaUtil.creerContextePersistance();
                 try {
-                    //on procède à l'insertion d'un "titre" dans la BD
                     if(countUnderscore < 4){
-                        switch(countUnderscore){
-                            case 0:             //on importe un chapitre en BD
-                                Chapitre chapitre = null;
-                                chapitre = chapitreDao.ChercherParId(idActuel);
-                                JpaUtil.ouvrirTransaction();
-                                if(chapitre == null){   //on crée le chapitre
-                                    chapitre = new Chapitre(idActuel, docListe.get(i).get(1));
-                                    chapitreDao.Creer(chapitre);
-                                }
-                                else{   //on modifie l'intitule du chapitre
-                                    chapitre.setIntituleChapitre(docListe.get(i).get(1));
-                                    chapitreDao.Update(chapitre);
-                                }  
-                                JpaUtil.validerTransaction();
-                                break;
-                            case 1:             //on importe une categorie en BD
-                                Categorie categorie = null;
-                                categorie = categorieDao.ChercherParId(idActuel);       //idActuel est l'identifiant de l'objet que l'on traite
-                                JpaUtil.ouvrirTransaction();
-                                if(categorie == null){   //on crée la categorie
-                                    categorie = new Categorie(idActuel, docListe.get(i).get(1));
-                                    categorieDao.Creer(categorie);  
-                                }
-                                else{   //on modifie l'initule de la categorie
-                                    categorie.setIntituleCategorie(docListe.get(i).get(1));
-                                    categorieDao.Update(categorie);
-                                } 
-                                //on va chercher le chapitre parent pour update listeCategorie
-                                Chapitre chapitreParent = chapitreDao.ChercherParId(idActuel.substring(0, idActuel.lastIndexOf('_'))); //on prend idActuel et on retire le dernier _ et ce qu'il y a derrière
-                                List<Categorie> listeCategorie = chapitreParent.getListCategorie();
-                                listeCategorie.add(categorie);
-                                chapitreParent.setListCategorie(listeCategorie);
-                                chapitreDao.Update(chapitreParent);
-                                JpaUtil.validerTransaction();
-                                break;  
-  
-                            case 2:             //on importe une categorie en BD
-                                Famille famille = null;
-                                famille = familleDao.ChercherParId(idActuel);
-                                JpaUtil.ouvrirTransaction();
-                                if(famille == null){   //on crée la famille
-                                    famille = new Famille(idActuel, docListe.get(i).get(1));
-                                    familleDao.Creer(famille);
-                                }
-                                else{   //on modifie l'intitule de la famille
-                                    famille.setIntituleFamille(docListe.get(i).get(1));
-                                    familleDao.Update(famille);
-                                } 
-                                //on va chercher la categorie parent pour update listeFamille
-                                Categorie categorieParent = categorieDao.ChercherParId(idActuel.substring(0, idActuel.lastIndexOf('_'))); //on prend idActuel et on retire le dernier _ et ce qu'il y a derrière
-                                List<Famille> listeFamille = categorieParent.getListeFamille();
-                                listeFamille.add(famille);
-                                categorieParent.setListeFamille(listeFamille);
-                                categorieDao.Update(categorieParent);
-                                JpaUtil.validerTransaction();
-                                break; 
-                            case 3:             //on importe une sousFamille en BD
-                                SousFamille sousFamille = null;
-                                sousFamille = sousFamilleDao.ChercherParId(idActuel);
-                                JpaUtil.ouvrirTransaction();
-                                if(sousFamille == null){   //on crée la sousFamille
-                                    sousFamille = new SousFamille(idActuel, docListe.get(i).get(1));
-                                    sousFamilleDao.Creer(sousFamille);
-                                }
-                                else{   //on modifie l'intitule de la sousFamille
-                                    sousFamille.setIntituleSousFamille(docListe.get(i).get(1));
-                                    sousFamilleDao.Update(sousFamille);
-                                } 
-                                //on va chercher la famille parent pour update listeSousFamille
-                                Famille familleParent = familleDao.ChercherParId(idActuel.substring(0, idActuel.lastIndexOf('_'))); //on prend idActuel et on retire le dernier _ et ce qu'il y a derrière
-                                List<SousFamille> listeSousFamille = familleParent.getListSousFamille();
-                                listeSousFamille.add(sousFamille);
-                                familleParent.setListSousFamille(listeSousFamille);
-                                familleDao.Update(familleParent);
-                                JpaUtil.validerTransaction();
-                                break;
+                        if(docListe.get(i).get(1).equals("SUPPR")){ //on traite les suppressions
+                            //on ajoute à la liste de sortie les idnetifiant à supprimer
+                            returnListe.add(idActuel);
+                        }
+                        else{       //on procède à l'insertion d'un "titre" dans la BD
+                            switch(countUnderscore){
+                                case 0:             //on importe un chapitre en BD
+                                    Chapitre chapitre = null;
+                                    chapitre = chapitreDao.ChercherParId(idActuel);
+                                    JpaUtil.ouvrirTransaction();
+                                    if(chapitre == null){   //on crée le chapitre
+                                        chapitre = new Chapitre(idActuel, docListe.get(i).get(1));
+                                        chapitreDao.Creer(chapitre);
+                                    }
+                                    else{   //on modifie l'intitule du chapitre
+                                        chapitre.setIntituleChapitre(docListe.get(i).get(1));
+                                        chapitreDao.Update(chapitre);
+                                    }  
+                                    JpaUtil.validerTransaction();
+                                    break;
+                                case 1:             //on importe une categorie en BD
+                                    Categorie categorie = null;
+                                    categorie = categorieDao.ChercherParId(idActuel);       //idActuel est l'identifiant de l'objet que l'on traite
+                                    JpaUtil.ouvrirTransaction();
+                                    if(categorie == null){   //on crée la categorie
+                                        categorie = new Categorie(idActuel, docListe.get(i).get(1));
+                                        categorieDao.Creer(categorie);  
+                                    }
+                                    else{   //on modifie l'initule de la categorie
+                                        categorie.setIntituleCategorie(docListe.get(i).get(1));
+                                        categorieDao.Update(categorie);
+                                    } 
+                                    //on va chercher le chapitre parent pour update listeCategorie
+                                    Chapitre chapitreParent = chapitreDao.ChercherParId(idActuel.substring(0, idActuel.lastIndexOf('_'))); //on prend idActuel et on retire le dernier _ et ce qu'il y a derrière
+                                    List<Categorie> listeCategorie = chapitreParent.getListCategorie();
+                                    listeCategorie.add(categorie);
+                                    chapitreParent.setListCategorie(listeCategorie);
+                                    chapitreDao.Update(chapitreParent);
+                                    JpaUtil.validerTransaction();
+                                    break;  
+
+                                case 2:             //on importe une categorie en BD
+                                    Famille famille = null;
+                                    famille = familleDao.ChercherParId(idActuel);
+                                    JpaUtil.ouvrirTransaction();
+                                    if(famille == null){   //on crée la famille
+                                        famille = new Famille(idActuel, docListe.get(i).get(1));
+                                        familleDao.Creer(famille);
+                                    }
+                                    else{   //on modifie l'intitule de la famille
+                                        famille.setIntituleFamille(docListe.get(i).get(1));
+                                        familleDao.Update(famille);
+                                    } 
+                                    //on va chercher la categorie parent pour update listeFamille
+                                    Categorie categorieParent = categorieDao.ChercherParId(idActuel.substring(0, idActuel.lastIndexOf('_'))); //on prend idActuel et on retire le dernier _ et ce qu'il y a derrière
+                                    List<Famille> listeFamille = categorieParent.getListeFamille();
+                                    listeFamille.add(famille);
+                                    categorieParent.setListeFamille(listeFamille);
+                                    categorieDao.Update(categorieParent);
+                                    JpaUtil.validerTransaction();
+                                    break; 
+                                case 3:             //on importe une sousFamille en BD
+                                    SousFamille sousFamille = null;
+                                    sousFamille = sousFamilleDao.ChercherParId(idActuel);
+                                    JpaUtil.ouvrirTransaction();
+                                    if(sousFamille == null){   //on crée la sousFamille
+                                        sousFamille = new SousFamille(idActuel, docListe.get(i).get(1));
+                                        sousFamilleDao.Creer(sousFamille);
+                                    }
+                                    else{   //on modifie l'intitule de la sousFamille
+                                        sousFamille.setIntituleSousFamille(docListe.get(i).get(1));
+                                        sousFamilleDao.Update(sousFamille);
+                                    } 
+                                    //on va chercher la famille parent pour update listeSousFamille
+                                    Famille familleParent = familleDao.ChercherParId(idActuel.substring(0, idActuel.lastIndexOf('_'))); //on prend idActuel et on retire le dernier _ et ce qu'il y a derrière
+                                    List<SousFamille> listeSousFamille = familleParent.getListSousFamille();
+                                    listeSousFamille.add(sousFamille);
+                                    familleParent.setListSousFamille(listeSousFamille);
+                                    familleDao.Update(familleParent);
+                                    JpaUtil.validerTransaction();
+                                    break;
+                            }
                         }
                     }
                     //on procède au traitement d'un descriptif
@@ -404,13 +409,33 @@ public class ImportService {
         return returnListe;
     }
     
-    public int compterEnfants(String idSuppr){
-        int nbEnfants = 0;
+    public String CompterEnfants(String idDescriptif){
+        List<Descriptif> descriptifsSuppr = null;
+        String msgStatement = "";
         
-        return nbEnfants;
+        //on sélectionne tous les descriptifs dont l'id commence par: idDescriptif
+        JpaUtil.creerContextePersistance();
+        try {
+            descriptifsSuppr = descriptifDao.compterDescriptifsSuppr(idDescriptif);
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service rechercherDescriptifParId(id)", ex);
+            descriptifsSuppr = null;
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        
+        if(descriptifsSuppr.size() <= 1){ //lui même
+            msgStatement = "suppr ok";
+        }
+        else{
+            msgStatement = "En supprimant l'objet "+idDescriptif+", vous supprimerez un total de "+descriptifsSuppr.size()+" descriptifs";
+        }
+        
+        return msgStatement;
     }
     
-    public String supprObjet(String idSuppr){
+    //TODO
+    public String SupprObjet(String idSuppr){
         String msgStatement = "";
         
         //on supprime l'objet
