@@ -119,7 +119,7 @@ public class Main {
 //        testerModifierCourteDescriptionDescriptif();
 //        testerModifierLocalisationDescriptif();
 //        testerModifierQuantiteDescriptif();
-//        testerModifBaseDescriptif();
+        testerModifBaseDescriptif();
 //          testerModifBasePrixRef();
         
       //----------tests-secondaires------//
@@ -1752,8 +1752,16 @@ public class Main {
     
     public static void testerModifBaseDescriptif(){
         ImportService service = new ImportService();
-        String msgState = service.ModifBaseDescriptif();
-        System.out.println(msgState);
+        
+        //returnListe[0] = status
+        //les autres contiennent les identifiants à supprimer
+        ArrayList<String> returnListe = service.ModifBaseDescriptif();
+        
+        for(int i = 1; i < returnListe.size(); i++){
+            //on envoie au comptage des enfants
+            //on affiche le nombre d'enfants si > 0
+            //si ok, on supprime
+        }
     }
     
     public static void testerModifBasePrixRef(){

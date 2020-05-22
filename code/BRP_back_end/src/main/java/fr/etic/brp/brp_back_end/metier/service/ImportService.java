@@ -49,14 +49,15 @@ public class ImportService {
     protected BasePrixRefDao basePrixRefDao = new BasePrixRefDao();
     
     //TO DO
-    public String ModifBaseDescriptif(){
+    public ArrayList<String> ModifBaseDescriptif(){
         
-        String msgStatement = null;
         String idActuel = null;
         Boolean erreur = false;
         int countUnderscore = 0;
         int countRows = 0;
         ArrayList<ArrayList<String>> docListe =  new ArrayList<ArrayList<String>> ();       //Création d'un format indicé
+        ArrayList<String> returnListe =  new ArrayList<String> ();
+        returnListe.add("");
         
         try {
             //Importer le word
@@ -134,6 +135,8 @@ public class ImportService {
                                                 testingRunStyle = "highlightGreen";
                                             if("magenta".equals(run.getTextHightlightColor().toString()))
                                                 testingRunStyle = "highlightMagenta";
+                                            if("lightGray".equals(run.getTextHightlightColor().toString()))
+                                                testingRunStyle = "highlightGrey";
 
                                             
                                             //si le style est différent de celui d'avant, on ferme le style d'avant et on ouvre le suivant
@@ -171,7 +174,7 @@ public class ImportService {
                                     }
                                 }
                                 System.out.println(chaineDescription);
-                                tableau.add(chaineDescription);             //DATA TOO LONG MYSQL TRUNCATE
+                                tableau.add(chaineDescription);             
                             }
                         }
                     }
@@ -180,7 +183,7 @@ public class ImportService {
                 docListe.add(tableau);
             }           
          } catch(IOException | InvalidFormatException ex) {
-             msgStatement = "Erreur système: l'API POI ne parvient pas à extraire les données";
+             returnListe.set(0, "Erreur système: l'API POI ne parvient pas à extraire les données");
              erreur = true;
          }
         
@@ -353,7 +356,9 @@ public class ImportService {
                             }
                         }
                         //on traite les suppressions
-//                        else{
+                        else{
+                            //on ajoute à la liste de sortie les idnetifiant à supprimer
+                            returnListe.add(idActuel);
 //                            switch(countUnderscore){
 //                                case 4:         //on supprime un ouvrage ou un generique
 //                                    Descriptif descriptif = null;
@@ -380,21 +385,39 @@ public class ImportService {
 //                                    }
 //                                    break; 
 //                            }
-//                        }
+                        }
                     }
-                    msgStatement = "Traitement avec succès du fichier baseDescriptif.docx";
+                    
                 } catch(Exception ex){
-                    msgStatement = "Problème d'insertion dans la base de donnée (problème de format?). ID: "+idActuel;
+                    returnListe.set(0, "Problème d'insertion dans la base de donnée (problème de format?). ID: "+idActuel);
+                    erreur = true;
                 } finally {
-                    JpaUtil.fermerContextePersistance();
+                    JpaUtil.fermerContextePersistance();  
                 }
             }
         }
         
+        if(!erreur){
+            returnListe.set(0, "Succes");
+        }
         
-        //extraction des styles
-        //on update l'attribut listeDescriptif de l'instance SousFamille correspondante
-        //Si erreur alors on affiche l'erreur correspondante (verif si idActuel est retourné)
+        return returnListe;
+    }
+    
+    public int compterEnfants(String idSuppr){
+        int nbEnfants = 0;
+        
+        return nbEnfants;
+    }
+    
+    public String supprObjet(String idSuppr){
+        String msgStatement = "";
+        
+        //on supprime l'objet
+        
+        //on supprime ses enfants
+        
+        //on supprime les prix associés
         
         return msgStatement;
     }

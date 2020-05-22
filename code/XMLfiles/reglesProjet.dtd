@@ -37,6 +37,7 @@
 <!ELEMENT highlightRed (#PCDATA)>
 <!ELEMENT highlightGreen (#PCDATA)>
 <!ELEMENT highlightMagenta (#PCDATA)>
+<!ELEMENT highlightGrey (#PCDATA)>
 <!ATTLIST projet idProjet CDATA #REQUIRED>
 <!ATTLIST titre1 id CDATA #REQUIRED>
 <!ATTLIST titre2 id CDATA #REQUIRED>
