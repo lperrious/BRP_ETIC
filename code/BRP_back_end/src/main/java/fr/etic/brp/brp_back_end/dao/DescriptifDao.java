@@ -27,6 +27,12 @@ public class DescriptifDao {
         return query.getResultList();
     }
     
+    public List<Descriptif> compterDescriptifsSuppr(String idDescriptif) {
+        EntityManager em = JpaUtil.obtenirContextePersistance();
+        TypedQuery<Descriptif> query = em.createQuery("SELECT d FROM Descriptif d WHERE d.idDescriptif LIKE '"+idDescriptif+"%'", Descriptif.class);
+        return query.getResultList();
+    }
+    
     public void Update(Descriptif descriptif) {
         EntityManager em = JpaUtil.obtenirContextePersistance();
         em.merge(descriptif);
