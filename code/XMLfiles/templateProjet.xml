@@ -15,16 +15,16 @@
     <coeffAdapt>1.0</coeffAdapt>
     <!-- A insérer juste avant l'export -->
 
-    <titre1 id="1" intitule="Nom titre 1">
-        <titre2 id="2" intitule="Nom titre 2">
-            <titre3 id="3" intitule="Nom titre 3">
-                <titre4 id="4" intitule="Nom titre 4"></titre4>
+    <titre1 id="_1" intitule="Nom titre 1">
+        <titre2 id="_2" intitule="Nom titre 2">
+            <titre3 id="_3" intitule="Nom titre 3">
+                <titre4 id="_4" intitule="Nom titre 4"></titre4>
             </titre3>
         </titre2>
     </titre1>
-    <titre1 id="5" intitule="Nom titre 1">
+    <titre1 id="_5" intitule="Nom titre 1">
         <!-- Balise Générique  -->
-        <descriptif type="generique" id="6">
+        <descriptif type="generique" id="_6">
             <nomDescriptif>Sécurité</nomDescriptif>
             <description>
                 Une
@@ -37,9 +37,9 @@
             </description>
             <courteDescription>Courte description (pour la DPGF)</courteDescription>
         </descriptif>
-        <titre2 id="1" intitule="Nom titre 2">
+        <titre2 id="_7" intitule="Nom titre 2">
             <!-- Balise Ouvrage  -->
-            <descriptif type="ouvrage" id="7">
+            <descriptif type="ouvrage" id="_8">
                 <nomDescriptif>Étanchéité bitume monocouche</nomDescriptif>
                 <description>
                     Une
@@ -51,7 +51,7 @@
                     apparaitra uniquement sur la CCTP
                 </description>
                 <courteDescription>Courte description (pour la DPGF)</courteDescription>
-                <descriptif type="prestation" id="8">
+                <descriptif type="prestation" id="_9">
                     <nomDescriptif>Depose du complexe d'etancheite</nomDescriptif>
                     <description>
                         Une
@@ -71,8 +71,8 @@
                     </ligneChiffrage>
                 </descriptif>
             </descriptif>
-            <titre3 id="9" intitule="Nom titre 3">
-                <titre4 id="10" intitule="Nom titre 4"></titre4>
+            <titre3 id="_10" intitule="Nom titre 3">
+                <titre4 id="_11" intitule="Nom titre 4"></titre4>
             </titre3>
         </titre2>
     </titre1>

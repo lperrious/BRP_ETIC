@@ -102,6 +102,9 @@ public class Main {
 //        testerEditerCoeffRaccordementProjet();
 //        testerEditerCategorieConstructionProjet();
         testerAjouterTitre1();
+        testerAjouterTitre2();
+//        testerAjouterTitre3();
+//        testerAjouterTitre4();
 //        testerAjouterChapitre();
 //        testerAjouterCategorie();
 //        testerAjouterFamille();
@@ -1117,7 +1120,7 @@ public class Main {
         
         /*idProjet = 01L;
         placement = "BEFORE";
-        idRefPlacement = "1";
+        idRefPlacement = "_1";
         
         resultat = service.AjouterTitre1(idProjet, placement, idRefPlacement);
         if(resultat)
@@ -1132,39 +1135,40 @@ public class Main {
         //Insertion BEFORE avec un titre1 exitant -> ok
     }
     
-    public static void testerAjouterChapitre() {
+    public static void testerAjouterTitre2() {
         
         System.out.println();
-        System.out.println("**** testerAjouterChapitre() ****");
+        System.out.println("**** testerAjouterTitre2() ****");
         System.out.println();
         
         Service service = new Service();
         
         //Doit fonctionner
-        Long idProjet = 1L;
-        String idChapitre = "01";
+        Long idProjet = 01L;
+        String placement = "APPEND";
+        String idRefPlacement = "_1";
         
-        Boolean resultat = service.AjouterChapitre(idProjet, idChapitre);
+        Boolean resultat = service.AjouterTitre2(idProjet, placement, idRefPlacement);
         if(resultat)
         {
-            System.out.println("Ajout avec succès du chapitre "+idChapitre);
+            System.out.println("Modification avec succès du Projet n° " + idProjet);
         } else {
-            System.out.println("Echec lors de l'ajout du chapitre "+idChapitre);
+            System.out.println("Echec lors de la modification du Projet n° " + idProjet);
         }
         
-        //Doit fonctionner
-        Long idProjet2 = 1L;
-        String idChapitre2 = "02";
+        placement = "BEFORE";
+        idRefPlacement = "_2";
         
-        Boolean resultat3 = service.AjouterChapitre(idProjet2, idChapitre2);
-        if(resultat3)
+        resultat = service.AjouterTitre2(idProjet, placement, idRefPlacement);
+        if(resultat)
         {
-            System.out.println("Ajout avec succès du chapitre "+idChapitre2);
+            System.out.println("Modification avec succès du Projet n° " + idProjet);
         } else {
-            System.out.println("Echec lors de l'ajout du chapitre "+idChapitre2);
+            System.out.println("Echec lors de la modification du Projet n° " + idProjet);
         }
         
-        //idProjet n'existe pas -> echec (comme prevu)
+        //idProjet n'existe pas -> echec (comme prévu)
+        //Pas de titre1 correspondant -> echec (comme prévu)
     }
     
     public static void testerAjouterCategorie() {

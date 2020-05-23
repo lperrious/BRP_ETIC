@@ -40,14 +40,14 @@
 <!ELEMENT highlightMagenta (#PCDATA)>
 <!ELEMENT highlightGrey (#PCDATA)>
 <!ATTLIST projet idProjet CDATA #REQUIRED>
-<!ATTLIST titre1 id CDATA #REQUIRED>
-<!ATTLIST titre2 id CDATA #REQUIRED>
-<!ATTLIST titre3 id CDATA #REQUIRED>
-<!ATTLIST titre4 id CDATA #REQUIRED>
+<!ATTLIST titre1 id ID #REQUIRED>
+<!ATTLIST titre2 id ID #REQUIRED>
+<!ATTLIST titre3 id ID #REQUIRED>
+<!ATTLIST titre4 id ID #REQUIRED>
 <!ATTLIST titre1 intitule CDATA #REQUIRED>
 <!ATTLIST titre2 intitule CDATA #REQUIRED>
 <!ATTLIST titre3 intitule CDATA #REQUIRED>
 <!ATTLIST titre4 intitule CDATA #REQUIRED>
-<!ATTLIST descriptif id CDATA #REQUIRED>
+<!ATTLIST descriptif id ID #REQUIRED>
 <!ATTLIST descriptif type CDATA #REQUIRED>
 <!ATTLIST ligneChiffrage idLigneChiffrage CDATA #REQUIRED>
