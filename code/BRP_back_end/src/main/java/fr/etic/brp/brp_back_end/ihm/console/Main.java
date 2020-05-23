@@ -108,7 +108,6 @@ public class Main {
 //        testerSuppressionBalise();
 //        testerModifierIntituleTitre();
         testerAjouterDescriptif();
-//        testerAjouterPrestation();
 //        testerAjouterLigneChiffrage();
 //        testerCoutSynthese();
 //        testerSupprimerDescriptif();
@@ -1313,29 +1312,6 @@ public class Main {
         //idProjet n'existe pas -> echec (comme prevu)
         //choisit bien en fonction de l'année la plus récente et de la fourchette de prix
         //Test idRefPlacement non existant -> echec (comme prévu)
-    }
-    
-    public static void testerAjouterPrestation() {
-        
-        System.out.println();
-        System.out.println("**** testerAjouterPrestation() ****");
-        System.out.println();
-        
-        Service service = new Service();
-        
-        //Doit fonctionner (sinsère uniquement dans le premier chapitre)
-        Long idProjet = 1L;
-        String idPrestation = "02_AAA_01_01_02_01";
-        
-        Boolean resultat = service.AjouterPrestation(idProjet, idPrestation);
-        if(resultat){
-            System.out.println("Ajout avec succès de la prestation "+idPrestation);
-        } else {
-            System.out.println("Echec lors de l'ajout de la prestation "+idPrestation);
-        }
-        
-        //idProjet n'existe pas -> echec (comme prevu)
-        //idOuvrage n'existe pas -> echec (comme prevu)
     }
     
     public static void testerAjouterLigneChiffrage() {
