@@ -845,53 +845,6 @@ public class Service {
         }
         return resultat;
     }
-    
-    //TO TEST
-    public Boolean SuppressionBalise(Long idProjet, String idBalise) {
-        
-        Boolean resultat = false;
-        
-        try {
-            //Obtention du document
-            String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
-            Document xml = projetXMLDao.ObtenirDocument(uri);
-            
-            Element element = (Element) xml.getElementById(idBalise);
-            element.getParentNode().removeChild(element);
-            //On écrit par dessus l'ancien XML
-            projetXMLDao.saveXMLContent(xml, uri);
-            
-            resultat = true; //Si on est arrivé jusque là alors pas d'erreur
-            
-        } catch (Exception ex) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service SuppressionBalise(Long idProjet, String idBalise)", ex);
-        }
-        return resultat;
-    }
-    
-    //TODO
-    public Boolean ModifierIntituleTitre(Long idProjet, String idTitre, String intitule) {
-        
-        Boolean resultat = false;
-        
-        try {
-            //Obtention du document
-            String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
-            Document xml = projetXMLDao.ObtenirDocument(uri);
-            
-            Element element = (Element) xml.getElementById(idTitre);
-            element.setAttribute("intitule", intitule);
-            
-            //On écrit par dessus l'ancien XML
-            projetXMLDao.saveXMLContent(xml, uri);
-            
-            resultat = true; //Si on est arrivé jusque là alors pas d'erreur
-            
-        } catch (Exception ex) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service ModifierIntituleTitre(Long idProjet, String idTitre, String intitule)", ex);
-        }
-        return resultat;
-    }
      
     public Boolean AjouterDescriptif(Long idProjet, String placement, String idRefPlacement, String idDescriptif){
         JpaUtil.creerContextePersistance();
@@ -1078,6 +1031,29 @@ public class Service {
         return resultat;
     }
     
+    public Boolean SuppressionBalise(Long idProjet, String idBalise) {
+        
+        Boolean resultat = false;
+        
+        try {
+            //Obtention du document
+            String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            Document xml = projetXMLDao.ObtenirDocument(uri);
+            
+            Element element = (Element) xml.getElementById(idBalise);
+            element.getParentNode().removeChild(element);
+            //On écrit par dessus l'ancien XML
+            projetXMLDao.saveXMLContent(xml, uri);
+            
+            resultat = true; //Si on est arrivé jusque là alors pas d'erreur
+            
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service SuppressionBalise(Long idProjet, String idBalise)", ex);
+        }
+        return resultat;
+    }
+    
+    //verrif si on a pas une exception
     public Boolean SupprimerDescriptif(Long idProjet, String idDescriptif){
         JpaUtil.creerContextePersistance();
         Boolean testSuppression = false;
@@ -1170,6 +1146,7 @@ public class Service {
         return resultat;
     }
     
+    //verif si fonctionne
     public Boolean SupprimerLigneChiffrage(Long idProjet, String idDescriptif, String idLigneChiffrage){
         Boolean testSuppression = false;
         Boolean resultat = false;
@@ -1217,6 +1194,29 @@ public class Service {
         return resultat;
     }
     
+    public Boolean ModifierIntituleTitre(Long idProjet, String idTitre, String intitule) {
+        
+        Boolean resultat = false;
+        
+        try {
+            //Obtention du document
+            String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            Document xml = projetXMLDao.ObtenirDocument(uri);
+            
+            Element element = (Element) xml.getElementById(idTitre);
+            element.setAttribute("intitule", intitule);
+            
+            //On écrit par dessus l'ancien XML
+            projetXMLDao.saveXMLContent(xml, uri);
+            
+            resultat = true; //Si on est arrivé jusque là alors pas d'erreur
+            
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service ModifierIntituleTitre(Long idProjet, String idTitre, String intitule)", ex);
+        }
+        return resultat;
+    }
+    
     public Boolean ModifierDescriptionDescriptif(Long idProjet, String idDescriptif, String newDescription){
         Boolean testModif = false;
         Boolean resultat = false;
@@ -1226,20 +1226,15 @@ public class Service {
             String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
             Document xml = projetXMLDao.ObtenirDocument(uri);
             
-            NodeList listeDescriptif = xml.getElementsByTagName("descriptif");
-            //On parcours les descriptifs pour modifier celui qui nous intéresse
-            for(int i = 0; i < listeDescriptif.getLength(); i++){
-                Element baliseDescriptif = (Element) listeDescriptif.item(i);
-                if(baliseDescriptif.getAttribute("idDescriptif").equals(idDescriptif)){
-                    //On cherche la balise description
-                    NodeList listeEnfantsDescriptif = baliseDescriptif.getChildNodes();
-                    for(int j = 0; j < listeEnfantsDescriptif.getLength(); j++){
-                        if(listeEnfantsDescriptif.item(j).getNodeName().equals("description")){
-                            //On modifie la balise description
-                            Element baliseDescription = (Element) listeEnfantsDescriptif.item(j);
-                            baliseDescription.setTextContent(newDescription);
-                            testModif = true;
-                        }
+            Element baliseDescriptif = (Element) xml.getElementById(idDescriptif);
+            if(baliseDescriptif != null){
+                NodeList listeEnfantsDescriptif = baliseDescriptif.getChildNodes();
+                for(int j = 0; j < listeEnfantsDescriptif.getLength(); j++){
+                    if(listeEnfantsDescriptif.item(j).getNodeName().equals("description")){
+                        //On modifie la balise description
+                        Element baliseDescription = (Element) listeEnfantsDescriptif.item(j);
+                        baliseDescription.setTextContent(newDescription);
+                        testModif = true;
                     }
                 }
             }
@@ -1265,20 +1260,15 @@ public class Service {
             String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
             Document xml = projetXMLDao.ObtenirDocument(uri);
             
-            NodeList listeDescriptif = xml.getElementsByTagName("descriptif");
-            //On parcours les descriptifs pour modifier celui qui nous intéresse
-            for(int i = 0; i < listeDescriptif.getLength(); i++){
-                Element baliseDescriptif = (Element) listeDescriptif.item(i);
-                if(baliseDescriptif.getAttribute("idDescriptif").equals(idDescriptif)){
-                    //On cherche la balise description
-                    NodeList listeEnfantsDescriptif = baliseDescriptif.getChildNodes();
-                    for(int j = 0; j < listeEnfantsDescriptif.getLength(); j++){
-                        if(listeEnfantsDescriptif.item(j).getNodeName().equals("courteDescription")){
-                            //On modifie la balise description
-                            Element baliseCourteDescription = (Element) listeEnfantsDescriptif.item(j);
-                            baliseCourteDescription.setTextContent(newDescription);
-                            testModif = true;
-                        }
+            Element baliseDescriptif = (Element) xml.getElementById(idDescriptif);
+            if(baliseDescriptif != null){
+                NodeList listeEnfantsDescriptif = baliseDescriptif.getChildNodes();
+                for(int j = 0; j < listeEnfantsDescriptif.getLength(); j++){
+                    if(listeEnfantsDescriptif.item(j).getNodeName().equals("courteDescription")){
+                        //On modifie la balise description
+                        Element baliseCourteDescription = (Element) listeEnfantsDescriptif.item(j);
+                        baliseCourteDescription.setTextContent(newDescription);
+                        testModif = true;
                     }
                 }
             }
@@ -1304,25 +1294,20 @@ public class Service {
             String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
             Document xml = projetXMLDao.ObtenirDocument(uri);
             
-            NodeList listeDescriptif = xml.getElementsByTagName("descriptif");
-            //On parcours les descriptifs pour modifier celui qui nous intéresse
-            for(int i = 0; i < listeDescriptif.getLength(); i++){
-                Element baliseDescriptif = (Element) listeDescriptif.item(i);
-                if(baliseDescriptif.getAttribute("idDescriptif").equals(idDescriptif)){
-                    //On cherche la balise description
-                    NodeList listeEnfantsDescriptif = baliseDescriptif.getChildNodes();
-                    for(int j = 0; j < listeEnfantsDescriptif.getLength(); j++){
-                        if(listeEnfantsDescriptif.item(j).getNodeName().equals("ligneChiffrage")){
-                            Element ligneChiffrage = (Element) listeEnfantsDescriptif.item(j);
-                            if(ligneChiffrage.getAttribute("idLigneChiffrage").equals(idLigneChiffrage)){
-                                NodeList enfantsLigneChiffrage = ligneChiffrage.getChildNodes();
-                                for(int k = 0; k < enfantsLigneChiffrage.getLength(); k++){
-                                    if(enfantsLigneChiffrage.item(k).getNodeName().equals("localisation")){
-                                        //On modifie la balise description
-                                        Element baliseLocalisation = (Element) enfantsLigneChiffrage.item(k);
-                                        baliseLocalisation.setTextContent(newLocalisation);
-                                        testModif = true;
-                                    }
+            Element baliseDescriptif = (Element) xml.getElementById(idDescriptif);
+            if(baliseDescriptif != null){
+                NodeList listeEnfantsDescriptif = baliseDescriptif.getChildNodes();
+                for(int j = 0; j < listeEnfantsDescriptif.getLength(); j++){
+                    if(listeEnfantsDescriptif.item(j).getNodeName().equals("ligneChiffrage")){
+                        Element ligneChiffrage = (Element) listeEnfantsDescriptif.item(j);
+                        if(ligneChiffrage.getAttribute("idLigneChiffrage").equals(idLigneChiffrage)){
+                            NodeList enfantsLigneChiffrage = ligneChiffrage.getChildNodes();
+                            for(int k = 0; k < enfantsLigneChiffrage.getLength(); k++){
+                                if(enfantsLigneChiffrage.item(k).getNodeName().equals("localisation")){
+                                    //On modifie la balise description
+                                    Element baliseLocalisation = (Element) enfantsLigneChiffrage.item(k);
+                                    baliseLocalisation.setTextContent(newLocalisation);
+                                    testModif = true;
                                 }
                             }
                         }
@@ -1342,63 +1327,61 @@ public class Service {
         return resultat;
     }
     
-    public Boolean ModifierQuantiteDescriptif(Long idProjet, String idDescriptif, String idLigneChiffrage, Double quantite){
-        JpaUtil.creerContextePersistance();
+    //modifie la quantite et actualise le prix unitaire en fonction
+    public Boolean ModifierQuantiteDescriptif(Long idProjet, String idDescriptif, String idDescriptifBD, String idLigneChiffrage, Double quantite){
+        
         Boolean testModif = false;
         Boolean resultat = false;
+        JpaUtil.creerContextePersistance();
         
         try {
             //Obtention du document
             String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
             Document xml = projetXMLDao.ObtenirDocument(uri);
             
-            NodeList listeDescriptif = xml.getElementsByTagName("descriptif");
-            //On parcours les descriptifs pour modifier celui qui nous intéresse
-            for(int i = 0; i < listeDescriptif.getLength(); i++){
-                Element baliseDescriptif = (Element) listeDescriptif.item(i);
-                if(baliseDescriptif.getAttribute("idDescriptif").equals(idDescriptif)){
-                    //On cherche la balise description
-                    NodeList listeEnfantsDescriptif = baliseDescriptif.getChildNodes();
-                    for(int j = 0; j < listeEnfantsDescriptif.getLength(); j++){
-                        if(listeEnfantsDescriptif.item(j).getNodeName().equals("ligneChiffrage")){
-                            Element ligneChiffrage = (Element) listeEnfantsDescriptif.item(j);
-                            if(ligneChiffrage.getAttribute("idLigneChiffrage").equals(idLigneChiffrage)){
-                                NodeList enfantsLigneChiffrage = ligneChiffrage.getChildNodes();
-                                for(int k = 0; k < enfantsLigneChiffrage.getLength(); k++){
-                                    if(enfantsLigneChiffrage.item(k).getNodeName().equals("quantite")){
-                                        //On modifie la balise quantite
-                                        Element baliseQuantite = (Element) enfantsLigneChiffrage.item(k);
-                                        baliseQuantite.setTextContent(quantite.toString());
-                                        testModif = true;
-                                    } else if(enfantsLigneChiffrage.item(k).getNodeName().equals("prixUnitaire")){
-                                        //On Modifie le prix unitaire
-                                        //On va cherche le bon prix unitaire en fonction de la qte donnée
-                                        Integer annee_max = 0;
-                                        int indiceRef = -1;
-                                        
-                                        List<BasePrixRef> listeBasePrixRef = null;
-                                        if(baliseDescriptif.getAttribute("type").equals("ouvrage")){ //On va cherche la liste des prix dans BasePrixRef
-                                            Ouvrage ouvrage = (Ouvrage) descriptifDao.ChercherParId(baliseDescriptif.getAttribute("idDescriptif"));
-                                            listeBasePrixRef = ouvrage.getListeBasePrixRefOuvrage();
-                                        } else if(baliseDescriptif.getAttribute("type").equals("prestation")) {
-                                            Prestation prestation = (Prestation) descriptifDao.ChercherParId(baliseDescriptif.getAttribute("idDescriptif"));
-                                            listeBasePrixRef = prestation.getListeBasePrixRefPrestation();
-                                        }
-                                        if(listeBasePrixRef != null){
-                                            for(int l = 0; l < listeBasePrixRef.size(); l++){
-                                                if(listeBasePrixRef.get(l).getQteInf() <= quantite && listeBasePrixRef.get(l).getQteSup() >= quantite){
-                                                    //on se trouve dans la bonne fourchette de quantite, on test l'annee
-                                                    if(listeBasePrixRef.get(l).getAnnee() > annee_max){
-                                                      annee_max = listeBasePrixRef.get(l).getAnnee();
-                                                      indiceRef = l;
-                                                    }
+            Element baliseDescriptif = (Element) xml.getElementById(idDescriptif);
+            if(baliseDescriptif != null){
+                NodeList listeEnfantsDescriptif = baliseDescriptif.getChildNodes();
+                for(int j = 0; j < listeEnfantsDescriptif.getLength(); j++){
+                    if(listeEnfantsDescriptif.item(j).getNodeName().equals("ligneChiffrage")){
+                        Element ligneChiffrage = (Element) listeEnfantsDescriptif.item(j);
+                        if(ligneChiffrage.getAttribute("idLigneChiffrage").equals(idLigneChiffrage)){
+                            NodeList enfantsLigneChiffrage = ligneChiffrage.getChildNodes();
+                            for(int k = 0; k < enfantsLigneChiffrage.getLength(); k++){
+                                if(enfantsLigneChiffrage.item(k).getNodeName().equals("quantite")){
+                                    //On modifie la balise quantite
+                                    Element baliseQuantite = (Element) enfantsLigneChiffrage.item(k);
+                                    baliseQuantite.setTextContent(quantite.toString());
+                                    testModif = true;
+                                } else if(enfantsLigneChiffrage.item(k).getNodeName().equals("prixUnitaire")){
+                                    //On Modifie le prix unitaire
+                                    //On va cherche le bon prix unitaire en fonction de la qte donnée
+                                    Integer annee_max = 0;
+                                    int indiceRef = -1;
+
+                                    List<BasePrixRef> listeBasePrixRef = null;
+                                    if(baliseDescriptif.getAttribute("type").equals("ouvrage")){ //On va cherche la liste des prix dans BasePrixRef
+                                        Ouvrage ouvrage = (Ouvrage) descriptifDao.ChercherParId(idDescriptifBD);
+                                        listeBasePrixRef = ouvrage.getListeBasePrixRefOuvrage();
+                                    } else if(baliseDescriptif.getAttribute("type").equals("prestation")) {
+                                        Prestation prestation = (Prestation) descriptifDao.ChercherParId(idDescriptifBD);
+                                        listeBasePrixRef = prestation.getListeBasePrixRefPrestation();
+                                    }
+                                    
+                                    if(listeBasePrixRef != null){
+                                        for(int l = 0; l < listeBasePrixRef.size(); l++){
+                                            if(listeBasePrixRef.get(l).getQteInf() <= quantite && listeBasePrixRef.get(l).getQteSup() >= quantite){
+                                                //on se trouve dans la bonne fourchette de quantite, on test l'annee
+                                                if(listeBasePrixRef.get(l).getAnnee() > annee_max){
+                                                  annee_max = listeBasePrixRef.get(l).getAnnee();
+                                                  indiceRef = l;
                                                 }
                                             }
-
-                                            //Balise prixUnitaire
-                                            Element balisePrixUnitaire = (Element) enfantsLigneChiffrage.item(k);                                                                   
-                                            balisePrixUnitaire.setTextContent(listeBasePrixRef.get(indiceRef).getPrixUnitaire().toString());
                                         }
+
+                                        //Balise prixUnitaire
+                                        Element balisePrixUnitaire = (Element) enfantsLigneChiffrage.item(k);                                                                   
+                                        balisePrixUnitaire.setTextContent(listeBasePrixRef.get(indiceRef).getPrixUnitaire().toString());
                                     }
                                 }
                             }
@@ -1417,6 +1400,49 @@ public class Service {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service ModifierQuantiteDescriptif(Long idProjet, String idDescriptif, String idLigneChiffrage, Double quantite)", ex);
         } finally {
             JpaUtil.fermerContextePersistance();
+        }
+        return resultat;
+    }
+    
+    public Boolean ModifierPrixLigneChiffrage(Long idProjet, String idDescriptif, String idLigneChiffrage, Double prix){
+        
+        Boolean testModif = false;
+        Boolean resultat = false;
+        
+        try {
+            //Obtention du document
+            String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            Document xml = projetXMLDao.ObtenirDocument(uri);
+            
+            Element baliseDescriptif = (Element) xml.getElementById(idDescriptif);
+            if(baliseDescriptif != null){
+                NodeList listeEnfantsDescriptif = baliseDescriptif.getChildNodes();
+                for(int j = 0; j < listeEnfantsDescriptif.getLength(); j++){
+                    if(listeEnfantsDescriptif.item(j).getNodeName().equals("ligneChiffrage")){
+                        Element ligneChiffrage = (Element) listeEnfantsDescriptif.item(j);
+                        if(ligneChiffrage.getAttribute("idLigneChiffrage").equals(idLigneChiffrage)){
+                            NodeList enfantsLigneChiffrage = ligneChiffrage.getChildNodes();
+                            for(int k = 0; k < enfantsLigneChiffrage.getLength(); k++){
+                                if(enfantsLigneChiffrage.item(k).getNodeName().equals("prixUnitaire")){
+                                    //On modifie la balise description
+                                    Element balisePrixUnitaire = (Element) enfantsLigneChiffrage.item(k);
+                                    balisePrixUnitaire.setTextContent(prix.toString());
+                                    testModif = true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            //On écrit par dessus l'ancien XML
+            projetXMLDao.saveXMLContent(xml, uri);
+            
+            if(testModif){
+                resultat = true; //Si on est arrivé jusque là alors pas d'erreur
+            }
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service  ModifierPrixLigneChiffrage(Long idProjet, String idDescriptif, String idLigneChiffrage, Double prix)", ex);
         }
         return resultat;
     }
