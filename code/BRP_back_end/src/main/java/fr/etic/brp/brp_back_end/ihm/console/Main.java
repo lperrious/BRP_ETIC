@@ -106,8 +106,8 @@ public class Main {
         testerAjouterTitre3();
         testerAjouterTitre4();
 //        testerSuppressionBalise();
-        testerModifierIntituleTitre();
-//        testerAjouterOuvrageOuGenerique();
+//        testerModifierIntituleTitre();
+        testerAjouterDescriptif();
 //        testerAjouterPrestation();
 //        testerAjouterLigneChiffrage();
 //        testerCoutSynthese();
@@ -1278,27 +1278,41 @@ public class Main {
         }
     }
     
-    public static void testerAjouterOuvrageOuGenerique() {
+    public static void testerAjouterDescriptif() {
         
         System.out.println();
-        System.out.println("**** testerAjouterOuvrageOuGenerique() ****");
+        System.out.println("**** testerAjouterDescriptif() ****");
         System.out.println();
         
         Service service = new Service();
         
         //Doit fonctionner 
         Long idProjet = 1L;
-        String idDescriptif = "02_AAA_01_01_02";
+        String idDescriptif = "02_AAA_01_01_02_01";
+        String placement = "APPEND";
+        String idRefPlacement = "_3";
         
-        Boolean resultat = service.AjouterOuvrageOuGenerique(idProjet, idDescriptif);
+        Boolean resultat = service.AjouterDescriptif(idProjet, placement, idRefPlacement, idDescriptif);
         if(resultat){
-            System.out.println("Ajout avec succès du descriptif "+idDescriptif);
+            System.out.println("Ajout avec succès du descriptif " + idDescriptif);
         } else {
-            System.out.println("Echec lors de l'ajout du descriptif "+idDescriptif);
+            System.out.println("Echec lors de l'ajout du descriptif " + idDescriptif);
+        }
+        
+        idDescriptif = "02_AAA_01_01_02_01";
+        placement = "BEFORE";
+        idRefPlacement = "_8";
+        
+        resultat = service.AjouterDescriptif(idProjet, placement, idRefPlacement, idDescriptif);
+        if(resultat){
+            System.out.println("Ajout avec succès du descriptif " + idDescriptif);
+        } else {
+            System.out.println("Echec lors de l'ajout du descriptif " + idDescriptif);
         }
         
         //idProjet n'existe pas -> echec (comme prevu)
         //choisit bien en fonction de l'année la plus récente et de la fourchette de prix
+        //Test idRefPlacement non existant -> echec (comme prévu)
     }
     
     public static void testerAjouterPrestation() {

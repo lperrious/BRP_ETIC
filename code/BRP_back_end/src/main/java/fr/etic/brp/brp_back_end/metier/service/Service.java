@@ -893,30 +893,31 @@ public class Service {
         return resultat;
     }
      
-    public Boolean AjouterOuvrageOuGenerique(Long idProjet, String idDescriptif){
+    public Boolean AjouterDescriptif(Long idProjet, String placement, String idRefPlacement, String idDescriptif){
         JpaUtil.creerContextePersistance();
         Boolean resultat = false;
         Boolean testInsertion = false;
-        
-        String idSousFamille = idDescriptif.substring(0, idDescriptif.lastIndexOf("_"));            //extraction de l'ID du parent
-        
+                
         try {
             //Obtention du document
             String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
             Document xml = projetXMLDao.ObtenirDocument(uri);
-            NodeList rootNodes = xml.getElementsByTagName("sousFamille");
-            Element baliseDescriptif = null;
             
-            //on récupère le descriptif
-            Descriptif descriptif = descriptifDao.ChercherParId(idDescriptif); 
-            baliseDescriptif = xml.createElement("descriptif");
-            baliseDescriptif.setAttribute("idDescriptif", idDescriptif);
+            //on récupère le descriptif puis on crée la balise correspondante
+            Descriptif descriptif = descriptifDao.ChercherParId(idDescriptif);
+            Element baliseDescriptif = xml.createElement("descriptif");
+            Node nextIdBalise = xml.getElementsByTagName("nextId").item(0);
+            baliseDescriptif.setAttribute("id", "_" + nextIdBalise.getTextContent());
+            Integer newNextId = Integer.parseInt(nextIdBalise.getTextContent()) + 1;
+            nextIdBalise.setTextContent(newNextId.toString());
             if(descriptif instanceof Generique){
                 //Création balise descriptif
                 baliseDescriptif.setAttribute("type", "generique");
-            } else {
+            } else if(descriptif instanceof Ouvrage) {
                 baliseDescriptif.setAttribute("type", "ouvrage");
-            }
+            } else {
+                baliseDescriptif.setAttribute("type", "prestation");
+            } 
             
             //Création des enfants de descriptif
             Element baliseNomDescriptif = xml.createElement("nomDescriptif");                                                                       
@@ -931,15 +932,21 @@ public class Service {
             baliseDescriptif.appendChild(baliseCourteDescription); 
             
             //si c'est un ouvrage, on ajoute en plus tout ce qui est relatif aux prix
-            if(descriptif instanceof Ouvrage){
+            if(descriptif instanceof Ouvrage || descriptif instanceof Prestation){
                 Integer annee_max = 0;
                 int indiceRef = -1;
                 Double quantite = 1.0;
+                List<BasePrixRef> listeBasePrixRef = null;
                 
-                Ouvrage ouvrage = (Ouvrage) descriptifDao.ChercherParId(idDescriptif); 
-                List<BasePrixRef> listeBasePrixRef = ouvrage.getListeBasePrixRefOuvrage();          
+                if(descriptif instanceof Ouvrage) {
+                    Ouvrage ouvrage = (Ouvrage) descriptifDao.ChercherParId(idDescriptif); 
+                    listeBasePrixRef = ouvrage.getListeBasePrixRefOuvrage();
+                } else {
+                    Prestation prestation = (Prestation) descriptifDao.ChercherParId(idDescriptif); 
+                    listeBasePrixRef = prestation.getListeBasePrixRefPrestation();
+                }
                 
-                for(int i = 0; i<listeBasePrixRef.size(); i++){
+                for(int i = 0; i < listeBasePrixRef.size(); i++){
                     if(listeBasePrixRef.get(i).getQteInf() <= quantite && listeBasePrixRef.get(i).getQteSup() >= quantite){
                         //on se trouve dans la bonne fourchette de quantite, on test l'annee
                         if(listeBasePrixRef.get(i).getAnnee() > annee_max){
@@ -952,7 +959,6 @@ public class Service {
                 Element baliseUnite = xml.createElement("unite");                                                                       
                 baliseUnite.appendChild(xml.createTextNode(listeBasePrixRef.get(indiceRef).getUnite())); 
                 
-                
                 Element baliseLigneChiffrage = xml.createElement("ligneChiffrage"); 
                 baliseLigneChiffrage.setAttribute("idLigneChiffrage", "1");
                 Element baliseLocalisation = xml.createElement("localisation"); 
@@ -960,23 +966,24 @@ public class Service {
                 Element balisePrixUnitaire = xml.createElement("prixUnitaire");                                                                       
                 balisePrixUnitaire.appendChild(xml.createTextNode(listeBasePrixRef.get(indiceRef).getPrixUnitaire().toString())); 
                 baliseQuantite.appendChild(xml.createTextNode(quantite.toString()));
+                baliseLigneChiffrage.appendChild(baliseUnite);
                 baliseLigneChiffrage.appendChild(baliseLocalisation);
                 baliseLigneChiffrage.appendChild(baliseQuantite);
                 baliseLigneChiffrage.appendChild(balisePrixUnitaire);
-               
-                baliseDescriptif.appendChild(baliseUnite);    
+                
                 baliseDescriptif.appendChild(baliseLigneChiffrage); 
             }
             
-            //on parcours les sousFamilles
-            for (int i = 0; i<rootNodes.getLength(); i++) {
-                Element sousFamille = (Element) rootNodes.item(i);
-                if(sousFamille.getAttribute("idSousFamille").equals(idSousFamille)){
-                    //on est dans la bonne sousFamille
-                    rootNodes.item(i).appendChild(baliseDescriptif);
-                    testInsertion = true;
-                    break;
-                }			
+            //On place la balise nouvellement créee dans l'arborescence
+            if(placement.equals("APPEND")) {
+                Node baliseAuDessus = xml.getElementById(idRefPlacement);
+                baliseAuDessus.appendChild(baliseDescriptif);
+                testInsertion = true;
+            } else {
+                Node baliseInsertBefore = xml.getElementById(idRefPlacement);
+                Node parent = baliseInsertBefore.getParentNode();
+                parent.insertBefore(baliseDescriptif, baliseInsertBefore);
+                testInsertion = true;
             }
             
             //On écrit par dessus l'ancien XML
@@ -986,14 +993,13 @@ public class Service {
                 resultat = true; //Si on est arrivé jusque là alors pas d'erreur
             }
         } catch (Exception ex) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterOuvrageOuGenerique(Long idProjet, Long idSousFamille, String idDescriptif)", ex);
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterDescriptif(Long idProjet, String placement, String idRefPlacement, String idDescriptif)", ex);
         } finally {
             JpaUtil.fermerContextePersistance();
         }
         return resultat;
     }
     
-
     public Boolean AjouterPrestation(Long idProjet, String idPrestation){
         JpaUtil.creerContextePersistance();
         Boolean resultat = false;
@@ -1013,7 +1019,6 @@ public class Service {
             balisePrestation = xml.createElement("descriptif");
             balisePrestation.setAttribute("idDescriptif", idPrestation);
             balisePrestation.setAttribute("type", "prestation");
-            
             
             //Création des enfants de prestation
             Element baliseNomDescriptif = xml.createElement("nomDescriptif");                                                                       
