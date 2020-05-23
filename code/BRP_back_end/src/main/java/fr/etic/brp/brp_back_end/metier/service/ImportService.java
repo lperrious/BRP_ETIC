@@ -173,7 +173,7 @@ public class ImportService {
                                         }
                                     }
                                 }
-                                System.out.println(chaineDescription);
+                                //System.out.println(chaineDescription);
                                 tableau.add(chaineDescription);             
                             }
                         }
@@ -364,32 +364,6 @@ public class ImportService {
                         else{
                             //on ajoute à la liste de sortie les idnetifiant à supprimer
                             returnListe.add(idActuel);
-//                            switch(countUnderscore){
-//                                case 4:         //on supprime un ouvrage ou un generique
-//                                    Descriptif descriptif = null;
-//                                    descriptif = descriptifDao.ChercherParId(idActuel);
-//                                    if(descriptif != null){   //on crée le chapitre
-//                                        JpaUtil.ouvrirTransaction();
-//                                          //on va chercher la sousFamille parent pour update listeDescriptif
-//                                        SousFamille sousFamilleParent = sousFamilleDao.ChercherParId(idActuel.substring(0, idActuel.lastIndexOf('_'))); //on prend idActuel et on retire le dernier _ et ce qu'il y a derrière
-//                                        List<Descriptif> listeDescriptif = sousFamilleParent.getListDescriptif();
-//                                        listeDescriptif.remove(descriptif);
-//                                        sousFamilleParent.setListDescriptif(listeDescriptif);
-//                                        sousFamilleDao.Update(sousFamilleParent);
-//                                        descriptifDao.Remove(descriptif);
-//                                        JpaUtil.validerTransaction();
-//                                    }
-//                                    break; 
-//                                case 5:         //on supprime une prestation
-//                                    Prestation prestation = null;
-//                                    prestation = prestationDao.ChercherParId(idActuel);
-//                                    if(prestation != null){   //on crée le chapitre
-//                                        JpaUtil.ouvrirTransaction();
-//                                        prestationDao.Remove(prestation);
-//                                        JpaUtil.validerTransaction();
-//                                    }
-//                                    break; 
-//                            }
                         }
                     }
                     
@@ -438,11 +412,108 @@ public class ImportService {
     public String SupprObjet(String idSuppr){
         String msgStatement = "";
         
-        //on supprime l'objet
+        //on détermine la nature de l'objet
+        int countUnderscore = 0;
+        for (int i = 0; i < idSuppr.length(); i++) {
+            if (idSuppr.charAt(i) == '_') 
+                countUnderscore++;
+        }
         
-        //on supprime ses enfants
-        
-        //on supprime les prix associés
+        JpaUtil.creerContextePersistance();
+        try {
+            switch(countUnderscore){
+                case 0:             //on suppr un chapitre
+                    Chapitre chapitre = null;
+                    chapitre = chapitreDao.ChercherParId(idSuppr);
+                    if(chapitre != null){   
+                        JpaUtil.ouvrirTransaction();
+                        chapitreDao.Remove(chapitre);
+                        JpaUtil.validerTransaction();
+                    }
+                    break;
+                case 1:             //on suppr une categorie
+                    Categorie categorie = null;
+                    categorie = categorieDao.ChercherParId(idSuppr);
+                    if(categorie != null){   
+                        JpaUtil.ouvrirTransaction();
+                        //on va chercher la categorie parent pour update listeFamille
+                        Chapitre chapitreParent = chapitreDao.ChercherParId(idSuppr.substring(0, idSuppr.lastIndexOf('_'))); //on prend idActuel et on retire le dernier _ et ce qu'il y a derrière
+                        List<Categorie> listCategorie = chapitreParent.getListCategorie();
+                        listCategorie.remove(categorie);
+                        chapitreParent.setListCategorie(listCategorie);
+                        chapitreDao.Update(chapitreParent);
+                        categorieDao.Remove(categorie);
+                        JpaUtil.validerTransaction();
+                    }
+                    break;  
+                case 2:             //on suppr une famille
+                    Famille famille = null;
+                    famille = familleDao.ChercherParId(idSuppr);
+                    if(famille != null){   
+                        JpaUtil.ouvrirTransaction();
+                        //on va chercher la categorie parent pour update listeFamille
+                        Categorie categorieParent = categorieDao.ChercherParId(idSuppr.substring(0, idSuppr.lastIndexOf('_'))); //on prend idActuel et on retire le dernier _ et ce qu'il y a derrière
+                        List<Famille> listeFamille = categorieParent.getListeFamille();
+                        listeFamille.remove(famille);
+                        categorieParent.setListeFamille(listeFamille);
+                        categorieDao.Update(categorieParent);
+                        familleDao.Remove(famille);
+                        JpaUtil.validerTransaction();
+                    }
+                    break; 
+                case 3:             //on suppr une sousFamille
+                    SousFamille sousFamille = null;
+                    sousFamille = sousFamilleDao.ChercherParId(idSuppr);
+                    if(sousFamille != null){   
+                        JpaUtil.ouvrirTransaction();
+                        //on va chercher la famille parent pour update listeSousFamille
+                        Famille familleParent = familleDao.ChercherParId(idSuppr.substring(0, idSuppr.lastIndexOf('_'))); //on prend idActuel et on retire le dernier _ et ce qu'il y a derrière
+                        List<SousFamille> listSousFamille = familleParent.getListSousFamille();
+                        listSousFamille.remove(sousFamille);
+                        familleParent.setListSousFamille(listSousFamille);
+                        familleDao.Update(familleParent);
+                        sousFamilleDao.Remove(sousFamille);
+                        JpaUtil.validerTransaction();
+                    }
+                    break;
+                case 4:            //on suppr un descrptif
+                    Descriptif descriptif = null;
+                    descriptif = descriptifDao.ChercherParId(idSuppr);
+                    if(descriptif != null){   
+                        JpaUtil.ouvrirTransaction();
+                          //on va chercher la sousFamille parent pour update listeDescriptif
+                        SousFamille sousFamilleParent = sousFamilleDao.ChercherParId(idSuppr.substring(0, idSuppr.lastIndexOf('_'))); //on prend idActuel et on retire le dernier _ et ce qu'il y a derrière
+                        List<Descriptif> listeDescriptif = sousFamilleParent.getListDescriptif();
+                        listeDescriptif.remove(descriptif);
+                        sousFamilleParent.setListDescriptif(listeDescriptif);
+                        sousFamilleDao.Update(sousFamilleParent);
+                        descriptifDao.Remove(descriptif);
+                        JpaUtil.validerTransaction();
+                    }
+                    break;
+                case 5:
+                    Prestation prestation = null;
+                    prestation = (Prestation) descriptifDao.ChercherParId(idSuppr);
+                    if(prestation != null){   
+                        JpaUtil.ouvrirTransaction();
+                          //on va chercher l'ouvrage parent pour update listePrestation
+                        Ouvrage ouvrageParent = (Ouvrage) descriptifDao.ChercherParId(idSuppr.substring(0, idSuppr.lastIndexOf('_'))); //on prend idActuel et on retire le dernier _ et ce qu'il y a derrière
+                        List<Prestation> listePrestation = ouvrageParent.getListePrestation();
+                        listePrestation.remove(prestation);
+                        ouvrageParent.setListePrestation(listePrestation);
+                        descriptifDao.Update(ouvrageParent);
+                        descriptifDao.Remove(prestation);
+                        JpaUtil.validerTransaction();
+                    }
+                    break;
+            }
+
+            msgStatement = "Succes";
+        } catch(Exception ex){
+            msgStatement = "une erreur est survenue lors de la suppression de "+idSuppr;
+        } finally {
+            JpaUtil.fermerContextePersistance();  
+        }
         
         return msgStatement;
     }

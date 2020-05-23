@@ -2,6 +2,7 @@ package fr.etic.brp.brp_back_end.metier.modele;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,7 +20,7 @@ public class Famille implements Serializable {
     private String idFamille;
     private String intituleFamille;
     
-    @OneToMany
+    @OneToMany(cascade=CascadeType.REMOVE)
     private List<SousFamille> listSousFamille;
     
     public Famille(){ 

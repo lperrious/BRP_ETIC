@@ -2,6 +2,7 @@ package fr.etic.brp.brp_back_end.metier.modele;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
@@ -12,9 +13,9 @@ import javax.persistence.OneToMany;
 @Entity
 public class Ouvrage extends Descriptif implements Serializable {
     
-    @OneToMany
+    @OneToMany(cascade=CascadeType.REMOVE)
     private List<Prestation> listePrestation;
-    @OneToMany
+    @OneToMany(cascade=CascadeType.REMOVE)
     private List<BasePrixRef> listeBasePrixRefOuvrage;
     
     public Ouvrage(){ 

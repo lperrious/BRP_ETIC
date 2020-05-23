@@ -2,6 +2,7 @@ package fr.etic.brp.brp_back_end.metier.modele;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -16,7 +17,7 @@ public class Chapitre implements Serializable {
     private String idChapitre;
     private String intituleChapitre;
     
-    @OneToMany
+    @OneToMany(cascade=CascadeType.REMOVE)
     private List<Categorie> listCategorie;
     
     public Chapitre(){  
