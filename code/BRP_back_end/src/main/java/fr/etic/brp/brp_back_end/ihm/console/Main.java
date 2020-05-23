@@ -92,7 +92,7 @@ public class Main {
 //        testerListerSousCategorieConstructions();
 //        testerListerSousFamilles();
 //        testerAuthentifierOperateur();
-//        testerCreerProjet();
+        testerCreerProjet();
 //        testerRechercherProjetParId();
 //        testerDupliquerProjet();
 //        testerEditerNomProjet();
@@ -101,6 +101,7 @@ public class Main {
 //        testerEditerCoeffAdaptProjet();
 //        testerEditerCoeffRaccordementProjet();
 //        testerEditerCategorieConstructionProjet();
+        testerAjouterTitre1();
 //        testerAjouterChapitre();
 //        testerAjouterCategorie();
 //        testerAjouterFamille();
@@ -224,11 +225,17 @@ public class Main {
             baliseProjet.setAttribute("idProjet", "1");
             xml.appendChild(baliseProjet);
             
+            //Création de la balise nextId init à 1
+            Element nextIdBalise = xml.createElement("nextId");
+            nextIdBalise.appendChild(xml.createTextNode("1"));
+            baliseProjet.appendChild(nextIdBalise);
+            
             //Ecriture du XML
             Transformer transformer = DomUtil.obtenirTransformer();
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
             transformer.setOutputProperty(OutputKeys.METHOD, "xml");
+            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
             DOMImplementation domImpl = xml.getImplementation();
             DocumentType doctype = domImpl.createDocumentType("doctype", "-//Oberon//YOUR PUBLIC DOCTYPE//EN", "reglesProjet.dtd");
             transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, doctype.getSystemId());
@@ -1085,6 +1092,44 @@ public class Main {
         //si la balise n'existe pas -> echec(comme prevu)
         //si la balise existe mais ne possède pas de prix -> 0€ (comme prevu)
         //si la balise existe et possède un prix -> prix renvoyé (comme prévu)
+    }
+    
+    public static void testerAjouterTitre1() {
+        
+        System.out.println();
+        System.out.println("**** testerAjouterTitre1() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        
+        //Doit fonctionner
+        Long idProjet = 01L;
+        String placement = "APPEND";
+        String idRefPlacement = null;
+        
+        Boolean resultat = service.AjouterTitre1(idProjet, placement, idRefPlacement);
+        if(resultat)
+        {
+            System.out.println("Modification avec succès du Projet n° " + idProjet);
+        } else {
+            System.out.println("Echec lors de la modification du Projet n° " + idProjet);
+        }
+        
+        /*idProjet = 01L;
+        placement = "BEFORE";
+        idRefPlacement = "1";
+        
+        resultat = service.AjouterTitre1(idProjet, placement, idRefPlacement);
+        if(resultat)
+        {
+            System.out.println("Modification avec succès du Projet n° " + idProjet);
+        } else {
+            System.out.println("Echec lors de la modification du Projet n° " + idProjet);
+        }*/
+        
+        //idProjet n'existe pas -> echec (comme prévu)
+        //Insertion BEFORE avec un titre1 non existant -> echec (comme prévu)
+        //Insertion BEFORE avec un titre1 exitant -> ok
     }
     
     public static void testerAjouterChapitre() {

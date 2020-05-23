@@ -3,6 +3,8 @@
 
 <projet idProjet="1">
 
+    <nextId>11</nextId>
+
     <!-- A insérer juste avant l'export -->
     <nomProjet>Projet 1</nomProjet>
     <typeMarche>Marche public</typeMarche>

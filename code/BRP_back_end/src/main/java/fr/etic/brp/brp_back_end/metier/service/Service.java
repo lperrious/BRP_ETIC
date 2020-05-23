@@ -296,6 +296,11 @@ public class Service {
             baliseProjet.setAttribute("idProjet", idProjet.toString());
             xml.appendChild(baliseProjet);
             
+            //Création de la balise nextId init à 1
+            Element nextIdBalise = xml.createElement("nextId");
+            nextIdBalise.appendChild(xml.createTextNode("1"));
+            baliseProjet.appendChild(nextIdBalise);
+            
             //Ecriture du XML
             projetXMLDao.saveXMLContent(xml, uri);
               
@@ -634,7 +639,8 @@ public class Service {
         else
             return false;
     }    
-            
+    
+    //TODO XML à reprendre
     public Double CoutSynthese(Long idProjet, String typeBalise, String idBalise) {
         
         Double total = null;
@@ -688,6 +694,54 @@ public class Service {
         
         return total;
     }
+    
+    public Boolean AjouterTitre1(Long idProjet, String placement, String idRefPlacement) {
+        JpaUtil.creerContextePersistance();
+        Boolean resultat = false;
+        Boolean testCoheranceOrga = false;
+        
+        try {
+            //Obtention du document
+            String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            Document xml = projetXMLDao.ObtenirDocument(uri);
+            Element root = xml.getDocumentElement();
+            //Création balise titre1
+            Element baliseTitre1 = xml.createElement("titre1");
+            Node nextIdBalise = xml.getElementsByTagName("nextId").item(0);
+            baliseTitre1.setAttribute("id", nextIdBalise.getTextContent());
+            Integer newNextId = Integer.parseInt(nextIdBalise.getTextContent()) + 1;
+            nextIdBalise.setTextContent(newNextId.toString());
+            baliseTitre1.setAttribute("intitule", "");
+            
+            //On place la balise nouvellement créee dans l'arborescence
+            if(placement.equals("APPEND"))
+                root.appendChild(baliseTitre1);
+            else { 
+                NodeList balisesTitre1 = xml.getElementsByTagName("titre1");
+                    for(int i = 0; i < balisesTitre1.getLength(); i++) {
+                        Element titre1Parcours = (Element)balisesTitre1.item(i);
+                        if(titre1Parcours.getAttribute("id").equals(idRefPlacement)) {
+                            testCoheranceOrga = true;
+                            root.insertBefore(baliseTitre1, titre1Parcours);
+                            break;
+                        }
+                    }
+                if(!testCoheranceOrga)
+                    throw new Exception();
+            }
+            
+            //On écrit par dessus l'ancien XML
+            projetXMLDao.saveXMLContent(xml, uri);
+            
+            resultat = true; //Si on est arrivé jusque là alors pas d'erreur
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterTitre1(Long idProjet, String placement, String idRefPlacement)");
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        return resultat;
+    }
+    
     
     public Boolean AjouterChapitre(Long idProjet, String idChapitre) {
         JpaUtil.creerContextePersistance();
