@@ -120,7 +120,7 @@ public class Main {
 //        testerModifierCourteDescriptionDescriptif();
 //        testerModifierLocalisationDescriptif();
 //        testerModifierQuantiteDescriptif();
-//        testerModifBaseDescriptif();
+//       testerModifBaseDescriptif();
 //        testerModifBasePrixRef();
         
       //----------tests-secondaires------//
