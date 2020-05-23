@@ -16,6 +16,7 @@ public class BasePrixRef implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idBasePrixRef;
+    private Long nbPrixRef; //Permet d'identifier les prixRef d'un(e) ouvrage/prestation
     private Integer annee;
     private Double BT;
     private Double qteInf;
@@ -26,8 +27,9 @@ public class BasePrixRef implements Serializable {
     public BasePrixRef() {
     }
 
-    public BasePrixRef(Integer annee, Double BT, Double qteInf, Double qteSup, String unite, Double prixUnitaire) {
+    public BasePrixRef(Integer annee, Long nbPrixRef, Double BT, Double qteInf, Double qteSup, String unite, Double prixUnitaire) {
         this.annee = annee;
+        this.nbPrixRef = nbPrixRef;
         this.BT = BT;
         this.qteInf = qteInf;
         this.qteSup = qteSup;
@@ -41,6 +43,14 @@ public class BasePrixRef implements Serializable {
 
     public Integer getAnnee() {
         return annee;
+    }
+
+    public void setNbPrixRef(Long nbPrixRef) {
+        this.nbPrixRef = nbPrixRef;
+    }
+
+    public Long getNbPrixRef() {
+        return nbPrixRef;
     }
 
     public void setAnnee(Integer annee) {
@@ -89,6 +99,6 @@ public class BasePrixRef implements Serializable {
 
     @Override
     public String toString() {
-        return "BasePrixRef{" + "idBasePrixRef=" + idBasePrixRef + ", annee=" + annee + ", BT=" + BT + ", qteInf=" + qteInf + ", qteSup=" + qteSup + ", unite=" + unite + ", prixUnitaire=" + prixUnitaire + '}';
-    }  
+        return "BasePrixRef{" + "idBasePrixRef=" + idBasePrixRef + ", nbPrixRef=" + nbPrixRef + ", annee=" + annee + ", BT=" + BT + ", qteInf=" + qteInf + ", qteSup=" + qteSup + ", unite=" + unite + ", prixUnitaire=" + prixUnitaire + '}';
+    } 
 }

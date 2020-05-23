@@ -480,21 +480,22 @@ public class ImportService {
                 
                 //On cherche à savoir s'il s'agit d'un ouvrage ou d'une prestation
                 String typeDescriptif = null;
-                if(attributes[2].equals("/"))
-                    typeDescriptif = "Prestation";
-                else
+                if(attributes[2].length() == 15)
                     typeDescriptif = "Ouvrage";
+                else
+                    typeDescriptif = "Prestation";
                 
                 //Utile pour la suite
                 BasePrixRef newBasePrixRef = null;
                 Ouvrage ouvrageAModifier = null;
                 Prestation prestationAModifier = null;
+                List<BasePrixRef> listeBasePrixRef = null;
+                Boolean testDejaPresent = false;
                 
                 switch(attributes[1])
                 {
                     case "AJOUT":
                         try {
-                            //TO DO
                             JpaUtil.ouvrirTransaction();
                             //Si des valeurs chaines vides alors on le prend en compte pour la BDD en tant que null
                             Integer annee;
@@ -502,6 +503,7 @@ public class ImportService {
                                 annee = null;
                             } else
                                 annee = Integer.parseInt(attributes[9]);
+                            Long nbPrixRef = Long.parseLong(attributes[3]);
                             Double BT;
                             if(attributes[4].equals("-"))
                                 BT = null;
@@ -528,9 +530,59 @@ public class ImportService {
                             else
                                 prixUnitaire = Double.parseDouble(attributes[8]);
                             
-                            //On peut maintenant créer une nouvelle instance de BasePrixRef
-                            newBasePrixRef = new BasePrixRef(annee, BT, qteInf, qteSup, unite, prixUnitaire);
-                            basePrixRefDao.Creer(newBasePrixRef);
+                            //On vérifie si le prix en question n'existe pas déjà par ailleurs dans la BD
+                            if(typeDescriptif.equals("Ouvrage")) {
+                                ouvrageAModifier = (Ouvrage)descriptifDao.ChercherParId(attributes[2]);
+                                listeBasePrixRef = ouvrageAModifier.getListeBasePrixRefOuvrage();
+                                for(BasePrixRef basePrixRefParcours : listeBasePrixRef) {
+                                    if(basePrixRefParcours.getNbPrixRef().compareTo(nbPrixRef) == 0) {
+                                        //On écrase donc le basePrixRef en question
+                                        basePrixRefParcours.setAnnee(annee);
+                                        basePrixRefParcours.setBT(BT);
+                                        basePrixRefParcours.setQteInf(qteInf);
+                                        basePrixRefParcours.setQteSup(qteSup);
+                                        basePrixRefParcours.setUnite(unite);
+                                        basePrixRefParcours.setPrixUnitaire(prixUnitaire);
+                                        ouvrageAModifier.setListeBasePrixRefOuvrage(listeBasePrixRef);
+                                        descriptifDao.Update(ouvrageAModifier);
+                                        basePrixRefDao.Update(basePrixRefParcours);
+                                        testDejaPresent = true;
+                                        break;
+                                    }
+                                }
+                            } else {
+                                prestationAModifier = (Prestation)descriptifDao.ChercherParId(attributes[2]);
+                                listeBasePrixRef = prestationAModifier.getListeBasePrixRefPrestation();
+                                for(BasePrixRef basePrixRefParcours : listeBasePrixRef) {
+                                    if(basePrixRefParcours.getNbPrixRef().compareTo(nbPrixRef) == 0) {
+                                        //On écrase donc le basePrixRef en question
+                                        basePrixRefParcours.setAnnee(annee);
+                                        basePrixRefParcours.setBT(BT);
+                                        basePrixRefParcours.setQteInf(qteInf);
+                                        basePrixRefParcours.setQteSup(qteSup);
+                                        basePrixRefParcours.setUnite(unite);
+                                        basePrixRefParcours.setPrixUnitaire(prixUnitaire);
+                                        prestationAModifier.setListeBasePrixRefPrestation(listeBasePrixRef);
+                                        descriptifDao.Update(prestationAModifier);
+                                        basePrixRefDao.Update(basePrixRefParcours);
+                                        testDejaPresent = true;
+                                        break;
+                                    }
+                                }
+                            }
+                            if(!testDejaPresent) {
+                                newBasePrixRef = new BasePrixRef(annee, Long.parseLong(attributes[3]), BT, qteInf, qteSup, unite, prixUnitaire);
+                                basePrixRefDao.Creer(newBasePrixRef);
+                                if(typeDescriptif.equals("Ouvrage")) {
+                                    listeBasePrixRef.add(newBasePrixRef);
+                                    ouvrageAModifier.setListeBasePrixRefOuvrage(listeBasePrixRef);
+                                    descriptifDao.Update(ouvrageAModifier);
+                                } else {
+                                    listeBasePrixRef.add(newBasePrixRef);
+                                    prestationAModifier.setListeBasePrixRefPrestation(listeBasePrixRef);
+                                    descriptifDao.Update(prestationAModifier);
+                                }
+                            }
                             JpaUtil.validerTransaction();
                         } catch (Exception ex) {
                             rapport += " | Erreur lors de l'insertion de " + attributes[0];
@@ -539,14 +591,37 @@ public class ImportService {
                         break;
                     case "SUPPR":
                         try {
-                            /*JpaUtil.ouvrirTransaction();
-                            List<BasePrixRef> listBasePrixRef = basePrixRefDao.ListerBasePrixRefs();
-                            for(BasePrixRef basePrixRef : listBasePrixRef){
-                                if(basePrixRef.getAnnee() == Integer.parseInt(attributes[9]) && basePrixRef.getBT() == Double.parseDouble(attributes[4]) && basePrixRef.getPrixUnitaire() == Double.parseDouble(attributes[8]) && basePrixRef.getQteInf() == Double.parseDouble(attributes[5]) && basePrixRef.getQteSup() == Double.parseDouble(attributes[6]) && basePrixRef.getUnite().equals(attributes[7])){
-                                    basePrixRefDao.Remove(basePrixRef);
+                            JpaUtil.ouvrirTransaction();
+                            if(typeDescriptif.equals("Ouvrage")) {
+                                ouvrageAModifier = (Ouvrage)descriptifDao.ChercherParId(attributes[2]);
+                                listeBasePrixRef = ouvrageAModifier.getListeBasePrixRefOuvrage();
+                                //On va chercher le prix qui nous interesse
+                                for(BasePrixRef basePrixRefParcours : listeBasePrixRef) {
+                                    if(basePrixRefParcours.getNbPrixRef().compareTo(Long.parseLong(attributes[3])) == 0) {
+                                        //On supprime d'abord le lien entre l'ouvrage et le prix, puis on supprime le prix
+                                        listeBasePrixRef.remove(basePrixRefParcours);
+                                        ouvrageAModifier.setListeBasePrixRefOuvrage(listeBasePrixRef);
+                                        descriptifDao.Update(ouvrageAModifier);
+                                        basePrixRefDao.Remove(basePrixRefParcours);
+                                        break;
+                                    }
+                                }
+                            } else {
+                                prestationAModifier = (Prestation)descriptifDao.ChercherParId(attributes[2]);
+                                listeBasePrixRef = prestationAModifier.getListeBasePrixRefPrestation();
+                                //On va chercher le prix qui nous interesse
+                                for(BasePrixRef basePrixRefParcours : listeBasePrixRef) {
+                                    if(basePrixRefParcours.getNbPrixRef().compareTo(Long.parseLong(attributes[3])) == 0) {
+                                        //On supprime d'abord le lien entre l'ouvrage et le prix, puis on supprime le prix
+                                        listeBasePrixRef.remove(basePrixRefParcours);
+                                        prestationAModifier.setListeBasePrixRefPrestation(listeBasePrixRef);
+                                        descriptifDao.Update(prestationAModifier);
+                                        basePrixRefDao.Remove(basePrixRefParcours);
+                                        break;
+                                    }
                                 }
                             }
-                            JpaUtil.validerTransaction();*/
+                            JpaUtil.validerTransaction();
                         } catch (Exception ex) {
                             rapport += " | Erreur lors de la suppression de " + attributes[0];
                             throw new Exception();
@@ -556,33 +631,31 @@ public class ImportService {
                         rapport += " opération non reconnue";
                         break;
                 }
-                if(rapport == null) { //MAJ du descriptif lié
+                /*if(rapport == null) { //MAJ du descriptif lié
                     try {
                         JpaUtil.ouvrirTransaction();
                         if(attributes[1].equals("AJOUT")) {
                             if(typeDescriptif.equals("Ouvrage")) {
-                                ouvrageAModifier = (Ouvrage)descriptifDao.ChercherParId(attributes[2]);
-                                List<BasePrixRef> listeBasePrixRef = ouvrageAModifier.getListeBasePrixRefOuvrage();
+                                //ouvrageAModifier = (Ouvrage)descriptifDao.ChercherParId(attributes[2]);
                                 listeBasePrixRef.add(newBasePrixRef);
                                 ouvrageAModifier.setListeBasePrixRefOuvrage(listeBasePrixRef);
                                 descriptifDao.Update(ouvrageAModifier);
                             } else {
-                                prestationAModifier = (Prestation)descriptifDao.ChercherParId(attributes[3]);
-                                List<BasePrixRef> listeBasePrixRef = prestationAModifier.getListeBasePrixRefPrestation();
+                                //prestationAModifier = (Prestation)descriptifDao.ChercherParId(attributes[2]);
                                 listeBasePrixRef.add(newBasePrixRef);
                                 prestationAModifier.setListeBasePrixRefPrestation(listeBasePrixRef);
                                 descriptifDao.Update(prestationAModifier);
                             }
                         } else {
                             if(typeDescriptif.equals("Ouvrage")) {
-                                ouvrageAModifier = (Ouvrage)descriptifDao.ChercherParId(attributes[2]);
-                                List<BasePrixRef> listeBasePrixRef = ouvrageAModifier.getListeBasePrixRefOuvrage();
+                                //ouvrageAModifier = (Ouvrage)descriptifDao.ChercherParId(attributes[2]);
+                                //List<BasePrixRef> listeBasePrixRef = ouvrageAModifier.getListeBasePrixRefOuvrage();
                                 listeBasePrixRef.remove(newBasePrixRef);
                                 ouvrageAModifier.setListeBasePrixRefOuvrage(listeBasePrixRef);
                                 descriptifDao.Update(prestationAModifier);
                             } else {
-                                prestationAModifier = (Prestation)descriptifDao.ChercherParId(attributes[3]);
-                                List<BasePrixRef> listeBasePrixRef = prestationAModifier.getListeBasePrixRefPrestation();
+                                //prestationAModifier = (Prestation)descriptifDao.ChercherParId(attributes[2]);
+                                //List<BasePrixRef> listeBasePrixRef = prestationAModifier.getListeBasePrixRefPrestation();
                                 listeBasePrixRef.remove(newBasePrixRef);
                                 prestationAModifier.setListeBasePrixRefPrestation(listeBasePrixRef);
                                 descriptifDao.Update(prestationAModifier);
@@ -593,7 +666,7 @@ public class ImportService {
                         rapport += " | Erreur avec " + attributes[0];
                         throw new Exception();
                     }
-                }
+                }*/
             }
         } 
         catch (Exception e) {
