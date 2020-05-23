@@ -113,14 +113,14 @@ public class Main {
 //        testerSupprimerCategorie();
 //        testerSupprimerFamille();
 //        testerSupprimerSousFamille();
-//       testerSupprimerDescriptif();
+//        testerSupprimerDescriptif();
 //        testerSupprimerLigneChiffrage();
 //        testerModifierDescriptionDescriptif();
 //        testerModifierCourteDescriptionDescriptif();
 //        testerModifierLocalisationDescriptif();
 //        testerModifierQuantiteDescriptif();
 //        testerModifBaseDescriptif();
-          testerModifBasePrixRef();
+//        testerModifBasePrixRef();
         
       //----------tests-secondaires------//
       
