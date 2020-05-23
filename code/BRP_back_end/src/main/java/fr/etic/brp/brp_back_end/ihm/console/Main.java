@@ -105,17 +105,19 @@ public class Main {
         testerAjouterTitre2();
         testerAjouterTitre3();
         testerAjouterTitre4();
-//        testerSuppressionBalise();
-//        testerModifierIntituleTitre();
         testerAjouterDescriptif();
 //        testerAjouterLigneChiffrage();
 //        testerCoutSynthese();
-//        testerSupprimerDescriptif();
-//        testerSupprimerLigneChiffrage();
+//        testerSuppressionBalise();
+//        testerModifierIntituleTitre();
+//        testerSupprimerDescriptif();              //TODO
+//        testerSupprimerLigneChiffrage();          //TODO
 //        testerModifierDescriptionDescriptif();
 //        testerModifierCourteDescriptionDescriptif();
 //        testerModifierLocalisationDescriptif();
-//        testerModifierQuantiteDescriptif();
+//        testerModifierQuantiteDescriptif();       
+//       testerModifierPrixLigneChiffrage();
+
 //        testerModifBaseDescriptif();
 //        testerModifBasePrixRef();
         
@@ -1397,7 +1399,7 @@ public class Main {
         
         //Doit fonctionner
         Long idProjet = 1L;
-        String idDescriptif = "02_AAA_01_01_02_01";
+        String idDescriptif = "_8";
         String newDescription = "testNew";
         
         Boolean resultat = service.ModifierDescriptionDescriptif(idProjet, idDescriptif, newDescription);
@@ -1422,7 +1424,7 @@ public class Main {
         
         //Doit fonctionner
         Long idProjet = 1L;
-        String idDescriptif = "02_AAA_01_01_02";
+        String idDescriptif = "_8";
         String newDescription = "testNew";
         
         Boolean resultat = service.ModifierCourteDescriptionDescriptif(idProjet, idDescriptif, newDescription);
@@ -1447,8 +1449,8 @@ public class Main {
         
         //Doit fonctionner
         Long idProjet = 1L;
-        String idDescriptif = "02_AAA_01_01_02_01";
-        String idLigneChiffrage = "2";
+        String idDescriptif = "_8";
+        String idLigneChiffrage = "1";
         String newLocalisation = "newLoc";
         
         Boolean resultat = service.ModifierLocalisationDescriptif(idProjet, idDescriptif, idLigneChiffrage, newLocalisation);
@@ -1474,11 +1476,12 @@ public class Main {
         
         //Doit fonctionner
         Long idProjet = 1L;
-        String idDescriptif = "02_AAA_01_01_02_01";
+        String idDescriptif = "_8";
+        String idDescriptifBD = "02_AAA_01_01_02_01";
         String idLigneChiffrage = "1";
         Double quantite = 2.0;
         
-        Boolean resultat = service.ModifierQuantiteDescriptif(idProjet, idDescriptif, idLigneChiffrage, quantite);
+        Boolean resultat = service.ModifierQuantiteDescriptif(idProjet, idDescriptif, idDescriptifBD, idLigneChiffrage, quantite);
         if(resultat)
         {
             System.out.println("Edition avec succès du projet n°" + idProjet);
@@ -1490,6 +1493,28 @@ public class Main {
         //test modif prestation avec ligneChiffrage non existante : ok
         //test modif mauvaise quantité : ok
         //test modif ouvrage : ok
+    }
+    
+    public static void testerModifierPrixLigneChiffrage(){
+        System.out.println();
+        System.out.println("**** testerModifierPrixLigneChiffrage() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        
+        //Doit fonctionner
+        Long idProjet = 1L;
+        String idDescriptif = "_8";
+        String idLigneChiffrage = "1";
+        Double prix = 160.0;
+        
+        Boolean resultat = service.ModifierPrixLigneChiffrage(idProjet, idDescriptif, idLigneChiffrage, prix);
+        if(resultat)
+        {
+            System.out.println("Edition avec succès du projet n°" + idProjet);
+        } else {
+            System.out.println("Erreur d'édition du projet n°" + idProjet);
+        }
     }
     
                 //-----------------------//
