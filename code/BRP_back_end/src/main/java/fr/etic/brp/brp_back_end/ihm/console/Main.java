@@ -106,19 +106,11 @@ public class Main {
         testerAjouterTitre3();
         testerAjouterTitre4();
 //        testerSuppressionBalise();
-//        testerModifierIntituleTitre();
-//        testerAjouterChapitre();
-//        testerAjouterCategorie();
-//        testerAjouterFamille();
-//        testerAjouterSousFamille();
+        testerModifierIntituleTitre();
 //        testerAjouterOuvrageOuGenerique();
 //        testerAjouterPrestation();
 //        testerAjouterLigneChiffrage();
 //        testerCoutSynthese();
-//        testerSupprimerChapitre();
-//        testerSupprimerCategorie();
-//        testerSupprimerFamille();
-//        testerSupprimerSousFamille();
 //        testerSupprimerDescriptif();
 //        testerSupprimerLigneChiffrage();
 //        testerModifierDescriptionDescriptif();
@@ -1254,7 +1246,7 @@ public class Main {
         
         //Doit fonctionner
         Long idProjet = 01L;
-        String idBalise = "1";
+        String idBalise = "_1";
         
         Boolean resultat = service.SuppressionBalise(idProjet, idBalise);
         if(resultat)
@@ -1274,7 +1266,7 @@ public class Main {
         
         //Doit fonctionner
         Long idProjet = 01L;
-        String idTitre = "1";
+        String idTitre = "_5";
         String intitule = "Nouvel intitule";
         
         Boolean resultat = service.ModifierIntituleTitre(idProjet, idTitre, intitule);
@@ -1286,77 +1278,6 @@ public class Main {
         }
     }
     
-    public static void testerAjouterCategorie() {
-        
-        System.out.println();
-        System.out.println("**** testerAjouterCategorie() ****");
-        System.out.println();
-        
-        Service service = new Service();
-        
-        //Doit fonctionner 
-        Long idProjet = 1L;
-        String idCategorie = "02_AAA";
-        
-        Boolean resultat = service.AjouterCategorie(idProjet, idCategorie);
-        if(resultat)
-        {
-            System.out.println("Ajout avec succès de la categorie "+idCategorie);
-        } else {
-            System.out.println("Echec lors de l'ajout de la categorie "+idCategorie);
-        }
-        
-        //idProjet n'existe pas -> echec (comme prevu)
-        //idCategorie n'existe pas -> echec (comme prevu)
-    }
-    
-    public static void testerAjouterFamille() {
-        
-        System.out.println();
-        System.out.println("**** testerAjouterFamille() ****");
-        System.out.println();
-        
-        Service service = new Service();
-        
-        //Doit fonctionner 
-        Long idProjet = 1L;
-        String idFamille = "02_AAA_01";
-        
-        Boolean resultat = service.AjouterFamille(idProjet, idFamille);
-        if(resultat){
-            System.out.println("Ajout avec succès de la famille "+idFamille);
-        } else {
-            System.out.println("Echec lors de l'ajout de la famille "+idFamille);
-        }
-        
-        //idProjet n'existe pas -> echec (comme prevu)
-        //idFamille n'existe pas -> echec (comme prevu)
-    }
-    
-    public static void testerAjouterSousFamille() {
-        
-        System.out.println();
-        System.out.println("**** testerAjouterSousFamille() ****");
-        System.out.println();
-        
-        Service service = new Service();
-        
-        //Doit fonctionner
-        Long idProjet = 1L;
-        String idSousFamille = "02_AAA_01_01";
-        
-        Boolean resultat = service.AjouterSousFamille(idProjet, idSousFamille);
-        if(resultat){
-            System.out.println("Ajout avec succès de la sousFamille "+idSousFamille);
-        } else {
-            System.out.println("Echec lors de l'ajout de la sousFamille "+idSousFamille);
-        }
-        
-        //idProjet n'existe pas -> echec (comme prevu)
-        //idSousFamille n'existe pas -> echec (comme prevu)
-    }
-    
-
     public static void testerAjouterOuvrageOuGenerique() {
         
         System.out.println();
@@ -1424,98 +1345,6 @@ public class Main {
         
         //idProjet n'existe pas -> echec (comme prevu)
         //idDescriptif n'existe pas -> echec (comme prevu)
-    }
-        
-    public static void testerSupprimerChapitre() {
-        
-        System.out.println();
-        System.out.println("**** testerSupprimerChapitre() ****");
-        System.out.println();
-        
-        Service service = new Service();
-        
-        //Doit fonctionner
-        Long idProjet = 1L;
-        String idChapitre = "02";
-        
-        Boolean resultat = service.SupprimerChapitre(idProjet, idChapitre);
-        if(resultat)
-        {
-            System.out.println("Edition avec succès du projet n°" + idProjet);
-        } else {
-            System.out.println("Erreur d'édition du projet n°" + idProjet);
-        }
-        
-        //idChapitre n'existe pas/plus -> echec (comme prevu)
-    }
-    
-    public static void testerSupprimerCategorie() {
-        
-        System.out.println();
-        System.out.println("**** testerSupprimerCategorie() ****");
-        System.out.println();
-        
-        Service service = new Service();
-        
-        //Doit fonctionner
-        Long idProjet = 1L;
-        String idCategorie = "02_AAA";
-        
-        Boolean resultat = service.SupprimerCategorie(idProjet, idCategorie);
-        if(resultat)
-        {
-            System.out.println("Edition avec succès du projet n°" + idProjet);
-        } else {
-            System.out.println("Erreur d'édition du projet n°" + idProjet);
-        }
-        
-        //idCategorie n'existe pas/plus -> echec (comme prevu)
-    }
-    
-    public static void testerSupprimerFamille() {
-        
-        System.out.println();
-        System.out.println("**** testerSupprimerFamille() ****");
-        System.out.println();
-        
-        Service service = new Service();
-        
-        //Doit fonctionner
-        Long idProjet = 1L;
-        String idFamille = "02_AAA_01";
-        
-        Boolean resultat = service.SupprimerFamille(idProjet, idFamille);
-        if(resultat)
-        {
-            System.out.println("Edition avec succès du projet n°" + idProjet);
-        } else {
-            System.out.println("Erreur d'édition du projet n°" + idProjet);
-        }
-        
-        //idFamille n'existe pas/plus -> echec (comme prevu)
-    }
-    
-    public static void testerSupprimerSousFamille() {
-        
-        System.out.println();
-        System.out.println("**** testerSupprimerSousFamille() ****");
-        System.out.println();
-        
-        Service service = new Service();
-        
-        //Doit fonctionner
-        Long idProjet = 1L;
-        String idFamille = "02_AAA_01_01";
-        
-        Boolean resultat = service.SupprimerSousFamille(idProjet, idFamille);
-        if(resultat)
-        {
-            System.out.println("Edition avec succès du projet n°" + idProjet);
-        } else {
-            System.out.println("Erreur d'édition du projet n°" + idProjet);
-        }
-        
-        //idSousFamille n'existe pas/plus -> echec (comme prevu)
     }
     
     public static void testerSupprimerDescriptif() {
