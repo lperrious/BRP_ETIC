@@ -102,6 +102,8 @@ public class Main {
 //        testerEditerCoeffRaccordementProjet();
 //        testerEditerCategorieConstructionProjet();
         testerAjouterTitre1();
+        testerSuppressionBalise();
+        testerModifierIntituleTitre();
 //        testerAjouterChapitre();
 //        testerAjouterCategorie();
 //        testerAjouterFamille();
@@ -120,7 +122,7 @@ public class Main {
 //        testerModifierCourteDescriptionDescriptif();
 //        testerModifierLocalisationDescriptif();
 //        testerModifierQuantiteDescriptif();
-//       testerModifBaseDescriptif();
+//        testerModifBaseDescriptif();
 //        testerModifBasePrixRef();
         
       //----------tests-secondaires------//
@@ -1130,6 +1132,47 @@ public class Main {
         //idProjet n'existe pas -> echec (comme prévu)
         //Insertion BEFORE avec un titre1 non existant -> echec (comme prévu)
         //Insertion BEFORE avec un titre1 exitant -> ok
+    }
+    
+    public static void testerSuppressionBalise(){
+        System.out.println();
+        System.out.println("**** testerSuppressionBalise() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        
+        //Doit fonctionner
+        Long idProjet = 01L;
+        String idBalise = "1";
+        
+        Boolean resultat = service.SuppressionBalise(idProjet, idBalise);
+        if(resultat)
+        {
+            System.out.println("Suppression avec succès du Projet n° " + idProjet+", balise n°"+idBalise);
+        } else {
+            System.out.println("Echec lors de la suppression de la balise n°"+idBalise+",Projet n° " + idProjet);
+        }
+    }
+    
+    public static void testerModifierIntituleTitre(){
+        System.out.println();
+        System.out.println("**** testerModifierIntituleTitre() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        
+        //Doit fonctionner
+        Long idProjet = 01L;
+        String idTitre = "1";
+        String intitule = "Nouvel intitule";
+        
+        Boolean resultat = service.ModifierIntituleTitre(idProjet, idTitre, intitule);
+        if(resultat)
+        {
+            System.out.println("Modification avec succès de l'intulet: Projet n° " + idProjet+", titre n°"+idTitre);
+        } else {
+            System.out.println("Echec lors de la modification de l'intituleé: titre n°"+idTitre+",Projet n° " + idProjet);
+        }
     }
     
     public static void testerAjouterChapitre() {
