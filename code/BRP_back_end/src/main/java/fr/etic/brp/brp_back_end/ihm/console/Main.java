@@ -103,8 +103,8 @@ public class Main {
 //        testerEditerCategorieConstructionProjet();
         testerAjouterTitre1();
         testerAjouterTitre2();
-//        testerAjouterTitre3();
-//        testerAjouterTitre4();
+        testerAjouterTitre3();
+        testerAjouterTitre4();
 //        testerSuppressionBalise();
 //        testerModifierIntituleTitre();
 //        testerAjouterChapitre();
@@ -1171,6 +1171,78 @@ public class Main {
         
         //idProjet n'existe pas -> echec (comme prévu)
         //Pas de titre1 correspondant -> echec (comme prévu)
+    }
+    
+    public static void testerAjouterTitre3() {
+        
+        System.out.println();
+        System.out.println("**** testerAjouterTitre3() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        
+        //Doit fonctionner
+        Long idProjet = 01L;
+        String placement = "APPEND";
+        String idRefPlacement = "_3";
+        
+        Boolean resultat = service.AjouterTitre3(idProjet, placement, idRefPlacement);
+        if(resultat)
+        {
+            System.out.println("Modification avec succès du Projet n° " + idProjet);
+        } else {
+            System.out.println("Echec lors de la modification du Projet n° " + idProjet);
+        }
+        
+        placement = "BEFORE";
+        idRefPlacement = "_4";
+        
+        resultat = service.AjouterTitre3(idProjet, placement, idRefPlacement);
+        if(resultat)
+        {
+            System.out.println("Modification avec succès du Projet n° " + idProjet);
+        } else {
+            System.out.println("Echec lors de la modification du Projet n° " + idProjet);
+        }
+        
+        //idProjet n'existe pas -> echec (comme prévu)
+        //Pas de titre2 correspondant -> echec (comme prévu)
+    }
+    
+    public static void testerAjouterTitre4() {
+        
+        System.out.println();
+        System.out.println("**** testerAjouterTitre4() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        
+        //Doit fonctionner
+        Long idProjet = 01L;
+        String placement = "APPEND";
+        String idRefPlacement = "_5";
+        
+        Boolean resultat = service.AjouterTitre4(idProjet, placement, idRefPlacement);
+        if(resultat)
+        {
+            System.out.println("Modification avec succès du Projet n° " + idProjet);
+        } else {
+            System.out.println("Echec lors de la modification du Projet n° " + idProjet);
+        }
+        
+        placement = "BEFORE";
+        idRefPlacement = "_6";
+        
+        resultat = service.AjouterTitre4(idProjet, placement, idRefPlacement);
+        if(resultat)
+        {
+            System.out.println("Modification avec succès du Projet n° " + idProjet);
+        } else {
+            System.out.println("Echec lors de la modification du Projet n° " + idProjet);
+        }
+        
+        //idProjet n'existe pas -> echec (comme prévu)
+        //Pas de titre3 correspondant -> echec (comme prévu)
     }
     
     public static void testerSuppressionBalise(){
