@@ -771,6 +771,54 @@ public class Service {
         return resultat;
     }
     
+    //TO TEST
+    public Boolean SuppressionBalise(Long idProjet, String idBalise) {
+        
+        Boolean resultat = false;
+        
+        try {
+            //Obtention du document
+            String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            Document xml = projetXMLDao.ObtenirDocument(uri);
+            
+            //Element element = (Element) xml.getElementById(idBalise);
+            //element.getParentNode().removeChild(element);
+            //On écrit par dessus l'ancien XML
+            projetXMLDao.saveXMLContent(xml, uri);
+            
+            resultat = true; //Si on est arrivé jusque là alors pas d'erreur
+            
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service SuppressionBalise(Long idProjet, String idBalise)", ex);
+        }
+        return resultat;
+    }
+    
+    //TODO
+    public Boolean ModifierIntituleTitre(Long idProjet, String idTitre, String intitule) {
+        
+        Boolean resultat = false;
+        
+        try {
+            //Obtention du document
+            String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            Document xml = projetXMLDao.ObtenirDocument(uri);
+            
+            //get ELEMENT (à tester)
+            //Element element = (Element) xml.getElementById(idTitre);
+            
+            //modifier l'attribut intitule
+            
+            //On écrit par dessus l'ancien XML
+            projetXMLDao.saveXMLContent(xml, uri);
+            
+            resultat = true; //Si on est arrivé jusque là alors pas d'erreur
+            
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service ModifierIntituleTitre(Long idProjet, String idTitre, String intitule)", ex);
+        }
+        return resultat;
+    }
     
     public Boolean AjouterChapitre(Long idProjet, String idChapitre) {
         JpaUtil.creerContextePersistance();
