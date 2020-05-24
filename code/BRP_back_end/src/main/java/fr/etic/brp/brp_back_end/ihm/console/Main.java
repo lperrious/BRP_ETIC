@@ -115,10 +115,10 @@ public class Main {
 //        testerModifierDescriptionDescriptif();
 //        testerModifierCourteDescriptionDescriptif();
 //        testerModifierLocalisationDescriptif();
-//        testerModifierQuantiteDescriptif();       
+//        testerModifierQuantiteDescriptif();      
 //       testerModifierPrixLigneChiffrage();
 
-//        testerModifBaseDescriptif();
+//        testerModifBaseDescriptif();      
 //        testerModifBasePrixRef();
         
       //----------tests-secondaires------//
@@ -1477,11 +1477,10 @@ public class Main {
         //Doit fonctionner
         Long idProjet = 1L;
         String idDescriptif = "_8";
-        String idDescriptifBD = "02_AAA_01_01_02_01";
         String idLigneChiffrage = "1";
         Double quantite = 2.0;
         
-        Boolean resultat = service.ModifierQuantiteDescriptif(idProjet, idDescriptif, idDescriptifBD, idLigneChiffrage, quantite);
+        Boolean resultat = service.ModifierQuantiteDescriptif(idProjet, idDescriptif, idLigneChiffrage, quantite);
         if(resultat)
         {
             System.out.println("Edition avec succès du projet n°" + idProjet);

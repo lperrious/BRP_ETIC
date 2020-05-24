@@ -1042,6 +1042,8 @@ public class Service {
             Document xml = projetXMLDao.ObtenirDocument(uri);
             
             Element element = (Element) xml.getElementById(idBalise);
+            //si c'est une prestation, qu'elle est inclue dans un ouvrage et que c'est la dernière, on remet une ligne chiffrage
+            //sinon on supprime tout simplement
             element.getParentNode().removeChild(element);
             //On écrit par dessus l'ancien XML
             projetXMLDao.saveXMLContent(xml, uri);
@@ -1054,6 +1056,7 @@ public class Service {
         return resultat;
     }
     
+    //REMOVE dès que celle au dessus fonctionne
     //verrif si on a pas une exception
     public Boolean SupprimerDescriptif(Long idProjet, String idDescriptif){
         JpaUtil.creerContextePersistance();
@@ -1326,10 +1329,11 @@ public class Service {
     
     //modifie la quantite et actualise le prix unitaire en fonction
     //TODO récupérer la balise de louis
-    public Boolean ModifierQuantiteDescriptif(Long idProjet, String idDescriptif, String idDescriptifBD, String idLigneChiffrage, Double quantite){
+    public Boolean ModifierQuantiteDescriptif(Long idProjet, String idDescriptif, String idLigneChiffrage, Double quantite){
         
         Boolean testModif = false;
         Boolean resultat = false;
+        String idDescriptifBD = null;
         JpaUtil.creerContextePersistance();
         
         try {
@@ -1339,6 +1343,7 @@ public class Service {
             
             Element baliseDescriptif = (Element) xml.getElementById(idDescriptif);
             if(baliseDescriptif != null){
+                idDescriptifBD = baliseDescriptif.getAttribute("idBD");
                 NodeList listeEnfantsDescriptif = baliseDescriptif.getChildNodes();
                 for(int j = 0; j < listeEnfantsDescriptif.getLength(); j++){
                     if(listeEnfantsDescriptif.item(j).getNodeName().equals("ligneChiffrage")){
