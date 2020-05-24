@@ -863,6 +863,7 @@ public class Service {
             baliseDescriptif.setAttribute("id", "_" + nextIdBalise.getTextContent());
             Integer newNextId = Integer.parseInt(nextIdBalise.getTextContent()) + 1;
             nextIdBalise.setTextContent(newNextId.toString());
+            baliseDescriptif.setAttribute("idBD", idDescriptif);
             if(descriptif instanceof Generique){
                 //Création balise descriptif
                 baliseDescriptif.setAttribute("type", "generique");
