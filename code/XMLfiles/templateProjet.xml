@@ -24,7 +24,7 @@
     </titre1>
     <titre1 id="_5" intitule="Nom titre 1">
         <!-- Balise Générique  -->
-        <descriptif type="generique" id="_6">
+        <descriptif type="generique" id="_6" idBD="02_AAA_01_01_01">
             <nomDescriptif>Sécurité</nomDescriptif>
             <description>
                 Une
@@ -39,7 +39,7 @@
         </descriptif>
         <titre2 id="_7" intitule="Nom titre 2">
             <!-- Balise Ouvrage  -->
-            <descriptif type="ouvrage" id="_8">
+            <descriptif type="ouvrage" id="_8" idBD="02_AAA_01_01_02">
                 <nomDescriptif>Étanchéité bitume monocouche</nomDescriptif>
                 <description>
                     Une
@@ -51,7 +51,7 @@
                     apparaitra uniquement sur la CCTP
                 </description>
                 <courteDescription>Courte description (pour la DPGF)</courteDescription>
-                <descriptif type="prestation" id="_9">
+                <descriptif type="prestation" id="_9" idBD="02_AAA_01_01_02_01">
                     <nomDescriptif>Depose du complexe d'etancheite</nomDescriptif>
                     <description>
                         Une

@@ -50,4 +50,5 @@
 <!ATTLIST titre4 intitule CDATA #REQUIRED>
 <!ATTLIST descriptif id ID #REQUIRED>
 <!ATTLIST descriptif type CDATA #REQUIRED>
+<!ATTLIST descriptif idBD CDATA #REQUIRED>
 <!ATTLIST ligneChiffrage idLigneChiffrage CDATA #REQUIRED>
