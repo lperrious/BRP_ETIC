@@ -111,7 +111,7 @@ public class Main {
 //        testerSuppressionBalise();
 //        testerModifierIntituleTitre();
 //        testerSupprimerDescriptif();              //TODO
-//        testerSupprimerLigneChiffrage();          //TODO
+//        testerSupprimerLigneChiffrage();          
 //        testerModifierDescriptionDescriptif();
 //        testerModifierCourteDescriptionDescriptif();
 //        testerModifierLocalisationDescriptif();
@@ -1373,7 +1373,7 @@ public class Main {
         
         //Doit fonctionner
         Long idProjet = 1L;
-        String idDescriptif = "02_AAA_01_01_02_01";
+        String idDescriptif = "_9";
         String idLigneChiffrage = "1";
         
         Boolean resultat = service.SupprimerLigneChiffrage(idProjet, idDescriptif, idLigneChiffrage);
