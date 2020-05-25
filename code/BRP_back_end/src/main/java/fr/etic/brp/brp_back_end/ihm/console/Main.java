@@ -118,7 +118,7 @@ public class Main {
 //        testerModifBaseDescriptif();      
 //        testerModifBasePrixRef();
 
-        testerExporterProjet();
+//        testerExporterProjet();
         
       //----------tests-secondaires------//
       

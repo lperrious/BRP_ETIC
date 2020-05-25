@@ -93,13 +93,13 @@ public class ExportService {
             TransformerFactory factory = TransformerFactory.newInstance();
             
             Source xsltCCTP = new StreamSource(new File("../export_files/pays_du_monde_tableau_3IF.xsl"));
-            Source xsltDPGF = new StreamSource(new File("../export_files/pays_du_monde_tableau_3IF.xsl"));
+            //Source xsltDPGF = new StreamSource(new File("../export_files/pays_du_monde_tableau_3IF.xsl"));
             Transformer transformerCCTP = factory.newTransformer(xsltCCTP);
-            Transformer transformerDPGF = factory.newTransformer(xsltDPGF);
+            //Transformer transformerDPGF = factory.newTransformer(xsltDPGF);
 
             Source xml = new StreamSource(new File("../XMLfiles/countriesTP.xml"));
             transformerCCTP.transform(xml, new StreamResult(new File("../CCTP/document.xml")));
-            transformerDPGF.transform(xml, new StreamResult(new File("../CCTP/document.xml")));
+            //transformerDPGF.transform(xml, new StreamResult(new File("../CCTP/document.xml")));
             
             resultat = true;
         } catch (Exception ex) {
