@@ -1300,8 +1300,8 @@ public class Main {
             System.out.println("Echec lors de l'ajout du descriptif " + idDescriptif);
         }
         
-        idDescriptif = "02_AAA_01_01_02_01";
-        placement = "BEFORE";
+        /*idDescriptif = "02_AAA_01_01_02_01";
+        placement = "APPEND";
         idRefPlacement = "_8";
         
         resultat = service.AjouterDescriptif(idProjet, placement, idRefPlacement, idDescriptif);
@@ -1309,11 +1309,12 @@ public class Main {
             System.out.println("Ajout avec succès du descriptif " + idDescriptif);
         } else {
             System.out.println("Echec lors de l'ajout du descriptif " + idDescriptif);
-        }
+        }*/
         
         //idProjet n'existe pas -> echec (comme prevu)
         //choisit bien en fonction de l'année la plus récente et de la fourchette de prix
-        //Test idRefPlacement non existant -> echec (comme prévu)
+        //idRefPlacement non existant -> echec (comme prévu)
+        //Descriptif dans un autre descriptif -> échec (comme prévu) 
     }
     
     public static void testerAjouterLigneChiffrage() {

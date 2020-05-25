@@ -931,11 +931,15 @@ public class Service {
             //On place la balise nouvellement créee dans l'arborescence
             if(placement.equals("APPEND")) {
                 Node baliseAuDessus = xml.getElementById(idRefPlacement);
+                if(baliseAuDessus.getNodeName().equals("descriptif"))
+                    throw new Exception();
                 baliseAuDessus.appendChild(baliseDescriptif);
                 testInsertion = true;
             } else {
                 Node baliseInsertBefore = xml.getElementById(idRefPlacement);
                 Node parent = baliseInsertBefore.getParentNode();
+                if(parent.getNodeName().equals("descriptif"))
+                    throw new Exception();
                 parent.insertBefore(baliseDescriptif, baliseInsertBefore);
                 testInsertion = true;
             }
