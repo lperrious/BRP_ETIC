@@ -90,7 +90,7 @@ public class Main {
 //        testerListerSousCategorieConstructions();
 //        testerListerSousFamilles();
 //        testerAuthentifierOperateur();
-        testerCreerProjet();
+//        testerCreerProjet();
 //        testerRechercherProjetParId();
 //        testerDupliquerProjet();
 //        testerEditerNomProjet();
@@ -99,11 +99,11 @@ public class Main {
 //        testerEditerCoeffAdaptProjet();
 //        testerEditerCoeffRaccordementProjet();
 //        testerEditerCategorieConstructionProjet();
-        testerAjouterTitre1();
-        testerAjouterTitre2();
-        testerAjouterTitre3();
-        testerAjouterTitre4();
-        testerAjouterDescriptif();
+//        testerAjouterTitre1();
+//        testerAjouterTitre2();
+//        testerAjouterTitre3();
+//        testerAjouterTitre4();
+//        testerAjouterDescriptif();
 //        testerAjouterLigneChiffrage();
 //        testerCoutSynthese();
 //        testerSuppressionBalise();
@@ -1771,6 +1771,7 @@ public class Main {
     //----------------------------------- Imports  ---------------------------------
     //------------------------------------------------------------------------------
     
+    //TODO : Tester en entier avec avec un projet déjà exporté (donc nomProjet etc existants) mais normalement c'est okay
     public static void testerExporterProjet(){
         
         System.out.println();
