@@ -108,7 +108,6 @@ public class Main {
 //        testerCoutSynthese();
 //        testerSuppressionBalise();
 //        testerModifierIntituleTitre();
-//        testerSupprimerDescriptif();              //TODO
 //        testerSupprimerLigneChiffrage();          
 //        testerModifierDescriptionDescriptif();
 //        testerModifierCourteDescriptionDescriptif();
@@ -1338,30 +1337,6 @@ public class Main {
         
         //idProjet n'existe pas -> echec (comme prevu)
         //idDescriptif n'existe pas -> echec (comme prevu)
-    }
-    
-    public static void testerSupprimerDescriptif() {
-        
-        System.out.println();
-        System.out.println("**** testerSupprimerDescriptif() ****");
-        System.out.println();
-        
-        Service service = new Service();
-        
-        //Doit fonctionner
-        Long idProjet = 1L;
-        String idDescriptif = "02_AAA_01_01_02_01";
-        
-        Boolean resultat = service.SupprimerDescriptif(idProjet, idDescriptif);
-        if(resultat)
-        {
-            System.out.println("Edition avec succès du projet n°" + idProjet);
-        } else {
-            System.out.println("Erreur d'édition du projet n°" + idProjet);
-        }
-        
-        //test avec prestation ou ouvrage : ok
-        //test pas de descriptif existant : ok
     }
     
     public static void testerSupprimerLigneChiffrage() {
