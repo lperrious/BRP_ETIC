@@ -22,6 +22,7 @@ import fr.etic.brp.brp_back_end.metier.modele.Projet.TypeLot;
 import fr.etic.brp.brp_back_end.metier.modele.Projet.TypeMarche;
 import fr.etic.brp.brp_back_end.metier.modele.SousCategorieConstruction;
 import fr.etic.brp.brp_back_end.metier.modele.SousFamille;
+import fr.etic.brp.brp_back_end.metier.service.ExportService;
 import fr.etic.brp.brp_back_end.metier.service.ImportService;
 import fr.etic.brp.brp_back_end.metier.service.Service;
 import java.io.IOException;
@@ -75,9 +76,6 @@ public class Main {
         
     //----------tests-des-services-----------------
     
-      //---------tests-primaires--------//
-      
-
 //        testerListerBasePrixRefs();
 //        testerListerCaractDims();
 //        testerListerCategories();
@@ -120,6 +118,8 @@ public class Main {
 
 //        testerModifBaseDescriptif();      
 //        testerModifBasePrixRef();
+
+        testerExporterProjet();
         
       //----------tests-secondaires------//
       
@@ -1791,75 +1791,32 @@ public class Main {
         System.out.println(msgState);
     }
     
-                //-----------------------//
     
-    /*public static void testerRechercheClientParId() {
+    //------------------------------------------------------------------------------
+    //----------------------------------- Imports  ---------------------------------
+    //------------------------------------------------------------------------------
+    
+    public static void testerExporterProjet(){
         
         System.out.println();
-        System.out.println("**** testerRechercheClient() ****");
+        System.out.println("**** testerExporterProjet() ****");
         System.out.println();
         
-        Service service = new Service();
-        long id;
-        Client client;
-
-        id = 6;
-        System.out.println("** Recherche du Client #" + id);
-        client = service.RechercherClientParId(id);
-        if (client != null) {
-            afficherClient(client);
-        } else {
-            System.out.println("=> Client non-trouvé");
-        }
-
-        id = 3;
-        System.out.println("** Recherche du Client #" + id);
-        client = service.RechercherClientParId(id);
-        if (client != null) {
-            afficherClient(client);
-        } else {
-            System.out.println("=> Client non-trouvé");
-        }
-
-        id = 17;
-        System.out.println("** Recherche du Client #" + id);
-        client = service.RechercherClientParId(id);
-        if (client != null) {
-            afficherClient(client);
-        } else {
-            System.out.println("=> Client #" + id + " non-trouvé");
-        }
+        ExportService service = new ExportService();
+        
+        //Doit fonctionner
+        Long idProjet = 1L;
+        Boolean resultat = service.ExporterProjet(idProjet);
+        
+        if(resultat)
+            System.out.println("Export avec succès du projet n° " + idProjet);
+        else
+            System.out.println("Echec de l'export du projet n° " + idProjet);
     }
-    */
     
-                //----------------------//
-    
-    /*public static void testerCommencerConsultation() {
-        
-        System.out.println();
-        System.out.println("**** testerCommencerConsultation() ****");
-        System.out.println();
-        
-        Service service = new Service();
-    
-        Client client = service.ListerClients().get(0);
-        Medium medium = service.ListerMediums().get(0);
-        Boolean resulat = service.CommencerConsultation(client, medium);
-        
-        if (resulat) {
-            System.out.println(" => Employé contacté");
-            System.out.println();
-        } else {
-            System.out.println(" => Pas d'employé trouvé pour une consultation");
-            System.out.println();
-        }
-    }*/
-    
-    //Pensez aux scenarii
-    
-//------------------------------------------------------------------------------    
-//-------------------------- METHODES AFFICHAGE -------------------------------
-//------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------    
+    //-------------------------- METHODES AFFICHAGE --------------------------------
+    //------------------------------------------------------------------------------
     
     public static void afficherBasePrixRef(BasePrixRef basePrixRef) {
         System.out.println("-> " + basePrixRef);

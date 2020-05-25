@@ -702,42 +702,6 @@ public class ImportService {
                         rapport += " opération non reconnue";
                         break;
                 }
-                /*if(rapport == null) { //MAJ du descriptif lié
-                    try {
-                        JpaUtil.ouvrirTransaction();
-                        if(attributes[1].equals("AJOUT")) {
-                            if(typeDescriptif.equals("Ouvrage")) {
-                                //ouvrageAModifier = (Ouvrage)descriptifDao.ChercherParId(attributes[2]);
-                                listeBasePrixRef.add(newBasePrixRef);
-                                ouvrageAModifier.setListeBasePrixRefOuvrage(listeBasePrixRef);
-                                descriptifDao.Update(ouvrageAModifier);
-                            } else {
-                                //prestationAModifier = (Prestation)descriptifDao.ChercherParId(attributes[2]);
-                                listeBasePrixRef.add(newBasePrixRef);
-                                prestationAModifier.setListeBasePrixRefPrestation(listeBasePrixRef);
-                                descriptifDao.Update(prestationAModifier);
-                            }
-                        } else {
-                            if(typeDescriptif.equals("Ouvrage")) {
-                                //ouvrageAModifier = (Ouvrage)descriptifDao.ChercherParId(attributes[2]);
-                                //List<BasePrixRef> listeBasePrixRef = ouvrageAModifier.getListeBasePrixRefOuvrage();
-                                listeBasePrixRef.remove(newBasePrixRef);
-                                ouvrageAModifier.setListeBasePrixRefOuvrage(listeBasePrixRef);
-                                descriptifDao.Update(prestationAModifier);
-                            } else {
-                                //prestationAModifier = (Prestation)descriptifDao.ChercherParId(attributes[2]);
-                                //List<BasePrixRef> listeBasePrixRef = prestationAModifier.getListeBasePrixRefPrestation();
-                                listeBasePrixRef.remove(newBasePrixRef);
-                                prestationAModifier.setListeBasePrixRefPrestation(listeBasePrixRef);
-                                descriptifDao.Update(prestationAModifier);
-                            }
-                        }
-                        JpaUtil.validerTransaction();
-                    } catch (Exception e) {
-                        rapport += " | Erreur avec " + attributes[0];
-                        throw new Exception();
-                    }
-                }*/
             }
         } 
         catch (Exception e) {
