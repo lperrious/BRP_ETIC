@@ -51,25 +51,31 @@
                     apparaitra uniquement sur la CCTP
                 </description>
                 <courteDescription>Courte description (pour la DPGF)</courteDescription>
-                <descriptif type="prestation" id="_9" idBD="02_AAA_01_01_02_01">
-                    <nomDescriptif>Depose du complexe d'etancheite</nomDescriptif>
-                    <description>
-                        Une
-                        <b>description détaillée</b>
-                        de
-                        <i>la prestation</i>
-                        . Cette
-                        <u>description</u>
-                        apparaitra uniquement sur la CCTP
-                    </description>
-                    <courteDescription>Courte description (pour la DPGF)</courteDescription>
-                    <ligneChiffrage idLigneChiffrage="1">
-                        <unite>m^2</unite>
-                        <localisation>Batiment A</localisation>
-                        <quantite>25</quantite>
-                        <prixUnitaire>200</prixUnitaire>
-                    </ligneChiffrage>
-                </descriptif>
+                <ligneChiffrage idLigneChiffrage="1">
+                    <unite>m^2</unite>
+                    <localisation>Batiment A</localisation>
+                    <quantite>25</quantite>
+                    <prixUnitaire>200</prixUnitaire>
+                </ligneChiffrage>
+            </descriptif>
+            <descriptif type="prestation" id="_9" idBD="02_AAA_01_01_02_01">
+                <nomDescriptif>Depose du complexe d'etancheite</nomDescriptif>
+                <description>
+                    Une
+                    <b>description détaillée</b>
+                    de
+                    <i>la prestation</i>
+                    . Cette
+                    <u>description</u>
+                    apparaitra uniquement sur la CCTP
+                </description>
+                <courteDescription>Courte description (pour la DPGF)</courteDescription>
+                <ligneChiffrage idLigneChiffrage="1">
+                    <unite>m^2</unite>
+                    <localisation>Batiment A</localisation>
+                    <quantite>25</quantite>
+                    <prixUnitaire>200</prixUnitaire>
+                </ligneChiffrage>
             </descriptif>
             <titre3 id="_10" intitule="Nom titre 3">
                 <titre4 id="_11" intitule="Nom titre 4"></titre4>
