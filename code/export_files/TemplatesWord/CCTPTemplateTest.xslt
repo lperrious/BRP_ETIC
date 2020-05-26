@@ -1300,7 +1300,7 @@
     </xsl:template>
 
     <!-- STYLES -->
-    <xsl:template match="">
+    <xsl:template match="u">
         <!-- Souligné -->
         <w:p w:rsidR="00CD7AAC" w:rsidRPr="0072168C" w:rsidRDefault="00CD7AAC" w:rsidP="00CD7AAC">
             <w:pPr>
@@ -1325,7 +1325,7 @@
         </w:p>
     </xsl:template>
 
-    <xsl:template match="">
+    <xsl:template match="underlineDash">
         <!-- Souligné trait-tillé -->
         <w:p w:rsidR="00CD7AAC" w:rsidRDefault="00CD7AAC" w:rsidP="00CD7AAC">
             <w:pPr>
@@ -1344,7 +1344,7 @@
         </w:p>
     </xsl:template>
 
-    <xsl:template match="">
+    <xsl:template match="i">
         <!-- Italique -->
         <w:p w:rsidR="00CD7AAC" w:rsidRDefault="00CD7AAC" w:rsidP="00CD7AAC">
             <w:pPr>
@@ -1363,7 +1363,7 @@
         </w:p>
     </xsl:template>
 
-    <xsl:template match="">
+    <xsl:template match="italic_underline">
         <!-- Italique souligné -->
         <w:p w:rsidR="00CD7AAC" w:rsidRPr="00610F3C" w:rsidRDefault="00CD7AAC" w:rsidP="00CD7AAC">
             <w:pPr>
@@ -1384,7 +1384,7 @@
         </w:p>
     </xsl:template>
 
-    <xsl:template match="">
+    <xsl:template match="b">
         <!-- Gras -->
         <w:p w:rsidR="00CD7AAC" w:rsidRDefault="00CD7AAC" w:rsidP="00CD7AAC">
             <w:pPr>
@@ -1403,7 +1403,7 @@
         </w:p>
     </xsl:template>
 
-    <xsl:template match="">
+    <xsl:template match="bold_underline">
         <!-- Gras souligné -->
         <w:p w:rsidR="00CD7AAC" w:rsidRPr="00610F3C" w:rsidRDefault="00CD7AAC" w:rsidP="00CD7AAC">
             <w:pPr>
@@ -1424,7 +1424,7 @@
         </w:p>
     </xsl:template>
 
-    <xsl:template match="">
+    <xsl:template match="bold_italic">
         <!-- Gras italique -->
         <w:p w:rsidR="00CD7AAC" w:rsidRDefault="00CD7AAC" w:rsidP="00CD7AAC">
             <w:pPr>
@@ -1445,7 +1445,7 @@
         </w:p>
     </xsl:template>
 
-    <xsl:template match="">
+    <xsl:template match="bold_underline_italic">
         <!-- Gras italique souligné -->
         <w:p w:rsidR="00CD7AAC" w:rsidRPr="007F6E4F" w:rsidRDefault="00CD7AAC" w:rsidP="00CD7AAC">
             <w:pPr>
@@ -1468,7 +1468,7 @@
         </w:p>
     </xsl:template>
 
-    <xsl:template match="">
+    <xsl:template match="li">
         <!-- Puce -->
         <w:p w:rsidR="00CD7AAC" w:rsidRPr="0072168C" w:rsidRDefault="00CD7AAC" w:rsidP="00CD7AAC">
             <w:pPr>
@@ -1484,7 +1484,7 @@
         </w:p>
     </xsl:template>
 
-    <xsl:template match="">
+    <xsl:template match="colorRed">
         <!-- Texte rouge -->
         <w:p w:rsidR="00CD7AAC" w:rsidRDefault="00CD7AAC" w:rsidP="00CD7AAC">
             <w:pPr>
@@ -1505,7 +1505,7 @@
         </w:p>
     </xsl:template>
 
-    <xsl:template match="">
+    <xsl:template match="colorOrange">
         <!-- Texte orange -->
         <w:p w:rsidR="00CD7AAC" w:rsidRDefault="00CD7AAC" w:rsidP="00CD7AAC">
             <w:pPr>
@@ -1524,7 +1524,7 @@
         </w:p>
     </xsl:template>
 
-    <xsl:template match="">
+    <xsl:template match="colorGreen">
         <!-- Texte vert -->
         <w:p w:rsidR="00CD7AAC" w:rsidRDefault="00CD7AAC" w:rsidP="00CD7AAC">
             <w:pPr>
@@ -1543,7 +1543,7 @@
         </w:p>
     </xsl:template>
 
-    <xsl:template match="">
+    <xsl:template match="colorBlue">
         <!-- Texte bleu -->
         <w:p w:rsidR="00CD7AAC" w:rsidRPr="007F6E4F" w:rsidRDefault="00CD7AAC" w:rsidP="00CD7AAC">
             <w:pPr>
@@ -1562,7 +1562,7 @@
         </w:p>
     </xsl:template>
 
-    <xsl:template match="">
+    <xsl:template match="highlightYellow">
         <!-- Texte surligné jaune -->
         <w:p w:rsidR="00CD7AAC" w:rsidRDefault="00CD7AAC" w:rsidP="00CD7AAC">
             <w:pPr>
@@ -1584,7 +1584,7 @@
         </w:p>
     </xsl:template>
 
-    <xsl:template match="">
+    <xsl:template match="highlightCyan">
         <!-- Texte surligné bleu -->
         <w:p w:rsidR="00CD7AAC" w:rsidRDefault="00CD7AAC" w:rsidP="00CD7AAC">
             <w:pPr>
@@ -1606,7 +1606,7 @@
         </w:p>
     </xsl:template>
 
-    <xsl:template match="">
+    <xsl:template match="highlightRed">
         <!-- Texte surligné orange -->
         <w:p w:rsidR="00CD7AAC" w:rsidRDefault="00CD7AAC" w:rsidP="00CD7AAC">
             <w:pPr>
@@ -1630,7 +1630,7 @@
         </w:p>
     </xsl:template>
 
-    <xsl:template match="">
+    <xsl:template match="highlightGreen">
         <!-- Texte surligné vert -->
         <w:p w:rsidR="00CD7AAC" w:rsidRDefault="00CD7AAC" w:rsidP="00CD7AAC">
             <w:pPr>
@@ -1654,7 +1654,7 @@
         </w:p>
     </xsl:template>
 
-    <xsl:template match="">
+    <xsl:template match="highlightMagenta">
         <!-- Texte surligné violet -->
         <w:p w:rsidR="00CD7AAC" w:rsidRDefault="00CD7AAC" w:rsidP="00CD7AAC">
             <w:pPr>
@@ -1679,7 +1679,7 @@
         </w:p>
     </xsl:template>
 
-    <xsl:template match="">
+    <xsl:template match="highlightGrey">
         <!-- Texte surligné gris -->
         <w:p w:rsidR="00AA0B05" w:rsidRPr="00B42E62" w:rsidRDefault="00CD7AAC" w:rsidP="00CD7AAC">
             <w:r w:rsidRPr="00A92514">
