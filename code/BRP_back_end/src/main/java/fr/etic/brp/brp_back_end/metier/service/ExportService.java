@@ -5,6 +5,7 @@ import fr.etic.brp.brp_back_end.dao.ProjetDao;
 import fr.etic.brp.brp_back_end.dao.ProjetXMLDao;
 import fr.etic.brp.brp_back_end.metier.modele.Projet;
 import java.io.File;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.transform.Source;
@@ -12,9 +13,11 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+import java.util.Map;
 
 /**
  *
@@ -25,7 +28,77 @@ public class ExportService {
     protected ProjetXMLDao projetXMLDao = new ProjetXMLDao();
     protected ProjetDao projetDao = new ProjetDao();
     
-    public Boolean ExporterProjet(Long idProjet){
+    Map<String, String> template1 = Map.of("titre1", "T1", "titre2", "Titre 2", "titre3", "T3", "titre4", "Titre 4");
+    
+    public Boolean ExporterProjet(Long idProjet, int choixTemplate){
+        //Création du document word
+        //Traitement
+            //Donner le nom du document : nom du projet
+            //Pour chaque titre1 (getElementsByTagName)
+                //Si titre2
+                    //On insère le titre2
+                    //Pour chaque titre2 (getElementsByTagName)
+                        //Si titre3
+                            //On insère le titre3
+                            //Pour chaque titre3 (getElementsByTagName)
+                                //Si titre4 (getElementsByTagName)
+                                    //On insère le titre4
+                                    //Pour chaque titre4 (getElementsByTagName)
+                                        //On appelle la méthode d'extraction de style de descriptif puis on insère dans le doc
+                                //Si descriptif
+                                    //On appelle la méthode d'extraction de style de descriptif puis on insère dans le doc
+                        //Si descriptif
+                            //On appelle la méthode d'extraction de style de descriptif puis on insère dans le doc
+                //Si descriptif
+                    //On appelle la méthode d'extraction de style de descriptif puis on insère dans le doc
+        //Sortie du document word
+        return null;
+    }
+    
+    public List<XWPFParagraph> ExtractionDescriptif(Element descriptif) {
+        //On extrait nomDescriptif et on le met dans un p
+        //On extrait la description et on le met dans un p
+            //On la parcours (que ce soit des balises un String)
+            //On créer des RUNS en fonction des balises de style
+            //Il faut créer de nouvraux p à chaque fois qu'on rencontre la balise p
+        //On extrait les différents élements de ligneChiffrage et on les mets dans des p
+        return null;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /*public Boolean ExporterProjet(Long idProjet){
         JpaUtil.creerContextePersistance();
         Boolean resultat = false;
 
@@ -107,5 +180,5 @@ public class ExportService {
         }
 
         return resultat;
-    }
+    }*/
 }
