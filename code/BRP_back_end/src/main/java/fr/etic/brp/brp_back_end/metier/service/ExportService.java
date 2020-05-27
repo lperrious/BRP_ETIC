@@ -4,11 +4,11 @@ import fr.etic.brp.brp_back_end.dao.JpaUtil;
 import fr.etic.brp.brp_back_end.dao.ProjetDao;
 import fr.etic.brp.brp_back_end.dao.ProjetXMLDao;
 import fr.etic.brp.brp_back_end.metier.modele.Projet;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
@@ -16,8 +16,11 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import java.util.Map;
+import static org.apache.poi.xwpf.usermodel.UnderlinePatterns.DASH;
+import static org.apache.poi.xwpf.usermodel.UnderlinePatterns.SINGLE;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
+import org.w3c.dom.Node;
 
 /**
  *
@@ -41,12 +44,6 @@ public class ExportService {
         //Mettre ici les différentes templates de style word
 
         try {
-            //Nom de l'export
-            JpaUtil.creerContextePersistance();
-            Projet projet = projetDao.ChercherParId(idProjet);
-            String output = "../export_files/Exports/"+projet.getNomProjet()+".docx"; //Surement à changer lors de l'installation client
-            JpaUtil.fermerContextePersistance();
-            
             //Obtention du document XML
             String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
             Document xml = projetXMLDao.ObtenirDocument(uri);
@@ -57,7 +54,7 @@ public class ExportService {
             switch(choixTemplate) {
                 case 1:
                     template = template1Immutable;
-                    word = new XWPFDocument(new FileInputStream("../export_files/TemplatesWord/Template_CCTP_v0.1.docx"));
+                    word = new XWPFDocument(new FileInputStream("../export_files/TemplatesWord/Template1/Template1_CCTP.docx"));
                     break;
                 default :
                     throw new Exception(); //Template non reconnue
@@ -112,27 +109,36 @@ public class ExportService {
                                         NodeList enfantsTitre4 = enfantsTitre3.item(l).getChildNodes();
                                         for(int m = 0; m < enfantsTitre4.getLength(); m++) {
                                             //descriptif
-                                            /*List<XWPFParagraph> listeParagraphesDescriptif = ExtractionDescriptif((Element)enfantsTitre4.item(m));
-                                            for(int n = 0; n < listeParagraphesDescriptif.size(); n++){
-                                                XWPFParagraph paragraphDescriptif4 = word.createParagraph();
-                                                paragraphDescriptif4.setStyle(template.get("titre5"));
-                                                XWPFRun runDescriptif4 = paragraphDescriptif4.createRun();
-                                                runDescriptif4.setText(listeParagraphesDescriptif.get(n));
-                                            }*/
+                                            //word = ExtractionDescriptif((Element)enfantsTitre4.item(m), word);
                                         }
                                     } else {
                                         //descriptif
+                                        //word = ExtractionDescriptif((Element)enfantsTitre3.item(l), word);
                                     }
                                 }
                             } else {
                                 //descriptif
+                                //word = ExtractionDescriptif((Element)enfantsTitre2.item(k), word);
                             }
                         }
                     } else {
                         //descriptif
+                        //word = ExtractionDescriptif((Element)enfantsTitre1.item(j), word);
                     }
                 }
             }
+            
+            //On créer le dossier d'export du Projet
+            JpaUtil.creerContextePersistance();
+            Projet projet = projetDao.ChercherParId(idProjet);
+            JpaUtil.fermerContextePersistance();
+            Boolean succesCreationDossier = (new File("../export_files/Exports/"+ projet.getNomProjet() + "_" + projet.getIdProjet())).mkdirs();
+            if (!succesCreationDossier) {
+                throw new Exception();
+            }
+            
+            //On nomme le CCTP
+            String output = "../export_files/Exports/" + projet.getNomProjet() + "_" + projet.getIdProjet() + "/" + projet.getNomProjet() + "_CCTP.docx"; //Surement à changer lors de l'installation client
             
             //On écrit en sortie le document WORD
             FileOutputStream out = new FileOutputStream(output);
@@ -148,13 +154,109 @@ public class ExportService {
         return resultat;
     }
     
-    public List<XWPFParagraph> ExtractionDescriptif(Element descriptif) {
+    public XWPFDocument ExtractionDescriptif(Element descriptif, XWPFDocument word) {
         //On extrait nomDescriptif et on le met dans un p
-        //On extrait la description et on le met dans un p
-            //On la parcours (que ce soit des balises un String)
-            //On créer des RUNS en fonction des balises de style
-            //Il faut créer de nouvraux p à chaque fois qu'on rencontre la balise p
+        XWPFParagraph pNomDescriptif = word.createParagraph();
+        //paragraphTitre1.setStyle(template.get("titre1"));       //STYLE BENOIT
+        XWPFRun rNomDescriptif = pNomDescriptif.createRun();
+        rNomDescriptif.setText(descriptif.getElementsByTagName("nomDescriptif").item(0).getTextContent());
+       
+        //pour chaque balise (p ou ul): on selctionne uniquement les balises enfants et on les parcours
+        Element description = (Element) descriptif.getElementsByTagName("description").item(0);
+        NodeList enfantsDescription = description.getChildNodes();
+        for(int i = 0; i<enfantsDescription.getLength(); i++) {
+          if("p".equals(enfantsDescription.item(i).getNodeName())) {        //on traite les balises p
+            XWPFParagraph pDescription = word.createParagraph();
+            Element p = (Element) enfantsDescription.item(i);
+            //on boucle sur les enfants du paragraphe
+            NodeList enfantsP = p.getChildNodes();
+            for(int j = 0; j<enfantsP.getLength(); j++) {
+                XWPFRun rDescritpion = pDescription.createRun();
+                rDescritpion.setText(enfantsP.item(j).getTextContent());
+                if(enfantsP.item(j).getNodeType() == Node.ELEMENT_NODE) {
+                    switch(enfantsP.item(j).getNodeName()){
+                        case "u":
+                            rDescritpion.setUnderline(SINGLE);
+                            break;
+                        case "underlineDash":
+                            rDescritpion.setUnderline(DASH);
+                            break;
+                        case "i":
+                            rDescritpion.setItalic(true);
+                            break;
+                        case "italic_underline":
+                            rDescritpion.setItalic(true);
+                            rDescritpion.setUnderline(SINGLE);
+                            break;
+                        case "b":
+                            rDescritpion.setBold(true);
+                            break;
+                        case "bold_underline":
+                            rDescritpion.setBold(true);
+                            rDescritpion.setUnderline(SINGLE);
+                            break;
+                        case "bold_italic":
+                            rDescritpion.setItalic(true);
+                            rDescritpion.setBold(true);
+                            break;
+                        case "bold_underline_italic":
+                            rDescritpion.setBold(true);
+                            rDescritpion.setItalic(true);
+                            rDescritpion.setUnderline(SINGLE);
+                            break;
+                        case "colorRed":
+                            rDescritpion.setColor("FF0000");
+                            break;
+                        case "colorOrange":
+                            rDescritpion.setColor("E36C0A");
+                            break;
+                        case "colorGreen":
+                            rDescritpion.setColor("00B050");
+                            break;
+                        case "colorBlue":
+                            rDescritpion.setColor("0070C0");
+                            break;
+                        case "highlightYellow":
+                            rDescritpion.setTextHighlightColor("yellow");
+                            break;
+                        case "highlightCyan":
+                            rDescritpion.setTextHighlightColor("cyan");
+                            break;
+                        case "highlightRed":
+                            rDescritpion.setTextHighlightColor("red");
+                            break;
+                        case "highlightGreen":
+                            rDescritpion.setTextHighlightColor("green");
+                            break;
+                        case "highlightMagenta":
+                            rDescritpion.setTextHighlightColor("magenta");
+                            break;
+                        case "highlightGrey":
+                            rDescritpion.setTextHighlightColor("lightGray");
+                            break;  
+                    }
+                }
+            }
+          }				
+        }
+        
+        //STYLES BENOIT + quels éléments de chiffrage devont nous afficher
         //On extrait les différents élements de ligneChiffrage et on les mets dans des p
+        NodeList listeLigneChiffrage = descriptif.getElementsByTagName("ligneChiffrage");
+        for(int i = 0; i < listeLigneChiffrage.getLength(); i++) {
+            //on extrait toutes les informations
+            Element ligneChiffrage = (Element) listeLigneChiffrage.item(i);
+            String unite = ligneChiffrage.getElementsByTagName("unite").item(0).getTextContent();
+            String localisation = ligneChiffrage.getElementsByTagName("localisation").item(0).getTextContent();
+            Double quantite = Double.parseDouble(ligneChiffrage.getElementsByTagName("quantite").item(0).getTextContent());
+            Double prixUnitaire = Double.parseDouble(ligneChiffrage.getElementsByTagName("prixUnitaire").item(0).getTextContent());
+            
+            //on rajoute le paragraphe (Surement à modifier)
+            XWPFParagraph pLigneChiffrage = word.createParagraph();
+            XWPFRun rLigneChiffrage = pLigneChiffrage.createRun();
+            rLigneChiffrage.setText("Unité: "+unite+" / localisation: "+localisation+" / Quantite: "+quantite+" / Prix unitaire: "+prixUnitaire);
+        }  
+         
         return null;
     }
     
