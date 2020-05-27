@@ -710,7 +710,7 @@ public class Service {
             baliseTitre1.setAttribute("id", "_" + nextIdBalise.getTextContent());
             Integer newNextId = Integer.parseInt(nextIdBalise.getTextContent()) + 1;
             nextIdBalise.setTextContent(newNextId.toString());
-            baliseTitre1.setAttribute("intitule", "");
+            baliseTitre1.setAttribute("intitule", "TEST1");
             
             //On place la balise nouvellement créee dans l'arborescence
             if(placement.equals("APPEND"))
@@ -746,7 +746,7 @@ public class Service {
             baliseTitre2.setAttribute("id", "_" + nextIdBalise.getTextContent());
             Integer newNextId = Integer.parseInt(nextIdBalise.getTextContent()) + 1;
             nextIdBalise.setTextContent(newNextId.toString());
-            baliseTitre2.setAttribute("intitule", "");
+            baliseTitre2.setAttribute("intitule", "TEST2");
             
             //On place la balise nouvellement créee dans l'arborescence
             if(placement.equals("APPEND")) {
@@ -784,7 +784,7 @@ public class Service {
             baliseTitre3.setAttribute("id", "_" + nextIdBalise.getTextContent());
             Integer newNextId = Integer.parseInt(nextIdBalise.getTextContent()) + 1;
             nextIdBalise.setTextContent(newNextId.toString());
-            baliseTitre3.setAttribute("intitule", "");
+            baliseTitre3.setAttribute("intitule", "TEST3");
             
             //On place la balise nouvellement créee dans l'arborescence
             if(placement.equals("APPEND")) {
@@ -822,7 +822,7 @@ public class Service {
             baliseTitre4.setAttribute("id", "_" + nextIdBalise.getTextContent());
             Integer newNextId = Integer.parseInt(nextIdBalise.getTextContent()) + 1;
             nextIdBalise.setTextContent(newNextId.toString());
-            baliseTitre4.setAttribute("intitule", "");
+            baliseTitre4.setAttribute("intitule", "TEST4");
             
             //On place la balise nouvellement créee dans l'arborescence
             if(placement.equals("APPEND")) {

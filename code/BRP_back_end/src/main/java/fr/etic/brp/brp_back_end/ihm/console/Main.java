@@ -99,10 +99,10 @@ public class Main {
 //        testerEditerCoeffAdaptProjet();
 //        testerEditerCoeffRaccordementProjet();
 //        testerEditerCategorieConstructionProjet();
-//        testerAjouterTitre1();
-//        testerAjouterTitre2();
-//        testerAjouterTitre3();
-//        testerAjouterTitre4();
+        testerAjouterTitre1();
+        testerAjouterTitre2();
+        testerAjouterTitre3();
+        testerAjouterTitre4();
 //        testerAjouterDescriptif();
 //        testerAjouterLigneChiffrage();
 //        testerCoutSynthese();
@@ -118,7 +118,7 @@ public class Main {
 //        testerModifBaseDescriptif();      
 //        testerModifBasePrixRef();
 
-//        testerExporterProjet();
+        testerExporterProjet();
         
       //----------tests-secondaires------//
       
