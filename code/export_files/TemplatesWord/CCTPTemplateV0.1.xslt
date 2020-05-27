@@ -1302,170 +1302,103 @@
     <!-- STYLES -->
     <xsl:template match="u">
         <!-- Souligné -->
-        <w:p w:rsidR="00CD7AAC" w:rsidRPr="0072168C" w:rsidRDefault="00CD7AAC" w:rsidP="00CD7AAC">
-            <w:pPr>
-                <w:rPr>
-                    <w:u w:val="single" />
-                </w:rPr>
-            </w:pPr>
-            <w:bookmarkStart w:id="6" w:name="_Toc369878728" />
-            <w:bookmarkStart w:id="7" w:name="_Toc386965240" />
-            <w:bookmarkStart w:id="8" w:name="_Toc408940971" />
-            <w:bookmarkEnd w:id="6" />
-            <w:bookmarkEnd w:id="7" />
-            <w:bookmarkEnd w:id="8" />
-            <w:r w:rsidRPr="0072168C">
-                <w:rPr>
-                    <w:u w:val="single" />
-                </w:rPr>
-                <w:t>
-                    <xsl:value-of select="."></xsl:value-of>
-                </w:t>
-            </w:r>
-        </w:p>
+        <w:r>
+            <w:rPr>
+                <w:u w:val="single" />
+            </w:rPr>
+            <w:t xml:space="preserve">
+                <xsl:value-of select="."></xsl:value-of>
+            </w:t>
+        </w:r>
     </xsl:template>
 
     <xsl:template match="underlineDash">
         <!-- Souligné trait-tillé -->
-        <w:p w:rsidR="00CD7AAC" w:rsidRDefault="00CD7AAC" w:rsidP="00CD7AAC">
-            <w:pPr>
-                <w:rPr>
-                    <w:u w:val="dash" />
-                </w:rPr>
-            </w:pPr>
-            <w:r w:rsidRPr="0072168C">
-                <w:rPr>
-                    <w:u w:val="dash" />
-                </w:rPr>
-                <w:t>
-                    <xsl:value-of select="."></xsl:value-of>
-                </w:t>
-            </w:r>
-        </w:p>
+        <w:r>
+            <w:rPr>
+                <w:u w:val="dash" />
+            </w:rPr>
+            <w:t xml:space="preserve">
+                <xsl:value-of select="."></xsl:value-of>
+            </w:t>
+        </w:r>
     </xsl:template>
 
     <xsl:template match="i">
         <!-- Italique -->
-        <w:p w:rsidR="00CD7AAC" w:rsidRDefault="00CD7AAC" w:rsidP="00CD7AAC">
-            <w:pPr>
-                <w:rPr>
-                    <w:i />
-                </w:rPr>
-            </w:pPr>
-            <w:r w:rsidRPr="0072168C">
-                <w:rPr>
-                    <w:i />
-                </w:rPr>
-                <w:t>
-                    <xsl:value-of select="."></xsl:value-of>
-                </w:t>
-            </w:r>
-        </w:p>
+        <w:r>
+            <w:rPr>
+                <w:i />
+            </w:rPr>
+            <w:t xml:space="preserve">
+                <xsl:value-of select="."></xsl:value-of>
+            </w:t>
+        </w:r>
     </xsl:template>
 
     <xsl:template match="italic_underline">
         <!-- Italique souligné -->
-        <w:p w:rsidR="00CD7AAC" w:rsidRPr="00610F3C" w:rsidRDefault="00CD7AAC" w:rsidP="00CD7AAC">
-            <w:pPr>
-                <w:rPr>
-                    <w:i />
-                    <w:u w:val="single" />
-                </w:rPr>
-            </w:pPr>
-            <w:r w:rsidRPr="00610F3C">
-                <w:rPr>
-                    <w:i />
-                    <w:u w:val="single" />
-                </w:rPr>
-                <w:t>
-                    <xsl:value-of select="."></xsl:value-of>
-                </w:t>
-            </w:r>
-        </w:p>
+        <w:r>
+            <w:rPr>
+                <w:i />
+                <w:u w:val="single" />
+            </w:rPr>
+            <w:t xml:space="preserve">
+                <xsl:value-of select="."></xsl:value-of>
+            </w:t>
+        </w:r>
     </xsl:template>
 
     <xsl:template match="b">
         <!-- Gras -->
-        <w:p w:rsidR="00CD7AAC" w:rsidRDefault="00CD7AAC" w:rsidP="00CD7AAC">
-            <w:pPr>
-                <w:rPr>
-                    <w:b />
-                </w:rPr>
-            </w:pPr>
-            <w:r w:rsidRPr="0072168C">
-                <w:rPr>
-                    <w:b />
-                </w:rPr>
-                <w:t>
-                    <xsl:value-of select="."></xsl:value-of>
-                </w:t>
-            </w:r>
-        </w:p>
+        <w:r>
+            <w:rPr>
+                <w:b />
+            </w:rPr>
+            <w:t xml:space="preserve">
+                <xsl:value-of select="."></xsl:value-of>
+            </w:t>
+        </w:r>
     </xsl:template>
 
     <xsl:template match="bold_underline">
         <!-- Gras souligné -->
-        <w:p w:rsidR="00CD7AAC" w:rsidRPr="00610F3C" w:rsidRDefault="00CD7AAC" w:rsidP="00CD7AAC">
-            <w:pPr>
-                <w:rPr>
-                    <w:b />
-                    <w:u w:val="single" />
-                </w:rPr>
-            </w:pPr>
-            <w:r w:rsidRPr="00610F3C">
-                <w:rPr>
-                    <w:b />
-                    <w:u w:val="single" />
-                </w:rPr>
-                <w:t>
-                    <xsl:value-of select="."></xsl:value-of>
-                </w:t>
-            </w:r>
-        </w:p>
+        <w:r>
+            <w:rPr>
+                <w:b />
+                <w:u w:val="single" />
+            </w:rPr>
+            <w:t xml:space="preserve">
+                <xsl:value-of select="."></xsl:value-of>
+            </w:t>
+        </w:r>
     </xsl:template>
 
     <xsl:template match="bold_italic">
         <!-- Gras italique -->
-        <w:p w:rsidR="00CD7AAC" w:rsidRDefault="00CD7AAC" w:rsidP="00CD7AAC">
-            <w:pPr>
-                <w:rPr>
-                    <w:b />
-                    <w:i />
-                </w:rPr>
-            </w:pPr>
-            <w:r w:rsidRPr="00610F3C">
-                <w:rPr>
-                    <w:b />
-                    <w:i />
-                </w:rPr>
-                <w:t>
-                    <xsl:value-of select="."></xsl:value-of>
-                </w:t>
-            </w:r>
-        </w:p>
+        <w:r>
+            <w:rPr>
+                <w:b />
+                <w:i />
+            </w:rPr>
+            <w:t xml:space="preserve">
+                <xsl:value-of select="."></xsl:value-of>
+            </w:t>
+        </w:r>
     </xsl:template>
 
     <xsl:template match="bold_underline_italic">
         <!-- Gras italique souligné -->
-        <w:p w:rsidR="00CD7AAC" w:rsidRPr="007F6E4F" w:rsidRDefault="00CD7AAC" w:rsidP="00CD7AAC">
-            <w:pPr>
-                <w:rPr>
-                    <w:b />
-                    <w:i />
-                    <w:u w:val="single" />
-                </w:rPr>
-            </w:pPr>
-            <w:r w:rsidRPr="00610F3C">
-                <w:rPr>
-                    <w:b />
-                    <w:i />
-                    <w:u w:val="single" />
-                </w:rPr>
-                <w:t>
-                    <xsl:value-of select="."></xsl:value-of>
-                </w:t>
-            </w:r>
-        </w:p>
+        <w:r>
+            <w:rPr>
+                <w:b />
+                <w:i />
+                <w:u w:val="single" />
+            </w:rPr>
+            <w:t xml:space="preserve">
+                <xsl:value-of select="."></xsl:value-of>
+            </w:t>
+        </w:r>
     </xsl:template>
 
     <xsl:template match="li">
@@ -1479,221 +1412,147 @@
                 </w:numPr>
             </w:pPr>
             <w:r w:rsidRPr="0072168C">
-                <w:t>Puce</w:t>
+                <w:t xml:space="preserve">
+                    <xsl:value-of select="."></xsl:value-of>
+                </w:t>
             </w:r>
         </w:p>
     </xsl:template>
 
     <xsl:template match="colorRed">
         <!-- Texte rouge -->
-        <w:p w:rsidR="00CD7AAC" w:rsidRDefault="00CD7AAC" w:rsidP="00CD7AAC">
-            <w:pPr>
-                <w:rPr>
-                    <w:color w:val="FF0000" />
-                </w:rPr>
-            </w:pPr>
-            <w:bookmarkStart w:id="9" w:name="_GoBack" />
-            <w:bookmarkEnd w:id="9" />
-            <w:r w:rsidRPr="00F6658E">
-                <w:rPr>
-                    <w:color w:val="FF0000" />
-                </w:rPr>
-                <w:t>
-                    <xsl:value-of select="."></xsl:value-of>
-                </w:t>
-            </w:r>
-        </w:p>
+        <w:r>
+            <w:rPr>
+                <w:color w:val="FF0000" />
+            </w:rPr>
+            <w:t xml:space="preserve">
+                <xsl:value-of select="."></xsl:value-of>
+            </w:t>
+        </w:r>
     </xsl:template>
 
     <xsl:template match="colorOrange">
         <!-- Texte orange -->
-        <w:p w:rsidR="00CD7AAC" w:rsidRDefault="00CD7AAC" w:rsidP="00CD7AAC">
-            <w:pPr>
-                <w:rPr>
-                    <w:color w:val="E36C0A" w:themeColor="accent6" w:themeShade="BF" />
-                </w:rPr>
-            </w:pPr>
-            <w:r w:rsidRPr="00F6658E">
-                <w:rPr>
-                    <w:color w:val="E36C0A" w:themeColor="accent6" w:themeShade="BF" />
-                </w:rPr>
-                <w:t>
-                    <xsl:value-of select="."></xsl:value-of>
-                </w:t>
-            </w:r>
-        </w:p>
+        <w:r>
+            <w:rPr>
+                <w:color w:val="E36C0A" w:themeColor="accent6" w:themeShade="BF" />
+            </w:rPr>
+            <w:t xml:space="preserve">
+                <xsl:value-of select="."></xsl:value-of>
+            </w:t>
+        </w:r>
     </xsl:template>
 
     <xsl:template match="colorGreen">
         <!-- Texte vert -->
-        <w:p w:rsidR="00CD7AAC" w:rsidRDefault="00CD7AAC" w:rsidP="00CD7AAC">
-            <w:pPr>
-                <w:rPr>
-                    <w:color w:val="00B050" />
-                </w:rPr>
-            </w:pPr>
-            <w:r w:rsidRPr="00F6658E">
-                <w:rPr>
-                    <w:color w:val="00B050" />
-                </w:rPr>
-                <w:t>
-                    <xsl:value-of select="."></xsl:value-of>
-                </w:t>
-            </w:r>
-        </w:p>
+        <w:r>
+            <w:rPr>
+                <w:color w:val="00B050" />
+            </w:rPr>
+            <w:t xml:space="preserve">
+                <xsl:value-of select="."></xsl:value-of>
+            </w:t>
+        </w:r>
     </xsl:template>
 
     <xsl:template match="colorBlue">
         <!-- Texte bleu -->
-        <w:p w:rsidR="00CD7AAC" w:rsidRPr="007F6E4F" w:rsidRDefault="00CD7AAC" w:rsidP="00CD7AAC">
-            <w:pPr>
-                <w:rPr>
-                    <w:color w:val="0070C0" />
-                </w:rPr>
-            </w:pPr>
-            <w:r w:rsidRPr="00610F3C">
-                <w:rPr>
-                    <w:color w:val="0070C0" />
-                </w:rPr>
-                <w:t>
-                    <xsl:value-of select="."></xsl:value-of>
-                </w:t>
-            </w:r>
-        </w:p>
+        <w:r>
+            <w:rPr>
+                <w:color w:val="0070C0" />
+            </w:rPr>
+            <w:t xml:space="preserve">
+                <xsl:value-of select="."></xsl:value-of>
+            </w:t>
+        </w:r>
     </xsl:template>
 
     <xsl:template match="highlightYellow">
         <!-- Texte surligné jaune -->
-        <w:p w:rsidR="00CD7AAC" w:rsidRDefault="00CD7AAC" w:rsidP="00CD7AAC">
-            <w:pPr>
-                <w:rPr>
-                    <w:rFonts w:asciiTheme="majorHAnsi" w:hAnsiTheme="majorHAnsi" />
-                    <w:color w:val="000000" />
-                </w:rPr>
-            </w:pPr>
-            <w:r>
-                <w:rPr>
-                    <w:rFonts w:asciiTheme="majorHAnsi" w:hAnsiTheme="majorHAnsi" />
-                    <w:color w:val="000000" />
-                    <w:highlight w:val="yellow" />
-                </w:rPr>
-                <w:t>
-                    <xsl:value-of select="."></xsl:value-of>
-                </w:t>
-            </w:r>
-        </w:p>
+        <w:r>
+            <w:rPr>
+                <w:rFonts w:asciiTheme="majorHAnsi" w:hAnsiTheme="majorHAnsi" />
+                <w:color w:val="000000" />
+                <w:highlight w:val="yellow" />
+            </w:rPr>
+            <w:t xml:space="preserve">
+                <xsl:value-of select="."></xsl:value-of>
+            </w:t>
+        </w:r>
     </xsl:template>
 
     <xsl:template match="highlightCyan">
         <!-- Texte surligné bleu -->
-        <w:p w:rsidR="00CD7AAC" w:rsidRDefault="00CD7AAC" w:rsidP="00CD7AAC">
-            <w:pPr>
-                <w:rPr>
-                    <w:rFonts w:asciiTheme="majorHAnsi" w:hAnsiTheme="majorHAnsi" />
-                    <w:color w:val="000000" />
-                </w:rPr>
-            </w:pPr>
-            <w:r w:rsidRPr="00682733">
-                <w:rPr>
-                    <w:rFonts w:asciiTheme="majorHAnsi" w:hAnsiTheme="majorHAnsi" />
-                    <w:color w:val="000000" />
-                    <w:highlight w:val="cyan" />
-                </w:rPr>
-                <w:t>
-                    <xsl:value-of select="."></xsl:value-of>
-                </w:t>
-            </w:r>
-        </w:p>
+        <w:r>
+            <w:rPr>
+                <w:rFonts w:asciiTheme="majorHAnsi" w:hAnsiTheme="majorHAnsi" />
+                <w:color w:val="000000" />
+                <w:highlight w:val="cyan" />
+            </w:rPr>
+            <w:t xml:space="preserve">
+                <xsl:value-of select="."></xsl:value-of>
+            </w:t>
+        </w:r>
     </xsl:template>
 
     <xsl:template match="highlightRed">
         <!-- Texte surligné orange -->
-        <w:p w:rsidR="00CD7AAC" w:rsidRDefault="00CD7AAC" w:rsidP="00CD7AAC">
-            <w:pPr>
-                <w:rPr>
-                    <w:rFonts w:asciiTheme="majorHAnsi" w:hAnsiTheme="majorHAnsi" />
-                    <w:color w:val="000000" />
-                    <w:shd w:val="clear" w:color="auto" w:fill="FFC000" />
-                </w:rPr>
-            </w:pPr>
-            <w:r w:rsidRPr="00633E19">
-                <w:rPr>
-                    <w:rFonts w:asciiTheme="majorHAnsi" w:hAnsiTheme="majorHAnsi" />
-                    <w:color w:val="000000" />
-                    <w:highlight w:val="red" />
-                    <w:shd w:val="clear" w:color="auto" w:fill="FFC000" />
-                </w:rPr>
-                <w:t>
-                    <xsl:value-of select="."></xsl:value-of>
-                </w:t>
-            </w:r>
-        </w:p>
+        <w:r>
+            <w:rPr>
+                <w:rFonts w:asciiTheme="majorHAnsi" w:hAnsiTheme="majorHAnsi" />
+                <w:color w:val="000000" />
+                <w:highlight w:val="red" />
+                <w:shd w:val="clear" w:color="auto" w:fill="FFC000" />
+            </w:rPr>
+            <w:t xml:space="preserve">
+                <xsl:value-of select="."></xsl:value-of>
+            </w:t>
+        </w:r>
     </xsl:template>
 
     <xsl:template match="highlightGreen">
         <!-- Texte surligné vert -->
-        <w:p w:rsidR="00CD7AAC" w:rsidRDefault="00CD7AAC" w:rsidP="00CD7AAC">
-            <w:pPr>
-                <w:rPr>
-                    <w:rFonts w:asciiTheme="majorHAnsi" w:hAnsiTheme="majorHAnsi" />
-                    <w:color w:val="000000" />
-                    <w:shd w:val="clear" w:color="auto" w:fill="92D050" />
-                </w:rPr>
-            </w:pPr>
-            <w:r w:rsidRPr="00633E19">
-                <w:rPr>
-                    <w:rFonts w:asciiTheme="majorHAnsi" w:hAnsiTheme="majorHAnsi" />
-                    <w:color w:val="000000" />
-                    <w:highlight w:val="green" />
-                    <w:shd w:val="clear" w:color="auto" w:fill="92D050" />
-                </w:rPr>
-                <w:t>
-                    <xsl:value-of select="."></xsl:value-of>
-                </w:t>
-            </w:r>
-        </w:p>
+        <w:r>
+            <w:rPr>
+                <w:rFonts w:asciiTheme="majorHAnsi" w:hAnsiTheme="majorHAnsi" />
+                <w:color w:val="000000" />
+                <w:highlight w:val="green" />
+                <w:shd w:val="clear" w:color="auto" w:fill="92D050" />
+            </w:rPr>
+            <w:t xml:space="preserve">
+                <xsl:value-of select="."></xsl:value-of>
+            </w:t>
+        </w:r>
     </xsl:template>
 
     <xsl:template match="highlightMagenta">
         <!-- Texte surligné violet -->
-        <w:p w:rsidR="00CD7AAC" w:rsidRDefault="00CD7AAC" w:rsidP="00CD7AAC">
-            <w:pPr>
-                <w:rPr>
-                    <w:rFonts w:asciiTheme="majorHAnsi" w:hAnsiTheme="majorHAnsi" />
-                    <w:color w:val="000000" />
-                    <w:highlight w:val="magenta" />
-                    <w:shd w:val="clear" w:color="auto" w:fill="B2A1C7" w:themeFill="accent4" w:themeFillTint="99" />
-                </w:rPr>
-            </w:pPr>
-            <w:r w:rsidRPr="00633E19">
-                <w:rPr>
-                    <w:rFonts w:asciiTheme="majorHAnsi" w:hAnsiTheme="majorHAnsi" />
-                    <w:color w:val="000000" />
-                    <w:highlight w:val="magenta" />
-                    <w:shd w:val="clear" w:color="auto" w:fill="B2A1C7" w:themeFill="accent4" w:themeFillTint="99" />
-                </w:rPr>
-                <w:t>
-                    <xsl:value-of select="."></xsl:value-of>
-                </w:t>
-            </w:r>
-        </w:p>
+        <w:r>
+            <w:rPr>
+                <w:rFonts w:asciiTheme="majorHAnsi" w:hAnsiTheme="majorHAnsi" />
+                <w:color w:val="000000" />
+                <w:highlight w:val="magenta" />
+                <w:shd w:val="clear" w:color="auto" w:fill="B2A1C7" w:themeFill="accent4" w:themeFillTint="99" />
+            </w:rPr>
+            <w:t xml:space="preserve">
+                <xsl:value-of select="."></xsl:value-of>
+            </w:t>
+        </w:r>
     </xsl:template>
 
     <xsl:template match="highlightGrey">
         <!-- Texte surligné gris -->
-        <w:p w:rsidR="00AA0B05" w:rsidRPr="00B42E62" w:rsidRDefault="00CD7AAC" w:rsidP="00CD7AAC">
-            <w:r w:rsidRPr="00A92514">
-                <w:rPr>
-                    <w:rFonts w:asciiTheme="majorHAnsi" w:hAnsiTheme="majorHAnsi" />
-                    <w:color w:val="000000" />
-                    <w:highlight w:val="lightGray" />
-                    <w:shd w:val="clear" w:color="auto" w:fill="B2A1C7" w:themeFill="accent4" w:themeFillTint="99" />
-                </w:rPr>
-                <w:t>
-                    <xsl:value-of select="."></xsl:value-of>
-                </w:t>
-            </w:r>
-        </w:p>
+        <w:r>
+            <w:rPr>
+                <w:rFonts w:asciiTheme="majorHAnsi" w:hAnsiTheme="majorHAnsi" />
+                <w:color w:val="000000" />
+                <w:highlight w:val="lightGray" />
+                <w:shd w:val="clear" w:color="auto" w:fill="B2A1C7" w:themeFill="accent4" w:themeFillTint="99" />
+            </w:rPr>
+            <w:t xml:space="preserve">
+                <xsl:value-of select="."></xsl:value-of>
+            </w:t>
+        </w:r>
     </xsl:template>
 
 </xsl:stylesheet> <!--
