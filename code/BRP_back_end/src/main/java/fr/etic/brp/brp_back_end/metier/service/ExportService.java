@@ -4,55 +4,131 @@ import fr.etic.brp.brp_back_end.dao.JpaUtil;
 import fr.etic.brp.brp_back_end.dao.ProjetDao;
 import fr.etic.brp.brp_back_end.dao.ProjetXMLDao;
 import fr.etic.brp.brp_back_end.metier.modele.Projet;
-import java.io.File;
+import java.io.FileOutputStream;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.xml.transform.Source;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import java.util.Map;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFRun;
 
 /**
  *
- * @author quentinmarc
+ * @author Quentin MARC & Louis ROB
  */
 public class ExportService {
     
     protected ProjetXMLDao projetXMLDao = new ProjetXMLDao();
     protected ProjetDao projetDao = new ProjetDao();
     
-    Map<String, String> template1 = Map.of("titre1", "T1", "titre2", "Titre 2", "titre3", "T3", "titre4", "Titre 4");
+    Map<String, String> template1 = Map.of("titre1", "Titre1", "titre2", "Titre2", "titre3", "Titre3", "titre4", "Titre4");
+    //Mettre ici les différentes templates de style word
     
-    public Boolean ExporterProjet(Long idProjet, int choixTemplate){
-        //Création du document word
-        //Traitement
-            //Donner le nom du document : nom du projet
-            //Pour chaque titre1 (getElementsByTagName)
-                //Si titre2
-                    //On insère le titre2
-                    //Pour chaque titre2 (getElementsByTagName)
-                        //Si titre3
-                            //On insère le titre3
-                            //Pour chaque titre3 (getElementsByTagName)
-                                //Si titre4 (getElementsByTagName)
-                                    //On insère le titre4
-                                    //Pour chaque titre4 (getElementsByTagName)
-                                        //On appelle la méthode d'extraction de style de descriptif puis on insère dans le doc
-                                //Si descriptif
-                                    //On appelle la méthode d'extraction de style de descriptif puis on insère dans le doc
-                        //Si descriptif
-                            //On appelle la méthode d'extraction de style de descriptif puis on insère dans le doc
-                //Si descriptif
-                    //On appelle la méthode d'extraction de style de descriptif puis on insère dans le doc
-        //Sortie du document word
-        return null;
+    public Boolean ExporterProjet(Long idProjet, int choixTemplate) {
+        Boolean resultat = false;
+        
+        //Choix de la template
+        Map<String, String> template = template1;
+        switch(choixTemplate) {
+            case 1:
+                template = template1;
+                break;
+            default :
+                //Template non reconnue
+                break;
+        }
+        
+        try {
+            //Nom de l'export
+            JpaUtil.creerContextePersistance();
+            //JpaUtil.ouvrirTransaction(); //utile ?
+            Projet projet = projetDao.ChercherParId(idProjet);
+            String output = "../export_files/Exports/"+projet.getNomProjet()+".docx"; //Surement à changer lors de l'installation client
+            //JpaUtil.validerTransaction(); //utile ?
+            JpaUtil.fermerContextePersistance();
+            
+            //Obtention du document XML
+            String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            Document xml = projetXMLDao.ObtenirDocument(uri);
+            
+            //Création du document WORD
+            XWPFDocument word = new XWPFDocument();
+            
+            //TRAITEMENT
+            //Pour chaque titre1
+            NodeList listeTitre1 = xml.getElementsByTagName("titre1");
+            for(int i = 0; i < listeTitre1.getLength(); i++){
+                //On insère le titre1
+                XWPFParagraph paragraphTitre1 = word.createParagraph();
+                paragraphTitre1.setStyle(template.get("titre1"));
+                XWPFRun runTitre1 = paragraphTitre1.createRun();
+                runTitre1.setText(listeTitre1.item(i).getTextContent());
+                
+                //Pour chaque enfant d'un titre1
+                NodeList enfantsTitre1 = listeTitre1.item(i).getChildNodes();
+                for(int j = 0; j < enfantsTitre1.getLength(); j++) {
+                    if(enfantsTitre1.item(j).getNodeName().equals("titre2")) {
+                        //On insère le titre2
+                        XWPFParagraph paragraphTitre2 = word.createParagraph();
+                        paragraphTitre2.setStyle(template.get("titre2"));
+                        XWPFRun runTitre2 = paragraphTitre2.createRun();
+                        runTitre2.setText(enfantsTitre1.item(j).getTextContent());
+                        
+                        //Pour chaque enfant d'un titre2
+                        NodeList enfantsTitre2 = enfantsTitre1.item(j).getChildNodes();
+                        for(int k = 0; k < enfantsTitre2.getLength(); k++) {
+                            if(enfantsTitre2.item(k).getNodeName().equals("titre3")) {
+                                //On insère le titre3
+                                XWPFParagraph paragraphTitre3 = word.createParagraph();
+                                paragraphTitre3.setStyle(template.get("titre3"));
+                                XWPFRun runTitre3 = paragraphTitre2.createRun();
+                                runTitre3.setText(enfantsTitre2.item(k).getTextContent());
+
+                                //Pour chaque enfant d'un titre3
+                                NodeList enfantsTitre3 = enfantsTitre2.item(k).getChildNodes();
+                                for(int l = 0; l < enfantsTitre3.getLength(); l++) {
+                                    if(enfantsTitre3.item(l).getNodeName().equals("titre4")) {
+                                        //On insère le titre4
+                                        XWPFParagraph paragraphTitre4 = word.createParagraph();
+                                        paragraphTitre4.setStyle(template.get("titre4"));
+                                        XWPFRun runTitre4 = paragraphTitre2.createRun();
+                                        runTitre4.setText(enfantsTitre2.item(l).getTextContent());
+
+                                        //Pour chaque enfant d'un titre4
+                                        NodeList enfantsTitre4 = enfantsTitre3.item(l).getChildNodes();
+                                        for(int m = 0; m < enfantsTitre4.getLength(); m++) {
+                                            //descriptif
+                                        }
+                                    } else {
+                                        //descriptif
+                                    }
+                                }
+                            } else {
+                                //descriptif
+                            }
+                        }
+                    } else {
+                        //descriptif
+                    }
+                }
+            }
+            
+            //On écrit en sortie le document WORD
+            FileOutputStream out = new FileOutputStream(output);
+            word.write(out);
+            out.close();
+            word.close();
+            
+            resultat = true; //Si on est arrivé jusque là alors pas d'erreur
+            
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service ExporterProjet(Long idProjet, int choixTemplate)", ex);
+        }
+        return resultat;
     }
     
     public List<XWPFParagraph> ExtractionDescriptif(Element descriptif) {
