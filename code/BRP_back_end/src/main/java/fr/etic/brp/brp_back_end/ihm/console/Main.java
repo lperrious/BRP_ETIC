@@ -1782,7 +1782,8 @@ public class Main {
         
         //Doit fonctionner
         Long idProjet = 1L;
-        Boolean resultat = service.ExporterProjet(idProjet);
+        int choixTemplate = 1;
+        Boolean resultat = service.ExporterProjet(idProjet, choixTemplate);
         
         if(resultat)
             System.out.println("Export avec succès du projet n° " + idProjet);
