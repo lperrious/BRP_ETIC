@@ -41,7 +41,7 @@ public class ExportService {
         template1.put("titre4", "Titre4");
         template1.put("titre5", "Titre5");
         Map<String, String> template1Immutable = Collections.unmodifiableMap(template1);
-        //Mettre ici les différentes templates de style word
+        //Coder ici les différentes templates de style WORD suivant le modèle ci-dessus
 
         try {
             //Obtention du document XML
