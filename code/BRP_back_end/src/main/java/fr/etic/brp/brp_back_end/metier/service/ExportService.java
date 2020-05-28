@@ -7,6 +7,7 @@ import fr.etic.brp.brp_back_end.metier.modele.Projet;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -16,6 +17,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import java.util.Map;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import static org.apache.poi.xwpf.usermodel.UnderlinePatterns.DASH;
 import static org.apache.poi.xwpf.usermodel.UnderlinePatterns.SINGLE;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -59,6 +62,9 @@ public class ExportService {
                 default :
                     throw new Exception(); //Template non reconnue
             }
+            
+            //Création du document EXCEL
+            Workbook excel = new XSSFWorkbook();
             
             //TRAITEMENT
             //Pour chaque titre1
@@ -137,14 +143,17 @@ public class ExportService {
                 throw new Exception();
             }
             
-            //On nomme le CCTP
-            String output = "../export_files/Exports/" + projet.getNomProjet() + "_" + projet.getIdProjet() + "/" + projet.getNomProjet() + "_CCTP.docx"; //Surement à changer lors de l'installation client
-            
-            //On écrit en sortie le document WORD
-            FileOutputStream out = new FileOutputStream(output);
+            //On nomme le CCTP et la DPGF
+            String outputCCTP = "../export_files/Exports/" + projet.getNomProjet() + "_" + projet.getIdProjet() + "/" + projet.getNomProjet() + "_CCTP.docx"; //Surement à changer lors de l'installation client
+            String outputDPGF = "../export_files/Exports/" + projet.getNomProjet() + "_" + projet.getIdProjet() + "/" + projet.getNomProjet() + "_DPGF.xlsx"; //Surement à changer lors de l'installation client
+
+            //On écrit en sortie les documents WORD et EXCEL
+            FileOutputStream out = new FileOutputStream(outputCCTP);
             word.write(out);
             out.close();
             word.close();
+            OutputStream fileOut = new FileOutputStream(outputDPGF);
+            excel.write(fileOut);
             
             resultat = true; //Si on est arrivé jusque là alors pas d'erreur
             
