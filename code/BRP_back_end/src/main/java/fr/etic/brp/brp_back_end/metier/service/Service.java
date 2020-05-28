@@ -881,8 +881,10 @@ public class Service {
           
             Element baliseCourteDescription = xml.createElement("courteDescription");                                                                      
             baliseCourteDescription.appendChild(xml.createTextNode(descriptif.getCourteDescription())); 
+            
             //Remplissage de la balise descriptif
             //ALGO remplissage des tags
+            
             baliseDescriptif.appendChild(baliseNomDescriptif);    
             baliseDescriptif.appendChild(baliseDescription); 
             baliseDescriptif.appendChild(baliseCourteDescription); 

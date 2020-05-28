@@ -20,7 +20,9 @@
 <!ELEMENT prixUnitaire (#PCDATA)>
 <!ELEMENT localisation (#PCDATA)>
 <!ELEMENT quantite (#PCDATA)>
-<!ELEMENT ul (li+)>
+<!ELEMENT p ANY>
+<!ELEMENT li ANY>
+<!ELEMENT normal (#PCDATA)>
 <!ELEMENT u (#PCDATA)>
 <!ELEMENT underlineDash (#PCDATA)>
 <!ELEMENT i (#PCDATA)>

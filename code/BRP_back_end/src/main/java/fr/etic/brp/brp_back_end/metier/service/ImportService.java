@@ -71,9 +71,9 @@ public class ImportService {
                 countRows = 0;
                 String chaineDescription = "";
                 String chaineParagraph = "";
-                String runStyle = "normal";
-                String testingRunStyle = "normal";
-                String oldParaStyle = "p";
+                String runStyle = "";
+                String testingRunStyle = "";
+                Boolean first = true;
                 ArrayList<String> tableau = new ArrayList<String>();
                 List<XWPFTableRow> row = xwpfTable.getRows(); 
                 for (XWPFTableRow xwpfTableRow : row) { 
@@ -90,8 +90,9 @@ public class ImportService {
                                     if(!paragraph.getText().equals("")){
                                         
                                         chaineParagraph = "";
-                                        runStyle = "normal";
+                                        runStyle = "";
                                         
+                                        first = true;
                                         for (XWPFRun run : paragraph.getRuns()) {   //on extrait les runs
                                             
                                             testingRunStyle = "normal";
@@ -142,34 +143,26 @@ public class ImportService {
                                             //si le style est différent de celui d'avant, on ferme le style d'avant et on ouvre le suivant
                                             if(!runStyle.equals(testingRunStyle)){
                                                 //s'il y avait un style avant, on le ferme
-                                                if(!"normal".equals(runStyle)){
+                                                if(!first)
                                                     chaineParagraph += "</"+runStyle+">";
-                                                }
-                                                if(!"normal".equals(testingRunStyle)){
-                                                    chaineParagraph += "<"+testingRunStyle+">"; //on ouvre la nouvelle balise de style
-                                                }
+                                                
+                                                chaineParagraph += "<"+testingRunStyle+">"; //on ouvre la nouvelle balise de style
                                                 chaineParagraph += run.text();
                                                 runStyle = testingRunStyle;
                                             }
                                             else{
                                                 chaineParagraph+= run.text();
                                             }
-                                        }
+                                            first = false;
+                                        }              
                                         
-                                        if(!"normal".equals(runStyle))
-                                            chaineParagraph += "</"+runStyle+">"; //on ferme la dernière balise
+                                        chaineParagraph += "</"+runStyle+">"; //on ferme la dernière balise
                
                                         if("bullet".equals(paragraph.getNumFmt())){
-                                            if("p".equals(oldParaStyle))
-                                               chaineDescription += "<ul>"; 
                                             chaineDescription += "<li>"+chaineParagraph+"</li>"; //verif si fermante
-                                            oldParaStyle = "ul";
                                         }
-                                        else{
-                                            if("ul".equals(oldParaStyle))
-                                               chaineDescription += "</ul>"; 
+                                        else{ 
                                             chaineDescription += "<p>"+chaineParagraph+"</p>";
-                                            oldParaStyle = "p";
                                         }
                                           //chaineDescription += chaineParagraph;
                                     }
