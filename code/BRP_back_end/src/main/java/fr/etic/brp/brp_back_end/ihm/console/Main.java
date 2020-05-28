@@ -99,13 +99,14 @@ public class Main {
 //        testerEditerCoeffAdaptProjet();
 //        testerEditerCoeffRaccordementProjet();
 //        testerEditerCategorieConstructionProjet();
-        testerModifBaseDescriptif();      
+        testerTransformationWordVersExcel();
+//        testerModifBaseDescriptif();
 //        testerModifBasePrixRef();
-        testerAjouterTitre1();
-        testerAjouterTitre2();
-        testerAjouterTitre3();
-        testerAjouterTitre4();
-        testerAjouterDescriptif();
+//        testerAjouterTitre1();
+//        testerAjouterTitre2();
+//        testerAjouterTitre3();
+//        testerAjouterTitre4();
+//        testerAjouterDescriptif();
 //        testerAjouterLigneChiffrage();
 //        testerCoutSynthese();
 //        testerSuppressionBalise();
@@ -119,11 +120,11 @@ public class Main {
 
         //testerExporterProjet();
         
-      //----------tests-secondaires------//
+      //----------Scenarii------//
+        
       
-//        scenarioUnClient();
-//        scenarioPlusieursDemandeConsultation(); //Pour ce scenario pensez à commenter l'initialisation des employes !
-
+      
+        
         JpaUtil.destroy();
         DomUtil.destroy();
     }
@@ -1732,6 +1733,23 @@ public class Main {
 //----------------------------------- Imports  ---------------------------------
 //------------------------------------------------------------------------------
     
+    public static void testerTransformationWordVersExcel(){
+        
+        System.out.println();
+        System.out.println("**** testerTransformationWordVersExcel() ****");
+        System.out.println();
+        
+        ImportService service = new ImportService();
+        
+        String uriWord = "../import_files/baseDescriptifs.docx";
+        Boolean resultat = service.TransformationWordVersExcel(uriWord);
+        
+        if(resultat)
+            System.out.println("Transformation avec succès du document d'import de descriptif vers le document d'import de base de prix");
+        else
+            System.out.println("Echec de la transformation du document d'import de descriptif vers le document d'import de base de prix");
+    }
+    
     public static void testerModifBaseDescriptif(){
         ImportService service = new ImportService();
         String msgSuppr = "";
@@ -1767,7 +1785,7 @@ public class Main {
     
     
     //------------------------------------------------------------------------------
-    //----------------------------------- Imports  ---------------------------------
+    //----------------------------------- Exports  ---------------------------------
     //------------------------------------------------------------------------------
     
     //TODO : Tester en entier avec avec un projet déjà exporté (donc nomProjet etc existants) mais normalement c'est okay

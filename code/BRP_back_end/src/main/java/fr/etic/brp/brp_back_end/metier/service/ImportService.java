@@ -19,14 +19,21 @@ import fr.etic.brp.brp_back_end.metier.modele.Prestation;
 import fr.etic.brp.brp_back_end.metier.modele.SousFamille;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
@@ -510,6 +517,84 @@ public class ImportService {
         }
         
         return msgStatement;
+    }
+    
+    public Boolean TransformationWordVersExcel(String uriWord) {
+        Boolean resultat = false;
+        
+        try {
+            //Import du WORD
+            XWPFDocument word = new XWPFDocument(new FileInputStream(uriWord));
+            
+            //Création du document EXCEL
+            Workbook excel = new XSSFWorkbook();
+            Sheet sheet = excel.createSheet("Nouvel Onglet");
+            //Ajout de l'en-tête des colonnes
+            //Nom (aide operateur);Operation;Ouvrage/Prestation;nbPrixRef;indice BT;quantiteInf;quantiteSup;unite;prixUnitaire;anneeRef
+            Row row = sheet.createRow(0);
+            Cell cellNomDescriptif = row.createCell(0);
+            cellNomDescriptif.setCellValue("Nom (aide operateur)");
+            Cell cellOperation = row.createCell(1);
+            cellOperation.setCellValue("Operation");
+            Cell cellIdDescriptif = row.createCell(2);
+            cellIdDescriptif.setCellValue("Ouvrage/Prestation");
+            Cell cellNbPrixRef = row.createCell(3);
+            cellNbPrixRef.setCellValue("nbPrixRef");
+            Cell cellIndiceBT = row.createCell(4);
+            cellIndiceBT.setCellValue("indice BT");
+            Cell cellQuantiteInf = row.createCell(5);
+            cellQuantiteInf.setCellValue("quantiteInf");
+            Cell cellQuantiteSup = row.createCell(6);
+            cellQuantiteSup.setCellValue("quantiteSup");
+            Cell cellUnite = row.createCell(7);
+            cellUnite.setCellValue("unite");
+            Cell cellPrixUnitaire = row.createCell(8);
+            cellPrixUnitaire.setCellValue("prixUnitaire");
+            Cell cellAnneeRef = row.createCell(9);
+            cellAnneeRef.setCellValue("anneeRef");
+            
+            //TRAITEMENT
+            //Variables pour insertion dans l'EXCEL
+            String idDescriptif;
+            String operation;
+            String nomDescriptif;
+            int nbRow = 1;
+            
+            //Pour chaque tableau du WORD
+            List<XWPFTable> listeTableaux = word.getTables();
+            for (XWPFTable tableau : listeTableaux) {
+                //Si l'élement est un ouvrage/prestation
+                List<XWPFTableRow> listeRows = tableau.getRows();
+                if(listeRows.size() > 2 && (listeRows.get(2).getCell(0).getText().equals("OUVRAGE") || listeRows.get(2).getCell(0).getText().equals("PRESTATION"))) {
+                    //Importer l'id du descriptif
+                    idDescriptif = listeRows.get(0).getCell(0).getText();
+                    //Importer l'opération (AJOUT/SUPPR)
+                    operation = listeRows.get(1).getCell(0).getText();
+                    //Importer le nom du descriptif
+                    nomDescriptif = listeRows.get(3).getCell(0).getText();
+                    
+                    //On ajoute le tuple dans l'EXCEL
+                    row = sheet.createRow(nbRow);
+                    cellNomDescriptif = row.createCell(0);
+                    cellNomDescriptif.setCellValue(nomDescriptif);
+                    cellOperation = row.createCell(1);
+                    cellOperation.setCellValue(operation);
+                    cellIdDescriptif = row.createCell(2);
+                    cellIdDescriptif.setCellValue(idDescriptif);
+                    nbRow++;
+                }
+            }
+            
+            //Sortie de l'EXCEL
+            OutputStream fileOut = new FileOutputStream("../import_files/BasePrixRefImport.xls");
+            excel.write(fileOut);
+            
+            resultat = true;
+            
+        } catch(Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Erreur lors de l'appel au Service TransformationWordVersExcel(String uriWord)", ex);
+        }
+        return resultat;
     }
     
     //TO DO - Essayer sur un jeu de test
