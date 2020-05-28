@@ -880,12 +880,13 @@ public class Service {
             
             
             String descriptionText = descriptif.getDescription();
-            String balise = "";
-            String style = "";
-            String textRun = "";
+            String balisePara = "";
+            String baliseStyle = "";
+            String textParagraphe = "";
             Integer chevronBalise1 = null;
             Integer chevronBalise2 = null;
             Integer fermanteBalise = null;
+            Integer fermanteStyle = null;
             Integer chevronStyle1 = null;
             Integer chevronStyle2 = null;
             
@@ -896,19 +897,35 @@ public class Service {
                 chevronBalise1 = descriptionText.indexOf("<");
                 chevronBalise2 = descriptionText.indexOf(">");
                 //ce qu'il y a entre c'est la première balise (p ou li)
-                balise = descriptionText.substring(chevronBalise1+1,chevronBalise2-chevronBalise1);
+                balisePara = descriptionText.substring(chevronBalise1+1,chevronBalise2-chevronBalise1);
                 //on retire la balise ouvrante du texte
                 descriptionText = descriptionText.substring(chevronBalise2+1);
                 //on cherche la position de la balise fermante
-                fermanteBalise = descriptionText.indexOf("</"+balise+">");
-                //on extrait le texte //BOUCLER ENCORE
-                textRun = descriptionText.substring(0, fermanteBalise);
-                //on crée l'élement de parapgraphe et on l'ajoute
-                Element paraDescription = xml.createElement(balise); 
-                paraDescription.appendChild(xml.createTextNode(textRun));
+                fermanteBalise = descriptionText.indexOf("</"+balisePara+">");
+                //on crée la balise paragraphe
+                Element paraDescription = xml.createElement(balisePara); 
+                //on extrait le texte
+                textParagraphe = descriptionText.substring(0, fermanteBalise);
+                while(textParagraphe.length() > 0){
+                    //sélection du premier guillemet ouvrant et fermant
+                    chevronStyle1 = textParagraphe.indexOf("<");
+                    chevronStyle2 = textParagraphe.indexOf(">");
+                    //ce qu'il y a entre c'est la première balise (p ou li)
+                    baliseStyle = textParagraphe.substring(chevronStyle1+1,chevronStyle2-chevronBalise1);
+                    //on retire la balise ouvrante du texte
+                    textParagraphe = textParagraphe.substring(chevronStyle2+1);
+                    //on cherche la position de la balise fermante
+                    fermanteStyle = textParagraphe.indexOf("</"+baliseStyle+">");
+                    //on crée la balise paragraphe
+                    Element styleDescription = xml.createElement(baliseStyle); 
+                    styleDescription.appendChild(xml.createTextNode(textParagraphe.substring(0, fermanteStyle)));
+                    paraDescription.appendChild(styleDescription); 
+                    textParagraphe = textParagraphe.substring(fermanteStyle+("</"+baliseStyle+">").length());
+                }
+                //on ajoute le paragraphe
                 baliseDescription.appendChild(paraDescription); 
                 //on actualise le texte 
-                descriptionText = descriptionText.substring(fermanteBalise+("</"+balise+">").length());
+                descriptionText = descriptionText.substring(fermanteBalise+("</"+balisePara+">").length());
             }
             
             //Remplissage de la balise descriptif
