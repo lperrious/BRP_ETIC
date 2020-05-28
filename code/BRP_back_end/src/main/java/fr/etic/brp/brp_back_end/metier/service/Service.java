@@ -877,13 +877,45 @@ public class Service {
             Element baliseNomDescriptif = xml.createElement("nomDescriptif");                                                                       
             baliseNomDescriptif.appendChild(xml.createTextNode(descriptif.getNomDescriptif())); 
             Element baliseDescription = xml.createElement("description");                                                                       
-            baliseDescription.appendChild(xml.createTextNode(descriptif.getDescription())); 
-          
-            Element baliseCourteDescription = xml.createElement("courteDescription");                                                                      
-            baliseCourteDescription.appendChild(xml.createTextNode(descriptif.getCourteDescription())); 
+            
+            
+            String descriptionText = descriptif.getDescription();
+            String balise = "";
+            String style = "";
+            String textRun = "";
+            Integer chevronBalise1 = null;
+            Integer chevronBalise2 = null;
+            Integer fermanteBalise = null;
+            Integer chevronStyle1 = null;
+            Integer chevronStyle2 = null;
+            
+            System.out.println(descriptionText);
+            
+            while(descriptionText.length() > 0){
+                //sélection du premier guillemet ouvrant et fermant
+                chevronBalise1 = descriptionText.indexOf("<");
+                chevronBalise2 = descriptionText.indexOf(">");
+                //ce qu'il y a entre c'est la première balise (p ou li)
+                balise = descriptionText.substring(chevronBalise1+1,chevronBalise2-chevronBalise1);
+                //on retire la balise ouvrante du texte
+                descriptionText = descriptionText.substring(chevronBalise2+1);
+                //on cherche la position de la balise fermante
+                fermanteBalise = descriptionText.indexOf("</"+balise+">");
+                //on extrait le texte //BOUCLER ENCORE
+                textRun = descriptionText.substring(0, fermanteBalise);
+                //on crée l'élement de parapgraphe et on l'ajoute
+                Element paraDescription = xml.createElement(balise); 
+                paraDescription.appendChild(xml.createTextNode(textRun));
+                baliseDescription.appendChild(paraDescription); 
+                //on actualise le texte 
+                descriptionText = descriptionText.substring(fermanteBalise+("</"+balise+">").length());
+            }
             
             //Remplissage de la balise descriptif
             //ALGO remplissage des tags
+          
+            Element baliseCourteDescription = xml.createElement("courteDescription");                                                                      
+            baliseCourteDescription.appendChild(xml.createTextNode(descriptif.getCourteDescription())); 
             
             baliseDescriptif.appendChild(baliseNomDescriptif);    
             baliseDescriptif.appendChild(baliseDescription); 
