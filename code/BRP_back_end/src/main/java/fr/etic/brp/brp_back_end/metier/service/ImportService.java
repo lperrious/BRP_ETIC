@@ -171,6 +171,7 @@ public class ImportService {
                                             chaineDescription += "<p>"+chaineParagraph+"</p>";
                                             oldParaStyle = "p";
                                         }
+                                          //chaineDescription += chaineParagraph;
                                     }
                                 }
                                 //System.out.println(chaineDescription);

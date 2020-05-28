@@ -99,11 +99,13 @@ public class Main {
 //        testerEditerCoeffAdaptProjet();
 //        testerEditerCoeffRaccordementProjet();
 //        testerEditerCategorieConstructionProjet();
+        testerModifBaseDescriptif();      
+//        testerModifBasePrixRef();
         testerAjouterTitre1();
         testerAjouterTitre2();
         testerAjouterTitre3();
         testerAjouterTitre4();
-//        testerAjouterDescriptif();
+        testerAjouterDescriptif();
 //        testerAjouterLigneChiffrage();
 //        testerCoutSynthese();
 //        testerSuppressionBalise();
@@ -115,10 +117,7 @@ public class Main {
 //        testerModifierQuantiteDescriptif();      
 //       testerModifierPrixLigneChiffrage();
 
-//        testerModifBaseDescriptif();      
-//        testerModifBasePrixRef();
-
-        testerExporterProjet();
+        //testerExporterProjet();
         
       //----------tests-secondaires------//
       
@@ -372,7 +371,7 @@ public class Main {
         EntityManager em = emf.createEntityManager();        
         
         Generique generique1 = new Generique("02_AAA_01_01_01", "nomDescriptif1", "descriptionGenerique1", "courteDescriptionGenerique1");
-        Ouvrage ouvrage1 = new Ouvrage("02_AAA_01_01_02", "nomOuvrage1", "descriptionOuvrage1", "courteDescriptionOuvrage1");
+        Ouvrage ouvrage1 = new Ouvrage("02_AAA_01_01_02", "nomOuvrage1", "<p><u>Souligné</u></p><p><underlineDash>Souligné trait-tillé</underlineDash></p><p><i>Italique</i></p><p><italic_underline>Italique souligné</italic_underline></p><p><b>Gras</b></p><p><bold_underline>Gras souligné</bold_underline></p><p><bold_italic>Gras italique</bold_italic></p><p><bold_underline_italic>Gras italique souligné</bold_underline_italic></p><ul><li>Puce 1</li><li>Puce 2</li><li>Puce 3</li></ul><p><colorRed>Texte rouge</colorRed></p><p><colorOrange>Texte orange</colorOrange></p><p><colorGreen>Texte vert</colorGreen></p><p><colorBlue>Texte bleu</colorBlue></p><p><highlightYellow>Surligné jaune</highlightYellow></p><p><highlightCyan>Surligné bleu</highlightCyan></p><p><highlightRed>Surligné orange</highlightRed></p><p><highlightGreen>Surligné vert</highlightGreen></p><p><highlightMagenta>Surligné violet</highlightMagenta></p><p><highlightGrey>Surligné gris</highlightGrey></p>", "courteDescriptionOuvrage1");
         Prestation prestation1 = new Prestation("02_AAA_01_01_02_01", "nomPrestation1", "descriptionPrestation1", "courteDescriptionPrestation1");
          
         System.out.println("** Descriptif avant persistance: ");
@@ -1288,7 +1287,7 @@ public class Main {
         
         //Doit fonctionner 
         Long idProjet = 1L;
-        String idDescriptif = "02_AAA_01_01_02_01";
+        String idDescriptif = "02_AAA_01_01_02";
         String placement = "APPEND";
         String idRefPlacement = "_3";
         
@@ -1326,7 +1325,7 @@ public class Main {
         
         //Doit fonctionner (sinsère uniquement dans le premier chapitre)
         Long idProjet = 1L;
-        String idDescriptif = "02_AAA_01_01_02_01";
+        String idDescriptif = "04_AAA_01_01_01";
         
         Boolean resultat = service.AjouterLigneChiffrage(idProjet, idDescriptif);
         if(resultat){
