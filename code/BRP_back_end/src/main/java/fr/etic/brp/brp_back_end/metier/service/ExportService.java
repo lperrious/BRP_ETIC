@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.math.BigInteger;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -21,8 +22,13 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import static org.apache.poi.xwpf.usermodel.UnderlinePatterns.DASH;
 import static org.apache.poi.xwpf.usermodel.UnderlinePatterns.SINGLE;
+import org.apache.poi.xwpf.usermodel.XWPFAbstractNum;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFNumbering;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
+import org.apache.xmlbeans.XmlException;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTAbstractNum;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTNumbering;
 import org.w3c.dom.Node;
 
 /**
@@ -115,21 +121,24 @@ public class ExportService {
                                         NodeList enfantsTitre4 = enfantsTitre3.item(l).getChildNodes();
                                         for(int m = 0; m < enfantsTitre4.getLength(); m++) {
                                             //descriptif
-                                            //word = ExtractionDescriptif((Element)enfantsTitre4.item(m), word);
+                                            word = ExtractionDescriptif((Element)enfantsTitre4.item(m), word);
                                         }
-                                    } else {
+                                    } 
+                                    if(enfantsTitre3.item(l).getNodeName().equals("descriptif")){
                                         //descriptif
-                                        //word = ExtractionDescriptif((Element)enfantsTitre3.item(l), word);
+                                        word = ExtractionDescriptif((Element)enfantsTitre3.item(l), word);
                                     }
                                 }
-                            } else {
+                            } 
+                            if(enfantsTitre2.item(k).getNodeName().equals("descriptif")){
                                 //descriptif
-                                //word = ExtractionDescriptif((Element)enfantsTitre2.item(k), word);
+                                word = ExtractionDescriptif((Element)enfantsTitre2.item(k), word);
                             }
                         }
-                    } else {
+                    } 
+                    if(enfantsTitre1.item(j).getNodeName().equals("descriptif")){
                         //descriptif
-                        //word = ExtractionDescriptif((Element)enfantsTitre1.item(j), word);
+                        word = ExtractionDescriptif((Element)enfantsTitre1.item(j), word);
                     }
                 }
             }
@@ -163,86 +172,91 @@ public class ExportService {
         return resultat;
     }
     
-    public XWPFDocument ExtractionDescriptif(Element descriptif, XWPFDocument word) {
+    public XWPFDocument ExtractionDescriptif(Element descriptif, XWPFDocument word) throws XmlException {
         //On extrait nomDescriptif et on le met dans un p
         XWPFParagraph pNomDescriptif = word.createParagraph();
         //paragraphTitre1.setStyle(template.get("titre1"));       //STYLE BENOIT
         XWPFRun rNomDescriptif = pNomDescriptif.createRun();
         rNomDescriptif.setText(descriptif.getElementsByTagName("nomDescriptif").item(0).getTextContent());
-       
         //pour chaque balise (p ou ul): on selctionne uniquement les balises enfants et on les parcours
         Element description = (Element) descriptif.getElementsByTagName("description").item(0);
         NodeList enfantsDescription = description.getChildNodes();
         for(int i = 0; i<enfantsDescription.getLength(); i++) {
-          if("p".equals(enfantsDescription.item(i).getNodeName())) {        //on traite les balises p
+          if(enfantsDescription.item(i).getNodeType() == Node.ELEMENT_NODE) {        //on traite les balises p
             XWPFParagraph pDescription = word.createParagraph();
+            if(enfantsDescription.item(i).getNodeName().equals("li")){ 
+                pDescription.setStyle("Listepuces");
+                pDescription.setIndentationLeft(700);   //valeur numérique correspondant à l'indentation de base d'une puce
+            }
             Element p = (Element) enfantsDescription.item(i);
             //on boucle sur les enfants du paragraphe
             NodeList enfantsP = p.getChildNodes();
             for(int j = 0; j<enfantsP.getLength(); j++) {
-                XWPFRun rDescritpion = pDescription.createRun();
-                rDescritpion.setText(enfantsP.item(j).getTextContent());
-                if(enfantsP.item(j).getNodeType() == Node.ELEMENT_NODE) {
-                    switch(enfantsP.item(j).getNodeName()){
-                        case "u":
-                            rDescritpion.setUnderline(SINGLE);
-                            break;
-                        case "underlineDash":
-                            rDescritpion.setUnderline(DASH);
-                            break;
-                        case "i":
-                            rDescritpion.setItalic(true);
-                            break;
-                        case "italic_underline":
-                            rDescritpion.setItalic(true);
-                            rDescritpion.setUnderline(SINGLE);
-                            break;
-                        case "b":
-                            rDescritpion.setBold(true);
-                            break;
-                        case "bold_underline":
-                            rDescritpion.setBold(true);
-                            rDescritpion.setUnderline(SINGLE);
-                            break;
-                        case "bold_italic":
-                            rDescritpion.setItalic(true);
-                            rDescritpion.setBold(true);
-                            break;
-                        case "bold_underline_italic":
-                            rDescritpion.setBold(true);
-                            rDescritpion.setItalic(true);
-                            rDescritpion.setUnderline(SINGLE);
-                            break;
-                        case "colorRed":
-                            rDescritpion.setColor("FF0000");
-                            break;
-                        case "colorOrange":
-                            rDescritpion.setColor("E36C0A");
-                            break;
-                        case "colorGreen":
-                            rDescritpion.setColor("00B050");
-                            break;
-                        case "colorBlue":
-                            rDescritpion.setColor("0070C0");
-                            break;
-                        case "highlightYellow":
-                            rDescritpion.setTextHighlightColor("yellow");
-                            break;
-                        case "highlightCyan":
-                            rDescritpion.setTextHighlightColor("cyan");
-                            break;
-                        case "highlightRed":
-                            rDescritpion.setTextHighlightColor("red");
-                            break;
-                        case "highlightGreen":
-                            rDescritpion.setTextHighlightColor("green");
-                            break;
-                        case "highlightMagenta":
-                            rDescritpion.setTextHighlightColor("magenta");
-                            break;
-                        case "highlightGrey":
-                            rDescritpion.setTextHighlightColor("lightGray");
-                            break;  
+                if(enfantsP.item(j).getNodeType() == Node.ELEMENT_NODE){
+                    XWPFRun rDescritpion = pDescription.createRun();
+                    rDescritpion.setText(enfantsP.item(j).getTextContent());
+                    if(enfantsP.item(j).getNodeType() == Node.ELEMENT_NODE) {
+                        switch(enfantsP.item(j).getNodeName()){
+                            case "u":
+                                rDescritpion.setUnderline(SINGLE);
+                                break;
+                            case "underlineDash":
+                                rDescritpion.setUnderline(DASH);
+                                break;
+                            case "i":
+                                rDescritpion.setItalic(true);
+                                break;
+                            case "italic_underline":
+                                rDescritpion.setItalic(true);
+                                rDescritpion.setUnderline(SINGLE);
+                                break;
+                            case "b":
+                                rDescritpion.setBold(true);
+                                break;
+                            case "bold_underline":
+                                rDescritpion.setBold(true);
+                                rDescritpion.setUnderline(SINGLE);
+                                break;
+                            case "bold_italic":
+                                rDescritpion.setItalic(true);
+                                rDescritpion.setBold(true);
+                                break;
+                            case "bold_underline_italic":
+                                rDescritpion.setBold(true);
+                                rDescritpion.setItalic(true);
+                                rDescritpion.setUnderline(SINGLE);
+                                break;
+                            case "colorRed":
+                                rDescritpion.setColor("FF0000");
+                                break;
+                            case "colorOrange":
+                                rDescritpion.setColor("E36C0A");
+                                break;
+                            case "colorGreen":
+                                rDescritpion.setColor("00B050");
+                                break;
+                            case "colorBlue":
+                                rDescritpion.setColor("0070C0");
+                                break;
+                            case "highlightYellow":
+                                rDescritpion.setTextHighlightColor("yellow");
+                                break;
+                            case "highlightCyan":
+                                rDescritpion.setTextHighlightColor("cyan");
+                                break;
+                            case "highlightRed":
+                                rDescritpion.setTextHighlightColor("red");
+                                break;
+                            case "highlightGreen":
+                                rDescritpion.setTextHighlightColor("green");
+                                break;
+                            case "highlightMagenta":
+                                rDescritpion.setTextHighlightColor("magenta");
+                                break;
+                            case "highlightGrey":
+                                rDescritpion.setTextHighlightColor("lightGray");
+                                break;  
+                        }
                     }
                 }
             }
@@ -266,7 +280,7 @@ public class ExportService {
             rLigneChiffrage.setText("Unité: "+unite+" / localisation: "+localisation+" / Quantite: "+quantite+" / Prix unitaire: "+prixUnitaire);
         }  
          
-        return null;
+        return word;
     }
     
     
