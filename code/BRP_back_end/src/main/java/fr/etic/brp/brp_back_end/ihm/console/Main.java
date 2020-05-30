@@ -116,13 +116,35 @@ public class Main {
 //        testerModifierCourteDescriptionDescriptif();
 //        testerModifierLocalisationDescriptif();
 //        testerModifierQuantiteDescriptif();      
-//       testerModifierPrixLigneChiffrage();
+//        testerModifierPrixLigneChiffrage();
 
         //testerExporterProjet();
         
-      //----------Scenarii------//
+      //----------Scenarii----------//
         
+      //Explication du scénario n°1 (classique pour dérouler)
+      // - Importer des Chapitres/Catégories/.../Descriptifs
+      // - Importer des prixRef liés aux Descriptifs
+      // - Créer un utilisateur
+      // - Se connecter
+      // - Créer un Projet n°1
+      // - Ajouter une arbo pour le projet n°1 ainsi que des descriptifs
+      // - Exporter le n°1
+      // - Ajouter un sommaire dans le n°1
       
+      //Explication du scénario n°2 (duplication)
+      // - Importer des Chapitres/Catégories/.../Descriptifs
+      // - Importer des prixRef liés aux Descriptifs
+      // - Créer un Projet n°1
+      // - Dupliquer ce projet en n°2
+      // - Ajouter une arbo pour le projet n°2 ainsi que des descriptifs
+      // - Dupliquer le n°2 en n°3
+      
+      //Explication du scénario n°3 (suppression)
+      // - Importer des Chapitres/Catégories/.../Descriptifs
+      // - Importer des prixRef liés aux Descriptifs
+      // - Supprimer des descriptifs de la BD
+      // - Supprimer des sous-familles/Chapitres etc de la BD
       
         
         JpaUtil.destroy();
