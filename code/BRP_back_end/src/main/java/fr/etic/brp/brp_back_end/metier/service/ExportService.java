@@ -17,7 +17,17 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import java.util.Map;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CreationHelper;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.DefaultIndexedColorMap;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import static org.apache.poi.xwpf.usermodel.UnderlinePatterns.DASH;
 import static org.apache.poi.xwpf.usermodel.UnderlinePatterns.SINGLE;
@@ -67,7 +77,7 @@ public class ExportService {
             //Création du document EXCEL
             Workbook excel = new XSSFWorkbook(new FileInputStream("../export_files/TemplatesExcel/Template1/Template1_DPGF.xlsx"));
             
-            //TRAITEMENT
+            //TRAITEMENT WORD
             //Pour chaque titre1
             NodeList listeTitre1 = xml.getElementsByTagName("titre1");
             for(int i = 0; i < listeTitre1.getLength(); i++){
@@ -137,6 +147,51 @@ public class ExportService {
                 }
             }
             
+            //TRAITEMENT EXCEL
+            CreationHelper createHelper = excel.getCreationHelper(); //Permet de créer le document plus simplement
+            //Pour chaque titre1
+            for(int i = 0; i < listeTitre1.getLength(); i++){
+                //On créer un nouvel lot
+                Sheet sheet = excel.createSheet("Lot_"+(i+1));
+                sheet.autoSizeColumn(0); //adjust width of the first column (pour toutes ?)
+                //On ajoute l'en-tête (ligne grise et ligne bleue)
+                Row enTeteLot = sheet.createRow(0);
+                CellStyle styleEnTeteLot = excel.createCellStyle();
+                styleEnTeteLot.setAlignment(HorizontalAlignment.CENTER);
+                //styleEnTeteLot.setFillForegroundColor(new XSSFColor(new java.awt.Color(128, 0, 128), new DefaultIndexedColorMap()));
+                styleEnTeteLot.setFillForegroundColor((short)1234); /////??????
+                enTeteLot.createCell(0).setCellValue(createHelper.createRichTextString("N° art. CCTP"));
+                enTeteLot.getCell(0).setCellStyle(styleEnTeteLot);
+                enTeteLot.createCell(1).setCellValue(createHelper.createRichTextString("DESIGNATION"));
+                enTeteLot.getCell(1).setCellStyle(styleEnTeteLot);
+                enTeteLot.createCell(2).setCellValue(createHelper.createRichTextString("DESCRIPTION SOMMAIRE \n" + "(se référer à l'article du CCTP)"));
+                enTeteLot.getCell(2).setCellStyle(styleEnTeteLot);
+                enTeteLot.createCell(3).setCellValue(createHelper.createRichTextString("U"));
+                enTeteLot.getCell(3).setCellStyle(styleEnTeteLot);
+                enTeteLot.createCell(4).setCellValue(createHelper.createRichTextString("Q"));
+                enTeteLot.getCell(4).setCellStyle(styleEnTeteLot);
+                enTeteLot.createCell(5).setCellValue(createHelper.createRichTextString("PU"));
+                enTeteLot.getCell(5).setCellStyle(styleEnTeteLot);
+                enTeteLot.createCell(6).setCellValue(createHelper.createRichTextString("Montant HT"));
+                enTeteLot.getCell(6).setCellStyle(styleEnTeteLot);
+                //Pour chaque titre2
+                    //Insérer ligne vide
+                    //On créer un en-tête titre2 (ligne vide puis ligne grise avec l'intitulé)
+                    //Pour chaque titre3
+                        //On créer un tuple (Nom, courte description)
+                        //Si plusieurs lignes chiffrages
+                            //Insérer ce tuple
+                            //Pour chaque ligneChiffrage
+                                //Créer tuple (n°article, localisation à la place du nom surligné en jaune, pas de description, unité, PU, Q et montant HT)
+                        //Sinon
+                            //Continuer le tuple (avec unité, quantité, prix unitaire et montant HT)
+                    //Insérer ligne vide
+                    //Insérer tuple récap titre2 ("SOUS-TOTAL [intitulé tite2]", prix)
+                //Insérer tuple récap titre1 ("SOUS-TOTAL [intitulé titre1]", prix)
+                //Insérer 4 lignes vides
+                //Faire le RECAPITULATIF [n°LOT]
+            }
+
             //On créer le dossier d'export du Projet
             JpaUtil.creerContextePersistance();
             Projet projet = projetDao.ChercherParId(idProjet);
@@ -305,6 +360,15 @@ public class ExportService {
          
         return word;
     }
+    
+    private static void createCell(Workbook wb, Row row, int column, HorizontalAlignment halign, VerticalAlignment valign, String textContent) {
+    Cell cell = row.createCell(column);
+    cell.setCellValue(textContent);
+    CellStyle cellStyle = wb.createCellStyle();
+    cellStyle.setAlignment(halign);
+    cellStyle.setVerticalAlignment(valign);
+    cell.setCellStyle(cellStyle);
+}
     
     
     
