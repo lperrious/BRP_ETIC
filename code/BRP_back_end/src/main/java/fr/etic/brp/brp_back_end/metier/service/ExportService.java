@@ -65,7 +65,7 @@ public class ExportService {
             }
             
             //Création du document EXCEL
-            Workbook excel = new XSSFWorkbook();
+            Workbook excel = new XSSFWorkbook(new FileInputStream("../export_files/TemplatesExcel/Template1/Template1_DPGF.xlsx"));
             
             //TRAITEMENT
             //Pour chaque titre1
