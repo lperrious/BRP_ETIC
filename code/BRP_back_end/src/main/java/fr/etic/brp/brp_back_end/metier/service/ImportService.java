@@ -56,7 +56,7 @@ public class ImportService {
     protected BasePrixRefDao basePrixRefDao = new BasePrixRefDao();
     
     //TO DO
-    public ArrayList<String> ModifBaseDescriptif(){
+    public ArrayList<String> ModifBaseDescriptif(String uriWord){
         
         String idActuel = null;
         Boolean erreur = false;
@@ -68,7 +68,7 @@ public class ImportService {
         
         try {
             //Importer le word
-            FileInputStream fis = new FileInputStream("../import_files/baseDescriptifs.docx");
+            FileInputStream fis = new FileInputStream(uriWord);
             XWPFDocument doc = new XWPFDocument(OPCPackage.open(fis));
             List<XWPFTable> table = doc.getTables();        //on extrait tous les tableaux 
             
@@ -229,10 +229,10 @@ public class ImportService {
                                     categorie = categorieDao.ChercherParId(idActuel);       //idActuel est l'identifiant de l'objet que l'on traite
                                     JpaUtil.ouvrirTransaction();
                                     if(categorie == null){   //on crée la categorie
+                                        System.out.println(docListe.get(i).get(1));
                                         categorie = new Categorie(idActuel, docListe.get(i).get(1));
                                         categorieDao.Creer(categorie);  
-                                    }
-                                    else{   //on modifie l'initule de la categorie
+                                    } else {   //on modifie l'initule de la categorie
                                         categorie.setIntituleCategorie(docListe.get(i).get(1));
                                         categorieDao.Update(categorie);
                                     } 
@@ -293,7 +293,7 @@ public class ImportService {
                         //on traite les ajouts
                         if(docListe.get(i).get(1).equals("AJOUT")){
                             switch(docListe.get(i).get(2)){
-                                case "OUVRAGE": 
+                                case "OUVRAGE":
                                     Ouvrage ouvrage = null;
                                     ouvrage = (Ouvrage) descriptifDao.ChercherParId(idActuel);
                                     JpaUtil.ouvrirTransaction();
@@ -315,7 +315,7 @@ public class ImportService {
                                     sousFamilleDao.Update(sousFamilleParent);
                                     JpaUtil.validerTransaction();
                                     break;
-                                case "GENERIQUE":  
+                                case "GENERIQUE":
                                     Generique generique = null;
                                     generique = (Generique) descriptifDao.ChercherParId(idActuel);
                                     JpaUtil.ouvrirTransaction();
@@ -337,15 +337,15 @@ public class ImportService {
                                     sousFamilleDao.Update(sousFamilleParent2);
                                     JpaUtil.validerTransaction();
                                     break;  
-                                case "PRESTATION":  
+                                case "PRESTATION": 
                                     Prestation prestation = null;
                                     prestation = prestationDao.ChercherParId(idActuel);
                                     JpaUtil.ouvrirTransaction();
-                                    if(prestation == null){   //on crée le chapitre
+                                    if(prestation == null){   //on crée la prestation
                                         prestation = new Prestation(idActuel, docListe.get(i).get(3), docListe.get(i).get(4), docListe.get(i).get(5));
                                         prestationDao.Creer(prestation);
                                     }
-                                    else{   //on modifie le titre du chapitre
+                                    else{   //on modifie le titre de la prestation
                                         prestation.setNomDescriptif(docListe.get(i).get(3));
                                         prestation.setDescription(docListe.get(i).get(4));
                                         prestation.setCourteDescription(docListe.get(i).get(5));
@@ -353,12 +353,13 @@ public class ImportService {
                                     } 
                                     //on va chercher l'ouvrage  parent pour update listeprestation
                                     Ouvrage ouvrageParent = (Ouvrage) descriptifDao.ChercherParId(idActuel.substring(0, idActuel.lastIndexOf('_'))); //on prend idActuel et on retire le dernier _ et ce qu'il y a derrière
+                                    //System.out.println(idActuel + " : " + ouvrageParent);
                                     List<Prestation> listePrestation = ouvrageParent.getListePrestation();
                                     listePrestation.add(prestation);
                                     ouvrageParent.setListePrestation(listePrestation);
                                     descriptifDao.Update(ouvrageParent);
                                     JpaUtil.validerTransaction();
-                                    break; 
+                                    break;
                             }
                         }
                         //on traite les suppressions
@@ -366,8 +367,7 @@ public class ImportService {
                             //on ajoute à la liste de sortie les idnetifiant à supprimer
                             returnListe.add(idActuel);
                         }
-                    }
-                    
+                    } 
                 } catch(Exception ex){
                     returnListe.set(0, "Problème d'insertion dans la base de donnée (problème de format?). ID: "+idActuel);
                     erreur = true;

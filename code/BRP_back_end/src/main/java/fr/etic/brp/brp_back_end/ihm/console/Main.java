@@ -63,16 +63,15 @@ public class Main {
         InitialiserBasePrixRef();
         InitialiserCaractDim();
         InitialiserSousCategorieConstruction();
-//        InitialiserCategorie();
+        InitialiserCategorie();
         InitialiserCategorieConstruction();
         InitialiserCoeffRaccordement();
-//        InitialiserChapitre();
+        InitialiserChapitre();
         InitialiserDescriptif();
-//        InitialiserFamille();
+        InitialiserFamille();
         InitialiserOperateur();
         InitialiserProjets();
-//        InitialiserSousFamille();
-
+        InitialiserSousFamille();
         
     //----------tests-des-services-----------------
     
@@ -90,7 +89,7 @@ public class Main {
 //        testerListerSousCategorieConstructions();
 //        testerListerSousFamilles();
 //        testerAuthentifierOperateur();
-//        testerCreerProjet();
+        testerCreerProjet();
 //        testerRechercherProjetParId();
 //        testerDupliquerProjet();
 //        testerEditerNomProjet();
@@ -99,14 +98,14 @@ public class Main {
 //        testerEditerCoeffAdaptProjet();
 //        testerEditerCoeffRaccordementProjet();
 //        testerEditerCategorieConstructionProjet();
-        testerTransformationWordVersExcel();
+//        testerTransformationWordVersExcel();
 //        testerModifBaseDescriptif();
 //        testerModifBasePrixRef();
-//        testerAjouterTitre1();
-//        testerAjouterTitre2();
-//        testerAjouterTitre3();
-//        testerAjouterTitre4();
-//        testerAjouterDescriptif();
+        testerAjouterTitre1();
+        testerAjouterTitre2();
+        testerAjouterTitre3();
+        testerAjouterTitre4();
+        testerAjouterDescriptif();
 //        testerAjouterLigneChiffrage();
 //        testerCoutSynthese();
 //        testerSuppressionBalise();
@@ -118,7 +117,7 @@ public class Main {
 //        testerModifierQuantiteDescriptif();      
 //        testerModifierPrixLigneChiffrage();
 
-        //testerExporterProjet();
+        testerExporterProjet();
         
       //----------Scenarii----------//
         
@@ -394,7 +393,7 @@ public class Main {
         EntityManager em = emf.createEntityManager();        
         
         Generique generique1 = new Generique("02_AAA_01_01_01", "nomDescriptif1", "descriptionGenerique1", "courteDescriptionGenerique1");
-        Ouvrage ouvrage1 = new Ouvrage("02_AAA_01_01_02", "nomOuvrage1", "<p><normal>Un peu de texte normal et un peu de texte </normal><u>souligné </u><normal>lol</normal></p><p><u>Souligné</u></p><p><underlineDash>Souligné trait-tillé</underlineDash></p><p><i>Italique</i></p><p><italic_underline>Italique souligné</italic_underline></p><p><b>Gras</b></p><p><bold_underline>Gras souligné</bold_underline></p><p><bold_italic>Gras italique</bold_italic></p><p><bold_underline_italic>Gras italique souligné</bold_underline_italic></p><li><normal>Puce 1</normal></li><p><colorRed>Texte rouge</colorRed></p><p><colorOrange>Texte orange</colorOrange></p><p><colorGreen>Texte vert</colorGreen></p><p><colorBlue>Texte bleu</colorBlue></p><p><highlightYellow>Surligné jaune</highlightYellow></p><p><highlightCyan>Surligné bleu</highlightCyan></p><p><highlightRed>Surligné orange</highlightRed></p><p><highlightGreen>Surligné vert</highlightGreen></p><p><highlightMagenta>Surligné violet</highlightMagenta></p><p><highlightGrey>Surligné gris</highlightGrey></p>", "courteDescriptionOuvrage1");
+        Ouvrage ouvrage1 = new Ouvrage("02_AAA_01_01_02", "nomOuvrage1", "<p><normal>Un peu de texte normal et un peu de texte </normal><u>souligné </u><normal>lol</normal></p><p><u>Souligné</u></p><p><underlineDash>Souligné trait-tillé</underlineDash></p><p><i>Italique</i></p><p><italic_underline>Italique souligné</italic_underline></p><p><b>Gras</b></p><p><bold_underline>Gras souligné</bold_underline></p><p><bold_italic>Gras italique</bold_italic></p><p><bold_underline_italic>Gras italique souligné</bold_underline_italic></p><li><normal>Puce 1</normal></li><li><normal>Puce 2</normal></li><p><colorRed>Texte rouge</colorRed></p><p><colorOrange>Texte orange</colorOrange></p><p><colorGreen>Texte vert</colorGreen></p><p><colorBlue>Texte bleu</colorBlue></p><p><highlightYellow>Surligné jaune</highlightYellow></p><p><highlightCyan>Surligné bleu</highlightCyan></p><p><highlightRed>Surligné orange</highlightRed></p><p><highlightGreen>Surligné vert</highlightGreen></p><p><highlightMagenta>Surligné violet</highlightMagenta></p><p><highlightGrey>Surligné gris</highlightGrey></p>", "courteDescriptionOuvrage1");
         Prestation prestation1 = new Prestation("02_AAA_01_01_02_01", "nomPrestation1", "descriptionPrestation1", "courteDescriptionPrestation1");
          
         System.out.println("** Descriptif avant persistance: ");
@@ -1772,13 +1771,17 @@ public class Main {
             System.out.println("Echec de la transformation du document d'import de descriptif vers le document d'import de base de prix");
     }
     
+    //TODO : revoir les strings de sortie (relation avec le front)
+    //niveau commentaire c'est pas clair ...
     public static void testerModifBaseDescriptif(){
+        
         ImportService service = new ImportService();
         String msgSuppr = "";
-        
+        String uriWord = "../import_files/XX_Jeu_Test_BRP_v0.1.docx";
+
         //returnListe[0] = status
         //les autres contiennent les identifiants à supprimer
-        ArrayList<String> returnListe = service.ModifBaseDescriptif();
+        ArrayList<String> returnListe = service.ModifBaseDescriptif(uriWord);
         
         //les ajouts se sont bien passés, on passe aux suppressions
         if(returnListe.get(0).equals("Succes")){

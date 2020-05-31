@@ -23,6 +23,7 @@ import static org.apache.poi.xwpf.usermodel.UnderlinePatterns.DASH;
 import static org.apache.poi.xwpf.usermodel.UnderlinePatterns.SINGLE;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
+import org.apache.xmlbeans.XmlException;
 import org.w3c.dom.Node;
 
 /**
@@ -72,7 +73,6 @@ public class ExportService {
             for(int i = 0; i < listeTitre1.getLength(); i++){
                 //On insère le titre1 
                 XWPFParagraph paragraphTitre1 = word.createParagraph();
-                //System.out.println(word.getStyles().styleExist(template.get("titre1")));
                 paragraphTitre1.setStyle(template.get("titre1"));
                 XWPFRun runTitre1 = paragraphTitre1.createRun();
                 Element titre1 = (Element)listeTitre1.item(i);
@@ -115,21 +115,24 @@ public class ExportService {
                                         NodeList enfantsTitre4 = enfantsTitre3.item(l).getChildNodes();
                                         for(int m = 0; m < enfantsTitre4.getLength(); m++) {
                                             //descriptif
-                                            //word = ExtractionDescriptif((Element)enfantsTitre4.item(m), word);
+                                            word = ExtractionDescriptif((Element)enfantsTitre4.item(m), template.get("titre5"), word);
                                         }
-                                    } else {
+                                    } 
+                                    if(enfantsTitre3.item(l).getNodeName().equals("descriptif")){
                                         //descriptif
-                                        //word = ExtractionDescriptif((Element)enfantsTitre3.item(l), word);
+                                        word = ExtractionDescriptif((Element)enfantsTitre3.item(l), template.get("titre4"), word);
                                     }
                                 }
-                            } else {
+                            } 
+                            if(enfantsTitre2.item(k).getNodeName().equals("descriptif")){
                                 //descriptif
-                                //word = ExtractionDescriptif((Element)enfantsTitre2.item(k), word);
+                                word = ExtractionDescriptif((Element)enfantsTitre2.item(k), template.get("titre3"), word);
                             }
                         }
-                    } else {
+                    } 
+                    if(enfantsTitre1.item(j).getNodeName().equals("descriptif")){
                         //descriptif
-                        //word = ExtractionDescriptif((Element)enfantsTitre1.item(j), word);
+                        word = ExtractionDescriptif((Element)enfantsTitre1.item(j), template.get("titre2"), word);
                     }
                 }
             }
@@ -163,110 +166,144 @@ public class ExportService {
         return resultat;
     }
     
-    public XWPFDocument ExtractionDescriptif(Element descriptif, XWPFDocument word) {
+    public XWPFDocument ExtractionDescriptif(Element descriptif, String style, XWPFDocument word) throws XmlException {
         //On extrait nomDescriptif et on le met dans un p
         XWPFParagraph pNomDescriptif = word.createParagraph();
-        //paragraphTitre1.setStyle(template.get("titre1"));       //STYLE BENOIT
+        pNomDescriptif.setStyle(style);
         XWPFRun rNomDescriptif = pNomDescriptif.createRun();
         rNomDescriptif.setText(descriptif.getElementsByTagName("nomDescriptif").item(0).getTextContent());
-       
-        //pour chaque balise (p ou ul): on selctionne uniquement les balises enfants et on les parcours
+        
+        word.createParagraph(); //Espace entre les paragraphes
+        
+        //On extrait l'unité ou les unités seulement
+        NodeList listeLigneChiffrage = descriptif.getElementsByTagName("ligneChiffrage");
+        for(int i = 0; i < listeLigneChiffrage.getLength(); i++) {
+            
+            Element ligneChiffrage = (Element) listeLigneChiffrage.item(i);
+            String unite = ligneChiffrage.getElementsByTagName("unite").item(0).getTextContent();
+            
+            //Paragraphe unité
+            XWPFParagraph pUnite = word.createParagraph();
+            XWPFRun rUnite = pUnite.createRun();
+            rUnite.setText("Métré = " + unite);
+            rUnite.setUnderline(SINGLE);
+        }
+        
+        word.createParagraph(); //Espace entre les paragraphes
+        
+        //pour chaque balise (p ou ul): on selectionne uniquement les balises enfants et on les parcours
         Element description = (Element) descriptif.getElementsByTagName("description").item(0);
         NodeList enfantsDescription = description.getChildNodes();
         for(int i = 0; i<enfantsDescription.getLength(); i++) {
-          if("p".equals(enfantsDescription.item(i).getNodeName())) {        //on traite les balises p
+          if(enfantsDescription.item(i).getNodeType() == Node.ELEMENT_NODE) {        //on traite les balises p
             XWPFParagraph pDescription = word.createParagraph();
+            if(enfantsDescription.item(i).getNodeName().equals("li")){ 
+                pDescription.setStyle("Listepuces");
+                pDescription.setIndentationLeft(700);   //valeur numérique correspondant à l'indentation de base d'une puce
+            }
             Element p = (Element) enfantsDescription.item(i);
             //on boucle sur les enfants du paragraphe
             NodeList enfantsP = p.getChildNodes();
             for(int j = 0; j<enfantsP.getLength(); j++) {
-                XWPFRun rDescritpion = pDescription.createRun();
-                rDescritpion.setText(enfantsP.item(j).getTextContent());
-                if(enfantsP.item(j).getNodeType() == Node.ELEMENT_NODE) {
-                    switch(enfantsP.item(j).getNodeName()){
-                        case "u":
-                            rDescritpion.setUnderline(SINGLE);
-                            break;
-                        case "underlineDash":
-                            rDescritpion.setUnderline(DASH);
-                            break;
-                        case "i":
-                            rDescritpion.setItalic(true);
-                            break;
-                        case "italic_underline":
-                            rDescritpion.setItalic(true);
-                            rDescritpion.setUnderline(SINGLE);
-                            break;
-                        case "b":
-                            rDescritpion.setBold(true);
-                            break;
-                        case "bold_underline":
-                            rDescritpion.setBold(true);
-                            rDescritpion.setUnderline(SINGLE);
-                            break;
-                        case "bold_italic":
-                            rDescritpion.setItalic(true);
-                            rDescritpion.setBold(true);
-                            break;
-                        case "bold_underline_italic":
-                            rDescritpion.setBold(true);
-                            rDescritpion.setItalic(true);
-                            rDescritpion.setUnderline(SINGLE);
-                            break;
-                        case "colorRed":
-                            rDescritpion.setColor("FF0000");
-                            break;
-                        case "colorOrange":
-                            rDescritpion.setColor("E36C0A");
-                            break;
-                        case "colorGreen":
-                            rDescritpion.setColor("00B050");
-                            break;
-                        case "colorBlue":
-                            rDescritpion.setColor("0070C0");
-                            break;
-                        case "highlightYellow":
-                            rDescritpion.setTextHighlightColor("yellow");
-                            break;
-                        case "highlightCyan":
-                            rDescritpion.setTextHighlightColor("cyan");
-                            break;
-                        case "highlightRed":
-                            rDescritpion.setTextHighlightColor("red");
-                            break;
-                        case "highlightGreen":
-                            rDescritpion.setTextHighlightColor("green");
-                            break;
-                        case "highlightMagenta":
-                            rDescritpion.setTextHighlightColor("magenta");
-                            break;
-                        case "highlightGrey":
-                            rDescritpion.setTextHighlightColor("lightGray");
-                            break;  
+                if(enfantsP.item(j).getNodeType() == Node.ELEMENT_NODE){
+                    XWPFRun rDescritpion = pDescription.createRun();
+                    rDescritpion.setText(enfantsP.item(j).getTextContent());
+                    if(enfantsP.item(j).getNodeType() == Node.ELEMENT_NODE) {
+                        switch(enfantsP.item(j).getNodeName()){
+                            case "u":
+                                rDescritpion.setUnderline(SINGLE);
+                                break;
+                            case "underlineDash":
+                                rDescritpion.setUnderline(DASH);
+                                break;
+                            case "i":
+                                rDescritpion.setItalic(true);
+                                break;
+                            case "italic_underline":
+                                rDescritpion.setItalic(true);
+                                rDescritpion.setUnderline(SINGLE);
+                                break;
+                            case "b":
+                                rDescritpion.setBold(true);
+                                break;
+                            case "bold_underline":
+                                rDescritpion.setBold(true);
+                                rDescritpion.setUnderline(SINGLE);
+                                break;
+                            case "bold_italic":
+                                rDescritpion.setItalic(true);
+                                rDescritpion.setBold(true);
+                                break;
+                            case "bold_underline_italic":
+                                rDescritpion.setBold(true);
+                                rDescritpion.setItalic(true);
+                                rDescritpion.setUnderline(SINGLE);
+                                break;
+                            case "colorRed":
+                                rDescritpion.setColor("FF0000");
+                                break;
+                            case "colorOrange":
+                                rDescritpion.setColor("E36C0A");
+                                break;
+                            case "colorGreen":
+                                rDescritpion.setColor("00B050");
+                                break;
+                            case "colorBlue":
+                                rDescritpion.setColor("0070C0");
+                                break;
+                            case "highlightYellow":
+                                rDescritpion.setTextHighlightColor("yellow");
+                                break;
+                            case "highlightCyan":
+                                rDescritpion.setTextHighlightColor("cyan");
+                                break;
+                            case "highlightRed":
+                                rDescritpion.setTextHighlightColor("red");
+                                break;
+                            case "highlightGreen":
+                                rDescritpion.setTextHighlightColor("green");
+                                break;
+                            case "highlightMagenta":
+                                rDescritpion.setTextHighlightColor("magenta");
+                                break;
+                            case "highlightGrey":
+                                rDescritpion.setTextHighlightColor("lightGray");
+                                break;  
+                        }
                     }
                 }
             }
           }				
         }
         
-        //STYLES BENOIT + quels éléments de chiffrage devont nous afficher
+        word.createParagraph(); //Espace entre les paragraphes
+        
         //On extrait les différents élements de ligneChiffrage et on les mets dans des p
-        NodeList listeLigneChiffrage = descriptif.getElementsByTagName("ligneChiffrage");
         for(int i = 0; i < listeLigneChiffrage.getLength(); i++) {
             //on extrait toutes les informations
             Element ligneChiffrage = (Element) listeLigneChiffrage.item(i);
-            String unite = ligneChiffrage.getElementsByTagName("unite").item(0).getTextContent();
+            //String unite = ligneChiffrage.getElementsByTagName("unite").item(0).getTextContent();
             String localisation = ligneChiffrage.getElementsByTagName("localisation").item(0).getTextContent();
-            Double quantite = Double.parseDouble(ligneChiffrage.getElementsByTagName("quantite").item(0).getTextContent());
-            Double prixUnitaire = Double.parseDouble(ligneChiffrage.getElementsByTagName("prixUnitaire").item(0).getTextContent());
+            //Double quantite = Double.parseDouble(ligneChiffrage.getElementsByTagName("quantite").item(0).getTextContent());
+            //Double prixUnitaire = Double.parseDouble(ligneChiffrage.getElementsByTagName("prixUnitaire").item(0).getTextContent());
             
+            //Paragraphe localisation
+            XWPFParagraph pLocalisation = word.createParagraph();
+            XWPFRun rLocalisation = pLocalisation.createRun();
+            rLocalisation.setText("Localisation : " + localisation);
+            rLocalisation.setColor("7030A0");
+            rLocalisation.setItalic(true);
+            rLocalisation.setBold(true);
+            
+            /*
             //on rajoute le paragraphe (Surement à modifier)
             XWPFParagraph pLigneChiffrage = word.createParagraph();
             XWPFRun rLigneChiffrage = pLigneChiffrage.createRun();
             rLigneChiffrage.setText("Unité: "+unite+" / localisation: "+localisation+" / Quantite: "+quantite+" / Prix unitaire: "+prixUnitaire);
+            */
         }  
          
-        return null;
+        return word;
     }
     
     
