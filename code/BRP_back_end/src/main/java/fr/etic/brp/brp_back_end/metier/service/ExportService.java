@@ -221,269 +221,160 @@ public class ExportService {
         return resultat;
     }
     
-    public XWPFDocument ExtractionDescriptif(Element descriptif, String style, XWPFDocument word) throws XmlException {
-        //On extrait nomDescriptif et on le met dans un p
-        XWPFParagraph pNomDescriptif = word.createParagraph();
-        pNomDescriptif.setStyle(style);
-        XWPFRun rNomDescriptif = pNomDescriptif.createRun();
-        rNomDescriptif.setText(descriptif.getElementsByTagName("nomDescriptif").item(0).getTextContent());
-        
-        word.createParagraph(); //Espace entre les paragraphes
-        
-        //On extrait l'unité ou les unités seulement
-        NodeList listeLigneChiffrage = descriptif.getElementsByTagName("ligneChiffrage");
-        for(int i = 0; i < listeLigneChiffrage.getLength(); i++) {
-            
-            Element ligneChiffrage = (Element) listeLigneChiffrage.item(i);
-            String unite = ligneChiffrage.getElementsByTagName("unite").item(0).getTextContent();
+    public XWPFDocument ExtractionDescriptif(Element descriptif, String style, XWPFDocument word) {
+        try {
+            //On extrait nomDescriptif et on le met dans un p
+            XWPFParagraph pNomDescriptif = word.createParagraph();
+            pNomDescriptif.setStyle(style);
+            XWPFRun rNomDescriptif = pNomDescriptif.createRun();
+            rNomDescriptif.setText(descriptif.getElementsByTagName("nomDescriptif").item(0).getTextContent());
+
+            word.createParagraph(); //Espace entre les paragraphes
+
+            //On extrait l'unité
+            String unite = descriptif.getElementsByTagName("unite").item(0).toString();
             
             //Paragraphe unité
             XWPFParagraph pUnite = word.createParagraph();
             XWPFRun rUnite = pUnite.createRun();
             rUnite.setText("Métré = " + unite);
             rUnite.setUnderline(SINGLE);
-        }
-        
-        word.createParagraph(); //Espace entre les paragraphes
-        
-        //pour chaque balise (p ou ul): on selectionne uniquement les balises enfants et on les parcours
-        Element description = (Element) descriptif.getElementsByTagName("description").item(0);
-        NodeList enfantsDescription = description.getChildNodes();
-        for(int i = 0; i<enfantsDescription.getLength(); i++) {
-          if(enfantsDescription.item(i).getNodeType() == Node.ELEMENT_NODE) {        //on traite les balises p
-            XWPFParagraph pDescription = word.createParagraph();
-            if(enfantsDescription.item(i).getNodeName().equals("li")){ 
-                pDescription.setStyle("Listepuces");
-                pDescription.setIndentationLeft(700);   //valeur numérique correspondant à l'indentation de base d'une puce
-            }
-            Element p = (Element) enfantsDescription.item(i);
-            //on boucle sur les enfants du paragraphe
-            NodeList enfantsP = p.getChildNodes();
-            for(int j = 0; j<enfantsP.getLength(); j++) {
-                if(enfantsP.item(j).getNodeType() == Node.ELEMENT_NODE){
-                    XWPFRun rDescritpion = pDescription.createRun();
-                    rDescritpion.setText(enfantsP.item(j).getTextContent());
-                    if(enfantsP.item(j).getNodeType() == Node.ELEMENT_NODE) {
-                        switch(enfantsP.item(j).getNodeName()){
-                            case "u":
-                                rDescritpion.setUnderline(SINGLE);
-                                break;
-                            case "underlineDash":
-                                rDescritpion.setUnderline(DASH);
-                                break;
-                            case "i":
-                                rDescritpion.setItalic(true);
-                                break;
-                            case "italic_underline":
-                                rDescritpion.setItalic(true);
-                                rDescritpion.setUnderline(SINGLE);
-                                break;
-                            case "b":
-                                rDescritpion.setBold(true);
-                                break;
-                            case "bold_underline":
-                                rDescritpion.setBold(true);
-                                rDescritpion.setUnderline(SINGLE);
-                                break;
-                            case "bold_italic":
-                                rDescritpion.setItalic(true);
-                                rDescritpion.setBold(true);
-                                break;
-                            case "bold_underline_italic":
-                                rDescritpion.setBold(true);
-                                rDescritpion.setItalic(true);
-                                rDescritpion.setUnderline(SINGLE);
-                                break;
-                            case "colorRed":
-                                rDescritpion.setColor("FF0000");
-                                break;
-                            case "colorOrange":
-                                rDescritpion.setColor("E36C0A");
-                                break;
-                            case "colorGreen":
-                                rDescritpion.setColor("00B050");
-                                break;
-                            case "colorBlue":
-                                rDescritpion.setColor("0070C0");
-                                break;
-                            case "highlightYellow":
-                                rDescritpion.setTextHighlightColor("yellow");
-                                break;
-                            case "highlightCyan":
-                                rDescritpion.setTextHighlightColor("cyan");
-                                break;
-                            case "highlightRed":
-                                rDescritpion.setTextHighlightColor("red");
-                                break;
-                            case "highlightGreen":
-                                rDescritpion.setTextHighlightColor("green");
-                                break;
-                            case "highlightMagenta":
-                                rDescritpion.setTextHighlightColor("magenta");
-                                break;
-                            case "highlightGrey":
-                                rDescritpion.setTextHighlightColor("lightGray");
-                                break;  
+
+            word.createParagraph(); //Espace entre les paragraphes
+
+            //pour chaque balise (p ou ul): on selectionne uniquement les balises enfants et on les parcours
+            Element description = (Element) descriptif.getElementsByTagName("description").item(0);
+            NodeList enfantsDescription = description.getChildNodes();
+            for(int i = 0; i<enfantsDescription.getLength(); i++) {
+              if(enfantsDescription.item(i).getNodeType() == Node.ELEMENT_NODE) {        //on traite les balises p
+                XWPFParagraph pDescription = word.createParagraph();
+                if(enfantsDescription.item(i).getNodeName().equals("li")){ 
+                    pDescription.setStyle("Listepuces");
+                    pDescription.setIndentationLeft(700);   //valeur numérique correspondant à l'indentation de base d'une puce
+                }
+                Element p = (Element) enfantsDescription.item(i);
+                //on boucle sur les enfants du paragraphe
+                NodeList enfantsP = p.getChildNodes();
+                for(int j = 0; j<enfantsP.getLength(); j++) {
+                    if(enfantsP.item(j).getNodeType() == Node.ELEMENT_NODE){
+                        XWPFRun rDescritpion = pDescription.createRun();
+                        rDescritpion.setText(enfantsP.item(j).getTextContent());
+                        if(enfantsP.item(j).getNodeType() == Node.ELEMENT_NODE) {
+                            switch(enfantsP.item(j).getNodeName()){
+                                case "u":
+                                    rDescritpion.setUnderline(SINGLE);
+                                    break;
+                                case "underlineDash":
+                                    rDescritpion.setUnderline(DASH);
+                                    break;
+                                case "i":
+                                    rDescritpion.setItalic(true);
+                                    break;
+                                case "italic_underline":
+                                    rDescritpion.setItalic(true);
+                                    rDescritpion.setUnderline(SINGLE);
+                                    break;
+                                case "b":
+                                    rDescritpion.setBold(true);
+                                    break;
+                                case "bold_underline":
+                                    rDescritpion.setBold(true);
+                                    rDescritpion.setUnderline(SINGLE);
+                                    break;
+                                case "bold_italic":
+                                    rDescritpion.setItalic(true);
+                                    rDescritpion.setBold(true);
+                                    break;
+                                case "bold_underline_italic":
+                                    rDescritpion.setBold(true);
+                                    rDescritpion.setItalic(true);
+                                    rDescritpion.setUnderline(SINGLE);
+                                    break;
+                                case "colorRed":
+                                    rDescritpion.setColor("FF0000");
+                                    break;
+                                case "colorOrange":
+                                    rDescritpion.setColor("E36C0A");
+                                    break;
+                                case "colorGreen":
+                                    rDescritpion.setColor("00B050");
+                                    break;
+                                case "colorBlue":
+                                    rDescritpion.setColor("0070C0");
+                                    break;
+                                case "highlightYellow":
+                                    rDescritpion.setTextHighlightColor("yellow");
+                                    break;
+                                case "highlightCyan":
+                                    rDescritpion.setTextHighlightColor("cyan");
+                                    break;
+                                case "highlightRed":
+                                    rDescritpion.setTextHighlightColor("red");
+                                    break;
+                                case "highlightGreen":
+                                    rDescritpion.setTextHighlightColor("green");
+                                    break;
+                                case "highlightMagenta":
+                                    rDescritpion.setTextHighlightColor("magenta");
+                                    break;
+                                case "highlightGrey":
+                                    rDescritpion.setTextHighlightColor("lightGray");
+                                    break;  
+                            }
                         }
                     }
                 }
+              }				
             }
-          }				
+
+            word.createParagraph(); //Espace entre les paragraphes
+
+            //On extrait les différents élements de ligneChiffrage et on les mets dans des p
+            NodeList listeLigneChiffrage = descriptif.getElementsByTagName("ligneChiffrage");
+            if(listeLigneChiffrage.getLength() > 2) {
+                //Paragraphe localisation
+                XWPFParagraph pLocalisation = word.createParagraph();
+                XWPFRun rLocalisation = pLocalisation.createRun();
+                rLocalisation.setText("Localisation : ");
+                rLocalisation.setColor("7030A0");
+                rLocalisation.setItalic(true);
+                rLocalisation.setBold(true);
+                //Puces différentes localisations
+                for(int i = 0; i < listeLigneChiffrage.getLength(); i++) {
+                    Element ligneChiffrage = (Element) listeLigneChiffrage.item(i);
+                    String localisation = ligneChiffrage.getElementsByTagName("localisation").item(0).getTextContent();
+                    XWPFParagraph pPuces = word.createParagraph();
+                    pPuces.setStyle("Listepuces");
+                    pPuces.setIndentationLeft(700);   //valeur numérique correspondant à l'indentation de base d'une puce
+                    XWPFRun rLocalisationPuces = pPuces.createRun();
+                    rLocalisationPuces.setText(localisation);
+                    rLocalisationPuces.setColor("7030A0");
+                    rLocalisationPuces.setItalic(true);
+                    rLocalisationPuces.setBold(true);
+                }
+            } else {
+                Element ligneChiffrage = (Element) listeLigneChiffrage.item(0);
+                String localisation = ligneChiffrage.getElementsByTagName("localisation").item(0).getTextContent();
+                //Paragraphe localisation
+                XWPFParagraph pLocalisation = word.createParagraph();
+                XWPFRun rLocalisation = pLocalisation.createRun();
+                rLocalisation.setText("Localisation : " + localisation);
+                rLocalisation.setColor("7030A0");
+                rLocalisation.setItalic(true);
+                rLocalisation.setBold(true);
+            }
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service ExporterProjet(Long idProjet, int choixTemplate)", ex);
         }
-        
-        word.createParagraph(); //Espace entre les paragraphes
-        
-        //On extrait les différents élements de ligneChiffrage et on les mets dans des p
-        for(int i = 0; i < listeLigneChiffrage.getLength(); i++) {
-            //on extrait toutes les informations
-            Element ligneChiffrage = (Element) listeLigneChiffrage.item(i);
-            //String unite = ligneChiffrage.getElementsByTagName("unite").item(0).getTextContent();
-            String localisation = ligneChiffrage.getElementsByTagName("localisation").item(0).getTextContent();
-            //Double quantite = Double.parseDouble(ligneChiffrage.getElementsByTagName("quantite").item(0).getTextContent());
-            //Double prixUnitaire = Double.parseDouble(ligneChiffrage.getElementsByTagName("prixUnitaire").item(0).getTextContent());
-            
-            //Paragraphe localisation
-            XWPFParagraph pLocalisation = word.createParagraph();
-            XWPFRun rLocalisation = pLocalisation.createRun();
-            rLocalisation.setText("Localisation : " + localisation);
-            rLocalisation.setColor("7030A0");
-            rLocalisation.setItalic(true);
-            rLocalisation.setBold(true);
-            
-            /*
-            //on rajoute le paragraphe (Surement à modifier)
-            XWPFParagraph pLigneChiffrage = word.createParagraph();
-            XWPFRun rLigneChiffrage = pLigneChiffrage.createRun();
-            rLigneChiffrage.setText("Unité: "+unite+" / localisation: "+localisation+" / Quantite: "+quantite+" / Prix unitaire: "+prixUnitaire);
-            */
-        }  
-         
         return word;
     }
     
     private static void createCell(Workbook wb, Row row, int column, HorizontalAlignment halign, VerticalAlignment valign, String textContent) {
-    Cell cell = row.createCell(column);
-    cell.setCellValue(textContent);
-    CellStyle cellStyle = wb.createCellStyle();
-    cellStyle.setAlignment(halign);
-    cellStyle.setVerticalAlignment(valign);
-    cell.setCellStyle(cellStyle);
-}
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    /*public Boolean ExporterProjet(Long idProjet){
-        JpaUtil.creerContextePersistance();
-        Boolean resultat = false;
-
-        try {
-            //Obtention du document
-            String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
-            Document xml = projetXMLDao.ObtenirDocument(uri);
-            
-            Projet projet = projetDao.ChercherParId(idProjet);
-            
-            //Si les balises nomProjet etc. sont présentes ont écrit par dessus sinon on les crée
-            Element nomProjetBalise = (Element) xml.getElementsByTagName("nomProjet").item(0);
-            if(nomProjetBalise != null) { //On suppose que si nomProjet est présent alors les autes sont présentes aussi
-                nomProjetBalise.setTextContent(projet.getNomProjet());
-                Element typeMarche = (Element) xml.getElementsByTagName("typeMarche").item(0);
-                typeMarche.setTextContent(projet.getTypeMarche().toString());
-                Element typeConstruction = (Element) xml.getElementsByTagName("typeConstruction").item(0);
-                typeConstruction.setTextContent(projet.getTypeConstruction().toString());
-                Element typeLot = (Element) xml.getElementsByTagName("typeLot").item(0);
-                typeLot.setTextContent(projet.getTypeLot().toString());
-                Element site = (Element) xml.getElementsByTagName("site").item(0);
-                site.setTextContent(projet.getSite().toString());
-                Element datePrixRef = (Element) xml.getElementsByTagName("datePrixRef").item(0);
-                datePrixRef.setTextContent(projet.getDatePrixRef().toString());
-                Element coeffAdapt = (Element) xml.getElementsByTagName("coeffAdapt").item(0);
-                coeffAdapt.setTextContent(projet.getCoeffAdapt().toString());
-            } else {
-                Element nomProjet = xml.createElement("nomProjet");
-                nomProjet.setTextContent(projet.getNomProjet());
-                Element typeMarche = xml.createElement("typeMarche"); //Si ça fonctionne pas il faut surcharger l'opérateur toString pour TypeMarche (et les autres)
-                typeMarche.setTextContent(projet.getTypeMarche().toString());
-                Element typeConstruction = xml.createElement("typeConstruction");
-                typeConstruction.setTextContent(projet.getTypeConstruction().toString());
-                Element typeLot = xml.createElement("typeLot");
-                typeLot.setTextContent(projet.getTypeLot().toString());
-                Element site = xml.createElement("site");
-                site.setTextContent(projet.getSite().toString());
-                Element datePrixRef = xml.createElement("datePrixRef");
-                datePrixRef.setTextContent(projet.getDatePrixRef().toString()); //Prendre que l'année ?
-                Element coeffAdapt = xml.createElement("coeffAdapt");
-                coeffAdapt.setTextContent(projet.getCoeffAdapt().toString());
-
-                Element root = xml.getDocumentElement();
-                NodeList listeTitre1 = xml.getElementsByTagName("titre1");
-                root.insertBefore(nomProjet, listeTitre1.item(0));  //On insère avant le premier titre1
-                root.insertBefore(typeMarche, listeTitre1.item(0));
-                root.insertBefore(typeConstruction, listeTitre1.item(0));
-                root.insertBefore(typeLot, listeTitre1.item(0));
-                root.insertBefore(site, listeTitre1.item(0));
-                root.insertBefore(datePrixRef, listeTitre1.item(0));
-                root.insertBefore(coeffAdapt, listeTitre1.item(0));
-            }
-            
-            //On écrit par dessus l'ancien XML
-            projetXMLDao.saveXMLContent(xml, uri);
-            
-        } catch (Exception ex) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service d'Export", ex);
-        } finally {
-            JpaUtil.fermerContextePersistance();
-        }
-        
-        //On exporte CCTP(Word) et DPGF(Excel)
-        try {
-            TransformerFactory factory = TransformerFactory.newInstance();
-            
-            Source xsltCCTP = new StreamSource(new File("../export_files/pays_du_monde_tableau_3IF.xsl"));
-            //Source xsltDPGF = new StreamSource(new File("../export_files/pays_du_monde_tableau_3IF.xsl"));
-            Transformer transformerCCTP = factory.newTransformer(xsltCCTP);
-            //Transformer transformerDPGF = factory.newTransformer(xsltDPGF);
-
-            Source xml = new StreamSource(new File("../XMLfiles/countriesTP.xml"));
-            transformerCCTP.transform(xml, new StreamResult(new File("../CCTP/document.xml")));
-            //transformerDPGF.transform(xml, new StreamResult(new File("../CCTP/document.xml")));
-            
-            resultat = true;
-        } catch (Exception ex) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service d'Export", ex);
-        }
-
-        return resultat;
-    }*/
+        Cell cell = row.createCell(column);
+        cell.setCellValue(textContent);
+        CellStyle cellStyle = wb.createCellStyle();
+        cellStyle.setAlignment(halign);
+        cellStyle.setVerticalAlignment(valign);
+        cell.setCellStyle(cellStyle);
+    }
 }

@@ -1,0 +1,18 @@
+﻿Nom (aide operateur);Operation;Ouvrage/Prestation;NbPrixRef;indice BT;quantiteInf;quantiteSup;unite;prixUnitaire;anneeRef
+Bac acier plein support d’étanchéité;AJOUT;04_ETA_01_11_001;1;111.8;0;500;m2;26;2020
+Bac acier plein support d’étanchéité;AJOUT;04_ETA_01_11_001;2;111.8;501;99000;m2;22;2020
+Bac acier plein support d’étanchéité acier galvanisé;AJOUT;04_ETA_01_11_001_001;1;111.8;0;500;m2;26;2020
+Bac acier plein support d’étanchéité acier galvanisé;AJOUT;04_ETA_01_11_001_001;2;111.8;501;99000;m2;22;2020
+Isolation sous étanchéité laine de roche;AJOUT;04_ETA_02_01_001;1;111.8;0;99000;m3;120;2020
+Isolant laine de roche classe B R ≥ 1,5 m2.K/W;AJOUT;04_ETA_02_01_001_001;1;111.8;0;99000;m2;7.5;2020
+Isolation sous étanchéité PIR;AJOUT;04_ETA_02_02_010;1;111.8;0;99000;m3;315;2020
+Isolant PIR R ≥ 2,9 m2.K/W;AJOUT;04_ETA_02_02_010_001;1;111.8;0;99000;m2;24;2020
+Membrane d’étanchéité TPO;AJOUT;04_ETA_03_01_001;1;111.8;0;99000;m2;17;2020
+Membrane d’étanchéité TPO 1.8mm fixé méca;AJOUT;04_ETA_03_01_001_020;1;111.8;0;99000;m2;19;2020
+Bardage acier;AJOUT;06_BAR_01_01_001;1;111.8;0;99000;m2;25;2020
+Bardage acier sinusoïdale;AJOUT;06_BAR_01_01_001_001;1;111.8;0;99000;m2;30;2020
+Bavette basse de bardage;AJOUT;06_BAR_01_01_001_010;1;111.8;0;99000;ml;24;2020
+Raccord d‘angle de bardage;AJOUT;06_BAR_01_01_001_011;1;111.8;0;99000;ml;17;2020
+Encadrement d’ouverture de bardage;AJOUT;06_BAR_01_01_001_012;1;111.8;0;99000;ml;35;2020
+Isolation minérale des bardages;AJOUT;06_BAR_01_10_001;1;111.8;0;99000;m3;120;2020
+Isolant bardage laine de roche R ≥ 3,2 m2.K/W;AJOUT;06_BAR_01_10_001_001;1;111.8;0;99000;m2;17;2020

@@ -963,7 +963,7 @@ public class Service {
                     }
                 }
                 
-                Element baliseUnite = xml.createElement("unite");                                                                       
+                Element baliseUnite = xml.createElement("unite");                                                                   
                 baliseUnite.appendChild(xml.createTextNode(listeBasePrixRef.get(indiceRef).getUnite())); 
                 
                 Element baliseLigneChiffrage = xml.createElement("ligneChiffrage"); 
@@ -973,11 +973,11 @@ public class Service {
                 Element balisePrixUnitaire = xml.createElement("prixUnitaire");                                                                       
                 balisePrixUnitaire.appendChild(xml.createTextNode(listeBasePrixRef.get(indiceRef).getPrixUnitaire().toString())); 
                 baliseQuantite.appendChild(xml.createTextNode(quantite.toString()));
-                baliseLigneChiffrage.appendChild(baliseUnite);
                 baliseLigneChiffrage.appendChild(baliseLocalisation);
                 baliseLigneChiffrage.appendChild(baliseQuantite);
                 baliseLigneChiffrage.appendChild(balisePrixUnitaire);
                 
+                baliseDescriptif.appendChild(baliseUnite);
                 baliseDescriptif.appendChild(baliseLigneChiffrage); 
             }
             

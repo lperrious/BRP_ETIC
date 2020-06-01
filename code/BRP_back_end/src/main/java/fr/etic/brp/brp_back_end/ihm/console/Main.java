@@ -60,18 +60,18 @@ public class Main {
     //------------initialisations------------------
     
         // A faire tout le temps (l'ordre est important)
-        InitialiserBasePrixRef();
-        InitialiserCaractDim();
-        InitialiserSousCategorieConstruction();
-        InitialiserCategorie();
-        InitialiserCategorieConstruction();
-        InitialiserCoeffRaccordement();
-        InitialiserChapitre();
-        InitialiserDescriptif();
-        InitialiserFamille();
-        InitialiserOperateur();
-        InitialiserProjets();
-        InitialiserSousFamille();
+//        InitialiserBasePrixRef();
+//        InitialiserCaractDim();
+//        InitialiserSousCategorieConstruction();
+//        InitialiserCategorie();
+//        InitialiserCategorieConstruction();
+//        InitialiserCoeffRaccordement();
+//        InitialiserChapitre();
+//        InitialiserDescriptif();
+//        InitialiserFamille();
+//        InitialiserOperateur();
+//        InitialiserProjets();
+//        InitialiserSousFamille();
         
     //----------tests-des-services-----------------
     
@@ -89,7 +89,7 @@ public class Main {
 //        testerListerSousCategorieConstructions();
 //        testerListerSousFamilles();
 //        testerAuthentifierOperateur();
-        testerCreerProjet();
+//        testerCreerProjet();
 //        testerRechercherProjetParId();
 //        testerDupliquerProjet();
 //        testerEditerNomProjet();
@@ -99,13 +99,13 @@ public class Main {
 //        testerEditerCoeffRaccordementProjet();
 //        testerEditerCategorieConstructionProjet();
 //        testerTransformationWordVersExcel();
-//        testerModifBaseDescriptif();
-//        testerModifBasePrixRef();
-        testerAjouterTitre1();
-        testerAjouterTitre2();
-        testerAjouterTitre3();
-        testerAjouterTitre4();
-        testerAjouterDescriptif();
+        testerModifBaseDescriptif();
+        testerModifBasePrixRef();
+//        testerAjouterTitre1();
+//        testerAjouterTitre2();
+//        testerAjouterTitre3();
+//        testerAjouterTitre4();
+//        testerAjouterDescriptif();
 //        testerAjouterLigneChiffrage();
 //        testerCoutSynthese();
 //        testerSuppressionBalise();
@@ -117,7 +117,7 @@ public class Main {
 //        testerModifierQuantiteDescriptif();      
 //        testerModifierPrixLigneChiffrage();
 
-        testerExporterProjet();
+//        testerExporterProjet();
         
       //----------Scenarii----------//
         
@@ -1777,7 +1777,7 @@ public class Main {
         
         ImportService service = new ImportService();
         String msgSuppr = "";
-        String uriWord = "../import_files/XX_Jeu_Test_BRP_v0.1.docx";
+        String uriWord = "../import_files/XX_Jeu_Test_BRP_v0.2.docx";
 
         //returnListe[0] = status
         //les autres contiennent les identifiants à supprimer
@@ -1804,7 +1804,9 @@ public class Main {
     
     public static void testerModifBasePrixRef(){
         ImportService service = new ImportService();
-        String msgState = service.ModifBasePrixRef();
+        
+        String uriExcel = "../import_files/templateBasePrix_jeau_test_0.2.csv";
+        String msgState = service.ModifBasePrixRef(uriExcel);
         System.out.println(msgState);
     }
     
@@ -1813,7 +1815,6 @@ public class Main {
     //----------------------------------- Exports  ---------------------------------
     //------------------------------------------------------------------------------
     
-    //TODO : Tester en entier avec avec un projet déjà exporté (donc nomProjet etc existants) mais normalement c'est okay
     public static void testerExporterProjet(){
         
         System.out.println();

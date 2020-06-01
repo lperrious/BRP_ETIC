@@ -51,8 +51,8 @@
                     apparaitra uniquement sur la CCTP
                 </description>
                 <courteDescription>Courte description (pour la DPGF)</courteDescription>
+                <unite>m^2</unite>
                 <ligneChiffrage idLigneChiffrage="1">
-                    <unite>m^2</unite>
                     <localisation>Batiment A</localisation>
                     <quantite>25</quantite>
                     <prixUnitaire>200</prixUnitaire>
@@ -70,8 +70,8 @@
                     apparaitra uniquement sur la CCTP
                 </description>
                 <courteDescription>Courte description (pour la DPGF)</courteDescription>
+                <unite>m^2</unite>
                 <ligneChiffrage idLigneChiffrage="1">
-                    <unite>m^2</unite>
                     <localisation>Batiment A</localisation>
                     <quantite>25</quantite>
                     <prixUnitaire>200</prixUnitaire>

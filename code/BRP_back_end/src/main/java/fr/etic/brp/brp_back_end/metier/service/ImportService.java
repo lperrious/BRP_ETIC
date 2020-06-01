@@ -55,7 +55,6 @@ public class ImportService {
     protected PrestationDao prestationDao = new PrestationDao();
     protected BasePrixRefDao basePrixRefDao = new BasePrixRefDao();
     
-    //TO DO
     public ArrayList<String> ModifBaseDescriptif(String uriWord){
         
         String idActuel = null;
@@ -598,7 +597,7 @@ public class ImportService {
     }
     
     //TO DO - Essayer sur un jeu de test
-    public String ModifBasePrixRef(){
+    public String ModifBasePrixRef(String uriExcel){
         //Importer le CSV
         //Parser le document cas par cas (ajout OU suppr) en sautant la premiere ligne
         //Si suppr alors on delete dans la BD - ????
@@ -610,8 +609,6 @@ public class ImportService {
         JpaUtil.creerContextePersistance();
         
         String rapport = null;
-        //Input file which needs to be parsed
-        String fileToParse = "../import_files/ModifBasePrixRef.csv";
         BufferedReader fileReader = null;
          
         //Delimiter used in CSV file
@@ -619,7 +616,7 @@ public class ImportService {
         try
         {
             //Create the file reader
-            fileReader = new BufferedReader(new FileReader(fileToParse));
+            fileReader = new BufferedReader(new FileReader(uriExcel));
              
             //We skip the first line then we read the file line by line
             String line = fileReader.readLine();
@@ -630,7 +627,7 @@ public class ImportService {
                 
                 //On cherche à savoir s'il s'agit d'un ouvrage ou d'une prestation
                 String typeDescriptif = null;
-                if(attributes[2].length() == 15)
+                if(attributes[2].length() == 16) //16 caractères dans un ID d'ouvrage 
                     typeDescriptif = "Ouvrage";
                 else
                     typeDescriptif = "Prestation";

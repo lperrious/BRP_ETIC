@@ -4,8 +4,8 @@
 <!ELEMENT titre2 ANY>
 <!ELEMENT titre3 ANY>
 <!ELEMENT titre4 ANY>
-<!ELEMENT descriptif (nomDescriptif, description, courteDescription, ligneChiffrage*)>
-<!ELEMENT ligneChiffrage (unite, localisation, quantite, prixUnitaire)>
+<!ELEMENT descriptif (nomDescriptif, description, courteDescription, unite?, ligneChiffrage*)>
+<!ELEMENT ligneChiffrage (localisation, quantite, prixUnitaire)>
 <!ELEMENT nomProjet (#PCDATA)>
 <!ELEMENT typeMarche (#PCDATA)>
 <!ELEMENT typeConstruction (#PCDATA)>
