@@ -17,17 +17,24 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import java.util.Map;
+import java.util.TreeMap;
+import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CreationHelper;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.DefaultIndexedColorMap;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFColor;
+import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import static org.apache.poi.xwpf.usermodel.UnderlinePatterns.DASH;
 import static org.apache.poi.xwpf.usermodel.UnderlinePatterns.SINGLE;
@@ -44,6 +51,31 @@ public class ExportService {
     
     protected ProjetXMLDao projetXMLDao = new ProjetXMLDao();
     protected ProjetDao projetDao = new ProjetDao();
+    
+    private final static TreeMap<Integer, String> map = new TreeMap<Integer, String>();
+    static {
+        map.put(1000, "M");
+        map.put(900, "CM");
+        map.put(500, "D");
+        map.put(400, "CD");
+        map.put(100, "C");
+        map.put(90, "XC");
+        map.put(50, "L");
+        map.put(40, "XL");
+        map.put(10, "X");
+        map.put(9, "IX");
+        map.put(5, "V");
+        map.put(4, "IV");
+        map.put(1, "I");
+    }
+    //Permet la conversion en chiffres romains
+    public final static String toRoman(int number) {
+        int l =  map.floorKey(number);
+        if ( number == l ) {
+            return map.get(number);
+        }
+        return map.get(l) + toRoman(number-l);
+    }
     
     public Boolean ExporterProjet(Long idProjet, int choixTemplate) {
         Boolean resultat = false;
@@ -79,7 +111,7 @@ public class ExportService {
             
             //TRAITEMENT WORD
             //Pour chaque titre1
-            NodeList listeTitre1 = xml.getElementsByTagName("titre1");
+            NodeList listeTitre1 = xml.getElementsByTagName("titre1");/*
             for(int i = 0; i < listeTitre1.getLength(); i++){
                 //On insère le titre1 
                 XWPFParagraph paragraphTitre1 = word.createParagraph();
@@ -146,34 +178,58 @@ public class ExportService {
                     }
                 }
             }
-            
+            */
             //TRAITEMENT EXCEL
             CreationHelper createHelper = excel.getCreationHelper(); //Permet de créer le document plus simplement
             //Pour chaque titre1
             for(int i = 0; i < listeTitre1.getLength(); i++){
                 //On créer un nouvel lot
                 Sheet sheet = excel.createSheet("Lot_"+(i+1));
-                sheet.autoSizeColumn(0); //adjust width of the first column (pour toutes ?)
                 //On ajoute l'en-tête (ligne grise et ligne bleue)
+                //Ligne grise
                 Row enTeteLot = sheet.createRow(0);
-                CellStyle styleEnTeteLot = excel.createCellStyle();
-                styleEnTeteLot.setAlignment(HorizontalAlignment.CENTER);
-                //styleEnTeteLot.setFillForegroundColor(new XSSFColor(new java.awt.Color(128, 0, 128), new DefaultIndexedColorMap()));
-                styleEnTeteLot.setFillForegroundColor((short)1234); /////??????
+                CellStyle styleEnTeteLotLigneGrise = excel.createCellStyle();
+                styleEnTeteLotLigneGrise.setAlignment(HorizontalAlignment.CENTER);
+                styleEnTeteLotLigneGrise.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+                styleEnTeteLotLigneGrise.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+                styleEnTeteLotLigneGrise = createBorderedStyle(styleEnTeteLotLigneGrise);
+                Font fontEnTeteLigneGrise = excel.createFont();
+                fontEnTeteLigneGrise.setBold(true);
+                styleEnTeteLotLigneGrise.setFont(fontEnTeteLigneGrise);
                 enTeteLot.createCell(0).setCellValue(createHelper.createRichTextString("N° art. CCTP"));
-                enTeteLot.getCell(0).setCellStyle(styleEnTeteLot);
+                enTeteLot.getCell(0).setCellStyle(styleEnTeteLotLigneGrise);
                 enTeteLot.createCell(1).setCellValue(createHelper.createRichTextString("DESIGNATION"));
-                enTeteLot.getCell(1).setCellStyle(styleEnTeteLot);
+                enTeteLot.getCell(1).setCellStyle(styleEnTeteLotLigneGrise);
                 enTeteLot.createCell(2).setCellValue(createHelper.createRichTextString("DESCRIPTION SOMMAIRE \n" + "(se référer à l'article du CCTP)"));
-                enTeteLot.getCell(2).setCellStyle(styleEnTeteLot);
+                enTeteLot.getCell(2).setCellStyle(styleEnTeteLotLigneGrise);
                 enTeteLot.createCell(3).setCellValue(createHelper.createRichTextString("U"));
-                enTeteLot.getCell(3).setCellStyle(styleEnTeteLot);
+                enTeteLot.getCell(3).setCellStyle(styleEnTeteLotLigneGrise);
                 enTeteLot.createCell(4).setCellValue(createHelper.createRichTextString("Q"));
-                enTeteLot.getCell(4).setCellStyle(styleEnTeteLot);
+                enTeteLot.getCell(4).setCellStyle(styleEnTeteLotLigneGrise);
                 enTeteLot.createCell(5).setCellValue(createHelper.createRichTextString("PU"));
-                enTeteLot.getCell(5).setCellStyle(styleEnTeteLot);
+                enTeteLot.getCell(5).setCellStyle(styleEnTeteLotLigneGrise);
                 enTeteLot.createCell(6).setCellValue(createHelper.createRichTextString("Montant HT"));
-                enTeteLot.getCell(6).setCellStyle(styleEnTeteLot);
+                enTeteLot.getCell(6).setCellStyle(styleEnTeteLotLigneGrise);
+                //Ligne bleue
+                enTeteLot = sheet.createRow(1);
+                Font fontEnTeteLigneBleue = excel.createFont();
+                fontEnTeteLigneBleue.setBold(true);
+                fontEnTeteLigneBleue.setFontHeightInPoints((short)14);
+                CellStyle styleEnTeteLotLigneBleue = excel.createCellStyle();
+                styleEnTeteLotLigneBleue.setFillForegroundColor(IndexedColors.PALE_BLUE.getIndex()); //Trouver une couleur plus proche ?
+                styleEnTeteLotLigneBleue.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+                styleEnTeteLotLigneBleue.setFont(fontEnTeteLigneBleue);
+                styleEnTeteLotLigneBleue = createBorderedStyle(styleEnTeteLotLigneBleue);
+                enTeteLot.createCell(0).setCellValue(createHelper.createRichTextString(toRoman(i+1)));
+                enTeteLot.getCell(0).setCellStyle(styleEnTeteLotLigneBleue);
+                enTeteLot.createCell(1).setCellValue(createHelper.createRichTextString("PROGRAMME DE BASE"));
+                enTeteLot.getCell(1).setCellStyle(styleEnTeteLotLigneBleue);
+                sheet.addMergedRegion(new CellRangeAddress(
+                        1, //first row (0-based)
+                        1, //last row  (0-based)
+                        1, //first column (0-based)
+                        6  //last column  (0-based)
+                ));
                 //Pour chaque titre2
                     //Insérer ligne vide
                     //On créer un en-tête titre2 (ligne vide puis ligne grise avec l'intitulé)
@@ -190,6 +246,13 @@ public class ExportService {
                 //Insérer tuple récap titre1 ("SOUS-TOTAL [intitulé titre1]", prix)
                 //Insérer 4 lignes vides
                 //Faire le RECAPITULATIF [n°LOT]
+                sheet.autoSizeColumn(0);
+                sheet.autoSizeColumn(1);
+                sheet.autoSizeColumn(2);
+                sheet.autoSizeColumn(3);
+                sheet.autoSizeColumn(4);
+                sheet.autoSizeColumn(5);
+                sheet.autoSizeColumn(6);
             }
 
             //On créer le dossier d'export du Projet
@@ -369,12 +432,15 @@ public class ExportService {
         return word;
     }
     
-    private static void createCell(Workbook wb, Row row, int column, HorizontalAlignment halign, VerticalAlignment valign, String textContent) {
-        Cell cell = row.createCell(column);
-        cell.setCellValue(textContent);
-        CellStyle cellStyle = wb.createCellStyle();
-        cellStyle.setAlignment(halign);
-        cellStyle.setVerticalAlignment(valign);
-        cell.setCellStyle(cellStyle);
+    private static CellStyle createBorderedStyle(CellStyle style) {
+        style.setBorderRight(BorderStyle.THIN);
+        style.setRightBorderColor(IndexedColors.BLACK.getIndex());
+        style.setBorderBottom(BorderStyle.THIN);
+        style.setBottomBorderColor(IndexedColors.BLACK.getIndex());
+        style.setBorderLeft(BorderStyle.THIN);
+        style.setLeftBorderColor(IndexedColors.BLACK.getIndex());
+        style.setBorderTop(BorderStyle.THIN);
+        style.setTopBorderColor(IndexedColors.BLACK.getIndex());
+        return style;
     }
 }

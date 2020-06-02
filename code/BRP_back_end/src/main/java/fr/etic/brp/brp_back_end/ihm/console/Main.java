@@ -60,18 +60,18 @@ public class Main {
     //------------initialisations------------------
     
         // A faire tout le temps (l'ordre est important)
-//        InitialiserBasePrixRef();
-//        InitialiserCaractDim();
-//        InitialiserSousCategorieConstruction();
-//        InitialiserCategorie();
-//        InitialiserCategorieConstruction();
-//        InitialiserCoeffRaccordement();
-//        InitialiserChapitre();
-//        InitialiserDescriptif();
-//        InitialiserFamille();
-//        InitialiserOperateur();
-//        InitialiserProjets();
-//        InitialiserSousFamille();
+        InitialiserBasePrixRef();
+        InitialiserCaractDim();
+        InitialiserSousCategorieConstruction();
+        InitialiserCategorie();
+        InitialiserCategorieConstruction();
+        InitialiserCoeffRaccordement();
+        InitialiserChapitre();
+        InitialiserDescriptif();
+        InitialiserFamille();
+        InitialiserOperateur();
+        InitialiserProjets();
+        InitialiserSousFamille();
         
     //----------tests-des-services-----------------
     
@@ -89,7 +89,7 @@ public class Main {
 //        testerListerSousCategorieConstructions();
 //        testerListerSousFamilles();
 //        testerAuthentifierOperateur();
-//        testerCreerProjet();
+        testerCreerProjet();
 //        testerRechercherProjetParId();
 //        testerDupliquerProjet();
 //        testerEditerNomProjet();
@@ -99,13 +99,13 @@ public class Main {
 //        testerEditerCoeffRaccordementProjet();
 //        testerEditerCategorieConstructionProjet();
 //        testerTransformationWordVersExcel();
-        testerModifBaseDescriptif();
-        testerModifBasePrixRef();
-//        testerAjouterTitre1();
-//        testerAjouterTitre2();
-//        testerAjouterTitre3();
-//        testerAjouterTitre4();
-//        testerAjouterDescriptif();
+//        testerModifBaseDescriptif();
+//        testerModifBasePrixRef();
+        testerAjouterTitre1();
+        testerAjouterTitre2();
+        testerAjouterTitre3();
+        testerAjouterTitre4();
+        testerAjouterDescriptif();
 //        testerAjouterLigneChiffrage();
 //        testerCoutSynthese();
 //        testerSuppressionBalise();
@@ -117,7 +117,7 @@ public class Main {
 //        testerModifierQuantiteDescriptif();      
 //        testerModifierPrixLigneChiffrage();
 
-//        testerExporterProjet();
+        testerExporterProjet();
         
       //----------Scenarii----------//
         
