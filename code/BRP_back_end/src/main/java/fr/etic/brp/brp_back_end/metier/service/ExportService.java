@@ -181,79 +181,43 @@ public class ExportService {
             */
             //TRAITEMENT EXCEL
             CreationHelper createHelper = excel.getCreationHelper(); //Permet de créer le document plus simplement
+            
             //Pour chaque titre1
-            for(int i = 0; i < listeTitre1.getLength(); i++){
-                //On créer un nouvel lot
-                Sheet sheet = excel.createSheet("Lot_"+(i+1));
-                //On ajoute l'en-tête (ligne grise et ligne bleue)
-                //Ligne grise
-                Row enTeteLot = sheet.createRow(0);
-                CellStyle styleEnTeteLotLigneGrise = excel.createCellStyle();
-                styleEnTeteLotLigneGrise.setAlignment(HorizontalAlignment.CENTER);
-                styleEnTeteLotLigneGrise.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-                styleEnTeteLotLigneGrise.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-                styleEnTeteLotLigneGrise = createBorderedStyle(styleEnTeteLotLigneGrise);
-                Font fontEnTeteLigneGrise = excel.createFont();
-                fontEnTeteLigneGrise.setBold(true);
-                styleEnTeteLotLigneGrise.setFont(fontEnTeteLigneGrise);
-                enTeteLot.createCell(0).setCellValue(createHelper.createRichTextString("N° art. CCTP"));
-                enTeteLot.getCell(0).setCellStyle(styleEnTeteLotLigneGrise);
-                enTeteLot.createCell(1).setCellValue(createHelper.createRichTextString("DESIGNATION"));
-                enTeteLot.getCell(1).setCellStyle(styleEnTeteLotLigneGrise);
-                enTeteLot.createCell(2).setCellValue(createHelper.createRichTextString("DESCRIPTION SOMMAIRE \n" + "(se référer à l'article du CCTP)"));
-                enTeteLot.getCell(2).setCellStyle(styleEnTeteLotLigneGrise);
-                enTeteLot.createCell(3).setCellValue(createHelper.createRichTextString("U"));
-                enTeteLot.getCell(3).setCellStyle(styleEnTeteLotLigneGrise);
-                enTeteLot.createCell(4).setCellValue(createHelper.createRichTextString("Q"));
-                enTeteLot.getCell(4).setCellStyle(styleEnTeteLotLigneGrise);
-                enTeteLot.createCell(5).setCellValue(createHelper.createRichTextString("PU"));
-                enTeteLot.getCell(5).setCellStyle(styleEnTeteLotLigneGrise);
-                enTeteLot.createCell(6).setCellValue(createHelper.createRichTextString("Montant HT"));
-                enTeteLot.getCell(6).setCellStyle(styleEnTeteLotLigneGrise);
-                //Ligne bleue
-                enTeteLot = sheet.createRow(1);
-                Font fontEnTeteLigneBleue = excel.createFont();
-                fontEnTeteLigneBleue.setBold(true);
-                fontEnTeteLigneBleue.setFontHeightInPoints((short)14);
-                CellStyle styleEnTeteLotLigneBleue = excel.createCellStyle();
-                styleEnTeteLotLigneBleue.setFillForegroundColor(IndexedColors.PALE_BLUE.getIndex()); //Trouver une couleur plus proche ?
-                styleEnTeteLotLigneBleue.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-                styleEnTeteLotLigneBleue.setFont(fontEnTeteLigneBleue);
-                styleEnTeteLotLigneBleue = createBorderedStyle(styleEnTeteLotLigneBleue);
-                enTeteLot.createCell(0).setCellValue(createHelper.createRichTextString(toRoman(i+1)));
-                enTeteLot.getCell(0).setCellStyle(styleEnTeteLotLigneBleue);
-                enTeteLot.createCell(1).setCellValue(createHelper.createRichTextString("PROGRAMME DE BASE"));
-                enTeteLot.getCell(1).setCellStyle(styleEnTeteLotLigneBleue);
-                sheet.addMergedRegion(new CellRangeAddress(
-                        1, //first row (0-based)
-                        1, //last row  (0-based)
-                        1, //first column (0-based)
-                        6  //last column  (0-based)
-                ));
-                //Pour chaque titre2
-                    //Insérer ligne vide
-                    //On créer un en-tête titre2 (ligne vide puis ligne grise avec l'intitulé)
-                    //Pour chaque titre3
-                        //On créer un tuple (Nom, courte description)
-                        //Si plusieurs lignes chiffrages
-                            //Insérer ce tuple
-                            //Pour chaque ligneChiffrage
-                                //Créer tuple (n°article, localisation à la place du nom surligné en jaune, pas de description, unité, PU, Q et montant HT)
-                        //Sinon
-                            //Continuer le tuple (avec unité, quantité, prix unitaire et montant HT)
-                    //Insérer ligne vide
-                    //Insérer tuple récap titre2 ("SOUS-TOTAL [intitulé tite2]", prix)
-                //Insérer tuple récap titre1 ("SOUS-TOTAL [intitulé titre1]", prix)
-                //Insérer 4 lignes vides
-                //Faire le RECAPITULATIF [n°LOT]
-                sheet.autoSizeColumn(0);
-                sheet.autoSizeColumn(1);
-                sheet.autoSizeColumn(2);
-                sheet.autoSizeColumn(3);
-                sheet.autoSizeColumn(4);
-                sheet.autoSizeColumn(5);
-                sheet.autoSizeColumn(6);
-            }
+                //S'il existe un ouvrage/prestation
+                    //On créer un nouveau lot
+                    //On créer l'en-tête lot (ligne grise et ligne bleue) --> Si possible y mettre en 'mode survol'
+                    //Pour chaque titre2
+                        //Si Element && NON generique
+                            //Si descriptif
+                                //DPGFDescriptif(excel, descriptif)  
+                            //Sinon
+                                //Créer l'en-tête titre2 (ligne blanche, ligne grise prononcée)
+                                //Pour chaque titre3
+                                    //Si Element && NON generique
+                                        //Si descriptif
+                                            //DPGFDescriptif(excel, descriptif)
+                                        //Sinon
+                                            //Créer l'en-tête titre3 (ligne blanche, ligne grise moins prononcée)
+                                            //Pour chaque titre4
+                                                //Si Element && NON generique
+                                                    //DPGFDescriptif(excel, descriptif)
+                                            //Créer tuple récap titre3 ("SOUS-TOTAL [intitulé tite3]", prix)
+                                //Créer ligne blanche
+                                //Créer tuple récap titre2 ("SOUS-TOTAL [intitulé tite2]", prix)
+                    //Créer ligne blanche
+                    //Créer tuple récap titre1 ("SOUS-TOTAL [intitulé tite1]", prix)
+                    //Insérer 4 lignes vides
+                    //Faire le RECAPITULATIF [n°LOT] (récap par titre2 seulement) (PAS après "Fait à" inclus)
+            //FIN
+                            
+            //Procédure DPGFDescriptif(excel, descriptif)
+                //On créer le tuple (n°, nom, courte description)
+                //Si une seule ligne chiffrage
+                    //on continue ce tuple (unite, quantité, prixUnitaire, montant HT)
+                //Sinon
+                    //Pour chaque ligneChiffrage
+                        //On créer un tuple (n°, localisation, unite, quantité, prixUnitaire, montant HT)
+            //FIN
 
             //On créer le dossier d'export du Projet
             JpaUtil.creerContextePersistance();
@@ -442,5 +406,17 @@ public class ExportService {
         style.setBorderTop(BorderStyle.THIN);
         style.setTopBorderColor(IndexedColors.BLACK.getIndex());
         return style;
+    }
+    
+    private static CellStyle createBorderedStyleLR(CellStyle style) {
+        style.setBorderRight(BorderStyle.THIN);
+        style.setRightBorderColor(IndexedColors.BLACK.getIndex());
+        style.setBorderLeft(BorderStyle.THIN);
+        style.setLeftBorderColor(IndexedColors.BLACK.getIndex());
+        return style;
+    }
+    
+    private String getCharForNumber(int i) { //0-based
+        return i > -1 && i < 26 ? String.valueOf((char)(i + 97)) : null;
     }
 }
