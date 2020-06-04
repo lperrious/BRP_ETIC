@@ -1,5 +1,6 @@
-<!ELEMENT projet (nextId?, nomProjet?, typeMarche?, typeConstruction?, typeLot?, site?, datePrixRef?, coeffAdapt?, titre1*)>
+<!ELEMENT projet (nextId?, nomProjet?, typeMarche?, typeConstruction?, typeLot?, site?, datePrixRef?, coeffAdapt?, lot*)>
 <!ELEMENT nextId (#PCDATA)>
+<!ELEMENT lot (titre1*)>
 <!ELEMENT titre1 ANY>
 <!ELEMENT titre2 ANY>
 <!ELEMENT titre3 ANY>
@@ -42,6 +43,7 @@
 <!ELEMENT highlightMagenta (#PCDATA)>
 <!ELEMENT highlightGrey (#PCDATA)>
 <!ATTLIST projet idProjet CDATA #REQUIRED>
+<!ATTLIST lot id ID #REQUIRED>
 <!ATTLIST titre1 id ID #REQUIRED>
 <!ATTLIST titre2 id ID #REQUIRED>
 <!ATTLIST titre3 id ID #REQUIRED>

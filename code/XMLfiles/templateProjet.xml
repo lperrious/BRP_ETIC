@@ -15,71 +15,73 @@
     <coeffAdapt>1.0</coeffAdapt>
     <!-- A insérer juste avant l'export -->
 
-    <titre1 id="_1" intitule="Nom titre 1">
-        <titre2 id="_2" intitule="Nom titre 2">
-            <titre3 id="_3" intitule="Nom titre 3">
-                <titre4 id="_4" intitule="Nom titre 4"></titre4>
-            </titre3>
-        </titre2>
-    </titre1>
-    <titre1 id="_5" intitule="Nom titre 1">
-        <!-- Balise Générique  -->
-        <descriptif type="generique" id="_6" idBD="02_AAA_01_01_01">
-            <nomDescriptif>Sécurité</nomDescriptif>
-            <description>
-                Une
-                <b>description détaillée</b>
-                du
-                <i>générique</i>
-                . Cette
-                <u>description</u>
-                apparaitra uniquement sur la CCTP
-            </description>
-            <courteDescription>Courte description (pour la DPGF)</courteDescription>
-        </descriptif>
-        <titre2 id="_7" intitule="Nom titre 2">
-            <!-- Balise Ouvrage  -->
-            <descriptif type="ouvrage" id="_8" idBD="02_AAA_01_01_02">
-                <nomDescriptif>Étanchéité bitume monocouche</nomDescriptif>
+    <lot id="_12">
+        <titre1 id="_1" intitule="Nom titre 1">
+            <titre2 id="_2" intitule="Nom titre 2">
+                <titre3 id="_3" intitule="Nom titre 3">
+                    <titre4 id="_4" intitule="Nom titre 4"></titre4>
+                </titre3>
+            </titre2>
+        </titre1>
+        <titre1 id="_5" intitule="Nom titre 1">
+            <!-- Balise Générique  -->
+            <descriptif type="generique" id="_6" idBD="02_AAA_01_01_01">
+                <nomDescriptif>Sécurité</nomDescriptif>
                 <description>
                     Une
                     <b>description détaillée</b>
-                    de
-                    <i>l'ouvrage</i>
+                    du
+                    <i>générique</i>
                     . Cette
                     <u>description</u>
                     apparaitra uniquement sur la CCTP
                 </description>
                 <courteDescription>Courte description (pour la DPGF)</courteDescription>
-                <unite>m^2</unite>
-                <ligneChiffrage idLigneChiffrage="1">
-                    <localisation>Batiment A</localisation>
-                    <quantite>25</quantite>
-                    <prixUnitaire>200</prixUnitaire>
-                </ligneChiffrage>
             </descriptif>
-            <descriptif type="prestation" id="_9" idBD="02_AAA_01_01_02_01">
-                <nomDescriptif>Depose du complexe d'etancheite</nomDescriptif>
-                <description>
-                    Une
-                    <b>description détaillée</b>
-                    de
-                    <i>la prestation</i>
-                    . Cette
-                    <u>description</u>
-                    apparaitra uniquement sur la CCTP
-                </description>
-                <courteDescription>Courte description (pour la DPGF)</courteDescription>
-                <unite>m^2</unite>
-                <ligneChiffrage idLigneChiffrage="1">
-                    <localisation>Batiment A</localisation>
-                    <quantite>25</quantite>
-                    <prixUnitaire>200</prixUnitaire>
-                </ligneChiffrage>
-            </descriptif>
-            <titre3 id="_10" intitule="Nom titre 3">
-                <titre4 id="_11" intitule="Nom titre 4"></titre4>
-            </titre3>
-        </titre2>
-    </titre1>
+            <titre2 id="_7" intitule="Nom titre 2">
+                <!-- Balise Ouvrage  -->
+                <descriptif type="ouvrage" id="_8" idBD="02_AAA_01_01_02">
+                    <nomDescriptif>Étanchéité bitume monocouche</nomDescriptif>
+                    <description>
+                        Une
+                        <b>description détaillée</b>
+                        de
+                        <i>l'ouvrage</i>
+                        . Cette
+                        <u>description</u>
+                        apparaitra uniquement sur la CCTP
+                    </description>
+                    <courteDescription>Courte description (pour la DPGF)</courteDescription>
+                    <unite>m^2</unite>
+                    <ligneChiffrage idLigneChiffrage="1">
+                        <localisation>Batiment A</localisation>
+                        <quantite>25</quantite>
+                        <prixUnitaire>200</prixUnitaire>
+                    </ligneChiffrage>
+                </descriptif>
+                <descriptif type="prestation" id="_9" idBD="02_AAA_01_01_02_01">
+                    <nomDescriptif>Depose du complexe d'etancheite</nomDescriptif>
+                    <description>
+                        Une
+                        <b>description détaillée</b>
+                        de
+                        <i>la prestation</i>
+                        . Cette
+                        <u>description</u>
+                        apparaitra uniquement sur la CCTP
+                    </description>
+                    <courteDescription>Courte description (pour la DPGF)</courteDescription>
+                    <unite>m^2</unite>
+                    <ligneChiffrage idLigneChiffrage="1">
+                        <localisation>Batiment A</localisation>
+                        <quantite>25</quantite>
+                        <prixUnitaire>200</prixUnitaire>
+                    </ligneChiffrage>
+                </descriptif>
+                <titre3 id="_10" intitule="Nom titre 3">
+                    <titre4 id="_11" intitule="Nom titre 4"></titre4>
+                </titre3>
+            </titre2>
+        </titre1>
+    </lot>
 </projet>

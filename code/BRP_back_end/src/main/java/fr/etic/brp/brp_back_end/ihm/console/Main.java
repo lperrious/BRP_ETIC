@@ -101,6 +101,7 @@ public class Main {
 //        testerTransformationWordVersExcel();
 //        testerModifBaseDescriptif();
 //        testerModifBasePrixRef();
+        testerAjouterLot();
         testerAjouterTitre1();
         testerAjouterTitre2();
         testerAjouterTitre3();
@@ -1097,12 +1098,12 @@ public class Main {
         
         //Doit fonctionner
         Long idProjet = 1L;
-        String typeBalise = "chapitre";
-        String idBalise = "2";
+        String typeBalise = "titre2";
+        String idBalise = "_3";
         
         Double resultat = service.CoutSynthese(idProjet, typeBalise, idBalise);
         if(resultat != null){
-            System.out.println("Cout de synthèse calculé: "+resultat+"€");
+            System.out.println("Cout de synthèse calculé: " + resultat + "€");
         } else {
             System.out.println("Erreur lors du calcul du cout de synthèse");
         }
@@ -1110,6 +1111,42 @@ public class Main {
         //si la balise n'existe pas -> echec(comme prevu)
         //si la balise existe mais ne possède pas de prix -> 0€ (comme prevu)
         //si la balise existe et possède un prix -> prix renvoyé (comme prévu)
+    }
+    
+    public static void testerAjouterLot() {
+        
+        System.out.println();
+        System.out.println("**** testerAjouterLot() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        
+        //Doit fonctionner
+        Long idProjet = 01L;
+        String placement = "APPEND";
+        String idRefPlacement = null;
+        
+        Boolean resultat = service.AjouterLot(idProjet, placement, idRefPlacement);
+        if(resultat)
+            System.out.println("Modification avec succès du Projet n° " + idProjet);
+        else
+            System.out.println("Echec lors de la modification du Projet n° " + idProjet);
+        
+        /*idProjet = 01L;
+        placement = "BEFORE";
+        idRefPlacement = "_1";
+        
+        resultat = service.AjouterTitre1(idProjet, placement, idRefPlacement);
+        if(resultat)
+        {
+            System.out.println("Modification avec succès du Projet n° " + idProjet);
+        } else {
+            System.out.println("Echec lors de la modification du Projet n° " + idProjet);
+        }*/
+        
+        //idProjet n'existe pas -> echec (comme prévu)
+        //Insertion BEFORE avec un titre1 non existant -> echec (comme prévu)
+        //Insertion BEFORE avec un titre1 exitant -> ok
     }
     
     public static void testerAjouterTitre1() {
@@ -1123,7 +1160,7 @@ public class Main {
         //Doit fonctionner
         Long idProjet = 01L;
         String placement = "APPEND";
-        String idRefPlacement = null;
+        String idRefPlacement = "_1";
         
         Boolean resultat = service.AjouterTitre1(idProjet, placement, idRefPlacement);
         if(resultat)
@@ -1161,7 +1198,7 @@ public class Main {
         //Doit fonctionner
         Long idProjet = 01L;
         String placement = "APPEND";
-        String idRefPlacement = "_1";
+        String idRefPlacement = "_2";
         
         Boolean resultat = service.AjouterTitre2(idProjet, placement, idRefPlacement);
         if(resultat)
@@ -1172,7 +1209,7 @@ public class Main {
         }
         
         placement = "BEFORE";
-        idRefPlacement = "_2";
+        idRefPlacement = "_3";
         
         resultat = service.AjouterTitre2(idProjet, placement, idRefPlacement);
         if(resultat)
@@ -1207,7 +1244,7 @@ public class Main {
             System.out.println("Echec lors de la modification du Projet n° " + idProjet);
         }
         
-        placement = "BEFORE";
+        /*placement = "BEFORE";
         idRefPlacement = "_4";
         
         resultat = service.AjouterTitre3(idProjet, placement, idRefPlacement);
@@ -1216,7 +1253,7 @@ public class Main {
             System.out.println("Modification avec succès du Projet n° " + idProjet);
         } else {
             System.out.println("Echec lors de la modification du Projet n° " + idProjet);
-        }
+        }*/
         
         //idProjet n'existe pas -> echec (comme prévu)
         //Pas de titre2 correspondant -> echec (comme prévu)
@@ -1243,7 +1280,7 @@ public class Main {
             System.out.println("Echec lors de la modification du Projet n° " + idProjet);
         }
         
-        placement = "BEFORE";
+        /*placement = "BEFORE";
         idRefPlacement = "_6";
         
         resultat = service.AjouterTitre4(idProjet, placement, idRefPlacement);
@@ -1252,7 +1289,7 @@ public class Main {
             System.out.println("Modification avec succès du Projet n° " + idProjet);
         } else {
             System.out.println("Echec lors de la modification du Projet n° " + idProjet);
-        }
+        }*/
         
         //idProjet n'existe pas -> echec (comme prévu)
         //Pas de titre3 correspondant -> echec (comme prévu)
@@ -1322,7 +1359,7 @@ public class Main {
         
         /*idDescriptif = "02_AAA_01_01_02_01";
         placement = "APPEND";
-        idRefPlacement = "_8";
+        idRefPlacement = "_4";
         
         resultat = service.AjouterDescriptif(idProjet, placement, idRefPlacement, idDescriptif);
         if(resultat){

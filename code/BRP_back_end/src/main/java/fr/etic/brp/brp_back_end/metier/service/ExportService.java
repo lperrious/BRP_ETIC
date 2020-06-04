@@ -180,44 +180,47 @@ public class ExportService {
             }
             */
             //TRAITEMENT EXCEL
-            CreationHelper createHelper = excel.getCreationHelper(); //Permet de créer le document plus simplement
+            CreationHelper createHelper = excel.getCreationHelper(); //Permet de créer le document "plus simplement"
             
-            //Pour chaque titre1
-                //S'il existe un ouvrage/prestation
+            //Pour chaque lot
+                //S'il existe un ouvrage/prestation dans le lot
                     //On créer un nouveau lot
-                    //On créer l'en-tête lot (ligne grise et ligne bleue) --> Si possible y mettre en 'mode survol'
-                    //Pour chaque titre2
-                        //Si Element && NON generique
-                            //Si descriptif
-                                //DPGFDescriptif(excel, descriptif)  
-                            //Sinon
-                                //Créer l'en-tête titre2 (ligne blanche, ligne grise prononcée)
-                                //Pour chaque titre3
+                    //On créer l'en-tête lot (ligne grise) --> Si possible y mettre en 'mode survol'
+                    //Pour chaque titre1
+                        //Créer l'en-tête titre1 (ligne bleue)
+                        //Pour chaque enfants titre1
+                            //Si Element && NON generique
+                                //Si descriptif
+                                    //DPGFDescriptif(...)
+                                //Sinon
+                                    //Créer l'en-tête titre2 (ligne blanche, ligne grise prononcée)
+                                    //Pour chaque enfants titre2
                                     //Si Element && NON generique
                                         //Si descriptif
-                                            //DPGFDescriptif(excel, descriptif)
+                                            //DPGFDescriptif(...)
                                         //Sinon
-                                            //Créer l'en-tête titre3 (ligne blanche, ligne grise moins prononcée)
-                                            //Pour chaque titre4
+                                            //Créer l'en-tête titre3 (ligne grise moins prononcée)
+                                            //Pour chaque enfants titre3
                                                 //Si Element && NON generique
-                                                    //DPGFDescriptif(excel, descriptif)
+                                                        //DPGFDescriptif(...)
                                             //Créer tuple récap titre3 ("SOUS-TOTAL [intitulé tite3]", prix)
-                                //Créer ligne blanche
-                                //Créer tuple récap titre2 ("SOUS-TOTAL [intitulé tite2]", prix)
-                    //Créer ligne blanche
-                    //Créer tuple récap titre1 ("SOUS-TOTAL [intitulé tite1]", prix)
-                    //Insérer 4 lignes vides
-                    //Faire le RECAPITULATIF [n°LOT] (récap par titre2 seulement) (PAS après "Fait à" inclus)
-            //FIN
-                            
-            //Procédure DPGFDescriptif(excel, descriptif)
-                //On créer le tuple (n°, nom, courte description)
-                //Si une seule ligne chiffrage
-                    //on continue ce tuple (unite, quantité, prixUnitaire, montant HT)
-                //Sinon
-                    //Pour chaque ligneChiffrage
-                        //On créer un tuple (n°, localisation, unite, quantité, prixUnitaire, montant HT)
-            //FIN
+                                    //Créer ligne blanche
+                                    //Créer tuple récap titre2 ("SOUS-TOTAL [intitulé tite2]", prix)
+                        //Créer tuple récap titre1 ("SOUS-TOTAL [intitulé tite1]", prix)
+                        //Créer ligne blanche
+                    //Créer 4 lignes vides
+                    //Créer RECAPITULATIF [n°LOT]
+                    //Pour chaque titre1
+                        //Créer ligne bleue avec [intitulé titre1]
+                        //Créer ligne (N°, DESIGNATION, PRIX TOTAL)
+                        //Pour chaque enfants titre2
+                            //Tuple correspondant au sous-total titre2
+                        //Créer ligne MONTANT TOTAL H.T [intitulé Titre1]
+                        //créer ligne blanche
+                    //Créer ligne grise bien prononcée MONTANT TOTAL H.T [LOT 1]
+                    //Créer une ligne blanche
+            //FIN //NB : (PAS après "Fait à" inclus)
+
 
             //On créer le dossier d'export du Projet
             JpaUtil.creerContextePersistance();
@@ -246,6 +249,90 @@ public class ExportService {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service ExporterProjet(Long idProjet, int choixTemplate)", ex);
         }
         return resultat;
+    }
+    
+    //Procédure DPGFDescriptif(...)
+        //On créer le tuple (n°, nom, courte description)
+        //Si une seule ligne chiffrage
+            //on continue ce tuple (unite, quantité, prixUnitaire, montant HT)
+        //Sinon
+            //Pour chaque ligneChiffrage
+                //On créer un tuple (n°, localisation, unite, quantité, prixUnitaire, montant HT)
+    //FIN
+    public Workbook DPFGDescriptif(Workbook excel, int nbSheet, Element descriptif, CreationHelper createHelper, int nbTitre1, int nbTitre2, int nbTitre3, int nbTitre4) {
+        //On créer le tuple (n°, nom, courte description)
+        //On créer les styles
+        CellStyle styleBorderLRBold = createBorderedStyleLR(excel.createCellStyle());
+        Font bold11 = excel.createFont();
+        bold11.setBold(true);
+        styleBorderLRBold.setFont(bold11);
+        CellStyle styleBorderLR = createBorderedStyleLR(excel.createCellStyle());
+        //On créer la ligne du descriptif
+        Sheet sheet = excel.getSheetAt(nbSheet);
+        Row ligneDescriptif = sheet.createRow(sheet.getLastRowNum()+1);
+        ligneDescriptif.createCell(0).setCellStyle(styleBorderLRBold);
+        ligneDescriptif.createCell(1).setCellStyle(styleBorderLRBold);
+        ligneDescriptif.createCell(2).setCellStyle(styleBorderLR);
+        ligneDescriptif.createCell(3).setCellStyle(styleBorderLR);
+        ligneDescriptif.createCell(4).setCellStyle(styleBorderLR);
+        ligneDescriptif.createCell(5).setCellStyle(styleBorderLR);
+        ligneDescriptif.createCell(6).setCellStyle(styleBorderLR);
+        //On le rempli des infos
+        if(nbTitre3 == -1)
+            ligneDescriptif.getCell(0).setCellValue(createHelper.createRichTextString(toRoman(nbTitre1+1) + "." + (nbTitre2+1)));
+        else if(nbTitre4 == -1)
+            ligneDescriptif.getCell(0).setCellValue(createHelper.createRichTextString(toRoman(nbTitre1+1) + "." + (nbTitre2+1) + "." + (nbTitre3+1)));
+        else
+            ligneDescriptif.getCell(0).setCellValue(createHelper.createRichTextString(toRoman(nbTitre1+1) + "." + (nbTitre2+1) + "." + (nbTitre3+1)) + "." + (nbTitre4+1));
+        ligneDescriptif.getCell(1).setCellValue(createHelper.createRichTextString(descriptif.getElementsByTagName("nomDescriptif").item(0).toString()));
+        ligneDescriptif.getCell(2).setCellValue(createHelper.createRichTextString(descriptif.getElementsByTagName("courteDescription").item(0).toString()));
+        NodeList listeLigneChiffrage = descriptif.getElementsByTagName("ligneChiffrage");
+        //Si plusieurs lignes chiffrages
+        if(listeLigneChiffrage.getLength() > 1) {
+           //Laisser le tuple débuté
+           //Pour chaque ligneChiffrage
+            for(int l = 0; l < listeLigneChiffrage.getLength(); l++) {
+                //Créer tuple (n°article, localisation à la place du nom surligné en jaune, pas de description, unité, PU, Q et montant HT)
+                Row ligneChiffrage = sheet.createRow(sheet.getLastRowNum()+1);
+                //On créer le style pour les différentes localisations
+                CellStyle styleBorderLRYellow = createBorderedStyleLR(excel.createCellStyle());
+                styleBorderLRYellow.setFillForegroundColor(IndexedColors.YELLOW.getIndex()); //Trouver une couleur plus proche ?
+                styleBorderLRYellow.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+                styleBorderLRYellow.setAlignment(HorizontalAlignment.RIGHT);
+                //On applique les styles
+                ligneChiffrage.createCell(0).setCellStyle(styleBorderLR);
+                ligneChiffrage.createCell(1).setCellStyle(styleBorderLRYellow);
+                ligneChiffrage.createCell(2).setCellStyle(styleBorderLR);
+                ligneChiffrage.createCell(3).setCellStyle(styleBorderLR);
+                ligneChiffrage.createCell(4).setCellStyle(styleBorderLR);
+                ligneChiffrage.createCell(5).setCellStyle(styleBorderLR);
+                ligneChiffrage.createCell(6).setCellStyle(styleBorderLR);
+                //On rempli la ligne
+                Element baliseLigneChiffrage = (Element)listeLigneChiffrage.item(l);
+                String localisation = baliseLigneChiffrage.getElementsByTagName("localisation").toString();
+                String unite = baliseLigneChiffrage.getElementsByTagName("unite").toString();
+                String quantite = baliseLigneChiffrage.getElementsByTagName("quantite").toString();
+                String prixUnitaire = baliseLigneChiffrage.getElementsByTagName("prixUnitaire").toString();
+                Double montantHT = Double.parseDouble(prixUnitaire)*Double.parseDouble(quantite);
+                ligneChiffrage.getCell(1).setCellValue(createHelper.createRichTextString(localisation));
+                ligneChiffrage.getCell(3).setCellValue(createHelper.createRichTextString(unite));
+                ligneChiffrage.getCell(4).setCellValue(createHelper.createRichTextString(quantite));
+                ligneChiffrage.getCell(5).setCellValue(createHelper.createRichTextString(prixUnitaire));
+                ligneChiffrage.getCell(6).setCellValue(createHelper.createRichTextString(montantHT.toString()));
+            }            
+        } else {
+            //Sinon continuer le tuple (avec unité, quantité, prix unitaire et montant HT)
+            Element baliseLigneChiffrage = (Element)listeLigneChiffrage.item(0);
+            String unite = baliseLigneChiffrage.getElementsByTagName("unite").toString();
+            String quantite = baliseLigneChiffrage.getElementsByTagName("quantite").toString();
+            String prixUnitaire = baliseLigneChiffrage.getElementsByTagName("prixUnitaire").toString();
+            Double montantHT = Double.parseDouble(prixUnitaire)*Double.parseDouble(quantite);
+            ligneDescriptif.getCell(3).setCellValue(createHelper.createRichTextString(unite));
+            ligneDescriptif.getCell(4).setCellValue(createHelper.createRichTextString(quantite));
+            ligneDescriptif.getCell(5).setCellValue(createHelper.createRichTextString(prixUnitaire));
+            ligneDescriptif.getCell(6).setCellValue(createHelper.createRichTextString(montantHT.toString()));
+        }
+        return excel;
     }
     
     public XWPFDocument ExtractionDescriptif(Element descriptif, String style, XWPFDocument word) {

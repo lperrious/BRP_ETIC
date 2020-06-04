@@ -640,7 +640,6 @@ public class Service {
             return false;
     }    
     
-    //TODO XML à reprendre
     public Double CoutSynthese(Long idProjet, String typeBalise, String idBalise) {
         
         Double total = null;
@@ -658,18 +657,16 @@ public class Service {
             String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
             Document xml = projetXMLDao.ObtenirDocument(uri);
             NodeList rootNodes = xml.getElementsByTagName(typeBalise);
-                    
-            String attribut = "id".concat(typeBalise.replaceFirst(".",(typeBalise.charAt(0)+"").toUpperCase()));   //on met l'attribut au bon format
-            
+                        
             //on parcours les balises selectionnées 
-            for (int i = 0; i<rootNodes.getLength(); i++) {
+            for (int i = 0; i < rootNodes.getLength(); i++) {
                 Element balise = (Element) rootNodes.item(i);
-                if(balise.getAttribute(attribut).equals(idBalise)){
+                if(balise.getAttribute("id").equals(idBalise)){
                     total = 0.0;        //si on est ici c'est que la balise existe, on initialise le prix à 0€
                     //on est dans la bonne balise, on récupère toutes les lignes chiffrage
                     NodeList ligneChiffrageNodes = balise.getElementsByTagName("ligneChiffrage");
                     //on boucle les lignes chiffrage
-                    for (int j = 0; j<ligneChiffrageNodes.getLength(); j++) {
+                    for (int j = 0; j < ligneChiffrageNodes.getLength(); j++) {
                         Element ligneChiffrage = (Element) ligneChiffrageNodes.item(j);
                         
                         //Récuperer prixUnitaire et quantite dans le XML
@@ -684,7 +681,8 @@ public class Service {
                         //ajouter au total
                         total += coeffAdapt*coeffraccordement*quantite*prixUnitaire;
                     }
-                }			
+                    break;
+                }
             }
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service CoutSynthese(idProjet, typeBalise, idBalise)", ex);
@@ -693,6 +691,42 @@ public class Service {
         }
         
         return total;
+    }
+    
+    public Boolean AjouterLot(Long idProjet, String placement, String idRefPlacement) {
+        JpaUtil.creerContextePersistance();
+        Boolean resultat = false;
+        
+        try {
+            //Obtention du document
+            String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            Document xml = projetXMLDao.ObtenirDocument(uri);
+            Element root = xml.getDocumentElement();
+            //Création balise lot
+            Element baliseLot = xml.createElement("lot");
+            Node nextIdBalise = xml.getElementsByTagName("nextId").item(0);
+            baliseLot.setAttribute("id", "_" + nextIdBalise.getTextContent());
+            Integer newNextId = Integer.parseInt(nextIdBalise.getTextContent()) + 1;
+            nextIdBalise.setTextContent(newNextId.toString());
+            
+            //On place la balise nouvellement créee dans l'arborescence
+            if(placement.equals("APPEND"))
+                root.appendChild(baliseLot);
+            else {
+                Node lotRef = xml.getElementById(idRefPlacement);
+                root.insertBefore(baliseLot, lotRef);
+            }
+            
+            //On écrit par dessus l'ancien XML
+            projetXMLDao.saveXMLContent(xml, uri);
+            
+            resultat = true; //Si on est arrivé jusque là alors pas d'erreur
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterLot(Long idProjet, String placement, String idRefPlacement)");
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        return resultat;
     }
     
     public Boolean AjouterTitre1(Long idProjet, String placement, String idRefPlacement) {
@@ -713,9 +747,10 @@ public class Service {
             baliseTitre1.setAttribute("intitule", "TEST1");
             
             //On place la balise nouvellement créee dans l'arborescence
-            if(placement.equals("APPEND"))
-                root.appendChild(baliseTitre1);
-            else {
+            if(placement.equals("APPEND")) {
+                Node baliseLot = xml.getElementById(idRefPlacement);
+                baliseLot.appendChild(baliseTitre1);
+            } else {
                 Node titre1Ref = xml.getElementById(idRefPlacement);
                 root.insertBefore(baliseTitre1, titre1Ref);
             }
@@ -902,7 +937,7 @@ public class Service {
                 descriptionText = descriptionText.substring(chevronBalise2+1);
                 //on cherche la position de la balise fermante
                 fermanteBalise = descriptionText.indexOf("</"+balisePara+">");
-                //on crée la balise paragraphe
+                //on créer la balise paragraphe
                 Element paraDescription = xml.createElement(balisePara); 
                 //on extrait le texte
                 textParagraphe = descriptionText.substring(0, fermanteBalise);
