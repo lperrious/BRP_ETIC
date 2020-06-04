@@ -708,6 +708,7 @@ public class Service {
             baliseLot.setAttribute("id", "_" + nextIdBalise.getTextContent());
             Integer newNextId = Integer.parseInt(nextIdBalise.getTextContent()) + 1;
             nextIdBalise.setTextContent(newNextId.toString());
+            baliseLot.setAttribute("intitule", "TESTLOT");
             
             //On place la balise nouvellement créee dans l'arborescence
             if(placement.equals("APPEND"))

@@ -15,7 +15,7 @@
     <coeffAdapt>1.0</coeffAdapt>
     <!-- A insérer juste avant l'export -->
 
-    <lot id="_12">
+    <lot id="_12" intitule="LOT1">
         <titre1 id="_1" intitule="Nom titre 1">
             <titre2 id="_2" intitule="Nom titre 2">
                 <titre3 id="_3" intitule="Nom titre 3">

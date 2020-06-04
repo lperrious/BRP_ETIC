@@ -118,8 +118,9 @@ public class ExportService {
                     default :
                         throw new Exception(); //Template non reconnue
                 }
+                Element baliseLot = (Element)listeLot.item(h);
                 //Pour chaque titre1
-                NodeList listeTitre1 = xml.getElementsByTagName("titre1");
+                NodeList listeTitre1 = baliseLot.getElementsByTagName("titre1");
                 for(int i = 0; i < listeTitre1.getLength(); i++){
                     //On insère le titre1 
                     XWPFParagraph paragraphTitre1 = word.createParagraph();
@@ -187,7 +188,7 @@ public class ExportService {
                     }
                 }
                 //On nomme la CCTP
-                String outputCCTP = "../export_files/Exports/" + projet.getNomProjet() + "_" + projet.getIdProjet() + "/" + projet.getNomProjet() + "_LOT_" + h + "_CCTP.docx"; //Surement à changer lors de l'installation client
+                String outputCCTP = "../export_files/Exports/" + projet.getNomProjet() + "_" + projet.getIdProjet() + "/" + projet.getNomProjet() + "_LOT_" + h + "_" + baliseLot.getAttribute("intitule") + ".docx"; //Surement à changer lors de l'installation client
                 //On écrit en sortie le document WORD
                 FileOutputStream out = new FileOutputStream(outputCCTP);
                 word.write(out);
@@ -202,7 +203,7 @@ public class ExportService {
             
             //Pour chaque lot
                 //S'il existe un ouvrage/prestation dans le lot
-                    //On créer un nouveau lot
+                    //On créer un nouveau lot (format nom : LOT_01_intitule)
                     //On créer l'en-tête lot (ligne grise) --> Si possible y mettre en 'mode survol'
                     //Pour chaque titre1
                         //Créer l'en-tête titre1 (ligne bleue)

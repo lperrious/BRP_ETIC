@@ -48,6 +48,7 @@
 <!ATTLIST titre2 id ID #REQUIRED>
 <!ATTLIST titre3 id ID #REQUIRED>
 <!ATTLIST titre4 id ID #REQUIRED>
+<!ATTLIST lot intitule CDATA #REQUIRED>
 <!ATTLIST titre1 intitule CDATA #REQUIRED>
 <!ATTLIST titre2 intitule CDATA #REQUIRED>
 <!ATTLIST titre3 intitule CDATA #REQUIRED>
