@@ -94,92 +94,110 @@ public class ExportService {
             String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
             Document xml = projetXMLDao.ObtenirDocument(uri);
             
-            //Choix de la template et création du document WORD en fonction
-            Map<String, String> template = template1Immutable;
-            XWPFDocument word;
-            switch(choixTemplate) {
-                case 1:
-                    template = template1Immutable;
-                    word = new XWPFDocument(new FileInputStream("../export_files/TemplatesWord/Template1/Template1_CCTP.docx"));
-                    break;
-                default :
-                    throw new Exception(); //Template non reconnue
+            //On créer le dossier d'export du Projet
+            JpaUtil.creerContextePersistance();
+            Projet projet = projetDao.ChercherParId(idProjet);
+            JpaUtil.fermerContextePersistance();
+            Boolean succesCreationDossier = (new File("../export_files/Exports/"+ projet.getNomProjet() + "_" + projet.getIdProjet())).mkdirs();
+            if (!succesCreationDossier) {
+                throw new Exception();
             }
-            
-            //Création du document EXCEL
-            Workbook excel = new XSSFWorkbook(new FileInputStream("../export_files/TemplatesExcel/Template1/Template1_DPGF.xlsx"));
             
             //TRAITEMENT WORD
-            //Pour chaque titre1
-            NodeList listeTitre1 = xml.getElementsByTagName("titre1");/*
-            for(int i = 0; i < listeTitre1.getLength(); i++){
-                //On insère le titre1 
-                XWPFParagraph paragraphTitre1 = word.createParagraph();
-                paragraphTitre1.setStyle(template.get("titre1"));
-                XWPFRun runTitre1 = paragraphTitre1.createRun();
-                Element titre1 = (Element)listeTitre1.item(i);
-                runTitre1.setText(titre1.getAttribute("intitule"));
-                
-                //Pour chaque enfant d'un titre1
-                NodeList enfantsTitre1 = listeTitre1.item(i).getChildNodes();
-                for(int j = 0; j < enfantsTitre1.getLength(); j++) {
-                    if(enfantsTitre1.item(j).getNodeName().equals("titre2")) {
-                        //On insère le titre2
-                        XWPFParagraph paragraphTitre2 = word.createParagraph();
-                        paragraphTitre2.setStyle(template.get("titre2"));
-                        XWPFRun runTitre2 = paragraphTitre2.createRun();
-                        Element titre2 = (Element)enfantsTitre1.item(j);
-                        runTitre2.setText(titre2.getAttribute("intitule"));
-                        
-                        //Pour chaque enfant d'un titre2
-                        NodeList enfantsTitre2 = enfantsTitre1.item(j).getChildNodes();
-                        for(int k = 0; k < enfantsTitre2.getLength(); k++) {
-                            if(enfantsTitre2.item(k).getNodeName().equals("titre3")) {
-                                //On insère le titre3
-                                XWPFParagraph paragraphTitre3 = word.createParagraph();
-                                paragraphTitre3.setStyle(template.get("titre3"));
-                                XWPFRun runTitre3 = paragraphTitre3.createRun();
-                                Element titre3 = (Element)enfantsTitre2.item(j);
-                                runTitre3.setText(titre3.getAttribute("intitule"));
-                                
-                                //Pour chaque enfant d'un titre3
-                                NodeList enfantsTitre3 = enfantsTitre2.item(k).getChildNodes();
-                                for(int l = 0; l < enfantsTitre3.getLength(); l++) {
-                                    if(enfantsTitre3.item(l).getNodeName().equals("titre4")) {
-                                        //On insère le titre4
-                                        XWPFParagraph paragraphTitre4 = word.createParagraph();
-                                        paragraphTitre4.setStyle(template.get("titre4"));
-                                        XWPFRun runTitre4 = paragraphTitre4.createRun();
-                                        Element titre4 = (Element)enfantsTitre3.item(j);
-                                        runTitre4.setText(titre4.getAttribute("intitule"));
-                                        
-                                        //Pour chaque enfant d'un titre4
-                                        NodeList enfantsTitre4 = enfantsTitre3.item(l).getChildNodes();
-                                        for(int m = 0; m < enfantsTitre4.getLength(); m++) {
+            //Pour chaque lot
+            NodeList listeLot = xml.getElementsByTagName("lot");
+            for(int h = 0; h < listeLot.getLength(); h++){
+                //Choix de la template et création du document WORD en fonction
+                Map<String, String> template = template1Immutable;
+                XWPFDocument word;
+                switch(choixTemplate) {
+                    case 1:
+                        template = template1Immutable;
+                        word = new XWPFDocument(new FileInputStream("../export_files/TemplatesWord/Template1/Template1_CCTP.docx"));
+                        break;
+                    default :
+                        throw new Exception(); //Template non reconnue
+                }
+                //Pour chaque titre1
+                NodeList listeTitre1 = xml.getElementsByTagName("titre1");
+                for(int i = 0; i < listeTitre1.getLength(); i++){
+                    //On insère le titre1 
+                    XWPFParagraph paragraphTitre1 = word.createParagraph();
+                    paragraphTitre1.setStyle(template.get("titre1"));
+                    XWPFRun runTitre1 = paragraphTitre1.createRun();
+                    Element titre1 = (Element)listeTitre1.item(i);
+                    runTitre1.setText(titre1.getAttribute("intitule"));
+
+                    //Pour chaque enfant d'un titre1
+                    NodeList enfantsTitre1 = listeTitre1.item(i).getChildNodes();
+                    for(int j = 0; j < enfantsTitre1.getLength(); j++) {
+                        if(enfantsTitre1.item(j).getNodeName().equals("titre2")) {
+                            //On insère le titre2
+                            XWPFParagraph paragraphTitre2 = word.createParagraph();
+                            paragraphTitre2.setStyle(template.get("titre2"));
+                            XWPFRun runTitre2 = paragraphTitre2.createRun();
+                            Element titre2 = (Element)enfantsTitre1.item(j);
+                            runTitre2.setText(titre2.getAttribute("intitule"));
+
+                            //Pour chaque enfant d'un titre2
+                            NodeList enfantsTitre2 = enfantsTitre1.item(j).getChildNodes();
+                            for(int k = 0; k < enfantsTitre2.getLength(); k++) {
+                                if(enfantsTitre2.item(k).getNodeName().equals("titre3")) {
+                                    //On insère le titre3
+                                    XWPFParagraph paragraphTitre3 = word.createParagraph();
+                                    paragraphTitre3.setStyle(template.get("titre3"));
+                                    XWPFRun runTitre3 = paragraphTitre3.createRun();
+                                    Element titre3 = (Element)enfantsTitre2.item(k);
+                                    runTitre3.setText(titre3.getAttribute("intitule"));
+                                    
+                                    //Pour chaque enfant d'un titre3
+                                    NodeList enfantsTitre3 = enfantsTitre2.item(k).getChildNodes();
+                                    for(int l = 0; l < enfantsTitre3.getLength(); l++) {
+                                        if(enfantsTitre3.item(l).getNodeName().equals("titre4")) {
+                                            //On insère le titre4
+                                            XWPFParagraph paragraphTitre4 = word.createParagraph();
+                                            paragraphTitre4.setStyle(template.get("titre4"));
+                                            XWPFRun runTitre4 = paragraphTitre4.createRun();
+                                            Element titre4 = (Element)enfantsTitre3.item(l);
+                                            runTitre4.setText(titre4.getAttribute("intitule"));
+
+                                            //Pour chaque enfant d'un titre4
+                                            NodeList enfantsTitre4 = enfantsTitre3.item(l).getChildNodes();
+                                            for(int m = 0; m < enfantsTitre4.getLength(); m++) {
+                                                //descriptif
+                                                word = ExtractionDescriptif((Element)enfantsTitre4.item(m), template.get("titre5"), word);
+                                            }
+                                        } 
+                                        if(enfantsTitre3.item(l).getNodeName().equals("descriptif")){
                                             //descriptif
-                                            word = ExtractionDescriptif((Element)enfantsTitre4.item(m), template.get("titre5"), word);
+                                            word = ExtractionDescriptif((Element)enfantsTitre3.item(l), template.get("titre4"), word);
                                         }
-                                    } 
-                                    if(enfantsTitre3.item(l).getNodeName().equals("descriptif")){
-                                        //descriptif
-                                        word = ExtractionDescriptif((Element)enfantsTitre3.item(l), template.get("titre4"), word);
                                     }
+                                } 
+                                if(enfantsTitre2.item(k).getNodeName().equals("descriptif")){
+                                    //descriptif
+                                    word = ExtractionDescriptif((Element)enfantsTitre2.item(k), template.get("titre3"), word);
                                 }
-                            } 
-                            if(enfantsTitre2.item(k).getNodeName().equals("descriptif")){
-                                //descriptif
-                                word = ExtractionDescriptif((Element)enfantsTitre2.item(k), template.get("titre3"), word);
                             }
+                        } 
+                        if(enfantsTitre1.item(j).getNodeName().equals("descriptif")){
+                            //descriptif
+                            word = ExtractionDescriptif((Element)enfantsTitre1.item(j), template.get("titre2"), word);
                         }
-                    } 
-                    if(enfantsTitre1.item(j).getNodeName().equals("descriptif")){
-                        //descriptif
-                        word = ExtractionDescriptif((Element)enfantsTitre1.item(j), template.get("titre2"), word);
                     }
                 }
+                //On nomme la CCTP
+                String outputCCTP = "../export_files/Exports/" + projet.getNomProjet() + "_" + projet.getIdProjet() + "/" + projet.getNomProjet() + "_LOT_" + h + "_CCTP.docx"; //Surement à changer lors de l'installation client
+                //On écrit en sortie le document WORD
+                FileOutputStream out = new FileOutputStream(outputCCTP);
+                word.write(out);
+                out.close();
+                word.close();
             }
-            */
+            
             //TRAITEMENT EXCEL
+            //Création du document EXCEL
+            Workbook excel = new XSSFWorkbook(new FileInputStream("../export_files/TemplatesExcel/Template1/Template1_DPGF.xlsx"));
             CreationHelper createHelper = excel.getCreationHelper(); //Permet de créer le document "plus simplement"
             
             //Pour chaque lot
@@ -220,26 +238,11 @@ public class ExportService {
                     //Créer ligne grise bien prononcée MONTANT TOTAL H.T [LOT 1]
                     //Créer une ligne blanche
             //FIN //NB : (PAS après "Fait à" inclus)
-
-
-            //On créer le dossier d'export du Projet
-            JpaUtil.creerContextePersistance();
-            Projet projet = projetDao.ChercherParId(idProjet);
-            JpaUtil.fermerContextePersistance();
-            Boolean succesCreationDossier = (new File("../export_files/Exports/"+ projet.getNomProjet() + "_" + projet.getIdProjet())).mkdirs();
-            if (!succesCreationDossier) {
-                throw new Exception();
-            }
             
-            //On nomme le CCTP et la DPGF
-            String outputCCTP = "../export_files/Exports/" + projet.getNomProjet() + "_" + projet.getIdProjet() + "/" + projet.getNomProjet() + "_CCTP.docx"; //Surement à changer lors de l'installation client
+            //On nomme la DPGF
             String outputDPGF = "../export_files/Exports/" + projet.getNomProjet() + "_" + projet.getIdProjet() + "/" + projet.getNomProjet() + "_DPGF.xlsx"; //Surement à changer lors de l'installation client
 
-            //On écrit en sortie les documents WORD et EXCEL
-            FileOutputStream out = new FileOutputStream(outputCCTP);
-            word.write(out);
-            out.close();
-            word.close();
+            //On écrit en sortie le document EXCEL
             OutputStream fileOut = new FileOutputStream(outputDPGF);
             excel.write(fileOut);
             
@@ -346,7 +349,7 @@ public class ExportService {
             word.createParagraph(); //Espace entre les paragraphes
 
             //On extrait l'unité
-            String unite = descriptif.getElementsByTagName("unite").item(0).toString();
+            String unite = descriptif.getElementsByTagName("unite").item(0).getTextContent();
             
             //Paragraphe unité
             XWPFParagraph pUnite = word.createParagraph();
