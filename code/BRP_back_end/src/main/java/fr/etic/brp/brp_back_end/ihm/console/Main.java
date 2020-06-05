@@ -167,6 +167,7 @@ public class Main {
         BasePrixRef basePrixRef = new BasePrixRef(2018, 1L, 1.0, 1.0, 3.0, "m2", 10.0);
         BasePrixRef basePrixRef2 = new BasePrixRef(2017, 2L, 1.0, 4.0, 6.0, "m2", 4.0);
         BasePrixRef basePrixRef3 = new BasePrixRef(2019, 1L, 1.0, 1.0, 3.0, "m2", 120.0);
+        
         System.out.println("** BasePrixRef avant persistance: ");
         afficherBasePrixRef(basePrixRef);
         afficherBasePrixRef(basePrixRef2);
@@ -1357,16 +1358,16 @@ public class Main {
             System.out.println("Echec lors de l'ajout du descriptif " + idDescriptif);
         }
         
-        /*idDescriptif = "02_AAA_01_01_02_01";
+        idDescriptif = "02_AAA_01_01_02";
         placement = "APPEND";
-        idRefPlacement = "_4";
+        idRefPlacement = "_2";
         
         resultat = service.AjouterDescriptif(idProjet, placement, idRefPlacement, idDescriptif);
         if(resultat){
             System.out.println("Ajout avec succès du descriptif " + idDescriptif);
         } else {
             System.out.println("Echec lors de l'ajout du descriptif " + idDescriptif);
-        }*/
+        }
         
         //idProjet n'existe pas -> echec (comme prevu)
         //choisit bien en fonction de l'année la plus récente et de la fourchette de prix
