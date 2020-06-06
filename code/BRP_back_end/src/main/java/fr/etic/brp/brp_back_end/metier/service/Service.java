@@ -1092,17 +1092,21 @@ public class Service {
                     
                     //on va chercher le prix unitaire lié au parent
                     for(int j = 0; j<listeBasePrixRef.size(); j++){
-                        if(listeBasePrixRef.get(j).getQteInf() <= quantite && listeBasePrixRef.get(j).getQteSup() >= quantite){
-                            //on se trouve dans la bonne fourchette de quantite, on test l'annee
-                            if(listeBasePrixRef.get(j).getAnnee() > annee_max){
-                                annee_max = listeBasePrixRef.get(j).getAnnee();
-                                indiceRef = j;
-                            }
+                        if(listeBasePrixRef.get(j).getQteInf() != null){
+                           if(listeBasePrixRef.get(j).getQteInf() <= quantite && listeBasePrixRef.get(j).getQteSup() >= quantite){
+                                //on se trouve dans la bonne fourchette de quantite, on test l'annee
+                                if(listeBasePrixRef.get(j).getAnnee() > annee_max){
+                                    annee_max = listeBasePrixRef.get(j).getAnnee();
+                                    indiceRef = j;
+                                }
+                            } 
                         }
                     }
                     
-                    Element balisePrixUnitaire = xml.createElement("prixUnitaire");                                                                       
-                    balisePrixUnitaire.appendChild(xml.createTextNode(listeBasePrixRef.get(indiceRef).getPrixUnitaire().toString())); 
+                    Element balisePrixUnitaire = xml.createElement("prixUnitaire");
+                    if(indiceRef >= 0){
+                        balisePrixUnitaire.appendChild(xml.createTextNode(listeBasePrixRef.get(indiceRef).getPrixUnitaire().toString())); 
+                    }
                     baliseLigneChiffrage.appendChild(balisePrixUnitaire);
                     
                     rootNodes.item(i).appendChild(baliseLigneChiffrage);

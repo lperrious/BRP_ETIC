@@ -10,6 +10,7 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
@@ -111,7 +112,28 @@ public class ExportService {
                     default :
                         throw new Exception(); //Template non reconnue
                 }
-                Element baliseLot = (Element)listeLot.item(h);
+                
+                Element baliseLot = (Element)listeLot.item(h);  //on choppe le lot
+                
+                //on met le nom du lot dans la page de garde
+                String nomLot = baliseLot.getAttribute("intitule");      //on détermine le nom à mettre
+                //on extrait le paragrpahe ou sera positionné le nom
+                List<XWPFParagraph> listPara = word.getParagraphs();
+                for(int i = 0; i < listPara.size(); i++){
+                    if(listPara.get(i).getText().equals("Rapport XXX")){
+                        XWPFParagraph paraNomLot = listPara.get(i);
+                        List<XWPFRun> listRun = paraNomLot.getRuns();
+                        //on vide le paragraphe
+                        for(int j = 0; j < listRun.size(); j++){
+                            if (j == 0)
+                                //on insère le nom
+                                listRun.get(j).setText(nomLot, 0);
+                            else
+                                listRun.get(j).setText("", 0);
+                        }
+                    }
+                }
+
                 //Pour chaque titre1
                 NodeList listeTitre1 = baliseLot.getElementsByTagName("titre1");
                 for(int i = 0; i < listeTitre1.getLength(); i++){
