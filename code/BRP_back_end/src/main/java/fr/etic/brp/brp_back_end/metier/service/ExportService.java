@@ -30,6 +30,9 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.DefaultIndexedColorMap;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import static org.apache.poi.xwpf.usermodel.UnderlinePatterns.DASH;
 import static org.apache.poi.xwpf.usermodel.UnderlinePatterns.SINGLE;
@@ -227,7 +230,7 @@ public class ExportService {
                     Row enTeteLotLigneGrise = sheet.createRow(0);
                     CellStyle styleEnTeteLotLigneGrise = excel.createCellStyle();
                     styleEnTeteLotLigneGrise.setAlignment(HorizontalAlignment.CENTER);
-                    styleEnTeteLotLigneGrise.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex()); //trouver une couleur plus proche ?
+                    ((XSSFCellStyle)styleEnTeteLotLigneGrise).setFillForegroundColor(new XSSFColor(new java.awt.Color(217, 217, 217)));
                     styleEnTeteLotLigneGrise.setFillPattern(FillPatternType.SOLID_FOREGROUND);
                     styleEnTeteLotLigneGrise = createBorderedStyle(styleEnTeteLotLigneGrise);
                     Font fontEnTeteLigneGrise = excel.createFont();
@@ -256,7 +259,7 @@ public class ExportService {
                         fontEnTeteTitre1LigneBleue.setBold(true);
                         fontEnTeteTitre1LigneBleue.setFontHeightInPoints((short)14);
                         CellStyle styleCellTitre1 = excel.createCellStyle();
-                        styleCellTitre1.setFillForegroundColor(IndexedColors.PALE_BLUE.getIndex()); //Trouver une couleur plus proche ?
+                        ((XSSFCellStyle)styleCellTitre1).setFillForegroundColor(new XSSFColor(new java.awt.Color(141, 180, 226)));
                         styleCellTitre1.setFillPattern(FillPatternType.SOLID_FOREGROUND);
                         styleCellTitre1.setAlignment(HorizontalAlignment.LEFT);
                         styleCellTitre1.setFont(fontEnTeteTitre1LigneBleue);
@@ -306,7 +309,7 @@ public class ExportService {
                                 Font bold12 = excel.createFont();
                                 bold12.setBold(true);
                                 styleCellTitre2.setFont(bold12);
-                                styleCellTitre2.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex()); //Trouver une couleur plus proche ?
+                                ((XSSFCellStyle)styleCellTitre2).setFillForegroundColor(new XSSFColor(new java.awt.Color(191, 191, 191)));
                                 styleCellTitre2.setFillPattern(FillPatternType.SOLID_FOREGROUND);
                                 styleCellTitre2.setAlignment(HorizontalAlignment.LEFT);
                                 ligneGriseTitre2.createCell(0).setCellStyle(styleCellTitre2);
@@ -339,7 +342,7 @@ public class ExportService {
                                         Font bold11 = excel.createFont();
                                         bold11.setBold(true);
                                         styleCellTitre3.setFont(bold11);
-                                        styleCellTitre3.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex()); //Trouver une couleur plus proche ?
+                                        ((XSSFCellStyle)styleCellTitre3).setFillForegroundColor(new XSSFColor(new java.awt.Color(242, 242, 242)));
                                         styleCellTitre3.setFillPattern(FillPatternType.SOLID_FOREGROUND);
                                         styleCellTitre3.setAlignment(HorizontalAlignment.LEFT);
                                         ligneGriseTitre3.createCell(0).setCellStyle(styleCellTitre3);
@@ -418,7 +421,7 @@ public class ExportService {
                         Row ligneRecapTitre1EnTete = sheet.createRow(sheet.getLastRowNum()+1);
                         CellStyle styleEnTeteRecapTitre1 = excel.createCellStyle();
                         styleEnTeteRecapTitre1 = createBoldBorderedStyle(styleEnTeteRecapTitre1);
-                        styleEnTeteRecapTitre1.setFillForegroundColor(IndexedColors.PALE_BLUE.getIndex()); //Trouver une couleur plus proche ?
+                        ((XSSFCellStyle)styleEnTeteRecapTitre1).setFillForegroundColor(new XSSFColor(new java.awt.Color(141, 180, 226)));
                         styleEnTeteRecapTitre1.setFillPattern(FillPatternType.SOLID_FOREGROUND);
                         styleEnTeteRecapTitre1.setAlignment(HorizontalAlignment.CENTER);
                         styleEnTeteRecapTitre1.setFont(fontEnTeteRecap);
@@ -522,7 +525,7 @@ public class ExportService {
                     CellStyle styleMontantTotalHTLot = excel.createCellStyle();
                     styleMontantTotalHTLot.setFont(bold11);
                     styleMontantTotalHTLot.setAlignment(HorizontalAlignment.RIGHT);
-                    styleMontantTotalHTLot.setFillForegroundColor(IndexedColors.GREY_50_PERCENT.getIndex()); //Trouver une couleur plus proche ?
+                    ((XSSFCellStyle)styleMontantTotalHTLot).setFillForegroundColor(new XSSFColor(new java.awt.Color(166, 166, 166)));
                     styleMontantTotalHTLot.setFillPattern(FillPatternType.SOLID_FOREGROUND);
                     styleMontantTotalHTLot = createBorderedStyle(styleMontantTotalHTLot);
                     ligneMontantTotalHTLot.createCell(0).setCellStyle(styleMontantTotalHTLot);
