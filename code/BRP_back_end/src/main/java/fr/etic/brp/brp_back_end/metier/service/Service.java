@@ -708,7 +708,7 @@ public class Service {
             baliseLot.setAttribute("id", "_" + nextIdBalise.getTextContent());
             Integer newNextId = Integer.parseInt(nextIdBalise.getTextContent()) + 1;
             nextIdBalise.setTextContent(newNextId.toString());
-            baliseLot.setAttribute("intitule", "TESTLOT");
+            baliseLot.setAttribute("intitule", "");
             
             //On place la balise nouvellement créee dans l'arborescence
             if(placement.equals("APPEND"))
@@ -745,7 +745,7 @@ public class Service {
             baliseTitre1.setAttribute("id", "_" + nextIdBalise.getTextContent());
             Integer newNextId = Integer.parseInt(nextIdBalise.getTextContent()) + 1;
             nextIdBalise.setTextContent(newNextId.toString());
-            baliseTitre1.setAttribute("intitule", "TEST1");
+            baliseTitre1.setAttribute("intitule", "");
             
             //On place la balise nouvellement créee dans l'arborescence
             if(placement.equals("APPEND")) {
@@ -782,7 +782,7 @@ public class Service {
             baliseTitre2.setAttribute("id", "_" + nextIdBalise.getTextContent());
             Integer newNextId = Integer.parseInt(nextIdBalise.getTextContent()) + 1;
             nextIdBalise.setTextContent(newNextId.toString());
-            baliseTitre2.setAttribute("intitule", "TEST2");
+            baliseTitre2.setAttribute("intitule", "");
             
             //On place la balise nouvellement créee dans l'arborescence
             if(placement.equals("APPEND")) {
@@ -820,7 +820,7 @@ public class Service {
             baliseTitre3.setAttribute("id", "_" + nextIdBalise.getTextContent());
             Integer newNextId = Integer.parseInt(nextIdBalise.getTextContent()) + 1;
             nextIdBalise.setTextContent(newNextId.toString());
-            baliseTitre3.setAttribute("intitule", "TEST3");
+            baliseTitre3.setAttribute("intitule", "");
             
             //On place la balise nouvellement créee dans l'arborescence
             if(placement.equals("APPEND")) {
@@ -858,7 +858,7 @@ public class Service {
             baliseTitre4.setAttribute("id", "_" + nextIdBalise.getTextContent());
             Integer newNextId = Integer.parseInt(nextIdBalise.getTextContent()) + 1;
             nextIdBalise.setTextContent(newNextId.toString());
-            baliseTitre4.setAttribute("intitule", "TEST4");
+            baliseTitre4.setAttribute("intitule", "");
             
             //On place la balise nouvellement créee dans l'arborescence
             if(placement.equals("APPEND")) {
