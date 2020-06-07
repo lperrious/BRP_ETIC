@@ -651,7 +651,7 @@ public class Service {
             
             //recuperer coeffAdapt & coeffRaccordement dans la table projet
             Float coeffAdapt = projet.getCoeffAdapt();
-            Double coeffraccordement = projet.getCoeffRaccordement().getValeur();
+            Double coeffRaccordement = projet.getCoeffRaccordement().getValeur();
             
             //on se positionne dans le corps souhaite
             String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
@@ -679,13 +679,14 @@ public class Service {
                         prixUnitaire = Double.valueOf(prixUnitaireBalise.getTextContent());
                           
                         //ajouter au total
-                        total += coeffAdapt*coeffraccordement*quantite*prixUnitaire;
+                        total += coeffAdapt*coeffRaccordement*quantite*prixUnitaire;
                     }
                     break;
                 }
             }
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service CoutSynthese(idProjet, typeBalise, idBalise)", ex);
+            return null; //utile si coeffRaccordement ou coeffAdapt non définis
         } finally {
             JpaUtil.fermerContextePersistance();
         }

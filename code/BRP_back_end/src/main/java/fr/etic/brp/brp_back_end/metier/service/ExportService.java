@@ -184,7 +184,8 @@ public class ExportService {
                                             NodeList enfantsTitre4 = enfantsTitre3.item(l).getChildNodes();
                                             for(int m = 0; m < enfantsTitre4.getLength(); m++) {
                                                 //descriptif
-                                                word = ExtractionDescriptif((Element)enfantsTitre4.item(m), template.get("titre5"), word);
+                                                if(enfantsTitre4.item(m).getNodeName().equals("descriptif"))
+                                                    word = ExtractionDescriptif((Element)enfantsTitre4.item(m), template.get("titre5"), word);
                                             }
                                         } 
                                         if(enfantsTitre3.item(l).getNodeName().equals("descriptif")){
@@ -724,17 +725,21 @@ public class ExportService {
             rNomDescriptif.setText(descriptif.getElementsByTagName("nomDescriptif").item(0).getTextContent());
 
             word.createParagraph(); //Espace entre les paragraphes
-
-            //On extrait l'unité
-            String unite = descriptif.getElementsByTagName("unite").item(0).getTextContent();
             
-            //Paragraphe unité
-            XWPFParagraph pUnite = word.createParagraph();
-            XWPFRun rUnite = pUnite.createRun();
-            rUnite.setText("Métré = " + unite);
-            rUnite.setUnderline(SINGLE);
+            //Si ça n'est pas un générique
+            String unite;
+            if(!descriptif.getAttribute("type").equals("generique")) {
+            //On extrait l'unité
+                unite = descriptif.getElementsByTagName("unite").item(0).getTextContent();
+            
+                //Paragraphe unité
+                XWPFParagraph pUnite = word.createParagraph();
+                XWPFRun rUnite = pUnite.createRun();
+                rUnite.setText("Métré = " + unite);
+                rUnite.setUnderline(SINGLE);
 
-            word.createParagraph(); //Espace entre les paragraphes
+                word.createParagraph(); //Espace entre les paragraphes
+            }
 
             //pour chaque balise (p ou ul): on selectionne uniquement les balises enfants et on les parcours
             Element description = (Element) descriptif.getElementsByTagName("description").item(0);
@@ -820,42 +825,45 @@ public class ExportService {
                 }
               }				
             }
+            
+            //Si ça n'est pas un générique
+            if(!descriptif.getAttribute("type").equals("generique")) {
+                word.createParagraph(); //Espace entre les paragraphes
 
-            word.createParagraph(); //Espace entre les paragraphes
-
-            //On extrait les différents élements de ligneChiffrage et on les mets dans des p
-            NodeList listeLigneChiffrage = descriptif.getElementsByTagName("ligneChiffrage");
-            if(listeLigneChiffrage.getLength() > 2) {
-                //Paragraphe localisation
-                XWPFParagraph pLocalisation = word.createParagraph();
-                XWPFRun rLocalisation = pLocalisation.createRun();
-                rLocalisation.setText("Localisation : ");
-                rLocalisation.setColor("7030A0");
-                rLocalisation.setItalic(true);
-                rLocalisation.setBold(true);
-                //Puces différentes localisations
-                for(int i = 0; i < listeLigneChiffrage.getLength(); i++) {
-                    Element ligneChiffrage = (Element) listeLigneChiffrage.item(i);
+                //On extrait les différents élements de ligneChiffrage et on les mets dans des p
+                NodeList listeLigneChiffrage = descriptif.getElementsByTagName("ligneChiffrage");
+                if(listeLigneChiffrage.getLength() > 2) {
+                    //Paragraphe localisation
+                    XWPFParagraph pLocalisation = word.createParagraph();
+                    XWPFRun rLocalisation = pLocalisation.createRun();
+                    rLocalisation.setText("Localisation : ");
+                    rLocalisation.setColor("7030A0");
+                    rLocalisation.setItalic(true);
+                    rLocalisation.setBold(true);
+                    //Puces différentes localisations
+                    for(int i = 0; i < listeLigneChiffrage.getLength(); i++) {
+                        Element ligneChiffrage = (Element) listeLigneChiffrage.item(i);
+                        String localisation = ligneChiffrage.getElementsByTagName("localisation").item(0).getTextContent();
+                        XWPFParagraph pPuces = word.createParagraph();
+                        pPuces.setStyle("Listepuces");
+                        pPuces.setIndentationLeft(700);   //valeur numérique correspondant à l'indentation de base d'une puce
+                        XWPFRun rLocalisationPuces = pPuces.createRun();
+                        rLocalisationPuces.setText(localisation);
+                        rLocalisationPuces.setColor("7030A0");
+                        rLocalisationPuces.setItalic(true);
+                        rLocalisationPuces.setBold(true);
+                    }
+                } else {
+                    Element ligneChiffrage = (Element) listeLigneChiffrage.item(0);
                     String localisation = ligneChiffrage.getElementsByTagName("localisation").item(0).getTextContent();
-                    XWPFParagraph pPuces = word.createParagraph();
-                    pPuces.setStyle("Listepuces");
-                    pPuces.setIndentationLeft(700);   //valeur numérique correspondant à l'indentation de base d'une puce
-                    XWPFRun rLocalisationPuces = pPuces.createRun();
-                    rLocalisationPuces.setText(localisation);
-                    rLocalisationPuces.setColor("7030A0");
-                    rLocalisationPuces.setItalic(true);
-                    rLocalisationPuces.setBold(true);
+                    //Paragraphe localisation
+                    XWPFParagraph pLocalisation = word.createParagraph();
+                    XWPFRun rLocalisation = pLocalisation.createRun();
+                    rLocalisation.setText("Localisation : " + localisation);
+                    rLocalisation.setColor("7030A0");
+                    rLocalisation.setItalic(true);
+                    rLocalisation.setBold(true);
                 }
-            } else {
-                Element ligneChiffrage = (Element) listeLigneChiffrage.item(0);
-                String localisation = ligneChiffrage.getElementsByTagName("localisation").item(0).getTextContent();
-                //Paragraphe localisation
-                XWPFParagraph pLocalisation = word.createParagraph();
-                XWPFRun rLocalisation = pLocalisation.createRun();
-                rLocalisation.setText("Localisation : " + localisation);
-                rLocalisation.setColor("7030A0");
-                rLocalisation.setItalic(true);
-                rLocalisation.setBold(true);
             }
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service ExporterProjet(Long idProjet, int choixTemplate)", ex);

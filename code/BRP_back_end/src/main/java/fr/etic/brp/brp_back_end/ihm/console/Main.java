@@ -60,21 +60,23 @@ public class Main {
     //------------initialisations------------------
     
         // A faire tout le temps (l'ordre est important)
-        InitialiserBasePrixRef();
-        InitialiserCaractDim();
-        InitialiserSousCategorieConstruction();
-        InitialiserCategorie();
-        InitialiserCategorieConstruction();
-        InitialiserCoeffRaccordement();
-        InitialiserChapitre();
-        InitialiserDescriptif();
-        InitialiserFamille();
-        InitialiserOperateur();
-        InitialiserProjets();
-        InitialiserSousFamille();
+//        InitialiserBasePrixRef();
+//        InitialiserCaractDim();
+//        InitialiserSousCategorieConstruction();
+//        InitialiserCategorie();
+//        InitialiserCategorieConstruction();
+//        InitialiserCoeffRaccordement();
+//        InitialiserChapitre();
+//        InitialiserDescriptif();
+//        InitialiserFamille();
+//        InitialiserOperateur();
+//        InitialiserProjets();
+//        InitialiserSousFamille();
         
     //----------tests-des-services-----------------
     
+//        testerModifBaseDescriptif();
+//        testerModifBasePrixRef();
 //        testerListerBasePrixRefs();
 //        testerListerCaractDims();
 //        testerListerCategories();
@@ -89,7 +91,7 @@ public class Main {
 //        testerListerSousCategorieConstructions();
 //        testerListerSousFamilles();
 //        testerAuthentifierOperateur();
-        testerCreerProjet();
+//        testerCreerProjet();
 //        testerRechercherProjetParId();
 //        testerDupliquerProjet();
 //        testerEditerNomProjet();
@@ -98,15 +100,13 @@ public class Main {
 //        testerEditerCoeffAdaptProjet();
 //        testerEditerCoeffRaccordementProjet();
 //        testerEditerCategorieConstructionProjet();
-//        testerTransformationWordVersExcel();
-//        testerModifBaseDescriptif();
-//        testerModifBasePrixRef();
-        testerAjouterLot();
-        testerAjouterTitre1();
-        testerAjouterTitre2();
-        testerAjouterTitre3();
-        testerAjouterTitre4();
-        testerAjouterDescriptif();
+        testerTransformationWordVersExcel();
+//        testerAjouterLot();
+//        testerAjouterTitre1();
+//        testerAjouterTitre2();
+//        testerAjouterTitre3();
+//        testerAjouterTitre4();
+//        testerAjouterDescriptif();
 //        testerAjouterLigneChiffrage();
 //        testerCoutSynthese();
 //        testerSuppressionBalise();
@@ -118,7 +118,7 @@ public class Main {
 //        testerModifierQuantiteDescriptif();      
 //        testerModifierPrixLigneChiffrage();
 
-        testerExporterProjet();
+//        testerExporterProjet();
         
       //----------Scenarii----------//
         
@@ -128,7 +128,7 @@ public class Main {
       // - Créer un utilisateur
       // - Se connecter
       // - Créer un Projet n°1
-      // - Ajouter une arbo pour le projet n°1 ainsi que des descriptifs
+      // - Ajouter une arbo pour le projet n°1 ainsi que des descriptifs (avec double localisation)
       // - Exporter le n°1
       // - Ajouter un sommaire dans le n°1
       
@@ -728,7 +728,7 @@ public class Main {
         Service service = new Service();
         
         //Doit fonctionner
-        String nomProjet = "projet1";
+        /*String nomProjet = "projet1";
 
         Boolean projetTest1 = service.CreerProjet(nomProjet);
         if (projetTest1) {
@@ -741,6 +741,16 @@ public class Main {
         //Doit fonctionner (nom deja présent BD)
         Boolean projetTest2 = service.CreerProjet(nomProjet);
         if (projetTest2) {
+            System.out.println("Succès: création du projet: "+nomProjet);
+        }
+        else {
+            System.out.println("Echec: impossible de créer: "+nomProjet);
+        }*/
+        
+        String nomProjet = "projet1";
+
+        Boolean projetTest1 = service.CreerProjet(nomProjet);
+        if (projetTest1) {
             System.out.println("Succès: création du projet: "+nomProjet);
         }
         else {
@@ -1133,17 +1143,16 @@ public class Main {
         else
             System.out.println("Echec lors de la modification du Projet n° " + idProjet);
         
-        /*idProjet = 01L;
-        placement = "BEFORE";
-        idRefPlacement = "_1";
+        placement = "APPEND";
+        idRefPlacement = null;
         
-        resultat = service.AjouterTitre1(idProjet, placement, idRefPlacement);
+        resultat = service.AjouterLot(idProjet, placement, idRefPlacement);
         if(resultat)
         {
             System.out.println("Modification avec succès du Projet n° " + idProjet);
         } else {
             System.out.println("Echec lors de la modification du Projet n° " + idProjet);
-        }*/
+        }
         
         //idProjet n'existe pas -> echec (comme prévu)
         //Insertion BEFORE avec un titre1 non existant -> echec (comme prévu)
@@ -1199,7 +1208,7 @@ public class Main {
         //Doit fonctionner
         Long idProjet = 01L;
         String placement = "APPEND";
-        String idRefPlacement = "_2";
+        String idRefPlacement = "_3";
         
         Boolean resultat = service.AjouterTitre2(idProjet, placement, idRefPlacement);
         if(resultat)
@@ -1209,7 +1218,7 @@ public class Main {
             System.out.println("Echec lors de la modification du Projet n° " + idProjet);
         }
         
-        placement = "BEFORE";
+        /*placement = "BEFORE";
         idRefPlacement = "_3";
         
         resultat = service.AjouterTitre2(idProjet, placement, idRefPlacement);
@@ -1218,7 +1227,7 @@ public class Main {
             System.out.println("Modification avec succès du Projet n° " + idProjet);
         } else {
             System.out.println("Echec lors de la modification du Projet n° " + idProjet);
-        }
+        }*/
         
         //idProjet n'existe pas -> echec (comme prévu)
         //Pas de titre1 correspondant -> echec (comme prévu)
@@ -1235,7 +1244,7 @@ public class Main {
         //Doit fonctionner
         Long idProjet = 01L;
         String placement = "APPEND";
-        String idRefPlacement = "_3";
+        String idRefPlacement = "_4";
         
         Boolean resultat = service.AjouterTitre3(idProjet, placement, idRefPlacement);
         if(resultat)
@@ -1346,7 +1355,7 @@ public class Main {
         Service service = new Service();
         
         //Doit fonctionner 
-        Long idProjet = 1L;
+        /*Long idProjet = 1L;
         String idDescriptif = "02_AAA_01_01_02";
         String placement = "APPEND";
         String idRefPlacement = "_3";
@@ -1363,6 +1372,18 @@ public class Main {
         idRefPlacement = "_2";
         
         resultat = service.AjouterDescriptif(idProjet, placement, idRefPlacement, idDescriptif);
+        if(resultat){
+            System.out.println("Ajout avec succès du descriptif " + idDescriptif);
+        } else {
+            System.out.println("Echec lors de l'ajout du descriptif " + idDescriptif);
+        }*/
+        
+        Long idProjet = 1L;
+        String idDescriptif = "06_BAR_01_10_001_001";
+        String placement = "APPEND";
+        String idRefPlacement = "_6";
+        
+        Boolean resultat = service.AjouterDescriptif(idProjet, placement, idRefPlacement, idDescriptif);
         if(resultat){
             System.out.println("Ajout avec succès du descriptif " + idDescriptif);
         } else {
@@ -1800,7 +1821,7 @@ public class Main {
         
         ImportService service = new ImportService();
         
-        String uriWord = "../import_files/baseDescriptifs.docx";
+        String uriWord = "../import_files/XX_Jeu_Test_BRP_v0.2.docx";
         Boolean resultat = service.TransformationWordVersExcel(uriWord);
         
         if(resultat)
