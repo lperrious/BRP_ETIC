@@ -65,7 +65,7 @@ public class Main {
 //        InitialiserSousCategorieConstruction();
 //        InitialiserCategorie();
 //        InitialiserCategorieConstruction();
-//        InitialiserCoeffRaccordement();
+        InitialiserCoeffRaccordement();
 //        InitialiserChapitre();
 //        InitialiserDescriptif();
 //        InitialiserFamille();
@@ -75,8 +75,8 @@ public class Main {
         
     //----------tests-des-services-----------------
     
-//        testerModifBaseDescriptif();
-//        testerModifBasePrixRef();
+        testerModifBaseDescriptif();
+        testerModifBasePrixRef();
 //        testerListerBasePrixRefs();
 //        testerListerCaractDims();
 //        testerListerCategories();
@@ -91,7 +91,7 @@ public class Main {
 //        testerListerSousCategorieConstructions();
 //        testerListerSousFamilles();
 //        testerAuthentifierOperateur();
-//        testerCreerProjet();
+        testerCreerProjet();
 //        testerRechercherProjetParId();
 //        testerDupliquerProjet();
 //        testerEditerNomProjet();
@@ -100,13 +100,13 @@ public class Main {
 //        testerEditerCoeffAdaptProjet();
 //        testerEditerCoeffRaccordementProjet();
 //        testerEditerCategorieConstructionProjet();
-        testerTransformationWordVersExcel();
-//        testerAjouterLot();
-//        testerAjouterTitre1();
-//        testerAjouterTitre2();
-//        testerAjouterTitre3();
-//        testerAjouterTitre4();
-//        testerAjouterDescriptif();
+//        testerTransformationWordVersExcel();
+        testerAjouterLot();
+        testerAjouterTitre1();
+        testerAjouterTitre2();
+        testerAjouterTitre3();
+        testerAjouterTitre4();
+        testerAjouterDescriptif();
 //        testerAjouterLigneChiffrage();
 //        testerCoutSynthese();
 //        testerSuppressionBalise();
@@ -118,7 +118,7 @@ public class Main {
 //        testerModifierQuantiteDescriptif();      
 //        testerModifierPrixLigneChiffrage();
 
-//        testerExporterProjet();
+        testerExporterProjet();
         
       //----------Scenarii----------//
         
@@ -1379,7 +1379,7 @@ public class Main {
         }*/
         
         Long idProjet = 1L;
-        String idDescriptif = "06_BAR_01_10_001_001";
+        String idDescriptif = "11_DAP_10_10_001";
         String placement = "APPEND";
         String idRefPlacement = "_6";
         
@@ -1406,7 +1406,7 @@ public class Main {
         
         //Doit fonctionner (sinsère uniquement dans le premier chapitre)
         Long idProjet = 1L;
-        String idDescriptif = "04_AAA_01_01_01";
+        String idDescriptif = "11_DAP_10_10_001";
         
         Boolean resultat = service.AjouterLigneChiffrage(idProjet, idDescriptif);
         if(resultat){

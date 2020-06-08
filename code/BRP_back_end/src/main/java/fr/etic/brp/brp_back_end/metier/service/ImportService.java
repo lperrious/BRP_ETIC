@@ -93,7 +93,6 @@ public class ImportService {
                             else{
                                 //on est dans une description. On extrait les styles
                                 for (XWPFParagraph paragraph : xwpfTableCell.getParagraphs()) {
-                                    if(!paragraph.getText().equals("")){
                                         
                                         chaineParagraph = "";
                                         runStyle = "";
@@ -161,8 +160,8 @@ public class ImportService {
                                             }
                                             first = false;
                                         }              
-                                        
-                                        chaineParagraph += "</"+runStyle+">"; //on ferme la dernière balise
+                                        if(!"".equals(runStyle))
+                                            chaineParagraph += "</"+runStyle+">"; //on ferme la dernière balise
                
                                         if("bullet".equals(paragraph.getNumFmt())){
                                             chaineDescription += "<li>"+chaineParagraph+"</li>"; //verif si fermante
@@ -171,7 +170,6 @@ public class ImportService {
                                             chaineDescription += "<p>"+chaineParagraph+"</p>";
                                         }
                                           //chaineDescription += chaineParagraph;
-                                    }
                                 }
                                 //System.out.println(chaineDescription);
                                 tableau.add(chaineDescription);             
