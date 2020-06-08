@@ -131,12 +131,14 @@ public class Main {
       // - Ajouter une arbo pour le projet n°1 ainsi que des descriptifs (avec double localisation)
       // - Exporter le n°1
       // - Ajouter un sommaire dans le n°1
+      // - Se deconnecter / Connecter un autre utilisateur                        -- Louis?
       
       //Explication du scénario n°2 (duplication)
       // - Importer des Chapitres/Catégories/.../Descriptifs
       // - Importer des prixRef liés aux Descriptifs
       // - Créer un Projet n°1
       // - Dupliquer ce projet en n°2
+      // - Renommer le projet n°2                                                  -- Louis?
       // - Ajouter une arbo pour le projet n°2 ainsi que des descriptifs
       // - Dupliquer le n°2 en n°3
       
@@ -145,6 +147,7 @@ public class Main {
       // - Importer des prixRef liés aux Descriptifs
       // - Supprimer des descriptifs de la BD
       // - Supprimer des sous-familles/Chapitres etc de la BD
+      //Supprimer un projet                                                       -- Louis?
       
         
         JpaUtil.destroy();
