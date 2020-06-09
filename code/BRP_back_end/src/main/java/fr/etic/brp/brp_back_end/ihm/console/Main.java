@@ -170,25 +170,31 @@ public static void Scenario2() {
     //les ajouts se sont bien passés, on passe aux suppressions
     if(returnListe.get(0).equals("Succes")){
         System.out.println("Succès ajout en BD");
-        System.out.println();
+        int testSuppr = 0;
         for(int i = 1; i < returnListe.size(); i++){
             msgSuppr = importService.CompterEnfants(returnListe.get(i));
             //on envoie au comptage des enfants
             if(msgSuppr.equals("suppr ok")){ //on supprime direct car pas d'enfant
-                System.out.println(importService.SupprObjet(returnListe.get(i)));
+                if(importService.SupprObjet(returnListe.get(i)).equals("Succes"))
+                    testSuppr++;
+                else
+                    System.out.println(importService.SupprObjet(returnListe.get(i)));
             }
             else{ //on demande la permission au client
                 System.out.println(msgSuppr);
-                System.out.println(importService.SupprObjet(returnListe.get(i)));
+                if(importService.SupprObjet(returnListe.get(i)).equals("Succes"))
+                    testSuppr++;
+                else
+                    System.out.println(importService.SupprObjet(returnListe.get(i)));
             }
         }
-
-        //TODO Afficher si succès lors des suppressions
+        if((testSuppr+1) == returnListe.size())
+                System.out.println("Suppressions ok");
     }
     else{       //on affiche l'erreur
         System.out.println(returnListe.get(0));
-        System.out.println();
     }
+    System.out.println();
            
     // - Importer des prixRef liés aux Descriptifs
     System.out.println("------------  Import prix  -------------");
@@ -219,9 +225,27 @@ public static void Scenario2() {
     System.out.println();
     
     // - Renommer le projet n°2   
+    System.out.println("------------  Renommer projet 2  -------------");
+    String newNomProjet2 = "Nouveau projet2";
+    Boolean testEditerNom = service.EditerNomProjet(idProjet2, newNomProjet2);
+    if(testEditerNom)
+        System.out.println("Succès");
+    else 
+        System.out.println("Erreur");
+    System.out.println();
     
     // - Ajouter une arbo pour le projet n°2 ainsi que des descriptifs
+    
+    
     // - Dupliquer le n°2 en n°3
+    System.out.println("------------  Dupliquer projet 2  -------------");
+    String nomProjet3 = "projet3";
+    Long idProjet3 = service.DupliquerProjet(idProjet2, nomProjet3);
+    if(idProjet3 > 0)
+        System.out.println("Succès");
+    else 
+        System.out.println("Erreur");
+    System.out.println();
 }
     
 //------------------------------------------------------------------------------    
