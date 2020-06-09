@@ -1064,7 +1064,7 @@ public class Service {
             //on parcours les descriptifs
             for (int i = 0; i<rootNodes.getLength(); i++) {
                 Element descriptif = (Element) rootNodes.item(i);
-                if(descriptif.getAttribute("idDescriptif").equals(idDescriptif)){
+                if(descriptif.getAttribute("idBD").equals(idDescriptif)){
                     
                     //on compte les lignes chiffrages qu'il y a 
                     NodeList ligneChiffrageNodes = descriptif.getElementsByTagName("ligneChiffrage");
@@ -1106,7 +1106,7 @@ public class Service {
                     break;
                 }			
             }
-            
+
             //On écrit par dessus l'ancien XML
             projetXMLDao.saveXMLContent(xml, uri);
             

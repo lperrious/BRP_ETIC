@@ -61,11 +61,11 @@ public class Main {
     
         // A faire tout le temps (l'ordre est important)
 //        InitialiserBasePrixRef();
-//        InitialiserCaractDim();
-//        InitialiserSousCategorieConstruction();
+        InitialiserCaractDim();
+        InitialiserSousCategorieConstruction();
 //        InitialiserCategorie();
-//        InitialiserCategorieConstruction();
-//        InitialiserCoeffRaccordement();
+        InitialiserCategorieConstruction();
+        InitialiserCoeffRaccordement();
 //        InitialiserChapitre();
 //        InitialiserDescriptif();
 //        InitialiserFamille();
@@ -124,7 +124,7 @@ public class Main {
         
         Scenario1();                     
       
-        Scenario2();
+//        Scenario2();
       
       //Explication du scénario n°3 (suppression)
       // - Importer des Chapitres/Catégories/.../Descriptifs
@@ -312,11 +312,20 @@ public static void Scenario1() {
     if (resultat)
         System.out.println("Succès");
     else 
-        System.out.println("Echec");
+        System.out.println("EchecLigneChiffrage");
     System.out.println();
     
     // - Exporter le projet n°1
+    System.out.println();
+    System.out.println("------------  Export Projet  -------------");
+    ExportService exportService = new ExportService();
     
+    resultat = exportService.ExporterProjet(idProjet, 1);
+    if (resultat)
+        System.out.println("Succès");
+    else 
+        System.out.println("Echec");
+    System.out.println();
 }
     
 //Explication du scénario n°2 (duplication)

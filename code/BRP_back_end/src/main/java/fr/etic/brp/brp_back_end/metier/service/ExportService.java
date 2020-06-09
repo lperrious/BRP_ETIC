@@ -832,7 +832,7 @@ public class ExportService {
 
                 //On extrait les différents élements de ligneChiffrage et on les mets dans des p
                 NodeList listeLigneChiffrage = descriptif.getElementsByTagName("ligneChiffrage");
-                if(listeLigneChiffrage.getLength() > 2) {
+                if(listeLigneChiffrage.getLength() > 1) {
                     //Paragraphe localisation
                     XWPFParagraph pLocalisation = word.createParagraph();
                     XWPFRun rLocalisation = pLocalisation.createRun();
