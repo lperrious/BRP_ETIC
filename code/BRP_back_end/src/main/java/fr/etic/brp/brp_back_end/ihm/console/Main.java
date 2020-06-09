@@ -123,8 +123,8 @@ public class Main {
       //----------Scenarii----------//
         
 //        Scenario1();                     
-        Scenario2();
-      
+//        Scenario2();
+
       //Explication du scénario n°3 (suppression)
       // - Importer des Chapitres/Catégories/.../Descriptifs
       // - Importer des prixRef liés aux Descriptifs
