@@ -61,11 +61,11 @@ public class Main {
     
         // A faire tout le temps (l'ordre est important)
 //        InitialiserBasePrixRef();
-//        InitialiserCaractDim();
-//        InitialiserSousCategorieConstruction();
+        InitialiserCaractDim();
+        InitialiserSousCategorieConstruction();
 //        InitialiserCategorie();
-//        InitialiserCategorieConstruction();
-//        InitialiserCoeffRaccordement();
+        InitialiserCategorieConstruction();
+        InitialiserCoeffRaccordement();
 //        InitialiserChapitre();
 //        InitialiserDescriptif();
 //        InitialiserFamille();
@@ -120,21 +120,11 @@ public class Main {
 
 //        testerExporterProjet();
 
-          Scenario2();
-        
       //----------Scenarii----------//
         
-      //Explication du scénario n°1 (classique pour dérouler)
-      // - Importer des Chapitres/Catégories/.../Descriptifs
-      // - Importer des prixRef liés aux Descriptifs
-      // - Créer un utilisateur
-      // - Se connecter
-      // - Créer un Projet n°1
-      // - Ajouter une arbo pour le projet n°1 ainsi que des descriptifs (avec double localisation)
-      // - Exporter le n°1
-      // - Se deconnecter / Connecter un autre utilisateur                        
+        Scenario1();                     
       
-      
+//        Scenario2();
       
       //Explication du scénario n°3 (suppression)
       // - Importer des Chapitres/Catégories/.../Descriptifs
@@ -152,6 +142,192 @@ public class Main {
 //------------------------------- SCENARII -------------------------------------
 //------------------------------------------------------------------------------
 
+//Explication du scénario n°1 (classique pour dérouler)
+public static void Scenario1() {
+    
+    // - Importer des Chapitres/Catégories/.../Descriptifs
+    System.out.println();
+    System.out.println("------------  Import Descriptifs  -------------");
+    ImportService importService = new ImportService();
+    Service service = new Service();
+    String msgSuppr = "";
+    String uriWord = "../import_files/XX_Jeu_Test_BRP_v0.2.docx";
+    
+    //returnListe[0] = status
+    //les autres contiennent les identifiants à supprimer
+    ArrayList<String> returnListe = importService.ModifBaseDescriptif(uriWord);
+    
+    //les ajouts se sont bien passés, on passe aux suppressions
+    if(returnListe.get(0).equals("Succes")){
+        System.out.println("Succès ajout en BD");
+        System.out.println();
+        for(int i = 1; i < returnListe.size(); i++){
+            msgSuppr = importService.CompterEnfants(returnListe.get(i));
+            //on envoie au comptage des enfants
+            if(msgSuppr.equals("suppr ok")){ //on supprime direct car pas d'enfant
+                System.out.println(importService.SupprObjet(returnListe.get(i)));
+            }
+            else{ //on demande la permission au client
+                System.out.println(msgSuppr);
+                System.out.println(importService.SupprObjet(returnListe.get(i)));
+            }
+        }
+
+        //TODO Afficher si succès lors des suppressions
+    }
+    else{       //on affiche l'erreur
+        System.out.println(returnListe.get(0));
+        System.out.println();
+    }
+           
+    // - Importer des prixRef liés aux Descriptifs
+    System.out.println("------------  Import prix  -------------");
+    String uriExcel = "../import_files/templateBasePrix_jeau_test_0.2.csv";
+    String msgState = importService.ModifBasePrixRef(uriExcel);
+    System.out.println(msgState);
+    System.out.println();
+
+    // - Créer un Projet n°1
+    System.out.println("------------  Creation projet 1  -------------");
+    String nomProjet = "projet1";
+    Long idProjet = service.CreerProjet(nomProjet);
+    if (idProjet != -1) 
+        System.out.println("Succès");
+    else 
+        System.out.println("Echec");
+    System.out.println();
+    
+    // - Editer infos Projet (nouveau nom, typeMarche, date, coeffAdapt, coeffRaccordement, categorieConstruction)
+    System.out.println("------------  Editer Projet --------------");
+    
+    String nouveauNomProjet = "nouveauNomProjet1";
+    Boolean resultat = service.EditerNomProjet(idProjet, nouveauNomProjet);
+    if (resultat)
+        System.out.println("Succès");
+    else 
+        System.out.println("Echec");
+    System.out.println();
+    
+    resultat = service.EditerInfoEnumProjet(idProjet, "TypeMarche", "marchePublic");
+    if (resultat)
+        System.out.println("Succès");
+    else 
+        System.out.println("Echec");
+    System.out.println();
+    
+    resultat = service.EditerCoeffAdaptProjet(idProjet, 9.0F);
+    if (resultat)
+        System.out.println("Succès");
+    else 
+        System.out.println("Echec");
+    System.out.println();
+    
+    resultat = service.EditerDateProjet(idProjet, new Date());
+    if (resultat)
+        System.out.println("Succès");
+    else 
+        System.out.println("Echec");
+    System.out.println();
+    
+    CoeffRaccordement coeffRaccordement = service.ListerCoeffRaccordements().get(0);
+    resultat = service.EditerCoeffRaccordementProjet(idProjet, coeffRaccordement.getIdCoeffRaccordement());
+    if (resultat)
+        System.out.println("Succès");
+    else 
+        System.out.println("Echec");
+    System.out.println();
+    
+    CategorieConstruction categorieConstruction = service.ListerCategorieConstructions().get(0);
+    resultat = service.EditerCategorieConstructionProjet(idProjet, categorieConstruction.getIdCategorieConstruction());
+    if (resultat)
+        System.out.println("Succès");
+    else 
+        System.out.println("Echec");
+    System.out.println();
+    
+    // - Ajouter une arbo pour le projet n°1 ainsi que des descriptifs (avec double localisation)
+    //Lot 1
+    String placement = "APPEND";
+    String idRefPlacement = "";
+    resultat = service.AjouterLot(idProjet, placement, idRefPlacement);
+    if (resultat)
+        System.out.println("Succès");
+    else 
+        System.out.println("Echec");
+    System.out.println();
+    //Lot 2
+    resultat = service.AjouterLot(idProjet, placement, idRefPlacement);
+    if (resultat)
+        System.out.println("Succès");
+    else 
+        System.out.println("Echec");
+    System.out.println();
+    //Titre1
+    placement = "APPEND";
+    idRefPlacement = "_1";
+    resultat = service.AjouterTitre1(idProjet, placement, idRefPlacement);
+    if (resultat)
+        System.out.println("Succès");
+    else 
+        System.out.println("Echec");
+    System.out.println();
+    //Titre2
+    placement = "APPEND";
+    idRefPlacement = "_3";
+    resultat = service.AjouterTitre2(idProjet, placement, idRefPlacement);
+    if (resultat)
+        System.out.println("Succès");
+    else 
+        System.out.println("Echec");
+    System.out.println();
+    //Titre3
+    placement = "APPEND";
+    idRefPlacement = "_4";
+    resultat = service.AjouterTitre3(idProjet, placement, idRefPlacement);
+    if (resultat)
+        System.out.println("Succès");
+    else 
+        System.out.println("Echec");
+    System.out.println();
+    //Titre4
+    placement = "APPEND";
+    idRefPlacement = "_5";
+    resultat = service.AjouterTitre4(idProjet, placement, idRefPlacement);
+    if (resultat)
+        System.out.println("Succès");
+    else 
+        System.out.println("Echec");
+    System.out.println();
+    //Descriptif
+    placement = "APPEND";
+    idRefPlacement = "_6";
+    resultat = service.AjouterDescriptif(idProjet, placement, idRefPlacement, "04_ETA_01_11_001_001");
+    if (resultat)
+        System.out.println("Succès");
+    else 
+        System.out.println("Echec");
+    System.out.println();
+    //Ajout d'une ligneChiffrage
+    resultat = service.AjouterLigneChiffrage(idProjet, "04_ETA_01_11_001_001");
+    if (resultat)
+        System.out.println("Succès");
+    else 
+        System.out.println("EchecLigneChiffrage");
+    System.out.println();
+    
+    // - Exporter le projet n°1
+    System.out.println();
+    System.out.println("------------  Export Projet  -------------");
+    ExportService exportService = new ExportService();
+    
+    resultat = exportService.ExporterProjet(idProjet, 1);
+    if (resultat)
+        System.out.println("Succès");
+    else 
+        System.out.println("Echec");
+    System.out.println();
+}
+    
 //Explication du scénario n°2 (duplication)
 public static void Scenario2() {
         
