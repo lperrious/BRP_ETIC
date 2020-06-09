@@ -272,10 +272,10 @@ public class Service {
         return resultat;
     }
     
-    public Boolean CreerProjet(String nomProjet) {
+    public Long CreerProjet(String nomProjet) {
         JpaUtil.creerContextePersistance();
         Projet newProjet = null;
-        Long idProjet = null;
+        Long idProjet = -1L;
         
         try {
             //on crée l'objet projet
@@ -319,11 +319,7 @@ public class Service {
             JpaUtil.fermerContextePersistance();
         }
      
-        //Si l'opération a réussi on renvoi true
-        if(newProjet != null)
-            return true;
-        else
-            return false;
+        return idProjet;
     }
     
     public Projet RechercherProjetParId(Long id) {
@@ -571,10 +567,10 @@ public class Service {
     }
     
     //Duplique un projet en donnant par défaut le nom "Nouveau Projet"
-    public Boolean DupliquerProjet(Long idProjetADupliquer){
+    public Long DupliquerProjet(Long idProjetADupliquer, String nomProjetDuplique){
         Projet projetADupliquer = null;
         Projet projetDuplique = null;
-        Long idProjet = null;
+        Long idProjet = -1L;
         
         JpaUtil.creerContextePersistance();
         
@@ -584,7 +580,6 @@ public class Service {
                 projetADupliquer = projetDao.ChercherParId(idProjetADupliquer); //On va chercher le projet à duppliquer
                 if(projetADupliquer != null) {
                     //On duplique ce projet en faisant attention aux liens divers
-                    String nomProjetDuplique = "Nouveau Projet"; //Par défaut
                     projetDuplique = new Projet(nomProjetDuplique);
                     projetDuplique.setTypeMarche(projetADupliquer.getTypeMarche());
                     projetDuplique.setTypeConstruction(projetADupliquer.getTypeConstruction());
@@ -633,11 +628,7 @@ public class Service {
             JpaUtil.fermerContextePersistance();
         }
         
-        //Si l'opération a réussi on renvoi true
-        if(projetDuplique != null)
-            return true;
-        else
-            return false;
+        return idProjet;   
     }    
     
     public Double CoutSynthese(Long idProjet, String typeBalise, String idBalise) {

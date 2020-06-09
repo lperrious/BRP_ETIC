@@ -367,8 +367,8 @@ public static void Scenario2() {
     // - Créer un Projet n°1
     System.out.println("------------  Creation projet 1  -------------");
     String nomProjet = "projet1";
-    Boolean projetTest1 = service.CreerProjet(nomProjet);
-    if (projetTest1) 
+    Long idProjet = service.CreerProjet(nomProjet);
+    if (idProjet > 0) 
         System.out.println("Succès");
     else 
         System.out.println("Echec");
@@ -377,15 +377,16 @@ public static void Scenario2() {
 
     // - Dupliquer ce projet en n°2
     System.out.println("------------  Dupliquer projet 1  -------------");
-    Long idProjet = 1L;
-    Boolean resultat = service.DupliquerProjet(idProjet);
-    if(resultat)
+    String nomProjet2 = "projet2";
+    Long idProjet2 = service.DupliquerProjet(idProjet, nomProjet2);
+    if(idProjet2 > 0)
         System.out.println("Succès");
     else 
         System.out.println("Erreur");
     System.out.println();
     
-    // - Renommer le projet n°2                                                 
+    // - Renommer le projet n°2   
+    
     // - Ajouter une arbo pour le projet n°2 ainsi que des descriptifs
     // - Dupliquer le n°2 en n°3
 }
@@ -986,15 +987,16 @@ public static void Scenario2() {
             System.out.println("Echec: impossible de créer: "+nomProjet);
         }*/
         
-        String nomProjet = "projet1";
-
-        Boolean projetTest1 = service.CreerProjet(nomProjet);
-        if (projetTest1) {
-            System.out.println("Succès: création du projet: "+nomProjet);
-        }
-        else {
-            System.out.println("Echec: impossible de créer: "+nomProjet);
-        }
+        //modifie dans le scenario 2
+//        String nomProjet = "projet1";
+//
+//        Boolean projetTest1 = service.CreerProjet(nomProjet);
+//        if (projetTest1) {
+//            System.out.println("Succès: création du projet: "+nomProjet);
+//        }
+//        else {
+//            System.out.println("Echec: impossible de créer: "+nomProjet);
+//        }
     }
     
     
@@ -1042,24 +1044,25 @@ public static void Scenario2() {
         //Doit fonctionner
         Long idProjet = 1L;
         
-        Boolean resultat = service.DupliquerProjet(idProjet);
-        if(resultat)
-        {
-            System.out.println("Duplication avec succès du projet n°" + idProjet);
-        } else {
-            System.out.println("Erreur de duplication du projet n°" + idProjet);
-        }
-       
-        //Ne doit pas fonctionner
-        Long idProjet2 = 100L;
-        
-        Boolean resultat2 = service.DupliquerProjet(idProjet2);
-        if(resultat2)
-        {
-            System.out.println("Duplication avec succès du projet n°" + idProjet2);
-        } else {
-            System.out.println("Erreur de duplication du projet n°" + idProjet2);
-        }
+        //a été modifié dans le scenario 2
+//        Boolean resultat = service.DupliquerProjet(idProjet);
+//        if(resultat)
+//        {
+//            System.out.println("Duplication avec succès du projet n°" + idProjet);
+//        } else {
+//            System.out.println("Erreur de duplication du projet n°" + idProjet);
+//        }
+//       
+//        //Ne doit pas fonctionner
+//        Long idProjet2 = 100L;
+//        
+//        Boolean resultat2 = service.DupliquerProjet(idProjet2);
+//        if(resultat2)
+//        {
+//            System.out.println("Duplication avec succès du projet n°" + idProjet2);
+//        } else {
+//            System.out.println("Erreur de duplication du projet n°" + idProjet2);
+//        }
     }
     
     public static void testerEditerNomProjet() {
