@@ -122,9 +122,8 @@ public class Main {
 
       //----------Scenarii----------//
         
-        Scenario1();                     
-      
-//        Scenario2();
+//        Scenario1();                     
+        Scenario2();
       
       //Explication du scénario n°3 (suppression)
       // - Importer des Chapitres/Catégories/.../Descriptifs
@@ -160,25 +159,31 @@ public static void Scenario1() {
     //les ajouts se sont bien passés, on passe aux suppressions
     if(returnListe.get(0).equals("Succes")){
         System.out.println("Succès ajout en BD");
-        System.out.println();
+        int testSuppr = 0;
         for(int i = 1; i < returnListe.size(); i++){
             msgSuppr = importService.CompterEnfants(returnListe.get(i));
             //on envoie au comptage des enfants
             if(msgSuppr.equals("suppr ok")){ //on supprime direct car pas d'enfant
-                System.out.println(importService.SupprObjet(returnListe.get(i)));
+                if(importService.SupprObjet(returnListe.get(i)).equals("Succes"))
+                    testSuppr++;
+                else
+                    System.out.println(importService.SupprObjet(returnListe.get(i)));
             }
             else{ //on demande la permission au client
                 System.out.println(msgSuppr);
-                System.out.println(importService.SupprObjet(returnListe.get(i)));
+                if(importService.SupprObjet(returnListe.get(i)).equals("Succes"))
+                    testSuppr++;
+                else
+                    System.out.println(importService.SupprObjet(returnListe.get(i)));
             }
         }
-
-        //TODO Afficher si succès lors des suppressions
+        if((testSuppr+1) == returnListe.size())
+                System.out.println("Suppressions ok");
     }
     else{       //on affiche l'erreur
         System.out.println(returnListe.get(0));
-        System.out.println();
     }
+    System.out.println();
            
     // - Importer des prixRef liés aux Descriptifs
     System.out.println("------------  Import prix  -------------");
@@ -410,8 +415,60 @@ public static void Scenario2() {
         System.out.println("Erreur");
     System.out.println();
     
-    // - Ajouter une arbo pour le projet n°2 ainsi que des descriptifs
-    
+    // - Ajouter une arbo Simple pour le projet n°2 ainsi que des descriptifs
+    System.out.println("------------  Ajout Arbo projet 2  -------------");
+    //Lot 1
+    String placement = "APPEND";
+    String idRefPlacement = "";
+    Boolean resultat = service.AjouterLot(idProjet2, placement, idRefPlacement);
+    if (resultat)
+        System.out.println("Succès");
+    else 
+        System.out.println("Echec");
+    System.out.println();
+    //Lot 2
+    resultat = service.AjouterLot(idProjet2, placement, idRefPlacement);
+    if (resultat)
+        System.out.println("Succès");
+    else 
+        System.out.println("Echec");
+    System.out.println();
+    //Titre1
+    placement = "APPEND";
+    idRefPlacement = "_1";
+    resultat = service.AjouterTitre1(idProjet2, placement, idRefPlacement);
+    if (resultat)
+        System.out.println("Succès");
+    else 
+        System.out.println("Echec");
+    System.out.println();
+    //Titre2
+    placement = "APPEND";
+    idRefPlacement = "_3";
+    resultat = service.AjouterTitre2(idProjet2, placement, idRefPlacement);
+    if (resultat)
+        System.out.println("Succès");
+    else 
+        System.out.println("Echec");
+    System.out.println();
+    //Titre3
+    placement = "APPEND";
+    idRefPlacement = "_4";
+    resultat = service.AjouterTitre3(idProjet2, placement, idRefPlacement);
+    if (resultat)
+        System.out.println("Succès");
+    else 
+        System.out.println("Echec");
+    System.out.println();
+    //Titre4
+    placement = "APPEND";
+    idRefPlacement = "_5";
+    resultat = service.AjouterTitre4(idProjet2, placement, idRefPlacement);
+    if (resultat)
+        System.out.println("Succès");
+    else 
+        System.out.println("Echec");
+    System.out.println();
     
     // - Dupliquer le n°2 en n°3
     System.out.println("------------  Dupliquer projet 2  -------------");
