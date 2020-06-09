@@ -65,7 +65,7 @@ public class Main {
 //        InitialiserSousCategorieConstruction();
 //        InitialiserCategorie();
 //        InitialiserCategorieConstruction();
-        InitialiserCoeffRaccordement();
+//        InitialiserCoeffRaccordement();
 //        InitialiserChapitre();
 //        InitialiserDescriptif();
 //        InitialiserFamille();
@@ -75,8 +75,8 @@ public class Main {
         
     //----------tests-des-services-----------------
     
-        testerModifBaseDescriptif();
-        testerModifBasePrixRef();
+//        testerModifBaseDescriptif();
+//        testerModifBasePrixRef();
 //        testerListerBasePrixRefs();
 //        testerListerCaractDims();
 //        testerListerCategories();
@@ -91,7 +91,7 @@ public class Main {
 //        testerListerSousCategorieConstructions();
 //        testerListerSousFamilles();
 //        testerAuthentifierOperateur();
-        testerCreerProjet();
+//        testerCreerProjet();
 //        testerRechercherProjetParId();
 //        testerDupliquerProjet();
 //        testerEditerNomProjet();
@@ -101,12 +101,12 @@ public class Main {
 //        testerEditerCoeffRaccordementProjet();
 //        testerEditerCategorieConstructionProjet();
 //        testerTransformationWordVersExcel();
-        testerAjouterLot();
-        testerAjouterTitre1();
-        testerAjouterTitre2();
-        testerAjouterTitre3();
-        testerAjouterTitre4();
-        testerAjouterDescriptif();
+//        testerAjouterLot();
+//        testerAjouterTitre1();
+//        testerAjouterTitre2();
+//        testerAjouterTitre3();
+//        testerAjouterTitre4();
+//        testerAjouterDescriptif();
 //        testerAjouterLigneChiffrage();
 //        testerCoutSynthese();
 //        testerSuppressionBalise();
@@ -118,7 +118,9 @@ public class Main {
 //        testerModifierQuantiteDescriptif();      
 //        testerModifierPrixLigneChiffrage();
 
-        testerExporterProjet();
+//        testerExporterProjet();
+
+          Scenario2();
         
       //----------Scenarii----------//
         
@@ -132,14 +134,7 @@ public class Main {
       // - Exporter le n°1
       // - Se deconnecter / Connecter un autre utilisateur                        
       
-      //Explication du scénario n°2 (duplication)
-      // - Importer des Chapitres/Catégories/.../Descriptifs
-      // - Importer des prixRef liés aux Descriptifs
-      // - Créer un Projet n°1
-      // - Dupliquer ce projet en n°2
-      // - Renommer le projet n°2                                                  
-      // - Ajouter une arbo pour le projet n°2 ainsi que des descriptifs
-      // - Dupliquer le n°2 en n°3
+      
       
       //Explication du scénario n°3 (suppression)
       // - Importer des Chapitres/Catégories/.../Descriptifs
@@ -152,6 +147,81 @@ public class Main {
         JpaUtil.destroy();
         DomUtil.destroy();
     }
+    
+//------------------------------------------------------------------------------    
+//------------------------------- SCENARII -------------------------------------
+//------------------------------------------------------------------------------
+
+//Explication du scénario n°2 (duplication)
+public static void Scenario2() {
+        
+    // - Importer des Chapitres/Catégories/.../Descriptifs
+    System.out.println();
+    System.out.println("------------  Import Descriptifs  -------------");
+    ImportService importService = new ImportService();
+    Service service = new Service();
+    String msgSuppr = "";
+    String uriWord = "../import_files/XX_Jeu_Test_BRP_v0.2.docx";
+
+    //returnListe[0] = status
+    //les autres contiennent les identifiants à supprimer
+    ArrayList<String> returnListe = importService.ModifBaseDescriptif(uriWord);
+
+    //les ajouts se sont bien passés, on passe aux suppressions
+    if(returnListe.get(0).equals("Succes")){
+        System.out.println("Succès ajout en BD");
+        System.out.println();
+        for(int i = 1; i < returnListe.size(); i++){
+            msgSuppr = importService.CompterEnfants(returnListe.get(i));
+            //on envoie au comptage des enfants
+            if(msgSuppr.equals("suppr ok")){ //on supprime direct car pas d'enfant
+                System.out.println(importService.SupprObjet(returnListe.get(i)));
+            }
+            else{ //on demande la permission au client
+                System.out.println(msgSuppr);
+                System.out.println(importService.SupprObjet(returnListe.get(i)));
+            }
+        }
+
+        //TODO Afficher si succès lors des suppressions
+    }
+    else{       //on affiche l'erreur
+        System.out.println(returnListe.get(0));
+        System.out.println();
+    }
+           
+    // - Importer des prixRef liés aux Descriptifs
+    System.out.println("------------  Import prix  -------------");
+    String uriExcel = "../import_files/templateBasePrix_jeau_test_0.2.csv";
+    String msgState = importService.ModifBasePrixRef(uriExcel);
+    System.out.println(msgState);
+    System.out.println();
+
+    // - Créer un Projet n°1
+    System.out.println("------------  Creation projet 1  -------------");
+    String nomProjet = "projet1";
+    Boolean projetTest1 = service.CreerProjet(nomProjet);
+    if (projetTest1) 
+        System.out.println("Succès");
+    else 
+        System.out.println("Echec");
+    System.out.println();
+    
+
+    // - Dupliquer ce projet en n°2
+    System.out.println("------------  Dupliquer projet 1  -------------");
+    Long idProjet = 1L;
+    Boolean resultat = service.DupliquerProjet(idProjet);
+    if(resultat)
+        System.out.println("Succès");
+    else 
+        System.out.println("Erreur");
+    System.out.println();
+    
+    // - Renommer le projet n°2                                                 
+    // - Ajouter une arbo pour le projet n°2 ainsi que des descriptifs
+    // - Dupliquer le n°2 en n°3
+}
     
 //------------------------------------------------------------------------------    
 //---------------------------- INITIALISATIONS ---------------------------------
