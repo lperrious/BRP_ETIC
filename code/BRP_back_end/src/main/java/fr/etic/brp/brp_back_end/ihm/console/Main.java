@@ -131,7 +131,6 @@ public class Main {
       // - Supprimer des descriptifs de la BD
       // - Supprimer des sous-familles/Chapitres etc de la BD
       // - Supprimer un projet                                                       
-      
         
         JpaUtil.destroy();
         DomUtil.destroy();
