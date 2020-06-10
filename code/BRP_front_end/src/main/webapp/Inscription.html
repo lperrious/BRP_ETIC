@@ -67,9 +67,9 @@
                       if (!response.Error) {
                         //On se déplace sur la page de connection
                         $("#div_consigne").html("Inscription bien prise en compte");
-                        document.getElementById("button_back_home").style.display = "block";
+                        document.getElementById("button_back_home").style.display = "none";
                         $("#button_create_account_html").html("Connexion");
-                        document.getElementById("button_create_account_html").onclick = function(){window.location.href = "Connexion.html"};
+                        document.getElementById("button_create_account_html").onclick = function(){window.location.href = "index.html"};
                       } else {
                         //$("#div_consigne").html(response.errorDetail); // Message pour le paragraphe de notification
                         $("#div_consigne").html("Utilisateur déjà associé à ce mail");
@@ -84,7 +84,7 @@
                 }
                 
                 function RetourConnexion(){
-                    window.location.href = "Connexion.html";
+                    window.location.href = "index.html";
                 }
         </script>
     </body>

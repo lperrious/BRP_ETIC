@@ -1,0 +1,67 @@
+/* Inscription */
+#div_champs_inscription {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 60px;
+    display : flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 470px;
+    background: rgba(255, 255, 255, 0.5);
+    padding: 40px 60px;
+    border-radius: 16px;
+}
+
+#div_consigne {
+    margin-top: 0px;
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+#button_create_account {
+    display : flex;
+    justify-content: space-around;
+}
+
+/* Connection */
+#conteneur_connection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 300px;
+    margin-left: 300px;
+    width : 1000px;
+    background: rgba(255, 255, 255, 0.5);
+    padding-top: 40px;
+    padding-bottom: 40px;
+    border-radius: 16px;
+}
+
+.main {
+    width: 600px;
+}
+
+#conteneur_button {
+    display: flex;
+    justify-content: space-between;
+}
+
+.sidenav {
+    width: 300px;
+}
+
+.login-main-text a{
+    color: inherit; /* blue colors for links too */
+    text-decoration: inherit; /* no underline */
+    font-weight: bold; 
+}
+
+#error_notif {
+    margin-left: 500px;
+    margin-top: 50px;
+    width: 400px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.5);
+    text-align: center;
+}
