@@ -2,7 +2,13 @@ package fr.etic.brp.brp_front_end.controleur;
 
 import fr.etic.brp.brp_back_end.dao.JpaUtil;
 import fr.etic.brp.brp_front_end.actions.Action;
+import fr.etic.brp.brp_front_end.actions.ConnectionAction;
+import fr.etic.brp.brp_front_end.actions.InscriptionAction;
+import fr.etic.brp.brp_front_end.actions.TestConnectionAction;
+import fr.etic.brp.brp_front_end.serialisations.ConnectionSerialisation;
+import fr.etic.brp.brp_front_end.serialisations.InscriptionSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.Serialisation;
+import fr.etic.brp.brp_front_end.serialisations.TestConnectionSerialisation;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -50,9 +56,19 @@ public class ActionServlet extends HttpServlet {
         Serialisation serialisation = null;
         
         switch(todo) {
-            case "listerMediums" : {
-                //action = new ListerMediumsAction();
-                //serialisation = new ListerMediumsSerialisation();                
+            case "inscription" : {
+                action = new InscriptionAction();
+                serialisation = new InscriptionSerialisation();  
+                break;
+            }
+            case "connection" : {
+                action = new ConnectionAction();
+                serialisation = new ConnectionSerialisation();  
+                break;
+            }
+            case "testConnection" : {
+                action = new TestConnectionAction();
+                serialisation = new TestConnectionSerialisation();
                 break;
             }
         }

@@ -272,6 +272,23 @@ public class Service {
         return resultat;
     }
     
+    public Boolean InscrireOperateur(Operateur operateur) {
+        JpaUtil.creerContextePersistance();
+        Boolean resultat = false;
+        try {
+            JpaUtil.ouvrirTransaction();
+            operateurDao.Creer(operateur);
+            JpaUtil.validerTransaction();
+            resultat = true;
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service InscrireOperateur(Operateur operateur)", ex);
+            resultat = false;
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        return resultat;
+    }
+    
     public Long CreerProjet(String nomProjet) {
         JpaUtil.creerContextePersistance();
         Projet newProjet = null;

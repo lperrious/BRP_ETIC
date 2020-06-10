@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Inscription</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        
+        <link rel="stylesheet" type="text/css" href="style/style.css">
+        
+        <!-- Librairie Javascript: jQuery (v3.4.1) -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    </head>
+    <body id="clientbody">
+        
+        <div id="div_champs_inscription">
+            <div id="div_consigne" align="center">Formulaire d'inscription</div><br><br>
+            <form action="#">
+                <div class="form-group">
+                  <label for="LastName">Nom</label>
+                  <input type="text" class="form-control" id="LastName">
+                </div>
+                <div class="form-group">
+                  <label for="Email">E-mail</label>
+                  <input type="text" class="form-control" id="Email">
+                </div>
+                <div class="form-group">
+                  <label for="Password">Mot de passe</label>
+                  <input type="password" class="form-control" id="Password">
+                </div>
+                <div class="form-group" id="button_create_account">
+                    <button onclick="inscription();" class="btn btn-primary" id="button_create_account_html">Inscription</button>
+                    <button onclick="RetourConnexion();" class="btn btn-primary" id="button_back_home">Page de connexion</button>
+                </div>
+            </form>
+        </div>
+        
+            <script>
+                function inscription(){
+                  // Fonction appelée lors du clic sur le bouton
+
+                  console.log("clic sur le bouton d'inscription"); // LOG dans Console Javascript
+                  $("#div_consigne").html("Inscription..."); // Message pour le paragraphe de notification
+
+                  // Récupération de la valeur des champs du formulaire
+                  var lastNameField = $("#LastName").val();
+                  var emailField = $("#Email").val();
+                  var passwordField = $("#Password").val();
+                  
+                  // Appel AJAX
+                  $.ajax({
+                    url: "./ActionServlet",
+                    method: "POST",
+                    data: {
+                      todo: "inscription",
+                      lastName: lastNameField,
+                      email: emailField,
+                      password: passwordField,
+                  },
+                    dataType: "json"
+                  })
+                    .done(function(response) {
+                      // Fonction appelée en cas d'appel AJAX réussi
+                      console.log("Response", response); // LOG dans Console Javascript
+                      if (!response.Error) {
+                        //On se déplace sur la page de connection
+                        $("#div_consigne").html("Inscription bien prise en compte");
+                        document.getElementById("button_back_home").style.display = "block";
+                        $("#button_create_account_html").html("Connexion");
+                        document.getElementById("button_create_account_html").onclick = function(){window.location.href = "Connexion.html"};
+                      } else {
+                        //$("#div_consigne").html(response.errorDetail); // Message pour le paragraphe de notification
+                        $("#div_consigne").html("Utilisateur déjà associé à ce mail");
+                        $('#Email').css('border-color', 'red');
+                      }
+                    })
+                    .fail(function(error) {
+                      // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                      console.log("Error", error); // LOG dans Console Javascript
+                      alert("Erreur lors de l'appel AJAX");
+                    });
+                }
+                
+                function RetourConnexion(){
+                    window.location.href = "Connexion.html";
+                }
+        </script>
+    </body>
+</html>
