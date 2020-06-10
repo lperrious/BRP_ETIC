@@ -1,3 +1,14 @@
+:root {
+  --background_1: white;
+  --text: black;
+  --cta: #f56e47;
+  --cta_hover: rgba(223, 59, 12, 0.85);
+  --error: rgba(255,0,0, 0.8);
+  --error_bg: rgba(255,0,0,0.05);
+  --success: rgb(4, 180, 92);
+  --success_BG: rgba(0, 255, 0, 0.12);
+}
+
 /* Inscription */
 #div_champs_inscription {
     margin-left: auto;
@@ -24,7 +35,7 @@
     justify-content: space-around;
 }
 
-/* Connection */
+/* Connexion */
 #conteneur_connection {
     display: flex;
     justify-content: center;
@@ -64,4 +75,30 @@
     border-radius: 16px;
     background: rgba(255, 255, 255, 0.5);
     text-align: center;
+}
+
+
+/* Dashboard */
+body{
+	font-family: system-ui;
+	font-weight: 200;
+	background-color: var(--background_1);
+	color: var(--text);
+}
+
+
+#container{
+	display: flex;
+}
+
+.container{
+	height: 98vh;			/*Attention bandeau supérieur*/
+}
+
+.container:nth-child(1){
+	width: 40%;
+}
+.container:nth-child(2){
+	width: 60%;
+	background-color: red;
 }
