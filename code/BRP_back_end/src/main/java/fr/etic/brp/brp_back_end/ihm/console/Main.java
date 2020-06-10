@@ -123,14 +123,10 @@ public class Main {
       //----------Scenarii----------//
         
 //        Scenario1();                     
-        Scenario2();
+//        Scenario2();
+//          Scenario3();
 
-      //Explication du scénario n°3 (suppression)
-      // - Importer des Chapitres/Catégories/.../Descriptifs
-      // - Importer des prixRef liés aux Descriptifs
-      // - Supprimer des descriptifs de la BD
-      // - Supprimer des sous-familles/Chapitres etc de la BD
-      // - Supprimer un projet                                                       
+                                                            
         
         JpaUtil.destroy();
         DomUtil.destroy();
@@ -479,7 +475,74 @@ public static void Scenario2() {
         System.out.println("Erreur");
     System.out.println();
 }
+
+//Explication du scénario n°3 (suppression)
+public static void Scenario3() {
+        
+    // - Importer des Chapitres/Catégories/.../Descriptifs
+    System.out.println();
+    System.out.println("------------  Import Descriptifs  -------------");
+    ImportService importService = new ImportService();
+    Service service = new Service();
+    String msgSuppr = "";
+    String uriWord = "../import_files/XX_Jeu_Test_BRP_v0.2.docx";
+
+    //returnListe[0] = status
+    //les autres contiennent les identifiants à supprimer
+    ArrayList<String> returnListe = importService.ModifBaseDescriptif(uriWord);
+
+    //les ajouts se sont bien passés, on passe aux suppressions
+    if(returnListe.get(0).equals("Succes")){
+        System.out.println("Succès ajout en BD");
+        int testSuppr = 0;
+        for(int i = 1; i < returnListe.size(); i++){
+            msgSuppr = importService.CompterEnfants(returnListe.get(i));
+            //on envoie au comptage des enfants
+            if(msgSuppr.equals("suppr ok")){ //on supprime direct car pas d'enfant
+                if(importService.SupprObjet(returnListe.get(i)).equals("Succes"))
+                    testSuppr++;
+                else
+                    System.out.println(importService.SupprObjet(returnListe.get(i)));
+            }
+            else{ //on demande la permission au client
+                // - Supprimer des descriptifs de la BD
+                // - Supprimer des sous-familles/Chapitres etc de la BD
+                System.out.println(msgSuppr);
+                if(importService.SupprObjet(returnListe.get(i)).equals("Succes"))
+                    testSuppr++;
+                else
+                    System.out.println(importService.SupprObjet(returnListe.get(i)));
+            }
+        }
+        if((testSuppr+1) == returnListe.size())
+                System.out.println("Suppressions ok");
+    }
+    else{       //on affiche l'erreur
+        System.out.println(returnListe.get(0));
+    }
+    System.out.println();
+           
+    // - Importer des prixRef liés aux Descriptifs (erreur pour ceux qui ont été supprimés en amont)
+    System.out.println("------------  Import prix  -------------");
+    String uriExcel = "../import_files/templateBasePrix_jeau_test_0.2.csv";
+    String msgState = importService.ModifBasePrixRef(uriExcel);
+    System.out.println(msgState);
+    System.out.println();
+
+    // - Créer un projet
+    System.out.println("------------  Creation projet 1  -------------");
+    String nomProjet = "projet1";
+    Long idProjet = service.CreerProjet(nomProjet);
+    if (idProjet > 0) 
+        System.out.println("Succès");
+    else 
+        System.out.println("Echec");
+    System.out.println();
     
+    // - Supprimer un projet -> Benoit
+    
+    
+}
 //------------------------------------------------------------------------------    
 //---------------------------- INITIALISATIONS ---------------------------------
 //------------------------------------------------------------------------------
