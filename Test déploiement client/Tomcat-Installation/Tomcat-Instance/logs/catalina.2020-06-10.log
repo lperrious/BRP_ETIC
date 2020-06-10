@@ -1,0 +1,92 @@
+10-Jun-2020 10:48:07.203 GRAVE [main] org.apache.catalina.startup.Catalina.initDirs Cannot find specified temporary folder at [/Users/quentinmarc/Documents/ETIC-git/Etude BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance/temp]
+10-Jun-2020 10:48:07.732 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Server version:        Apache Tomcat/8.5.29
+10-Jun-2020 10:48:07.733 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Mar 5 2018 13:11:12 UTC
+10-Jun-2020 10:48:07.733 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Server number:         8.5.29.0
+10-Jun-2020 10:48:07.733 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Mac OS X
+10-Jun-2020 10:48:07.733 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            10.14.6
+10-Jun-2020 10:48:07.733 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          x86_64
+10-Jun-2020 10:48:07.733 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             /Library/Java/JavaVirtualMachines/jdk1.8.0_102.jdk/Contents/Home/jre
+10-Jun-2020 10:48:07.734 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           1.8.0_102-b14
+10-Jun-2020 10:48:07.734 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Oracle Corporation
+10-Jun-2020 10:48:07.734 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         /Users/quentinmarc/Documents/ETIC-git/Etude BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance
+10-Jun-2020 10:48:07.734 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         /Users/quentinmarc/Documents/ETIC-git/Etude BRP/Test déploiement client/Tomcat-Installation/apache-tomcat-8.5.29
+10-Jun-2020 10:48:07.735 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=/Users/quentinmarc/Documents/ETIC-git/Etude BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance/conf/logging.properties
+10-Jun-2020 10:48:07.735 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+10-Jun-2020 10:48:07.735 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+10-Jun-2020 10:48:07.735 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.protocol.handler.pkgs=org.apache.catalina.webresources
+10-Jun-2020 10:48:07.735 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dignore.endorsed.dirs=
+10-Jun-2020 10:48:07.735 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=/Users/quentinmarc/Documents/ETIC-git/Etude BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance
+10-Jun-2020 10:48:07.735 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=/Users/quentinmarc/Documents/ETIC-git/Etude BRP/Test déploiement client/Tomcat-Installation/apache-tomcat-8.5.29
+10-Jun-2020 10:48:07.735 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=/Users/quentinmarc/Documents/ETIC-git/Etude BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance/temp
+10-Jun-2020 10:48:07.735 INFOS [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [/Users/quentinmarc/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.]
+10-Jun-2020 10:48:08.062 INFOS [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+10-Jun-2020 10:48:08.110 INFOS [main] org.apache.tomcat.util.net.NioSelectorPool.getSharedSelector Using a shared selector for servlet write/read
+10-Jun-2020 10:48:08.132 INFOS [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["ajp-nio-8009"]
+10-Jun-2020 10:48:08.137 INFOS [main] org.apache.tomcat.util.net.NioSelectorPool.getSharedSelector Using a shared selector for servlet write/read
+10-Jun-2020 10:48:08.139 INFOS [main] org.apache.catalina.startup.Catalina.load Initialization processed in 936 ms
+10-Jun-2020 10:48:08.209 INFOS [main] org.apache.catalina.core.StandardService.startInternal Démarrage du service [Catalina]
+10-Jun-2020 10:48:08.210 INFOS [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet Engine: Apache Tomcat/8.5.29
+10-Jun-2020 10:48:08.232 INFOS [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDescriptor Déploiement du descripteur de configuration [/Users/quentinmarc/Documents/ETIC-git/Etude BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance/conf/Catalina/localhost/DASI-TD2-Correction.xml]
+10-Jun-2020 10:48:11.234 INFOS [localhost-startStop-1] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+10-Jun-2020 10:48:11.280 INFOS [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDescriptor Deployment of configuration descriptor [/Users/quentinmarc/Documents/ETIC-git/Etude BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance/conf/Catalina/localhost/DASI-TD2-Correction.xml] has finished in [3 047] ms
+10-Jun-2020 10:48:11.281 INFOS [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDescriptor Déploiement du descripteur de configuration [/Users/quentinmarc/Documents/ETIC-git/Etude BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance/conf/Catalina/localhost/manager.xml]
+10-Jun-2020 10:48:11.319 INFOS [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDescriptor Deployment of configuration descriptor [/Users/quentinmarc/Documents/ETIC-git/Etude BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance/conf/Catalina/localhost/manager.xml] has finished in [38] ms
+10-Jun-2020 10:48:11.319 INFOS [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDescriptor Déploiement du descripteur de configuration [/Users/quentinmarc/Documents/ETIC-git/Etude BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance/conf/Catalina/localhost/ROOT.xml]
+10-Jun-2020 10:48:11.345 INFOS [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDescriptor Deployment of configuration descriptor [/Users/quentinmarc/Documents/ETIC-git/Etude BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance/conf/Catalina/localhost/ROOT.xml] has finished in [26] ms
+10-Jun-2020 10:48:11.349 INFOS [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+10-Jun-2020 10:48:11.356 INFOS [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["ajp-nio-8009"]
+10-Jun-2020 10:48:11.364 INFOS [main] org.apache.catalina.startup.Catalina.start Server startup in 3223 ms
+10-Jun-2020 10:50:11.064 INFOS [main] org.apache.catalina.core.StandardServer.await A valid shutdown command was received via the shutdown port. Stopping the Server instance.
+10-Jun-2020 10:50:11.064 INFOS [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+10-Jun-2020 10:50:11.119 INFOS [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["ajp-nio-8009"]
+10-Jun-2020 10:50:11.176 INFOS [main] org.apache.catalina.core.StandardService.stopInternal Arrêt du service [Catalina]
+10-Jun-2020 10:50:11.203 INFOS [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+10-Jun-2020 10:50:11.206 INFOS [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["ajp-nio-8009"]
+10-Jun-2020 10:50:11.208 INFOS [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
+10-Jun-2020 10:50:11.209 INFOS [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["ajp-nio-8009"]
+10-Jun-2020 10:54:38.579 GRAVE [main] org.apache.catalina.startup.Catalina.initDirs Cannot find specified temporary folder at [/Users/quentinmarc/Documents/ETIC-git/Etude BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance/temp]
+10-Jun-2020 10:54:39.114 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Server version:        Apache Tomcat/8.5.29
+10-Jun-2020 10:54:39.114 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Mar 5 2018 13:11:12 UTC
+10-Jun-2020 10:54:39.115 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Server number:         8.5.29.0
+10-Jun-2020 10:54:39.115 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Mac OS X
+10-Jun-2020 10:54:39.115 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            10.14.6
+10-Jun-2020 10:54:39.116 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          x86_64
+10-Jun-2020 10:54:39.116 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             /Library/Java/JavaVirtualMachines/jdk1.8.0_102.jdk/Contents/Home/jre
+10-Jun-2020 10:54:39.116 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           1.8.0_102-b14
+10-Jun-2020 10:54:39.116 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Oracle Corporation
+10-Jun-2020 10:54:39.116 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         /Users/quentinmarc/Documents/ETIC-git/Etude BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance
+10-Jun-2020 10:54:39.116 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         /Users/quentinmarc/Documents/ETIC-git/Etude BRP/Test déploiement client/Tomcat-Installation/apache-tomcat-8.5.29
+10-Jun-2020 10:54:39.117 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=/Users/quentinmarc/Documents/ETIC-git/Etude BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance/conf/logging.properties
+10-Jun-2020 10:54:39.118 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+10-Jun-2020 10:54:39.118 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+10-Jun-2020 10:54:39.118 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.protocol.handler.pkgs=org.apache.catalina.webresources
+10-Jun-2020 10:54:39.118 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dignore.endorsed.dirs=
+10-Jun-2020 10:54:39.118 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=/Users/quentinmarc/Documents/ETIC-git/Etude BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance
+10-Jun-2020 10:54:39.119 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=/Users/quentinmarc/Documents/ETIC-git/Etude BRP/Test déploiement client/Tomcat-Installation/apache-tomcat-8.5.29
+10-Jun-2020 10:54:39.119 INFOS [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=/Users/quentinmarc/Documents/ETIC-git/Etude BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance/temp
+10-Jun-2020 10:54:39.120 INFOS [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [/Users/quentinmarc/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.]
+10-Jun-2020 10:54:39.330 INFOS [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8081"]
+10-Jun-2020 10:54:39.379 INFOS [main] org.apache.tomcat.util.net.NioSelectorPool.getSharedSelector Using a shared selector for servlet write/read
+10-Jun-2020 10:54:39.401 INFOS [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["ajp-nio-8009"]
+10-Jun-2020 10:54:39.406 INFOS [main] org.apache.tomcat.util.net.NioSelectorPool.getSharedSelector Using a shared selector for servlet write/read
+10-Jun-2020 10:54:39.407 INFOS [main] org.apache.catalina.startup.Catalina.load Initialization processed in 828 ms
+10-Jun-2020 10:54:39.454 INFOS [main] org.apache.catalina.core.StandardService.startInternal Démarrage du service [Catalina]
+10-Jun-2020 10:54:39.455 INFOS [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet Engine: Apache Tomcat/8.5.29
+10-Jun-2020 10:54:39.473 INFOS [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDescriptor Déploiement du descripteur de configuration [/Users/quentinmarc/Documents/ETIC-git/Etude BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance/conf/Catalina/localhost/DASI-TD2-Correction.xml]
+10-Jun-2020 10:54:42.541 INFOS [localhost-startStop-1] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+10-Jun-2020 10:54:42.589 INFOS [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDescriptor Deployment of configuration descriptor [/Users/quentinmarc/Documents/ETIC-git/Etude BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance/conf/Catalina/localhost/DASI-TD2-Correction.xml] has finished in [3 115] ms
+10-Jun-2020 10:54:42.589 INFOS [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDescriptor Déploiement du descripteur de configuration [/Users/quentinmarc/Documents/ETIC-git/Etude BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance/conf/Catalina/localhost/manager.xml]
+10-Jun-2020 10:54:42.629 INFOS [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDescriptor Deployment of configuration descriptor [/Users/quentinmarc/Documents/ETIC-git/Etude BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance/conf/Catalina/localhost/manager.xml] has finished in [39] ms
+10-Jun-2020 10:54:42.629 INFOS [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDescriptor Déploiement du descripteur de configuration [/Users/quentinmarc/Documents/ETIC-git/Etude BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance/conf/Catalina/localhost/ROOT.xml]
+10-Jun-2020 10:54:42.650 INFOS [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDescriptor Deployment of configuration descriptor [/Users/quentinmarc/Documents/ETIC-git/Etude BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance/conf/Catalina/localhost/ROOT.xml] has finished in [21] ms
+10-Jun-2020 10:54:42.655 INFOS [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8081"]
+10-Jun-2020 10:54:42.667 INFOS [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["ajp-nio-8009"]
+10-Jun-2020 10:54:42.677 INFOS [main] org.apache.catalina.startup.Catalina.start Server startup in 3270 ms
+10-Jun-2020 10:56:10.672 INFOS [main] org.apache.catalina.core.StandardServer.await A valid shutdown command was received via the shutdown port. Stopping the Server instance.
+10-Jun-2020 10:56:10.673 INFOS [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8081"]
+10-Jun-2020 10:56:10.726 INFOS [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["ajp-nio-8009"]
+10-Jun-2020 10:56:10.777 INFOS [main] org.apache.catalina.core.StandardService.stopInternal Arrêt du service [Catalina]
+10-Jun-2020 10:56:10.809 INFOS [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8081"]
+10-Jun-2020 10:56:10.812 INFOS [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["ajp-nio-8009"]
+10-Jun-2020 10:56:10.813 INFOS [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8081"]
+10-Jun-2020 10:56:10.814 INFOS [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["ajp-nio-8009"]

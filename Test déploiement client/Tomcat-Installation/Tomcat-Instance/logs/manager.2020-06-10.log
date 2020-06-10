@@ -1,0 +1,4 @@
+10-Jun-2020 10:48:16.870 INFOS [http-nio-8080-exec-5] org.apache.catalina.core.ApplicationContext.log Manager: init: Associated with Deployer 'Catalina:type=Deployer,host=localhost'
+10-Jun-2020 10:48:16.875 INFOS [http-nio-8080-exec-5] org.apache.catalina.core.ApplicationContext.log Manager: init: Global resources are available
+10-Jun-2020 10:54:45.886 INFOS [http-nio-8081-exec-5] org.apache.catalina.core.ApplicationContext.log Manager: init: Associated with Deployer 'Catalina:type=Deployer,host=localhost'
+10-Jun-2020 10:54:45.887 INFOS [http-nio-8081-exec-5] org.apache.catalina.core.ApplicationContext.log Manager: init: Global resources are available
