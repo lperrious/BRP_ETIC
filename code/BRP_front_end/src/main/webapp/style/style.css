@@ -3,102 +3,119 @@
   --text: black;
   --cta: #f56e47;
   --cta_hover: rgba(223, 59, 12, 0.85);
-  --error: rgba(255,0,0, 0.8);
-  --error_bg: rgba(255,0,0,0.05);
+  --error: rgba(255, 0, 0, 0.8);
+  --error_bg: rgba(255, 0, 0, 0.05);
   --success: rgb(4, 180, 92);
   --success_BG: rgba(0, 255, 0, 0.12);
 }
 
 /* Inscription */
 #div_champs_inscription {
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 60px;
-    display : flex;
-    flex-direction: column;
-    justify-content: space-around;
-    width: 470px;
-    background: rgba(255, 255, 255, 0.5);
-    padding: 40px 60px;
-    border-radius: 16px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 470px;
+  background: rgba(255, 255, 255, 0.5);
+  padding: 40px 60px;
+  border-radius: 16px;
 }
 
 #div_consigne {
-    margin-top: 0px;
-    font-size: 26px;
-    font-weight: bold;
-    margin-bottom: 30px;
+  margin-top: 0px;
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 30px;
 }
 
 #button_create_account {
-    display : flex;
-    justify-content: space-around;
+  display: flex;
+  justify-content: space-around;
 }
 
 /* Connexion */
 #conteneur_connection {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 300px;
-    margin-left: 300px;
-    width : 1000px;
-    background: rgba(255, 255, 255, 0.5);
-    padding-top: 40px;
-    padding-bottom: 40px;
-    border-radius: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 300px;
+  margin-left: 300px;
+  width: 1000px;
+  background: rgba(255, 255, 255, 0.5);
+  padding-top: 40px;
+  padding-bottom: 40px;
+  border-radius: 16px;
 }
 
 .main {
-    width: 600px;
+  width: 600px;
 }
 
 #conteneur_button {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .sidenav {
-    width: 300px;
+  width: 300px;
 }
 
-.login-main-text a{
-    color: inherit; /* blue colors for links too */
-    text-decoration: inherit; /* no underline */
-    font-weight: bold; 
+.login-main-text a {
+  color: inherit; /* blue colors for links too */
+  text-decoration: inherit; /* no underline */
+  font-weight: bold;
 }
 
 #error_notif {
-    margin-left: 500px;
-    margin-top: 50px;
-    width: 400px;
-    border-radius: 16px;
-    background: rgba(255, 255, 255, 0.5);
-    text-align: center;
+  margin-left: 500px;
+  margin-top: 50px;
+  width: 400px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.5);
+  text-align: center;
 }
-
 
 /* Dashboard */
-body{
-	font-family: system-ui;
-	font-weight: 200;
-	background-color: var(--background_1);
-	color: var(--text);
+body {
+  font-family: system-ui;
+  font-weight: 200;
+  background-color: var(--background_1);
+  color: var(--text);
 }
 
-
-#container{
-	display: flex;
+#container {
+  display: flex;
 }
 
-.container{
-	height: 98vh;			/*Attention bandeau supérieur*/
+.container {
+  height: 98vh; /*Attention bandeau supérieur*/
 }
 
-.container:nth-child(1){
-	width: 40%;
+.container:nth-child(1) {
+  width: 40%;
 }
-.container:nth-child(2){
-	width: 60%;
-	background-color: red;
+.container:nth-child(2) {
+  width: 60%;
+  background-color: red;
+  display: flex;
+  flex-direction: column;
+}
+
+#titreLot {
+  text-align: center;
+}
+
+#lotCourant {
+  flex: 1;
+}
+
+#ongletsLot {
+  display: flex;
+}
+
+#ongletLot {
+  flex: 1;
+  text-align: center;
 }
