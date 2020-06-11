@@ -89,12 +89,42 @@ body {
   color: var(--text);
 }
 
+select{
+    font-size: 100%;
+    background-color: var(--background_1);
+    font-family: system-ui;
+    font-weight: 200;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding: 5px 40px 5px 10px;
+    border-color: var(--border);
+}
+
+select {
+  background-image:
+    linear-gradient(45deg, transparent 50%, gray 50%),
+    linear-gradient(135deg, gray 50%, transparent 50%),
+    linear-gradient(to right, #ccc, #ccc);
+  background-position:
+    calc(100% - 15px) calc(0.9em),
+    calc(100% - 9.5px) calc(0.9em),
+    calc(100% - 27px) 0.5em;
+  background-size:
+    5.5px 5.5px,
+    5.5px 5.5px,
+    1px 1.15em;
+  background-repeat: no-repeat;
+}
+
 #container {
   display: flex;
+  margin-left: -15px;
+  margin-right: -15px;
 }
 
 .container {
-  height: 98vh; /*Attention bandeau supérieur*/
+  height: 100vh; /*Attention bandeau supérieur*/
 }
 
 .container:nth-child(1){
@@ -104,6 +134,8 @@ body {
     border-right-color: var(--border);
     display: flex;
     flex-direction: column;
+    padding-bottom: 15px;
+    padding-right: 0;
 }
 
 /*      Partie Gauche       */
@@ -112,7 +144,15 @@ body {
     flex: 1;
     overflow: auto;
     padding-top: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
+}
+
+#infosProjet{
+    flex: 1;
+    display: none;
+    padding-left: 15px; 
+    overflow: auto;
+    margin-bottom: 15px
 }
 
 #nomProjet{
@@ -122,6 +162,7 @@ body {
     border-bottom-width: 1px;
     border-bottom-color: var(--border);
     display: flex;
+    font-weight: 300;
 }
 
 .nomProjet:nth-child(1){
@@ -131,7 +172,9 @@ body {
 .nomProjet:nth-child(2){
     color: var(--border);
     font-size: 90%;
-    margin-right: 5px;
+    position: relative;
+    right: 5px;
+    top: 5px;
 }
 
 .nomProjet:nth-child(2):hover{
@@ -165,6 +208,51 @@ body {
     color: var(--text);
 }
 
+.infoProjet{
+    margin-top: 0.75em;
+}
+
+.titleInfo{
+    font-size: 120%;
+    font-weight: 300;
+}
+
+.valueInfo{
+    margin-top: 0.25em;
+}
+
+.radioOption{
+    margin-left: 20px;
+}
+
+.infoField{
+    display: flex;
+    margin-top: 1em;
+    font-size: 90%;
+}
+
+.infoProjet > input[type=text]{
+    border: solid;
+    border-width: 1px;
+    border-color: var(--border);
+    padding: 5px;
+    font-size: 95%;
+    border-radius: 4px;
+    font-family: system-ui;
+    font-weight: 300;
+    position: relative;
+    top: -4px;
+    left: 20px;
+}
+
+.infoProjet > select{
+    width: 40%;
+    margin-left: 20px;
+    position: relative;
+    top: -4px;
+    left: 20px;
+}
+
 .menuGestion{
     display: flex;
     justify-content: space-around;
@@ -174,7 +262,7 @@ body {
     background-color: var(--cta);
     color: var(--text_soft);
     padding: 10px;
-    width: 200px;
+    width: 45%;
     text-align: center;
     border-radius: 3px;
     font-size: 110%;
@@ -183,6 +271,23 @@ body {
 .importButton:hover, .exportButton:hover{
     background-color: var(--cta_hover);
     cursor: pointer;
+}
+
+.importButton{
+    margin-left: 5%;
+    margin-right: 2.5%;
+}
+
+.exportButton{
+    margin-right: 5%;
+    margin-left: 2.5%;
+}
+
+.filtre{
+    margin-left: 15px;
+    width: 60%;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
 }
 
 .lineBDD{

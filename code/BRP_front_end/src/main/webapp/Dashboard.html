@@ -13,6 +13,7 @@
 	    />
         <link rel="stylesheet" href="style/style.css" />
         <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     </head>
     <body>
         <div id="container">
@@ -22,12 +23,15 @@
         			<div class="nomProjet"><i class="fas fa-chevron-down"></i></div>
         		</div>
         		<div id="menu">
-        			<div class="menu">Bibliothèque</div>
-        			<div class="menu">Infos projet</div>
+        			<div class="menu menuBiblio" onclick="gestion_menu_bdd('biblio');">Bibliothèque</div>
+        			<div class="menu menuInfos" onclick="gestion_menu_bdd('infos');">Infos projet</div>
         		</div>
         		<div id="arboBDD">
         			<select class="filtre">
-	        			<option>Select Filtre</option>
+	        			<option value="">Sélectionnez un filtre</option>
+	        			<option value="genrique">Génériques</option>
+	        			<option value="ouvrage">Ouvrages</option>
+	        			<option value="prestation">Prestations</option>
 	        		</select>
 	        		<div class="lineBDD lineChapitre">
 	        			<span class="iconBDD"><i class="fas fa-caret-down"></i></span>
@@ -169,6 +173,80 @@
 	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
 	        			<div class="intitule">Chapitre 1</div>
 	        		</div>
+        		</div>
+        		<div id="infosProjet">
+        			<div class="infoProjet">
+        				<div class="titleInfo">Type de marché</div>
+        				<div class="valueInfo">
+        					<input class="radioOption" type="radio" name="typeMarche" value="marchePublic">
+        					<label for="marchePublic">Public</label>
+        					<input class="radioOption" type="radio" name="typeMarche" value="marchePrive">
+        					<label for="marchePrive">Privé</label>
+        				</div>
+        			</div>
+        			<div class="infoProjet">
+        				<div class="titleInfo">Type de construction</div>
+        				<div class="valueInfo">
+        					<input class="radioOption" type="radio" name="typeConstruction" value="neuf">
+        					<label for="neuf">Neuf</label>
+        					<input class="radioOption" type="radio" name="typeConstruction" value="renovation">
+        					<label for="renovation">Rénovation</label>
+        				</div>
+        			</div>
+        			<div class="infoProjet">
+        				<div class="titleInfo">Type de lots</div>
+        				<div class="valueInfo">
+        					<input class="radioOption" type="radio" name="typeLots" value="lotSepare">
+        					<label for="lotSepare">Lots séparés</label>
+        					<input class="radioOption" type="radio" name="typeLots" value="entrepriseGenerale">
+        					<label for="entrepriseGenerale">Entreprise générale</label>
+        				</div>
+        			</div>
+        			<div class="infoProjet">
+        				<div class="titleInfo">Site</div>
+        				<div class="valueInfo">
+        					<input class="radioOption" type="radio" name="typeSite" value="libre">
+        					<label for="libre">Libre</label>
+        					<input class="radioOption" type="radio" name="typeSite" value="occupe">
+        					<label for="occupe">Occupe</label>
+        				</div>
+        			</div>
+        			<div class="infoProjet infoField">
+        				<div class="titleInfo">Année de référence (prix)</div>
+        				<input type="text" name="datePrixref" maxlength="4">
+        			</div>
+        			<div class="infoProjet infoField">
+        				<div class="titleInfo">Coeffadaptation</div>
+        				<input type="text" name="coeffAdapt" maxlength="10">
+        			</div>
+        			<div class="infoProjet infoField">
+        				<div class="titleInfo">Coeff raccordement</div>
+        				<select id="coeffRaccordement">
+		        			<option value="">---</option>
+		        			<option value="1">Alsace - 0.8</option>
+		        		</select>
+        			</div>
+        			<div class="infoProjet infoField">
+        				<div class="titleInfo">Cat construction</div>
+        				<select id="categorieConstruction">
+		        			<option value="">---</option>
+		        			<option value="1">Batiment public</option>
+		        		</select>
+        			</div>
+        			<div class="infoProjet infoField">
+        				<div class="titleInfo">Sous-cat construction</div>
+        				<select id="sousCategorieConstruction">
+		        			<option value="">---</option>
+		        			<option value="1">Gymnase</option>
+		        		</select>
+        			</div>
+        			<div class="infoProjet infoField">
+        				<div class="titleInfo">Caractéristiques dim</div>
+        				<select id="caractDim">
+		        			<option value="">---</option>
+		        			<option value="1">Caracteristique 1</option>
+		        		</select>
+        			</div>
         		</div>
         		<div class="menuGestion">
         			<div class="importButton">Gestion bibliothèque</div>
@@ -427,3 +505,53 @@
     </div>
   </body>
 </html>
+
+
+<script type="text/javascript">
+	$('.lineBDD').click(test);
+
+	function test(){
+		alert('coucou');
+	}
+
+	function gestion_menu_bdd(panel){
+		if (panel == "biblio") {
+			$('.menuBiblio').css("color", "black");
+			$('.menuInfos').css("color", "grey");
+			$('#arboBDD').show();
+			$('#infosProjet').hide();
+		}
+
+		if (panel == "infos") {
+			$('.menuInfos').css("color", "black");
+			$('.menuBiblio').css("color", "grey");
+			$('#infosProjet').show();
+			$('#arboBDD').hide();
+		}
+	}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
