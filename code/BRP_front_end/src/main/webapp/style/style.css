@@ -7,6 +7,10 @@
   --error_bg: rgba(255,0,0,0.05);
   --success: rgb(4, 180, 92);
   --success_BG: rgba(0, 255, 0, 0.12);
+  --border: rgb(95,95,95);
+  --text_grey: grey;
+  --text_soft: white;
+  --menu_bg_hover: rgba(80,25,0,0.05);
 }
 
 /* Inscription */
@@ -84,6 +88,7 @@ body{
 	font-weight: 200;
 	background-color: var(--background_1);
 	color: var(--text);
+    padding: 0;
 }
 
 
@@ -96,9 +101,139 @@ body{
 }
 
 .container:nth-child(1){
-	width: 40%;
+	width: 35%;
+    border-right: solid;
+    border-right-width: 1px;
+    border-right-color: var(--border);
+    display: flex;
+    flex-direction: column;
 }
 .container:nth-child(2){
-	width: 60%;
-	background-color: red;
+	width: 65%;
 }
+
+#arboBDD{
+    flex: 1;
+    overflow: auto;
+    padding-top: 10px;
+    margin-bottom: 20px;
+}
+
+#nomProjet{
+    font-size: 160%;
+    padding: 10px;
+    border-bottom: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: var(--border);
+    display: flex;
+}
+
+.nomProjet:nth-child(1){
+    flex: 1;
+}
+
+.nomProjet:nth-child(2){
+    color: var(--border);
+    font-size: 90%;
+    margin-right: 5px;
+}
+
+.nomProjet:nth-child(2):hover{
+    cursor: pointer;
+}
+
+#menu{
+    display: flex;
+    padding: 5px;
+    border-bottom: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: var(--border);
+    font-size: 110%;
+}
+
+.menu{
+    flex: 1;
+    text-align: center;
+    padding: 5px;
+}
+
+.menu:nth-child(2){
+    border-left: solid;
+    border-left-width: 1px;
+    border-left-color: var(--border);
+    color: var(--text_grey);
+}
+
+.menu:hover{
+    cursor: pointer;
+    color: var(--text);
+}
+
+.menuGestion{
+    display: flex;
+    justify-content: space-around;
+}
+
+.importButton, .exportButton{
+    background-color: var(--cta);
+    color: var(--text_soft);
+    padding: 10px;
+    width: 200px;
+    text-align: center;
+    border-radius: 3px;
+    font-size: 110%;
+}
+
+.importButton:hover, .exportButton:hover{
+    background-color: var(--cta_hover);
+    cursor: pointer;
+}
+
+.lineBDD{
+    display: flex;
+    padding: 5px;
+    font-size: 110%;
+}
+
+.lineBDD:hover{
+    cursor: pointer;
+    background-color: var(--menu_bg_hover);
+}
+
+.iconBDD{
+    width: 30px;
+    text-align: center;
+    color: var(--border);
+}
+
+.lineCategorie{
+    margin-left: 15px;
+}
+
+.lineFamille{
+    margin-left: 30px;
+}
+
+.lineSousFamille{
+    margin-left: 45px;
+}
+
+.lineDescriptif{
+    margin-left: 60px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
