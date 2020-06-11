@@ -256,7 +256,7 @@
 			<div class="container">
 				<div id="titreLot">Titre Lot</div>
 				<div class="lotCourant" id="lot0">
-				  <div class="barreInsertion"></div>
+				  <div class="barreInsertion" onclick="AjouterElement();"></div>
 				  <div class="input-group titre1">
 				    <div class="input-group-prepend">
 				      <span class="input-group-text" id="basic-addon1">I.</span>
@@ -269,7 +269,7 @@
 				      aria-describedby="basic-addon1"
 				    />
 				  </div>
-				  <div class="barreInsertion"></div>
+				  <div class="barreInsertion" onclick="AjouterElement();"></div>
 				  <div class="input-group titre2">
 				    <div class="input-group-prepend">
 				      <span class="input-group-text" id="basic-addon1">I.1</span>
@@ -282,7 +282,7 @@
 				      aria-describedby="basic-addon1"
 				    />
 				  </div>
-				  <div class="barreInsertion"></div>
+				  <div class="barreInsertion" onclick="AjouterElement();"></div>
 				  <div class="input-group titre3">
 				    <div class="input-group-prepend">
 				      <span class="input-group-text" id="basic-addon1">1.1</span>
@@ -295,7 +295,7 @@
 				      aria-describedby="basic-addon1"
 				    />
 				  </div>
-				  <div class="barreInsertion"></div>
+				  <div class="barreInsertion" onclick="AjouterElement();"></div>
 				  <div class="input-group titre4">
 				    <div class="input-group-prepend">
 				      <span class="input-group-text" id="basic-addon1">1.1.1</span>
@@ -308,7 +308,7 @@
 				      aria-describedby="basic-addon1"
 				    />
 				  </div>
-				  <div class="barreInsertion"></div>
+				  <div class="barreInsertion" onclick="AjouterElement();"></div>
 				  <div class="descriptif titre5">
 				    <div class="input-group">
 				      <div class="input-group-prepend">
@@ -347,7 +347,7 @@
 				      </div>
 				    </div>
 				  </div>
-				  <div class="barreInsertion"></div>
+				  <div class="barreInsertion" onclick="AjouterElement();"></div>
 				  <div class="input-group titre1">
 				    <div class="input-group-prepend">
 				      <span class="input-group-text" id="basic-addon1">II.</span>
@@ -360,7 +360,7 @@
 				      aria-describedby="basic-addon1"
 				    />
 				  </div>
-				  <div class="barreInsertion"></div>
+				  <div class="barreInsertion" onclick="AjouterElement();"></div>
 				  <div class="descriptif titre2">
 				    <div class="input-group">
 				      <div class="input-group-prepend">
@@ -394,7 +394,7 @@
 				      aria-describedby="basic-addon1"
 				    />
 				  </div>
-				  <div class="barreInsertion"></div>
+				  <div class="barreInsertion" onclick="AjouterElement();"></div>
 				  <div class="input-group titre3">
 				    <div class="input-group-prepend">
 				      <span class="input-group-text" id="basic-addon1">2.1</span>
@@ -407,7 +407,7 @@
 				      aria-describedby="basic-addon1"
 				    />
 				  </div>
-				  <div class="barreInsertion"></div>
+				  <div class="barreInsertion" onclick="AjouterElement();"></div>
 				  <div class="descriptif titre4">
 				    <div class="input-group">
 				      <div class="input-group-prepend">
@@ -463,46 +463,25 @@
 				      </div>
 				    </div>
 				  </div>
-				  <div class="barreInsertion"></div>
+				  <div class="barreInsertion" onclick="AjouterElement();"></div>
 				</div>
-				<div id="ongletsLot" class="btn-group btn-group-toggle" data-toggle="buttons">
-				  <label class="btn btn-secondary active">
-				    <input type="radio" name="options" id="option1" checked /> 0
-				  </label>
-				  <label class="btn btn-secondary">
-				    <input type="radio" name="options" id="option2" /> 1
-				  </label>
-				  <label class="btn btn-secondary">
-				    <input type="radio" name="options" id="option3" /> 2
-				  </label>
-				  <label class="btn btn-secondary">
-				    <input type="radio" name="options" id="option3" /> 3
-				  </label>
-				  <!-- <label class="btn btn-secondary">
-				    <input type="radio" name="options" id="option3" /> 4
-				  </label>
-				  <label class="btn btn-secondary">
-				    <input type="radio" name="options" id="option3" /> 5
-				  </label>
-				  <label class="btn btn-secondary">
-				    <input type="radio" name="options" id="option3" /> 6
-				  </label>
-				  <label class="btn btn-secondary">
-				    <input type="radio" name="options" id="option3" /> 7
-				  </label>
-				  <label class="btn btn-secondary">
-				    <input type="radio" name="options" id="option3" /> 8
-				  </label>
-				  <label class="btn btn-secondary">
-				    <input type="radio" name="options" id="option3" /> 9
-				  </label> -->
-				  <label class="btn btn-secondary">
-				    <input type="radio" name="options" id="option3" /> +
-				  </label>
+				<div id="ongletsLot">
+          <div class="ongletLot">0</div>
+          <div class="ongletLot">1</div>
+          <div class="ongletLot">2</div>
+          <div class="ongletLot">3</div>
+          <div class="ongletLot">4</div>
+          <div class="ongletLot">+</div>
 				</div>
 			</div>
 		</div>
     </div>
+
+    <script>
+      function AjouterElement(params) {
+        
+      }
+    </script>
   </body>
 </html>
 
