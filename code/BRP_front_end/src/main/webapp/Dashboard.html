@@ -1,9 +1,16 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Dashboard</title>
+        <title>Gestion des projets - BRP</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Bootstrap CSS -->
+	    <link
+	      rel="stylesheet"
+	      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	      crossorigin="anonymous"
+	    />
         <link rel="stylesheet" href="style/style.css" />
         <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     </head>
@@ -168,7 +175,255 @@
         			<div class="exportButton">Exporter projet</div>
         		</div>
         	</div>
-        	<div class="container">Partie Droite</div>
-        </div>
-    </body>
+			<div class="container">
+				<div id="titreLot">Titre Lot</div>
+				<div class="lotCourant" id="lot0">
+				  <div class="barreInsertion"></div>
+				  <div class="input-group titre1">
+				    <div class="input-group-prepend">
+				      <span class="input-group-text" id="basic-addon1">I.</span>
+				    </div>
+				    <input
+				      type="text"
+				      class="form-control"
+				      placeholder="Titre 1"
+				      aria-label="titre1"
+				      aria-describedby="basic-addon1"
+				    />
+				  </div>
+				  <div class="barreInsertion"></div>
+				  <div class="input-group titre2">
+				    <div class="input-group-prepend">
+				      <span class="input-group-text" id="basic-addon1">I.1</span>
+				    </div>
+				    <input
+				      type="text"
+				      class="form-control"
+				      placeholder="Titre 2"
+				      aria-label="titre2"
+				      aria-describedby="basic-addon1"
+				    />
+				  </div>
+				  <div class="barreInsertion"></div>
+				  <div class="input-group titre3">
+				    <div class="input-group-prepend">
+				      <span class="input-group-text" id="basic-addon1">1.1</span>
+				    </div>
+				    <input
+				      type="text"
+				      class="form-control"
+				      placeholder="Titre 3"
+				      aria-label="titre3"
+				      aria-describedby="basic-addon1"
+				    />
+				  </div>
+				  <div class="barreInsertion"></div>
+				  <div class="input-group titre4">
+				    <div class="input-group-prepend">
+				      <span class="input-group-text" id="basic-addon1">1.1.1</span>
+				    </div>
+				    <input
+				      type="text"
+				      class="form-control"
+				      placeholder="Titre 4"
+				      aria-label="titre4"
+				      aria-describedby="basic-addon1"
+				    />
+				  </div>
+				  <div class="barreInsertion"></div>
+				  <div class="descriptif titre5">
+				    <div class="input-group">
+				      <div class="input-group-prepend">
+				        <span class="input-group-text" id="basic-addon1">1.1.1.1</span>
+				      </div>
+				      <input
+				        type="text"
+				        class="form-control"
+				        placeholder="Ouvrage/Prestation"
+				        aria-label="titre5"
+				        aria-describedby="basic-addon1"
+				      />
+				    </div>
+				    <div class="input-group description">
+				      <textarea
+				        class="form-control"
+				        aria-label="With textarea"
+				        placeholder="Description"
+				      >Ceci est un descriptif et en voici sa description.Ceci est un descriptif et en voici sa description.Ceci est un descriptif et en voici sa description.Ceci est un descriptif et en voici sa description</textarea>
+				    </div>
+				    <div class="input-group ligneChiffrage">
+				      <input
+				        type="text"
+				        aria-label="Localisation"
+				        class="form-control"
+				        placeholder="Localisation"
+				      />
+				      <input
+				        type="text"
+				        aria-label="Quantite"
+				        class="form-control"
+				        placeholder="Quantité"
+				      />
+				      <div class="input-group-prepend">
+				        <span class="input-group-text">m2</span>
+				      </div>
+				    </div>
+				  </div>
+				  <div class="barreInsertion"></div>
+				  <div class="input-group titre1">
+				    <div class="input-group-prepend">
+				      <span class="input-group-text" id="basic-addon1">II.</span>
+				    </div>
+				    <input
+				      type="text"
+				      class="form-control"
+				      placeholder="Titre 1"
+				      aria-label="titre1"
+				      aria-describedby="basic-addon1"
+				    />
+				  </div>
+				  <div class="barreInsertion"></div>
+				  <div class="descriptif titre2">
+				    <div class="input-group">
+				      <div class="input-group-prepend">
+				        <span class="input-group-text" id="basic-addon1">II.1</span>
+				      </div>
+				      <input
+				        type="text"
+				        class="form-control"
+				        placeholder="Generique"
+				        aria-label="titre2"
+				        aria-describedby="basic-addon1"
+				      />
+				    </div>
+				    <div class="input-group description">
+				      <textarea
+				        class="form-control"
+				        aria-label="With textarea"
+				        placeholder="Description"
+				      ></textarea>
+				    </div>
+				  </div>
+				  <div class="input-group titre2">
+				    <div class="input-group-prepend">
+				      <span class="input-group-text" id="basic-addon1">II.2</span>
+				    </div>
+				    <input
+				      type="text"
+				      class="form-control"
+				      placeholder="Titre 2"
+				      aria-label="titre2"
+				      aria-describedby="basic-addon1"
+				    />
+				  </div>
+				  <div class="barreInsertion"></div>
+				  <div class="input-group titre3">
+				    <div class="input-group-prepend">
+				      <span class="input-group-text" id="basic-addon1">2.1</span>
+				    </div>
+				    <input
+				      type="text"
+				      class="form-control"
+				      placeholder="Titre 3"
+				      aria-label="titre3"
+				      aria-describedby="basic-addon1"
+				    />
+				  </div>
+				  <div class="barreInsertion"></div>
+				  <div class="descriptif titre4">
+				    <div class="input-group">
+				      <div class="input-group-prepend">
+				        <span class="input-group-text" id="basic-addon1">2.1.1</span>
+				      </div>
+				      <input
+				        type="text"
+				        class="form-control"
+				        placeholder="Ouvrage/Prestation"
+				        aria-label="titre4"
+				        aria-describedby="basic-addon1"
+				      />
+				    </div>
+				    <div class="input-group description">
+				      <textarea
+				        class="form-control"
+				        aria-label="With textarea"
+				        placeholder="Description"
+				      ></textarea>
+				    </div>
+				    <div class="input-group ligneChiffrage">
+				      <input
+				        type="text"
+				        aria-label="Localisation"
+				        class="form-control"
+				        placeholder="Localisation"
+				      />
+				      <input
+				        type="text"
+				        aria-label="Quantite"
+				        class="form-control"
+				        placeholder="Quantité"
+				      />
+				      <div class="input-group-prepend">
+				        <span class="input-group-text">m3</span>
+				      </div>
+				    </div>
+				    <div class="input-group ligneChiffrage">
+				      <input
+				        type="text"
+				        aria-label="Localisation"
+				        class="form-control"
+				        placeholder="Localisation"
+				      />
+				      <input
+				        type="text"
+				        aria-label="Quantite"
+				        class="form-control"
+				        placeholder="Quantité"
+				      />
+				      <div class="input-group-prepend">
+				        <span class="input-group-text">m3</span>
+				      </div>
+				    </div>
+				  </div>
+				  <div class="barreInsertion"></div>
+				</div>
+				<div id="ongletsLot" class="btn-group btn-group-toggle" data-toggle="buttons">
+				  <label class="btn btn-secondary active">
+				    <input type="radio" name="options" id="option1" checked /> 0
+				  </label>
+				  <label class="btn btn-secondary">
+				    <input type="radio" name="options" id="option2" /> 1
+				  </label>
+				  <label class="btn btn-secondary">
+				    <input type="radio" name="options" id="option3" /> 2
+				  </label>
+				  <label class="btn btn-secondary">
+				    <input type="radio" name="options" id="option3" /> 3
+				  </label>
+				  <!-- <label class="btn btn-secondary">
+				    <input type="radio" name="options" id="option3" /> 4
+				  </label>
+				  <label class="btn btn-secondary">
+				    <input type="radio" name="options" id="option3" /> 5
+				  </label>
+				  <label class="btn btn-secondary">
+				    <input type="radio" name="options" id="option3" /> 6
+				  </label>
+				  <label class="btn btn-secondary">
+				    <input type="radio" name="options" id="option3" /> 7
+				  </label>
+				  <label class="btn btn-secondary">
+				    <input type="radio" name="options" id="option3" /> 8
+				  </label>
+				  <label class="btn btn-secondary">
+				    <input type="radio" name="options" id="option3" /> 9
+				  </label> -->
+				  <label class="btn btn-secondary">
+				    <input type="radio" name="options" id="option3" /> +
+				  </label>
+				</div>
+			</div>
+		</div>
+    </div>
+  </body>
 </html>
