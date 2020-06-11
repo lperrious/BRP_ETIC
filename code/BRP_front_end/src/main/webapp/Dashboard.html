@@ -4,6 +4,15 @@
     <title>Dashboard</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+
     <link rel="stylesheet" href="style/style.css" />
   </head>
   <body>
@@ -11,60 +20,254 @@
       <div class="container">Partie gauche</div>
       <div class="container">
         <div id="titreLot">Titre Lot</div>
-        <div id="lotCourant">
-          <div class="ligneTitre1">
-            <span class="nbTitre1">I.</span>
-            <input class="titre1" placeholder="titre1"></input>
+        <div class="lotCourant" id="lot0">
+          <div class="barreInsertion"></div>
+          <div class="input-group mb-3 titre1">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">I.</span>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Titre 1"
+              aria-label="titre1"
+              aria-describedby="basic-addon1"
+            />
           </div>
           <div class="barreInsertion"></div>
-          <div class="ligneTitre2">
-            <span class="nbTitre2">I.1</span>
-            <input class="titre2" placeholder="titre2"></input>
+          <div class="input-group mb-3 titre2">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">I.1</span>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Titre 2"
+              aria-label="titre2"
+              aria-describedby="basic-addon1"
+            />
           </div>
           <div class="barreInsertion"></div>
-          <div class="ligneTitre3">
-            <span class="nbTitre3">1.1</span>
-            <input class="titre3" placeholder="titre3"></input>
+          <div class="input-group mb-3 titre3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">1.1</span>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Titre 3"
+              aria-label="titre3"
+              aria-describedby="basic-addon1"
+            />
           </div>
           <div class="barreInsertion"></div>
-          <div class="ligneTitre4">
-            <span class="nbTitre4">1.1.1</span>
-            <input class="titre4" placeholder="titre4"></input>
+          <div class="input-group mb-3 titre4">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">1.1.1</span>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Titre 4"
+              aria-label="titre4"
+              aria-describedby="basic-addon1"
+            />
           </div>
           <div class="barreInsertion"></div>
           <div class="descriptif">
-            <span class="nbTitre5">1.1.1.1</span>
-            <div class="titreDescriptif">Ouvrage</div>
-            <input class="description" placeholder="Description"></input>
-            <div class="ligneChiffrage">
-              <input class="localisation" placeholder="localisation"></input>
-              <input class="quantite" placeholder="quantite"></input>
-              <span class="unite">m2</span>
+            <div class="input-group mb-3 titre5">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">1.1.1.1</span>
+              </div>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Ouvrage/Prestation"
+                aria-label="titre5"
+                aria-describedby="basic-addon1"
+              />
             </div>
-            <div class="ligneChiffrage">
-                <input class="localisation" placeholder="localisation"></input>
-                <input class="quantite" placeholder="quantite"></input>
-                <span class="unite">m2</span>
+            <div class="input-group description">
+              <textarea
+                class="form-control"
+                aria-label="With textarea"
+                placeholder="Description"
+              ></textarea>
+            </div>
+            <div class="input-group ligneChiffrage">
+              <input
+                type="text"
+                aria-label="Localisation"
+                class="form-control"
+                placeholder="Localisation"
+              />
+              <input
+                type="text"
+                aria-label="Quantite"
+                class="form-control"
+                placeholder="Quantité"
+              />
+              <div class="input-group-prepend">
+                <span class="input-group-text">m2</span>
+              </div>
             </div>
           </div>
           <div class="barreInsertion"></div>
-          <div class="ligneTitre1">
-            <span class="nbTitre1">II.</span>
-            <input class="titre1" placeholder="titre1"></input>
+          <div class="input-group mb-3 titre1">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">II.</span>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Titre 1"
+              aria-label="titre1"
+              aria-describedby="basic-addon1"
+            />
           </div>
+          <div class="barreInsertion"></div>
+          <div class="descriptif">
+            <div class="input-group mb-3 titre2">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">II.1</span>
+              </div>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Generique"
+                aria-label="titre2"
+                aria-describedby="basic-addon1"
+              />
+            </div>
+            <div class="input-group description">
+              <textarea
+                class="form-control"
+                aria-label="With textarea"
+                placeholder="Description"
+              ></textarea>
+            </div>
+          </div>
+          <div class="input-group mb-3 titre2">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">II.2</span>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Titre 2"
+              aria-label="titre2"
+              aria-describedby="basic-addon1"
+            />
+          </div>
+          <div class="barreInsertion"></div>
+          <div class="input-group mb-3 titre3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">2.1</span>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Titre 3"
+              aria-label="titre3"
+              aria-describedby="basic-addon1"
+            />
+          </div>
+          <div class="barreInsertion"></div>
+          <div class="descriptif">
+            <div class="input-group mb-3 titre4">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">2.1.1</span>
+              </div>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Ouvrage/Prestation"
+                aria-label="titre4"
+                aria-describedby="basic-addon1"
+              />
+            </div>
+            <div class="input-group description">
+              <textarea
+                class="form-control"
+                aria-label="With textarea"
+                placeholder="Description"
+              ></textarea>
+            </div>
+            <div class="input-group ligneChiffrage">
+              <input
+                type="text"
+                aria-label="Localisation"
+                class="form-control"
+                placeholder="Localisation"
+              />
+              <input
+                type="text"
+                aria-label="Quantite"
+                class="form-control"
+                placeholder="Quantité"
+              />
+              <div class="input-group-prepend">
+                <span class="input-group-text">m3</span>
+              </div>
+            </div>
+            <div class="input-group ligneChiffrage">
+              <input
+                type="text"
+                aria-label="Localisation"
+                class="form-control"
+                placeholder="Localisation"
+              />
+              <input
+                type="text"
+                aria-label="Quantite"
+                class="form-control"
+                placeholder="Quantité"
+              />
+              <div class="input-group-prepend">
+                <span class="input-group-text">m3</span>
+              </div>
+            </div>
+          </div>
+          <div class="barreInsertion"></div>
         </div>
-        <div id="ongletsLot">
-          <div id="ongletLot">0</div>
-          <div id="ongletLot">1</div>
-          <div id="ongletLot">2</div>
-          <div id="ongletLot">3</div>
-          <div id="ongletLot">4</div>
-          <div id="ongletLot">5</div>
-          <div id="ongletLot">6</div>
-          <div id="ongletLot">7</div>
-          <div id="ongletLot">8</div>
-          <div id="ongletLot">9</div>
-          <div id="ongletLot">+</div>
+        <div
+          id="ongletsLot"
+          class="btn-group btn-group-toggle"
+          data-toggle="buttons"
+        >
+          <label class="btn btn-secondary active">
+            <input type="radio" name="options" id="option1" checked /> 0
+          </label>
+          <label class="btn btn-secondary">
+            <input type="radio" name="options" id="option2" /> 1
+          </label>
+          <label class="btn btn-secondary">
+            <input type="radio" name="options" id="option3" /> 2
+          </label>
+          <label class="btn btn-secondary">
+            <input type="radio" name="options" id="option3" /> 3
+          </label>
+          <label class="btn btn-secondary">
+            <input type="radio" name="options" id="option3" /> 4
+          </label>
+          <label class="btn btn-secondary">
+            <input type="radio" name="options" id="option3" /> 5
+          </label>
+          <label class="btn btn-secondary">
+            <input type="radio" name="options" id="option3" /> 6
+          </label>
+          <label class="btn btn-secondary">
+            <input type="radio" name="options" id="option3" /> 7
+          </label>
+          <label class="btn btn-secondary">
+            <input type="radio" name="options" id="option3" /> 8
+          </label>
+          <label class="btn btn-secondary">
+            <input type="radio" name="options" id="option3" /> 9
+          </label>
+          <label class="btn btn-secondary">
+            <input type="radio" name="options" id="option3" /> +
+          </label>
         </div>
       </div>
     </div>
