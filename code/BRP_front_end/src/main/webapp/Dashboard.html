@@ -27,153 +27,153 @@
         			<div class="menu menuInfos" onclick="gestion_menu_bdd('infos');">Infos projet</div>
         		</div>
         		<div id="arboBDD">
-        			<select class="filtre">
+        			<select class="filtre" onchange="apply_filter();">
 	        			<option value="">Sélectionnez un filtre</option>
-	        			<option value="genrique">Génériques</option>
+	        			<option value="generique">Génériques</option>
 	        			<option value="ouvrage">Ouvrages</option>
 	        			<option value="prestation">Prestations</option>
 	        		</select>
 	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-down"></i></span>
+	        			<span class="iconBDD"><i class="fas fa-caret-right arrow"></i></span>
 	        			<div class="intitule">Chapitre 1</div>
 	        		</div>
 	        		<div class="lineBDD lineCategorie">
-	        			<span class="iconBDD"><i class="fas fa-caret-down"></i></span>
+	        			<span class="iconBDD"><i class="fas fa-caret-right arrow"></i></span>
 	        			<div class="intitule">Categorie AAA</div>
 	        		</div>
 	        		<div class="lineBDD lineFamille">
-	        			<span class="iconBDD"><i class="fas fa-caret-down"></i></span>
+	        			<span class="iconBDD"><i class="fas fa-caret-right arrow"></i></span>
 	        			<div class="intitule">Famille 1</div>
 	        		</div>
 	        		<div class="lineBDD lineSousFamille">
-	        			<span class="iconBDD"><i class="fas fa-caret-down"></i></span>
+	        			<span class="iconBDD"><i class="fas fa-caret-right arrow"></i></span>
 	        			<div class="intitule">SousFamille 1</div>
 	        		</div>
-	        		<div class="lineBDD lineDescriptif">
+	        		<div class="lineBDD lineDescriptif generique">
 	        			<input type="hidden" class="idDescriptif" value="01_AAA_01_01_01">
 	        			<span class="iconBDD">-</span>
 	        			<div class="intitule">Générique</div>
 	        		</div>
-	        		<div class="lineBDD lineDescriptif">
+	        		<div class="lineBDD lineDescriptif ouvrage">
 	        			<input type="hidden" class="idDescriptif" value="01_AAA_01_01_02">
 	        			<span class="iconBDD">-</span>
 	        			<div class="intitule">Ouvrage</div>
 	        		</div>
-	        		<div class="lineBDD lineDescriptif">
+	        		<div class="lineBDD lineDescriptif prestation">
 	        			<input type="hidden" class="idDescriptif" value="01_AAA_01_01_01_01">
 	        			<span class="iconBDD">-</span>
 	        			<div class="intitule">Prestation</div>
 	        		</div>
 	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+	        			<span class="iconBDD"><i class="fas fa-caret-right arrow"></i></span>
 	        			<div class="intitule">Chapitre 1</div>
 	        		</div>
 	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+	        			<span class="iconBDD"><i class="fas fa-caret-right arrow"></i></span>
 	        			<div class="intitule">Chapitre 1</div>
 	        		</div>
 	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+	        			<span class="iconBDD"><i class="fas fa-caret-right arrow"></i></span>
 	        			<div class="intitule">Chapitre 1</div>
 	        		</div>
 	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+	        			<span class="iconBDD"><i class="fas fa-caret-right arrow"></i></span>
 	        			<div class="intitule">Chapitre 1</div>
 	        		</div>
 	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+	        			<span class="iconBDD"><i class="fas fa-caret-right arrow"></i></span>
 	        			<div class="intitule">Chapitre 1</div>
 	        		</div>
 	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+	        			<span class="iconBDD"><i class="fas fa-caret-right arrow"></i></span>
 	        			<div class="intitule">Chapitre 1</div>
 	        		</div>
 	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+	        			<span class="iconBDD"><i class="fas fa-caret-right arrow"></i></span>
 	        			<div class="intitule">Chapitre 1</div>
 	        		</div>
 	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+	        			<span class="iconBDD"><i class="fas fa-caret-right arrow"></i></span>
 	        			<div class="intitule">Chapitre 1</div>
 	        		</div>
 	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+	        			<span class="iconBDD"><i class="fas fa-caret-right arrow"></i></span>
 	        			<div class="intitule">Chapitre 1</div>
 	        		</div>
 	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+	        			<span class="iconBDD"><i class="fas fa-caret-right arrow"></i></span>
 	        			<div class="intitule">Chapitre 1</div>
 	        		</div>
 	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+	        			<span class="iconBDD"><i class="fas fa-caret-right arrow"></i></span>
 	        			<div class="intitule">Chapitre 1</div>
 	        		</div>
 	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+	        			<span class="iconBDD"><i class="fas fa-caret-right arrow"></i></span>
 	        			<div class="intitule">Chapitre 1</div>
 	        		</div>
 	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+	        			<span class="iconBDD"><i class="fas fa-caret-right arrow"></i></span>
 	        			<div class="intitule">Chapitre 1</div>
 	        		</div>
 	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+	        			<span class="iconBDD"><i class="fas fa-caret-right arrow"></i></span>
 	        			<div class="intitule">Chapitre 1</div>
 	        		</div>
 	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+	        			<span class="iconBDD"><i class="fas fa-caret-right arrow"></i></span>
 	        			<div class="intitule">Chapitre 1</div>
 	        		</div>
 	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+	        			<span class="iconBDD"><i class="fas fa-caret-right arrow"></i></span>
 	        			<div class="intitule">Chapitre 1</div>
 	        		</div>
 	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+	        			<span class="iconBDD"><i class="fas fa-caret-right arrow"></i></span>
 	        			<div class="intitule">Chapitre 1</div>
 	        		</div>
 	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+	        			<span class="iconBDD"><i class="fas fa-caret-right arrow"></i></span>
 	        			<div class="intitule">Chapitre 1</div>
 	        		</div>
 	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+	        			<span class="iconBDD"><i class="fas fa-caret-right arrow"></i></span>
 	        			<div class="intitule">Chapitre 1</div>
 	        		</div>
 	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+	        			<span class="iconBDD"><i class="fas fa-caret-right arrow"></i></span>
 	        			<div class="intitule">Chapitre 1</div>
 	        		</div>
 	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+	        			<span class="iconBDD"><i class="fas fa-caret-right arrow"></i></span>
 	        			<div class="intitule">Chapitre 1</div>
 	        		</div>
 	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+	        			<span class="iconBDD"><i class="fas fa-caret-right arrow"></i></span>
 	        			<div class="intitule">Chapitre 1</div>
 	        		</div>
 	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+	        			<span class="iconBDD"><i class="fas fa-caret-right arrow"></i></span>
 	        			<div class="intitule">Chapitre 1</div>
 	        		</div>
 	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+	        			<span class="iconBDD"><i class="fas fa-caret-right arrow"></i></span>
 	        			<div class="intitule">Chapitre 1</div>
 	        		</div>
 	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+	        			<span class="iconBDD"><i class="fas fa-caret-right arrow"></i></span>
 	        			<div class="intitule">Chapitre 1</div>
 	        		</div>
 	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+	        			<span class="iconBDD"><i class="fas fa-caret-right arrow"></i></span>
 	        			<div class="intitule">Chapitre 1</div>
 	        		</div>
 	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+	        			<span class="iconBDD"><i class="fas fa-caret-right arrow"></i></span>
 	        			<div class="intitule">Chapitre 1</div>
 	        		</div>
 	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+	        			<span class="iconBDD"><i class="fas fa-caret-right arrow"></i></span>
 	        			<div class="intitule">Chapitre 1</div>
 	        		</div>
         		</div>
@@ -231,19 +231,19 @@
         			</div>
         			<div class="infoProjet infoField">
         				<div class="titleInfo">Cat construction</div>
-        				<select id="categorieConstruction">
+        				<select id="categorieConstruction" onchange="show_catConstruction()">
 		        			<option value="">---</option>
 		        			<option value="1">Batiment public</option>
 		        		</select>
         			</div>
-        			<div class="infoProjet infoField">
+        			<div class="infoProjet infoField lineSousCatConstruction">
         				<div class="titleInfo">Sous-cat construction</div>
         				<select id="sousCategorieConstruction">
 		        			<option value="">---</option>
 		        			<option value="1">Gymnase</option>
 		        		</select>
         			</div>
-        			<div class="infoProjet infoField">
+        			<div class="infoProjet infoField lineCaractDim">
         				<div class="titleInfo">Caractéristiques dim</div>
         				<select id="caractDim">
 		        			<option value="">---</option>
@@ -495,6 +495,10 @@
 
 	$('.container').first().click(unset_select_descriptif);
 	$('.lineDescriptif').click(function(){select_descriptif(this);});
+	$('.lineChapitre').click(function(){gestion_arbo_bdd(this);});
+	$('.lineCategorie').click(function(){gestion_arbo_bdd(this);});
+	$('.lineFamille').click(function(){gestion_arbo_bdd(this);});
+	$('.lineSousFamille').click(function(){gestion_arbo_bdd(this);});
 
 	function unset_select_descriptif(){
 		if (!test_select_descriptif) {
@@ -507,7 +511,7 @@
 		$('.selectDescriptif').removeClass("selectDescriptif");
 		$(element).addClass("selectDescriptif");
 		test_select_descriptif = true;
-		alert($(element).children(".idDescriptif").val());	//affiche l'idDescriptif selectionné
+		//alert($(element).children(".idDescriptif").val());	//affiche l'idDescriptif selectionné
 	}
 
 	function gestion_menu_bdd(panel){
@@ -524,6 +528,119 @@
 			$('#infosProjet').show();
 			$('#arboBDD').hide();
 		}
+	}
+
+	function apply_filter(){
+		var filtre = $('.filtre').val();
+		var array_show = new Array(), array_hide = new Array();
+		
+		switch(filtre){
+			case "generique":
+				array_show = ["generique"];
+				array_hide = ["ouvrage", "prestation"];
+				break;
+			case "ouvrage":
+				array_show = ["ouvrage"];
+				array_hide = ["generique", "prestation"];
+				break;
+			case "prestation":
+				array_show = ["prestation"];
+				array_hide = ["ouvrage", "generique"];
+				break;
+			default:
+				array_show = ["generique", "ouvrage", "prestation"];
+				array_hide = [];
+		}
+
+		for (var i = 0; i < array_show.length; i++) {
+			$( "."+array_show[i]).each(function() {
+			   $(this).show();
+			});
+		}
+		for (var i = 0; i < array_hide.length; i++) {
+			$( "."+array_hide[i]).each(function() {
+			   $(this).hide();
+			});
+		}
+	}
+
+	function show_catConstruction(){
+		var val = $('#categorieConstruction').val();
+
+		if (val == "") {
+			$('.lineSousCatConstruction').hide();
+			$('.lineCaractDim').hide();
+		}
+		else{
+			$('.lineSousCatConstruction').css('display', 'flex');
+			$('.lineCaractDim').css('display', 'flex');
+			//lien BDD
+		}
+	}
+
+	function gestion_arbo_bdd(element){
+
+		//on range les différents niveaux de l'arborescence dans un tableau
+		var ordre_arbo = new Map();
+		ordre_arbo.set("lineChapitre", 1);
+		ordre_arbo.set("lineCategorie", 2);
+		ordre_arbo.set("lineFamille", 3);
+		ordre_arbo.set("lineSousFamille", 4);
+
+		//on détermine le rang de l'objet clické
+		var classElement = $(element).attr("class").substr(8);
+		var rangElement = ordre_arbo.get(classElement);
+
+		//on détermine le type d'opération
+		var spanArrow = $(element).children('.iconBDD');
+		var classArrow = $(spanArrow).children('.arrow').attr("class");
+		
+		if (classArrow.includes("down")) 
+			var action = "remonter";
+		else
+			var action = "derouler";
+
+		//on modifie la fleche
+		if (action == "derouler")
+			$(spanArrow).html('<i class="fas fa-caret-down arrow">');
+		else
+			$(spanArrow).html('<i class="fas fa-caret-right arrow">');
+
+		//on détermine tous les objets de rangs directement supérieur ou égal à 5
+		var oldElement = element;
+		var nextElement = null;
+		var classNextElement = null;
+		var rangNextElement = null;
+		var rangOldElement = null;
+		do{
+			nextElement = $(oldElement).next();
+			classNextElement = $(nextElement).attr("class").substr(8);
+			rangNextElement = ordre_arbo.get(classNextElement);
+
+			if(classNextElement && rangNextElement == null)
+				rangNextElement = 5;
+
+			if (action == "derouler") {
+				if (rangNextElement == (rangElement+1) || (rangNextElement == 5 && rangOldElement == rangElement)) {
+					$(nextElement).css("display", "flex");
+				}
+			}
+			else{
+				if (rangNextElement > rangElement) {
+					$(nextElement).css("display", "none");
+				}
+			}
+
+			if (rangNextElement != null && rangNextElement > rangElement && rangNextElement != 5) {
+				//on modifie la fleche de l'élement enfant
+				spanArrow = $(nextElement).children('.iconBDD');
+				if (action == "remonter")
+					$(spanArrow).html('<i class="fas fa-caret-right arrow">');
+			}
+			
+			oldElement = nextElement;
+			rangOldElement = rangNextElement;
+		}while(rangNextElement > rangElement);
 	}
 </script>
 
