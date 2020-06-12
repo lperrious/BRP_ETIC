@@ -346,3 +346,9 @@
 127.0.0.1 - tomcat [12/Jun/2020:11:18:18 +0200] "GET /manager/text/ HTTP/1.1" 200 41
 0:0:0:0:0:0:0:1 - - [12/Jun/2020:11:18:18 +0200] "GET /BRP_front_end/Dashboard.html HTTP/1.1" 200 20522
 0:0:0:0:0:0:0:1 - - [12/Jun/2020:11:18:18 +0200] "GET /BRP_front_end/style/style.css HTTP/1.1" 304 -
+127.0.0.1 - - [12/Jun/2020:11:24:58 +0200] "HEAD /netbeans-tomcat-status-test HTTP/1.1" 404 -
+127.0.0.1 - tomcat [12/Jun/2020:11:24:58 +0200] "GET /manager/text/ HTTP/1.1" 200 41
+127.0.0.1 - - [12/Jun/2020:11:24:58 +0200] "HEAD /netbeans-tomcat-status-test HTTP/1.1" 404 -
+127.0.0.1 - tomcat [12/Jun/2020:11:24:58 +0200] "GET /manager/text/ HTTP/1.1" 200 41
+127.0.0.1 - - [12/Jun/2020:11:24:58 +0200] "HEAD /netbeans-tomcat-status-test HTTP/1.1" 404 -
+127.0.0.1 - tomcat [12/Jun/2020:11:24:58 +0200] "GET /manager/text/ HTTP/1.1" 200 41
