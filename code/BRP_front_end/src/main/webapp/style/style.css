@@ -84,40 +84,38 @@
 /* Dashboard */
 body {
   font-family: system-ui;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Helvetica Neue", "Fira Sans", Arial, Helvetica, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Helvetica Neue", "Fira Sans",
+    Arial, Helvetica, sans-serif;
   font-weight: 200;
   background-color: var(--background_1);
   color: var(--text);
 }
 
-select{
-    font-size: 100%;
-    background-color: var(--background_1);
-    font-family: system-ui;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Helvetica Neue", "Fira Sans", Arial, Helvetica, sans-serif;
-    font-weight: 200;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    padding: 5px 40px 5px 10px;
-    border-color: var(--border);
-    border-width: 1px;
-    border-radius: 5px;
+select {
+  font-size: 100%;
+  background-color: var(--background_1);
+  font-family: system-ui;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Helvetica Neue", "Fira Sans",
+    Arial, Helvetica, sans-serif;
+  font-weight: 200;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding: 5px 40px 5px 10px;
+  border-color: var(--border);
+  border-width: 1px;
+  border-radius: 5px;
 }
 
 select {
-  background-image:
-    linear-gradient(45deg, transparent 50%, gray 50%),
+  background-image: linear-gradient(45deg, transparent 50%, gray 50%),
     linear-gradient(135deg, gray 50%, transparent 50%),
     linear-gradient(to right, #ccc, #ccc);
-  background-position:
-    calc(100% - 15px) calc(0.9em),
-    calc(100% - 9.5px) calc(0.9em),
-    calc(100% - 27px) 0.5em;
-  background-size:
-    5.5px 5.5px,
-    5.5px 5.5px,
-    1px 1.15em;
+  background-position: calc(100% - 15px) calc(0.9em),
+    calc(100% - 9.5px) calc(0.9em), calc(100% - 27px) 0.5em;
+  background-size: 5.5px 5.5px, 5.5px 5.5px, 1px 1.15em;
   background-repeat: no-repeat;
 }
 
@@ -130,53 +128,53 @@ select {
   height: 100vh; /*Attention bandeau supérieur*/
 }
 
-.container:nth-child(1){
-    width: 35%;
-    border-right: solid;
-    border-right-width: 1px;
-    border-right-color: var(--border);
-    display: flex;
-    flex-direction: column;
-    padding-bottom: 15px;
-    padding-right: 0;
+.container:nth-child(1) {
+  width: 35%;
+  border-right: solid;
+  border-right-width: 1px;
+  border-right-color: var(--border);
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 15px;
+  padding-right: 0;
 }
 
 /*      Partie Gauche       */
-#arboBDD{
-    flex: 1;
-    overflow: auto;
-    padding-top: 10px;
-    margin-bottom: 15px;
+#arboBDD {
+  flex: 1;
+  overflow: auto;
+  padding-top: 10px;
+  margin-bottom: 15px;
 }
 
-#infosProjet{
-    flex: 1;
-    display: none;
-    padding-left: 15px; 
-    overflow: auto;
-    margin-bottom: 15px
+#infosProjet {
+  flex: 1;
+  display: none;
+  padding-left: 15px;
+  overflow: auto;
+  margin-bottom: 15px;
 }
 
-#nomProjet{
-    font-size: 160%;
-    padding: 10px;
-    border-bottom: solid;
-    border-bottom-width: 1px;
-    border-bottom-color: var(--border);
-    display: flex;
-    font-weight: 300;
+#nomProjet {
+  font-size: 160%;
+  padding: 10px;
+  border-bottom: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: var(--border);
+  display: flex;
+  font-weight: 300;
 }
 
 .nomProjet:nth-child(1) {
   flex: 1;
 }
 
-.nomProjet:nth-child(2){
-    color: var(--border);
-    font-size: 90%;
-    position: relative;
-    right: 5px;
-    top: 5px;
+.nomProjet:nth-child(2) {
+  color: var(--border);
+  font-size: 90%;
+  position: relative;
+  right: 5px;
+  top: 5px;
 }
 
 .nomProjet:nth-child(2):hover {
@@ -210,65 +208,68 @@ select {
   color: var(--text);
 }
 
-.infoProjet{
-    margin-top: 0.75em;
+.infoProjet {
+  margin-top: 0.75em;
 }
 
-.titleInfo{
-    font-size: 120%;
-    font-weight: 300;
+.titleInfo {
+  font-size: 120%;
+  font-weight: 300;
 }
 
-.valueInfo{
-    margin-top: 0.25em;
+.valueInfo {
+  margin-top: 0.25em;
 }
 
-.radioOption{
-    margin-left: 20px;
+.radioOption {
+  margin-left: 20px;
 }
 
-.infoField{
-    display: flex;
-    margin-top: 1em;
-    font-size: 90%;
+.infoField {
+  display: flex;
+  margin-top: 1em;
+  font-size: 90%;
 }
 
-.infoProjet > input[type=text]{
-    border: solid;
-    border-width: 1px;
-    border-color: var(--border);
-    padding: 5px;
-    font-size: 95%;
-    border-radius: 4px;
-    font-family: system-ui;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Helvetica Neue", "Fira Sans", Arial, Helvetica, sans-serif;
-    font-weight: 300;
-    position: relative;
-    top: -4px;
-    left: 20px;
+.infoProjet > input[type="text"] {
+  border: solid;
+  border-width: 1px;
+  border-color: var(--border);
+  padding: 5px;
+  font-size: 95%;
+  border-radius: 4px;
+  font-family: system-ui;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Helvetica Neue", "Fira Sans",
+    Arial, Helvetica, sans-serif;
+  font-weight: 300;
+  position: relative;
+  top: -4px;
+  left: 20px;
 }
 
-.infoProjet > select{
-    width: 40%;
-    margin-left: 20px;
-    position: relative;
-    top: -4px;
-    left: 20px;
+.infoProjet > select {
+  width: 40%;
+  margin-left: 20px;
+  position: relative;
+  top: -4px;
+  left: 20px;
 }
 
-.menuGestion{
-    display: flex;
-    justify-content: space-around;
+.menuGestion {
+  display: flex;
+  justify-content: space-around;
 }
 
-.importButton, .exportButton{
-    background-color: var(--cta);
-    color: var(--text_soft);
-    padding: 8px;
-    width: 45%;
-    text-align: center;
-    border-radius: 3px;
-    font-size: 105%;
+.importButton,
+.exportButton {
+  background-color: var(--cta);
+  color: var(--text_soft);
+  padding: 8px;
+  width: 45%;
+  text-align: center;
+  border-radius: 3px;
+  font-size: 105%;
 }
 
 .importButton:hover,
@@ -277,27 +278,27 @@ select {
   cursor: pointer;
 }
 
-.importButton{
-    margin-left: 5%;
-    margin-right: 2.5%;
+.importButton {
+  margin-left: 5%;
+  margin-right: 2.5%;
 }
 
-.exportButton{
-    margin-right: 5%;
-    margin-left: 2.5%;
+.exportButton {
+  margin-right: 5%;
+  margin-left: 2.5%;
 }
 
-.filtre{
-    margin-left: 15px;
-    width: 60%;
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
+.filtre {
+  margin-left: 15px;
+  width: 60%;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
 }
 
-.lineBDD{
-    display: flex;
-    padding: 5px;
-    font-size: 110%;
+.lineBDD {
+  display: flex;
+  padding: 5px;
+  font-size: 110%;
 }
 
 .lineBDD:hover {
@@ -428,6 +429,26 @@ select {
   width: 500px;
   margin-left: 15px;
   height: 20px;
+}
+
+.divInsertionTitre {
+  width: 400px;
+  height: 50px;
+  border-radius: 3px;
+  background: grey;
+  color: var(--text_soft);
+  display: flex;
+  flex-direction: column;
+}
+
+.sousDivInsertionTitre {
+  padding-left: 15px;
+  cursor: pointer;
+}
+
+.sousDivInsertionTitre:hover {
+  background-color: whitesmoke;
+  color: grey;
 }
 
 .barreInsertion:hover {

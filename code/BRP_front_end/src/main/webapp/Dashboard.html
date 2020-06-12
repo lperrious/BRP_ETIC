@@ -1,536 +1,905 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Gestion des projets - BRP</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- Bootstrap CSS -->
-	    <link
-	      rel="stylesheet"
-	      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-	      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-	      crossorigin="anonymous"
-	    />
-        <link rel="stylesheet" href="style/style.css" />
-        <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    </head>
-    <body>
-        <div id="container">
-        	<div class="container">
-        		<div id="nomProjet">
-        			<div class="nomProjet">Nom projet</div>
-        			<div class="nomProjet"><i class="fas fa-chevron-down"></i></div>
-        		</div>
-        		<div id="menu">
-        			<div class="menu menuBiblio" onclick="gestion_menu_bdd('biblio');">Bibliothèque</div>
-        			<div class="menu menuInfos" onclick="gestion_menu_bdd('infos');">Infos projet</div>
-        		</div>
-        		<div id="arboBDD">
-        			<select class="filtre">
-	        			<option value="">Sélectionnez un filtre</option>
-	        			<option value="genrique">Génériques</option>
-	        			<option value="ouvrage">Ouvrages</option>
-	        			<option value="prestation">Prestations</option>
-	        		</select>
-	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-down"></i></span>
-	        			<div class="intitule">Chapitre 1</div>
-	        		</div>
-	        		<div class="lineBDD lineCategorie">
-	        			<span class="iconBDD"><i class="fas fa-caret-down"></i></span>
-	        			<div class="intitule">Categorie AAA</div>
-	        		</div>
-	        		<div class="lineBDD lineFamille">
-	        			<span class="iconBDD"><i class="fas fa-caret-down"></i></span>
-	        			<div class="intitule">Famille 1</div>
-	        		</div>
-	        		<div class="lineBDD lineSousFamille">
-	        			<span class="iconBDD"><i class="fas fa-caret-down"></i></span>
-	        			<div class="intitule">SousFamille 1</div>
-	        		</div>
-	        		<div class="lineBDD lineDescriptif">
-	        			<span class="iconBDD">-</span>
-	        			<div class="intitule">Générique, ouvrage ou prestation</div>
-	        		</div>
-	        		<div class="lineBDD lineDescriptif">
-	        			<span class="iconBDD">-</span>
-	        			<div class="intitule">Générique, ouvrage ou prestation</div>
-	        		</div>
-	        		<div class="lineBDD lineDescriptif">
-	        			<span class="iconBDD">-</span>
-	        			<div class="intitule">Générique, ouvrage ou prestation</div>
-	        		</div>
-	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
-	        			<div class="intitule">Chapitre 1</div>
-	        		</div>
-	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
-	        			<div class="intitule">Chapitre 1</div>
-	        		</div>
-	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
-	        			<div class="intitule">Chapitre 1</div>
-	        		</div>
-	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
-	        			<div class="intitule">Chapitre 1</div>
-	        		</div>
-	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
-	        			<div class="intitule">Chapitre 1</div>
-	        		</div>
-	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
-	        			<div class="intitule">Chapitre 1</div>
-	        		</div>
-	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
-	        			<div class="intitule">Chapitre 1</div>
-	        		</div>
-	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
-	        			<div class="intitule">Chapitre 1</div>
-	        		</div>
-	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
-	        			<div class="intitule">Chapitre 1</div>
-	        		</div>
-	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
-	        			<div class="intitule">Chapitre 1</div>
-	        		</div>
-	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
-	        			<div class="intitule">Chapitre 1</div>
-	        		</div>
-	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
-	        			<div class="intitule">Chapitre 1</div>
-	        		</div>
-	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
-	        			<div class="intitule">Chapitre 1</div>
-	        		</div>
-	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
-	        			<div class="intitule">Chapitre 1</div>
-	        		</div>
-	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
-	        			<div class="intitule">Chapitre 1</div>
-	        		</div>
-	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
-	        			<div class="intitule">Chapitre 1</div>
-	        		</div>
-	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
-	        			<div class="intitule">Chapitre 1</div>
-	        		</div>
-	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
-	        			<div class="intitule">Chapitre 1</div>
-	        		</div>
-	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
-	        			<div class="intitule">Chapitre 1</div>
-	        		</div>
-	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
-	        			<div class="intitule">Chapitre 1</div>
-	        		</div>
-	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
-	        			<div class="intitule">Chapitre 1</div>
-	        		</div>
-	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
-	        			<div class="intitule">Chapitre 1</div>
-	        		</div>
-	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
-	        			<div class="intitule">Chapitre 1</div>
-	        		</div>
-	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
-	        			<div class="intitule">Chapitre 1</div>
-	        		</div>
-	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
-	        			<div class="intitule">Chapitre 1</div>
-	        		</div>
-	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
-	        			<div class="intitule">Chapitre 1</div>
-	        		</div>
-	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
-	        			<div class="intitule">Chapitre 1</div>
-	        		</div>
-	        		<div class="lineBDD lineChapitre">
-	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
-	        			<div class="intitule">Chapitre 1</div>
-	        		</div>
-        		</div>
-        		<div id="infosProjet">
-        			<div class="infoProjet">
-        				<div class="titleInfo">Type de marché</div>
-        				<div class="valueInfo">
-        					<input class="radioOption" type="radio" name="typeMarche" value="marchePublic">
-        					<label for="marchePublic">Public</label>
-        					<input class="radioOption" type="radio" name="typeMarche" value="marchePrive">
-        					<label for="marchePrive">Privé</label>
-        				</div>
-        			</div>
-        			<div class="infoProjet">
-        				<div class="titleInfo">Type de construction</div>
-        				<div class="valueInfo">
-        					<input class="radioOption" type="radio" name="typeConstruction" value="neuf">
-        					<label for="neuf">Neuf</label>
-        					<input class="radioOption" type="radio" name="typeConstruction" value="renovation">
-        					<label for="renovation">Rénovation</label>
-        				</div>
-        			</div>
-        			<div class="infoProjet">
-        				<div class="titleInfo">Type de lots</div>
-        				<div class="valueInfo">
-        					<input class="radioOption" type="radio" name="typeLots" value="lotSepare">
-        					<label for="lotSepare">Lots séparés</label>
-        					<input class="radioOption" type="radio" name="typeLots" value="entrepriseGenerale">
-        					<label for="entrepriseGenerale">Entreprise générale</label>
-        				</div>
-        			</div>
-        			<div class="infoProjet">
-        				<div class="titleInfo">Site</div>
-        				<div class="valueInfo">
-        					<input class="radioOption" type="radio" name="typeSite" value="libre">
-        					<label for="libre">Libre</label>
-        					<input class="radioOption" type="radio" name="typeSite" value="occupe">
-        					<label for="occupe">Occupe</label>
-        				</div>
-        			</div>
-        			<div class="infoProjet infoField">
-        				<div class="titleInfo">Année de référence (prix)</div>
-        				<input type="text" name="datePrixref" maxlength="4">
-        			</div>
-        			<div class="infoProjet infoField">
-        				<div class="titleInfo">Coeffadaptation</div>
-        				<input type="text" name="coeffAdapt" maxlength="10">
-        			</div>
-        			<div class="infoProjet infoField">
-        				<div class="titleInfo">Coeff raccordement</div>
-        				<select id="coeffRaccordement">
-		        			<option value="">---</option>
-		        			<option value="1">Alsace - 0.8</option>
-		        		</select>
-        			</div>
-        			<div class="infoProjet infoField">
-        				<div class="titleInfo">Cat construction</div>
-        				<select id="categorieConstruction">
-		        			<option value="">---</option>
-		        			<option value="1">Batiment public</option>
-		        		</select>
-        			</div>
-        			<div class="infoProjet infoField">
-        				<div class="titleInfo">Sous-cat construction</div>
-        				<select id="sousCategorieConstruction">
-		        			<option value="">---</option>
-		        			<option value="1">Gymnase</option>
-		        		</select>
-        			</div>
-        			<div class="infoProjet infoField">
-        				<div class="titleInfo">Caractéristiques dim</div>
-        				<select id="caractDim">
-		        			<option value="">---</option>
-		        			<option value="1">Caracteristique 1</option>
-		        		</select>
-        			</div>
-        		</div>
-        		<div class="menuGestion">
-        			<div class="importButton">Gestion bibliothèque</div>
-        			<div class="exportButton">Exporter projet</div>
-        		</div>
-        	</div>
-			<div class="container">
-				<div id="titreLot">Titre Lot</div>
-				<div class="lotCourant" id="lot0">
-				  <div class="barreInsertion" onclick="AjouterElement();"></div>
-				  <div class="input-group titre1">
-				    <div class="input-group-prepend">
-				      <span class="input-group-text" id="basic-addon1">I.</span>
-				    </div>
-				    <input
-				      type="text"
-				      class="form-control"
-				      placeholder="Titre 1"
-				      aria-label="titre1"
-				      aria-describedby="basic-addon1"
-				    />
-				  </div>
-				  <div class="barreInsertion" onclick="AjouterElement();"></div>
-				  <div class="input-group titre2">
-				    <div class="input-group-prepend">
-				      <span class="input-group-text" id="basic-addon1">I.1</span>
-				    </div>
-				    <input
-				      type="text"
-				      class="form-control"
-				      placeholder="Titre 2"
-				      aria-label="titre2"
-				      aria-describedby="basic-addon1"
-				    />
-				  </div>
-				  <div class="barreInsertion" onclick="AjouterElement();"></div>
-				  <div class="input-group titre3">
-				    <div class="input-group-prepend">
-				      <span class="input-group-text" id="basic-addon1">1.1</span>
-				    </div>
-				    <input
-				      type="text"
-				      class="form-control"
-				      placeholder="Titre 3"
-				      aria-label="titre3"
-				      aria-describedby="basic-addon1"
-				    />
-				  </div>
-				  <div class="barreInsertion" onclick="AjouterElement();"></div>
-				  <div class="input-group titre4">
-				    <div class="input-group-prepend">
-				      <span class="input-group-text" id="basic-addon1">1.1.1</span>
-				    </div>
-				    <input
-				      type="text"
-				      class="form-control"
-				      placeholder="Titre 4"
-				      aria-label="titre4"
-				      aria-describedby="basic-addon1"
-				    />
-				  </div>
-				  <div class="barreInsertion" onclick="AjouterElement();"></div>
-				  <div class="descriptif titre5">
-				    <div class="input-group">
-				      <div class="input-group-prepend">
-				        <span class="input-group-text" id="basic-addon1">1.1.1.1</span>
-				      </div>
-				      <input
-				        type="text"
-				        class="form-control"
-				        placeholder="Ouvrage/Prestation"
-				        aria-label="titre5"
-				        aria-describedby="basic-addon1"
-				      />
-				    </div>
-				    <div class="input-group description">
-				      <textarea
-				        class="form-control"
-				        aria-label="With textarea"
-				        placeholder="Description"
-				      >Ceci est un descriptif et en voici sa description.Ceci est un descriptif et en voici sa description.Ceci est un descriptif et en voici sa description.Ceci est un descriptif et en voici sa description</textarea>
-				    </div>
-				    <div class="input-group ligneChiffrage">
-				      <input
-				        type="text"
-				        aria-label="Localisation"
-				        class="form-control"
-				        placeholder="Localisation"
-				      />
-				      <input
-				        type="text"
-				        aria-label="Quantite"
-				        class="form-control"
-				        placeholder="Quantité"
-				      />
-				      <div class="input-group-prepend">
-				        <span class="input-group-text">m2</span>
-				      </div>
-				    </div>
-				  </div>
-				  <div class="barreInsertion" onclick="AjouterElement();"></div>
-				  <div class="input-group titre1">
-				    <div class="input-group-prepend">
-				      <span class="input-group-text" id="basic-addon1">II.</span>
-				    </div>
-				    <input
-				      type="text"
-				      class="form-control"
-				      placeholder="Titre 1"
-				      aria-label="titre1"
-				      aria-describedby="basic-addon1"
-				    />
-				  </div>
-				  <div class="barreInsertion" onclick="AjouterElement();"></div>
-				  <div class="descriptif titre2">
-				    <div class="input-group">
-				      <div class="input-group-prepend">
-				        <span class="input-group-text" id="basic-addon1">II.1</span>
-				      </div>
-				      <input
-				        type="text"
-				        class="form-control"
-				        placeholder="Generique"
-				        aria-label="titre2"
-				        aria-describedby="basic-addon1"
-				      />
-				    </div>
-				    <div class="input-group description">
-				      <textarea
-				        class="form-control"
-				        aria-label="With textarea"
-				        placeholder="Description"
-				      ></textarea>
-				    </div>
-				  </div>
-				  <div class="input-group titre2">
-				    <div class="input-group-prepend">
-				      <span class="input-group-text" id="basic-addon1">II.2</span>
-				    </div>
-				    <input
-				      type="text"
-				      class="form-control"
-				      placeholder="Titre 2"
-				      aria-label="titre2"
-				      aria-describedby="basic-addon1"
-				    />
-				  </div>
-				  <div class="barreInsertion" onclick="AjouterElement();"></div>
-				  <div class="input-group titre3">
-				    <div class="input-group-prepend">
-				      <span class="input-group-text" id="basic-addon1">2.1</span>
-				    </div>
-				    <input
-				      type="text"
-				      class="form-control"
-				      placeholder="Titre 3"
-				      aria-label="titre3"
-				      aria-describedby="basic-addon1"
-				    />
-				  </div>
-				  <div class="barreInsertion" onclick="AjouterElement();"></div>
-				  <div class="descriptif titre4">
-				    <div class="input-group">
-				      <div class="input-group-prepend">
-				        <span class="input-group-text" id="basic-addon1">2.1.1</span>
-				      </div>
-				      <input
-				        type="text"
-				        class="form-control"
-				        placeholder="Ouvrage/Prestation"
-				        aria-label="titre4"
-				        aria-describedby="basic-addon1"
-				      />
-				    </div>
-				    <div class="input-group description">
-				      <textarea
-				        class="form-control"
-				        aria-label="With textarea"
-				        placeholder="Description"
-				      ></textarea>
-				    </div>
-				    <div class="input-group ligneChiffrage">
-				      <input
-				        type="text"
-				        aria-label="Localisation"
-				        class="form-control"
-				        placeholder="Localisation"
-				      />
-				      <input
-				        type="text"
-				        aria-label="Quantite"
-				        class="form-control"
-				        placeholder="Quantité"
-				      />
-				      <div class="input-group-prepend">
-				        <span class="input-group-text">m3</span>
-				      </div>
-				    </div>
-				    <div class="input-group ligneChiffrage">
-				      <input
-				        type="text"
-				        aria-label="Localisation"
-				        class="form-control"
-				        placeholder="Localisation"
-				      />
-				      <input
-				        type="text"
-				        aria-label="Quantite"
-				        class="form-control"
-				        placeholder="Quantité"
-				      />
-				      <div class="input-group-prepend">
-				        <span class="input-group-text">m3</span>
-				      </div>
-				    </div>
-				  </div>
-				  <div class="barreInsertion" onclick="AjouterElement();"></div>
-				</div>
-				<div id="ongletsLot">
-          <div class="ongletLot">0</div>
-          <div class="ongletLot">1</div>
-          <div class="ongletLot">2</div>
-          <div class="ongletLot">3</div>
-          <div class="ongletLot">4</div>
-          <div class="ongletLot">+</div>
-				</div>
-			</div>
-		</div>
+  <head>
+    <title>Gestion des projets - BRP</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style/style.css" />
+    <script
+      defer
+      src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"
+    ></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  </head>
+  <body>
+    <div id="container">
+      <div class="container">
+        <div id="nomProjet">
+          <div class="nomProjet">Nom projet</div>
+          <div class="nomProjet"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div id="menu">
+          <div class="menu menuBiblio" onclick="gestion_menu_bdd('biblio');">
+            Bibliothèque
+          </div>
+          <div class="menu menuInfos" onclick="gestion_menu_bdd('infos');">
+            Infos projet
+          </div>
+        </div>
+        <div id="arboBDD">
+          <select class="filtre">
+            <option value="">Sélectionnez un filtre</option>
+            <option value="genrique">Génériques</option>
+            <option value="ouvrage">Ouvrages</option>
+            <option value="prestation">Prestations</option>
+          </select>
+          <div class="lineBDD lineChapitre">
+            <span class="iconBDD"><i class="fas fa-caret-down"></i></span>
+            <div class="intitule">Chapitre 1</div>
+          </div>
+          <div class="lineBDD lineCategorie">
+            <span class="iconBDD"><i class="fas fa-caret-down"></i></span>
+            <div class="intitule">Categorie AAA</div>
+          </div>
+          <div class="lineBDD lineFamille">
+            <span class="iconBDD"><i class="fas fa-caret-down"></i></span>
+            <div class="intitule">Famille 1</div>
+          </div>
+          <div class="lineBDD lineSousFamille">
+            <span class="iconBDD"><i class="fas fa-caret-down"></i></span>
+            <div class="intitule">SousFamille 1</div>
+          </div>
+          <div class="lineBDD lineDescriptif">
+            <span class="iconBDD">-</span>
+            <div class="intitule">Générique, ouvrage ou prestation</div>
+          </div>
+          <div class="lineBDD lineDescriptif">
+            <span class="iconBDD">-</span>
+            <div class="intitule">Générique, ouvrage ou prestation</div>
+          </div>
+          <div class="lineBDD lineDescriptif">
+            <span class="iconBDD">-</span>
+            <div class="intitule">Générique, ouvrage ou prestation</div>
+          </div>
+          <div class="lineBDD lineChapitre">
+            <span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+            <div class="intitule">Chapitre 1</div>
+          </div>
+          <div class="lineBDD lineChapitre">
+            <span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+            <div class="intitule">Chapitre 1</div>
+          </div>
+          <div class="lineBDD lineChapitre">
+            <span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+            <div class="intitule">Chapitre 1</div>
+          </div>
+          <div class="lineBDD lineChapitre">
+            <span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+            <div class="intitule">Chapitre 1</div>
+          </div>
+          <div class="lineBDD lineChapitre">
+            <span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+            <div class="intitule">Chapitre 1</div>
+          </div>
+          <div class="lineBDD lineChapitre">
+            <span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+            <div class="intitule">Chapitre 1</div>
+          </div>
+          <div class="lineBDD lineChapitre">
+            <span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+            <div class="intitule">Chapitre 1</div>
+          </div>
+          <div class="lineBDD lineChapitre">
+            <span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+            <div class="intitule">Chapitre 1</div>
+          </div>
+          <div class="lineBDD lineChapitre">
+            <span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+            <div class="intitule">Chapitre 1</div>
+          </div>
+          <div class="lineBDD lineChapitre">
+            <span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+            <div class="intitule">Chapitre 1</div>
+          </div>
+          <div class="lineBDD lineChapitre">
+            <span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+            <div class="intitule">Chapitre 1</div>
+          </div>
+          <div class="lineBDD lineChapitre">
+            <span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+            <div class="intitule">Chapitre 1</div>
+          </div>
+          <div class="lineBDD lineChapitre">
+            <span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+            <div class="intitule">Chapitre 1</div>
+          </div>
+          <div class="lineBDD lineChapitre">
+            <span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+            <div class="intitule">Chapitre 1</div>
+          </div>
+          <div class="lineBDD lineChapitre">
+            <span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+            <div class="intitule">Chapitre 1</div>
+          </div>
+          <div class="lineBDD lineChapitre">
+            <span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+            <div class="intitule">Chapitre 1</div>
+          </div>
+          <div class="lineBDD lineChapitre">
+            <span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+            <div class="intitule">Chapitre 1</div>
+          </div>
+          <div class="lineBDD lineChapitre">
+            <span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+            <div class="intitule">Chapitre 1</div>
+          </div>
+          <div class="lineBDD lineChapitre">
+            <span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+            <div class="intitule">Chapitre 1</div>
+          </div>
+          <div class="lineBDD lineChapitre">
+            <span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+            <div class="intitule">Chapitre 1</div>
+          </div>
+          <div class="lineBDD lineChapitre">
+            <span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+            <div class="intitule">Chapitre 1</div>
+          </div>
+          <div class="lineBDD lineChapitre">
+            <span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+            <div class="intitule">Chapitre 1</div>
+          </div>
+          <div class="lineBDD lineChapitre">
+            <span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+            <div class="intitule">Chapitre 1</div>
+          </div>
+          <div class="lineBDD lineChapitre">
+            <span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+            <div class="intitule">Chapitre 1</div>
+          </div>
+          <div class="lineBDD lineChapitre">
+            <span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+            <div class="intitule">Chapitre 1</div>
+          </div>
+          <div class="lineBDD lineChapitre">
+            <span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+            <div class="intitule">Chapitre 1</div>
+          </div>
+          <div class="lineBDD lineChapitre">
+            <span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+            <div class="intitule">Chapitre 1</div>
+          </div>
+          <div class="lineBDD lineChapitre">
+            <span class="iconBDD"><i class="fas fa-caret-right"></i></span>
+            <div class="intitule">Chapitre 1</div>
+          </div>
+        </div>
+        <div id="infosProjet">
+          <div class="infoProjet">
+            <div class="titleInfo">Type de marché</div>
+            <div class="valueInfo">
+              <input
+                class="radioOption"
+                type="radio"
+                name="typeMarche"
+                value="marchePublic"
+              />
+              <label for="marchePublic">Public</label>
+              <input
+                class="radioOption"
+                type="radio"
+                name="typeMarche"
+                value="marchePrive"
+              />
+              <label for="marchePrive">Privé</label>
+            </div>
+          </div>
+          <div class="infoProjet">
+            <div class="titleInfo">Type de construction</div>
+            <div class="valueInfo">
+              <input
+                class="radioOption"
+                type="radio"
+                name="typeConstruction"
+                value="neuf"
+              />
+              <label for="neuf">Neuf</label>
+              <input
+                class="radioOption"
+                type="radio"
+                name="typeConstruction"
+                value="renovation"
+              />
+              <label for="renovation">Rénovation</label>
+            </div>
+          </div>
+          <div class="infoProjet">
+            <div class="titleInfo">Type de lots</div>
+            <div class="valueInfo">
+              <input
+                class="radioOption"
+                type="radio"
+                name="typeLots"
+                value="lotSepare"
+              />
+              <label for="lotSepare">Lots séparés</label>
+              <input
+                class="radioOption"
+                type="radio"
+                name="typeLots"
+                value="entrepriseGenerale"
+              />
+              <label for="entrepriseGenerale">Entreprise générale</label>
+            </div>
+          </div>
+          <div class="infoProjet">
+            <div class="titleInfo">Site</div>
+            <div class="valueInfo">
+              <input
+                class="radioOption"
+                type="radio"
+                name="typeSite"
+                value="libre"
+              />
+              <label for="libre">Libre</label>
+              <input
+                class="radioOption"
+                type="radio"
+                name="typeSite"
+                value="occupe"
+              />
+              <label for="occupe">Occupe</label>
+            </div>
+          </div>
+          <div class="infoProjet infoField">
+            <div class="titleInfo">Année de référence (prix)</div>
+            <input type="text" name="datePrixref" maxlength="4" />
+          </div>
+          <div class="infoProjet infoField">
+            <div class="titleInfo">Coeffadaptation</div>
+            <input type="text" name="coeffAdapt" maxlength="10" />
+          </div>
+          <div class="infoProjet infoField">
+            <div class="titleInfo">Coeff raccordement</div>
+            <select id="coeffRaccordement">
+              <option value="">---</option>
+              <option value="1">Alsace - 0.8</option>
+            </select>
+          </div>
+          <div class="infoProjet infoField">
+            <div class="titleInfo">Cat construction</div>
+            <select id="categorieConstruction">
+              <option value="">---</option>
+              <option value="1">Batiment public</option>
+            </select>
+          </div>
+          <div class="infoProjet infoField">
+            <div class="titleInfo">Sous-cat construction</div>
+            <select id="sousCategorieConstruction">
+              <option value="">---</option>
+              <option value="1">Gymnase</option>
+            </select>
+          </div>
+          <div class="infoProjet infoField">
+            <div class="titleInfo">Caractéristiques dim</div>
+            <select id="caractDim">
+              <option value="">---</option>
+              <option value="1">Caracteristique 1</option>
+            </select>
+          </div>
+        </div>
+        <div class="menuGestion">
+          <div class="importButton">Gestion bibliothèque</div>
+          <div class="exportButton">Exporter projet</div>
+        </div>
+      </div>
+      <div class="container">
+        <div id="titreLot">Titre Lot</div>
+        <div class="lotCourant" id="lot_0">
+          <div
+            class="barreInsertion"
+            id="barre_1"
+            onclick="AjouterElement('barre_1', 'lot_0');"
+          ></div>
+          <div class="input-group titre1">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">I.</span>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Titre 1"
+              aria-label="titre1"
+              aria-describedby="basic-addon1"
+            />
+          </div>
+          <div
+            class="barreInsertion"
+            id="barre_2"
+            onclick="AjouterElement('barre_2', 'lot_0');"
+          ></div>
+          <div class="input-group titre2">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">I.1</span>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Titre 2"
+              aria-label="titre2"
+              aria-describedby="basic-addon1"
+            />
+          </div>
+          <div
+            class="barreInsertion"
+            id="barre_3"
+            onclick="AjouterElement('barre_3', 'lot_0');"
+          ></div>
+          <div class="input-group titre3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">1.1</span>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Titre 3"
+              aria-label="titre3"
+              aria-describedby="basic-addon1"
+            />
+          </div>
+          <div
+            class="barreInsertion"
+            id="barre_4"
+            onclick="AjouterElement('barre_4', 'lot_0');"
+          ></div>
+          <div class="input-group titre4">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">1.1.1</span>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Titre 4"
+              aria-label="titre4"
+              aria-describedby="basic-addon1"
+            />
+          </div>
+          <div
+            class="barreInsertion"
+            id="barre_5"
+            onclick="AjouterElement('barre_5', 'lot_0');"
+          ></div>
+          <div class="descriptif titre5">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">1.1.1.1</span>
+              </div>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Ouvrage/Prestation"
+                aria-label="titre5"
+                aria-describedby="basic-addon1"
+              />
+            </div>
+            <div class="input-group description">
+              <textarea
+                class="form-control"
+                aria-label="With textarea"
+                placeholder="Description"
+              >
+Ceci est un descriptif et en voici sa description.Ceci est un descriptif et en voici sa description.Ceci est un descriptif et en voici sa description.Ceci est un descriptif et en voici sa description</textarea
+              >
+            </div>
+            <div class="input-group ligneChiffrage">
+              <input
+                type="text"
+                aria-label="Localisation"
+                class="form-control"
+                placeholder="Localisation"
+              />
+              <input
+                type="text"
+                aria-label="Quantite"
+                class="form-control"
+                placeholder="Quantité"
+              />
+              <div class="input-group-prepend">
+                <span class="input-group-text">m2</span>
+              </div>
+            </div>
+          </div>
+          <div
+            class="barreInsertion"
+            id="barre_6"
+            onclick="AjouterElement('barre_6', 'lot_0');"
+          ></div>
+          <div class="input-group titre1">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">II.</span>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Titre 1"
+              aria-label="titre1"
+              aria-describedby="basic-addon1"
+            />
+          </div>
+          <div
+            class="barreInsertion"
+            id="barre_7"
+            onclick="AjouterElement('barre_7', 'lot_0');"
+          ></div>
+          <div class="descriptif titre2">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">II.1</span>
+              </div>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Generique"
+                aria-label="titre2"
+                aria-describedby="basic-addon1"
+              />
+            </div>
+            <div class="input-group description">
+              <textarea
+                class="form-control"
+                aria-label="With textarea"
+                placeholder="Description"
+              ></textarea>
+            </div>
+          </div>
+          <div class="input-group titre2">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">II.2</span>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Titre 2"
+              aria-label="titre2"
+              aria-describedby="basic-addon1"
+            />
+          </div>
+          <div
+            class="barreInsertion"
+            id="barre_8"
+            onclick="AjouterElement('barre_8', 'lot_0');"
+          ></div>
+          <div class="input-group titre3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">2.1</span>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Titre 3"
+              aria-label="titre3"
+              aria-describedby="basic-addon1"
+            />
+          </div>
+          <div
+            class="barreInsertion"
+            id="barre_9"
+            onclick="AjouterElement('barre_9', 'lot_0');"
+          ></div>
+          <div class="descriptif titre4">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">2.1.1</span>
+              </div>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Ouvrage/Prestation"
+                aria-label="titre4"
+                aria-describedby="basic-addon1"
+              />
+            </div>
+            <div class="input-group description">
+              <textarea
+                class="form-control"
+                aria-label="With textarea"
+                placeholder="Description"
+              ></textarea>
+            </div>
+            <div class="input-group ligneChiffrage">
+              <input
+                type="text"
+                aria-label="Localisation"
+                class="form-control"
+                placeholder="Localisation"
+              />
+              <input
+                type="text"
+                aria-label="Quantite"
+                class="form-control"
+                placeholder="Quantité"
+              />
+              <div class="input-group-prepend">
+                <span class="input-group-text">m3</span>
+              </div>
+            </div>
+            <div class="input-group ligneChiffrage">
+              <input
+                type="text"
+                aria-label="Localisation"
+                class="form-control"
+                placeholder="Localisation"
+              />
+              <input
+                type="text"
+                aria-label="Quantite"
+                class="form-control"
+                placeholder="Quantité"
+              />
+              <div class="input-group-prepend">
+                <span class="input-group-text">m3</span>
+              </div>
+            </div>
+          </div>
+          <div
+            class="barreInsertion"
+            id="barre_10"
+            onclick="AjouterElement('barre_10', 'lot_0');"
+          ></div>
+        </div>
+        <div
+          class="lotCourant"
+          id="lot_1"
+          onclick="SuppressionChoixInsertionTitre();"
+          style="display: none;"
+        >
+          <div
+            class="barreInsertion"
+            id="barre_11"
+            onclick="AjouterElement('barre_11', 'lot_1');"
+          ></div>
+          <div class="input-group titre1">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">I.</span>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Titre 1"
+              aria-label="titre1"
+              aria-describedby="basic-addon1"
+            />
+          </div>
+          <div
+            class="barreInsertion"
+            id="barre_12"
+            onclick="AjouterElement('barre_12', 'lot_1');"
+          ></div>
+          <div class="input-group titre2">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">I.1</span>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Titre 2"
+              aria-label="titre2"
+              aria-describedby="basic-addon1"
+            />
+          </div>
+          <div
+            class="barreInsertion"
+            id="barre_13"
+            onclick="AjouterElement('barre_13', 'lot_1');"
+          ></div>
+          <div class="input-group titre3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">1.1</span>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Titre 3"
+              aria-label="titre3"
+              aria-describedby="basic-addon1"
+            />
+          </div>
+          <div
+            class="barreInsertion"
+            id="barre_14"
+            onclick="AjouterElement('barre_14', 'lot_1');"
+          ></div>
+          <div class="input-group titre4">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">1.1.1</span>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Titre 4"
+              aria-label="titre4"
+              aria-describedby="basic-addon1"
+            />
+          </div>
+          <div
+            class="barreInsertion"
+            id="barre_15"
+            onclick="AjouterElement('barre_15', 'lot_1');"
+          ></div>
+          <div class="input-group titre1">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">II.</span>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Titre 1"
+              aria-label="titre1"
+              aria-describedby="basic-addon1"
+            />
+          </div>
+          <div
+            class="barreInsertion"
+            id="barre_16"
+            onclick="AjouterElement('barre_16', 'lot_1');"
+          ></div>
+          <div class="descriptif titre2">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">II.1</span>
+              </div>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Generique"
+                aria-label="titre2"
+                aria-describedby="basic-addon1"
+              />
+            </div>
+            <div class="input-group description">
+              <textarea
+                class="form-control"
+                aria-label="With textarea"
+                placeholder="Description"
+              ></textarea>
+            </div>
+          </div>
+          <div class="input-group titre2">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">II.2</span>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Titre 2"
+              aria-label="titre2"
+              aria-describedby="basic-addon1"
+            />
+          </div>
+          <div
+            class="barreInsertion"
+            id="barre_17"
+            onclick="AjouterElement('barre_17', 'lot_1');"
+          ></div>
+          <div class="input-group titre3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">2.1</span>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Titre 3"
+              aria-label="titre3"
+              aria-describedby="basic-addon1"
+            />
+          </div>
+          <div
+            class="barreInsertion"
+            id="barre_18"
+            onclick="AjouterElement('barre_18', 'lot_1');"
+          ></div>
+        </div>
+        <div id="ongletsLot">
+          <div class="ongletLot" onclick="AfficherOnglet($('#lot_0'));">
+            0
+          </div>
+          <div class="ongletLot" onclick="AfficherOnglet($('#lot_1'));">
+            1
+          </div>
+          <div class="ongletLot" onclick="CreerOnglet();">+</div>
+        </div>
+      </div>
     </div>
 
     <script>
-      function AjouterElement(params) {
-        
+      var barreInsertionNextId = 19;
+      $(".container").last().click(SuppressionChoixInsertionTitre);
+      var testChoixPresent = false;
+      function AjouterElement(idPosition, idLotCourant) {
+        //On propose d'insérer un titre du même niveau d'arboresence que le titre d'au dessus ou de celui d'en-dessous sous réserve d'existence
+        var type1 = null;
+        var type2 = null;
+        var prev = $("#" + idPosition).prev();
+        var next = $("#" + idPosition).next();
+        if (prev !== null) {
+          if (prev.hasClass("titre1")) {
+            type1 = "titre1";
+          } else if (prev.hasClass("titre2")) {
+            type1 = "titre2";
+          } else if (prev.hasClass("titre3")) {
+            type1 = "titre3";
+          } else if (prev.hasClass("titre4")) {
+            type1 = "titre4";
+          } else if (prev.hasClass("titre5")) {
+            type1 = "titre5";
+          }
+        }
+        if (next !== null) {
+          if (next.hasClass("titre1")) {
+            type2 = "titre1";
+          } else if (next.hasClass("titre2")) {
+            type2 = "titre2";
+          } else if (next.hasClass("titre3")) {
+            type2 = "titre3";
+          } else if (next.hasClass("titre4")) {
+            type2 = "titre4";
+          } else if (next.hasClass("titre5")) {
+            type2 = "titre5";
+          }
+        }
+
+        if (type1 == type2) type2 = null;
+
+        //On affiche un panneau demandant quel type de titre il veut afficher parmis les choix dispo
+        var divInsertionTitre = document.createElement("div");
+        divInsertionTitre.className = "divInsertionTitre";
+
+        if (type1 !== null) {
+          var divType1 = document.createElement("div");
+          divType1.className = "sousDivInsertionTitre";
+          switch (type1) {
+            case "titre1":
+              divType1.innerHTML = "Titre 1";
+              break;
+            case "titre2":
+              divType1.innerHTML = "Titre 2";
+              break;
+            case "titre3":
+              divType1.innerHTML = "Titre 3";
+              break;
+            case "titre4":
+              divType1.innerHTML = "Titre 4";
+              break;
+            case "titre5":
+              divType1.innerHTML = "Titre 5";
+              break;
+            default:
+              break;
+          }
+          divInsertionTitre.appendChild(divType1);
+        }
+        if (type2 !== null) {
+          var divType2 = document.createElement("div");
+          divType2.className = "sousDivInsertionTitre";
+          switch (type2) {
+            case "titre1":
+              divType2.innerHTML = "Titre 1";
+              break;
+            case "titre2":
+              divType2.innerHTML = "Titre 2";
+              break;
+            case "titre3":
+              divType2.innerHTML = "Titre 3";
+              break;
+            case "titre4":
+              divType2.innerHTML = "Titre 4";
+              break;
+            case "titre5":
+              divType2.innerHTML = "Titre 5";
+              break;
+            default:
+              break;
+          }
+          divInsertionTitre.appendChild(divType2);
+        }
+
+        if (type1 == null || type2 == null)
+          divInsertionTitre.style.height = "25px";
+
+        var nodePositionRef = document.getElementById(idPosition);
+        var parent = nodePositionRef.parentNode;
+        parent.insertBefore(divInsertionTitre, nodePositionRef);
+
+        $(".sousDivInsertionTitre").click(function () {
+          AjouterTitre(this);
+        });
+
+        testChoixPresent = true;
       }
+
+      function SuppressionChoixInsertionTitre() {
+        if (!testChoixPresent) $(".divInsertionTitre").remove();
+        testChoixPresent = false;
+      }
+
+      function AjouterTitre(evt) {
+        var titleClassName = evt.innerHTML.replace(" ", "").toLowerCase();
+        //On ajoute le titre avec le bon style
+        var divNewTitle = document.createElement("div");
+        divNewTitle.className = "input-group " + titleClassName;
+
+        var divInputPrepend = document.createElement("div");
+        divInputPrepend.className = "input-group-prepend";
+
+        var spanPrepend = document.createElement("span");
+        spanPrepend.className = "input-group-text";
+        spanPrepend.id = "basic-addon1";
+        spanPrepend.innerHTML = "????";
+
+        divInputPrepend.appendChild(spanPrepend);
+
+        var inputTitle = document.createElement("input");
+        inputTitle.type = "text";
+        inputTitle.className = "form-control";
+        inputTitle.placeholder = evt.innerHTML;
+
+        divNewTitle.appendChild(divInputPrepend);
+        divNewTitle.appendChild(inputTitle);
+
+        var parent = evt.parentNode.parentNode;
+        parent.insertBefore(divNewTitle, evt.parentNode);
+
+        //On insère une barre d'insertion au-dessus du nouveau titre
+        var divBarreInsertion = document.createElement("div");
+        divBarreInsertion.className = "barreInsertion";
+        divBarreInsertion.id = "barre_" + barreInsertionNextId;
+        barreInsertionNextId++;
+        parent.insertBefore(divBarreInsertion, divNewTitle);
+        $("#" + divBarreInsertion.id).click(function () {
+          AjouterElement(divBarreInsertion.id, parent.id);
+        });
+
+        //On supprime le panneau de choix des titres
+        $(".divInsertionTitre").remove();
+      }
+
+      function AfficherOnglet(lotAfficher) {
+        $(".lotCourant").hide();
+        lotAfficher.show();
+      }
+
+      function CreerOnglet() {}
     </script>
   </body>
 </html>
 
-
 <script type="text/javascript">
-	$('.lineBDD').click(test);
+  $(".lineBDD").click(test);
 
-	function test(){
-		alert('coucou');
-	}
+  function test() {
+    alert("coucou");
+  }
 
-	function gestion_menu_bdd(panel){
-		if (panel == "biblio") {
-			$('.menuBiblio').css("color", "black");
-			$('.menuInfos').css("color", "grey");
-			$('#arboBDD').show();
-			$('#infosProjet').hide();
-		}
+  function gestion_menu_bdd(panel) {
+    if (panel == "biblio") {
+      $(".menuBiblio").css("color", "black");
+      $(".menuInfos").css("color", "grey");
+      $("#arboBDD").show();
+      $("#infosProjet").hide();
+    }
 
-		if (panel == "infos") {
-			$('.menuInfos').css("color", "black");
-			$('.menuBiblio').css("color", "grey");
-			$('#infosProjet').show();
-			$('#arboBDD').hide();
-		}
-	}
+    if (panel == "infos") {
+      $(".menuInfos").css("color", "black");
+      $(".menuBiblio").css("color", "grey");
+      $("#infosProjet").show();
+      $("#arboBDD").hide();
+    }
+  }
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
