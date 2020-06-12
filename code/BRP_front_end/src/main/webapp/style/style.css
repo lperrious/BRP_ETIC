@@ -83,7 +83,6 @@
 
 /* Dashboard */
 body {
-  font-family: system-ui;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Helvetica Neue", "Fira Sans", Arial, Helvetica, sans-serif;
   font-weight: 200;
   background-color: var(--background_1);
@@ -93,7 +92,6 @@ body {
 select{
     font-size: 100%;
     background-color: var(--background_1);
-    font-family: system-ui;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Helvetica Neue", "Fira Sans", Arial, Helvetica, sans-serif;
     font-weight: 200;
     -webkit-appearance: none;
@@ -142,6 +140,40 @@ select {
 }
 
 /*      Partie Gauche       */
+#manageProjet{
+    display: none;
+    flex: 1;
+}
+
+#search_input{
+    margin: 20px 15% 0px;
+    width: 70%;
+    border: solid;
+    border-width: 1px;
+    border-color: var(--border);
+    padding: 5px;
+    padding-left: 15px;
+    font-size: 110%;
+    border-radius: 4px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Helvetica Neue", "Fira Sans", Arial, Helvetica, sans-serif;
+    font-weight: 300;
+}
+
+.lineProjet{
+    display: flex;
+    margin: 1em 15px 0;
+}
+
+.lineProject:hover{
+    background-color: var(--menu_bg_hover);
+    cursor: pointer;
+}
+
+.propositionNomProjet{
+    flex: 1;
+    font-size: 120%;
+}
+
 #arboBDD{
     flex: 1;
     overflow: auto;
@@ -240,7 +272,6 @@ select {
     padding: 5px;
     font-size: 95%;
     border-radius: 4px;
-    font-family: system-ui;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Helvetica Neue", "Fira Sans", Arial, Helvetica, sans-serif;
     font-weight: 300;
     position: relative;

@@ -18,9 +18,40 @@
     <body>
         <div id="container">
         	<div class="container">
-        		<div id="nomProjet">
+        		<div id="nomProjet" onclick="display_manage_project()">
         			<div class="nomProjet">Nom projet</div>
         			<div class="nomProjet"><i class="fas fa-chevron-down"></i></div>
+        		</div>
+        		<div id="manageProjet">
+        			<input type="text" id="search_input" placeholder="Chercher projet">
+        			<div class="lineProjet">
+        				<div class="iconProjet"><i class="far fa-file-alt"></i></div>
+        				<div class="propositionNomProjet">Projet 1</div>
+        				<select class="actionProjet">
+        					<option value="ouvrir">Ouvrir</option>
+		        			<option value="dupliquer">Dupliquer</option>
+        				</select>
+        			</div>
+        			<div class="lineProjet">
+        				<div class="iconProjet"><i class="far fa-file-alt"></i></div>
+        				<div class="propositionNomProjet">Projet 1</div>
+        				<select class="actionProjet">
+        					<option value="ouvrir">Ouvrir</option>
+		        			<option value="dupliquer">Dupliquer</option>
+        				</select>
+        			</div>
+        			<div class="lineProjet">
+        				<div class="iconProjet"><i class="far fa-file-alt"></i></div>
+        				<div class="propositionNomProjet">Projet 1</div>
+        				<select class="actionProjet">
+        					<option value="ouvrir">Ouvrir</option>
+		        			<option value="dupliquer">Dupliquer</option>
+        				</select>
+        			</div>
+        			<div class="lineProjet">
+        				<div class="iconProjet"><i class="far fa-plus-square"></i></div>
+        				<div class="propositionNomProjet">Nouveau projet</div>
+        			</div>
         		</div>
         		<div id="menu">
         			<div class="menu menuBiblio" onclick="gestion_menu_bdd('biblio');">Bibliothèque</div>
@@ -642,6 +673,29 @@
 			rangOldElement = rangNextElement;
 		}while(rangNextElement > rangElement);
 	}
+
+	test_manageProjet = false;
+
+	function display_manage_project(){
+
+		if (!test_manageProjet) {
+			$('#manageProjet').show();
+			$('#arboBDD').hide();
+			$('#menu').hide();
+			$('#infosProjet').hide();
+			$('.menuGestion').hide();
+			test_manageProjet = true;
+		}
+		else{
+			$('#manageProjet').hide();
+			$('#arboBDD').show();
+			$('#menu').show();
+			$('#infosProjet').hide();
+			$('.menuGestion').show();
+			test_manageProjet = false;
+		}	
+	}
+
 </script>
 
 
