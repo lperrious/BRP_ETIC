@@ -50,16 +50,19 @@
 	        			<div class="intitule">SousFamille 1</div>
 	        		</div>
 	        		<div class="lineBDD lineDescriptif">
+	        			<input type="hidden" class="idDescriptif" value="01_AAA_01_01_01">
 	        			<span class="iconBDD">-</span>
-	        			<div class="intitule">Générique, ouvrage ou prestation</div>
+	        			<div class="intitule">Générique</div>
 	        		</div>
 	        		<div class="lineBDD lineDescriptif">
+	        			<input type="hidden" class="idDescriptif" value="01_AAA_01_01_02">
 	        			<span class="iconBDD">-</span>
-	        			<div class="intitule">Générique, ouvrage ou prestation</div>
+	        			<div class="intitule">Ouvrage</div>
 	        		</div>
 	        		<div class="lineBDD lineDescriptif">
+	        			<input type="hidden" class="idDescriptif" value="01_AAA_01_01_01_01">
 	        			<span class="iconBDD">-</span>
-	        			<div class="intitule">Générique, ouvrage ou prestation</div>
+	        			<div class="intitule">Prestation</div>
 	        		</div>
 	        		<div class="lineBDD lineChapitre">
 	        			<span class="iconBDD"><i class="fas fa-caret-right"></i></span>
@@ -487,10 +490,24 @@
 
 
 <script type="text/javascript">
-	$('.lineBDD').click(test);
 
-	function test(){
-		alert('coucou');
+	test_select_descriptif = false;		//permet de ne pas supprimer la selection d'un element à peine faite
+
+	$('.container').first().click(unset_select_descriptif);
+	$('.lineDescriptif').click(function(){select_descriptif(this);});
+
+	function unset_select_descriptif(){
+		if (!test_select_descriptif) {
+			$('.selectDescriptif').removeClass("selectDescriptif");
+		}
+		test_select_descriptif = false;	
+	}
+
+	function select_descriptif(element){
+		$('.selectDescriptif').removeClass("selectDescriptif");
+		$(element).addClass("selectDescriptif");
+		test_select_descriptif = true;
+		alert($(element).children(".idDescriptif").val());	//affiche l'idDescriptif selectionné
 	}
 
 	function gestion_menu_bdd(panel){

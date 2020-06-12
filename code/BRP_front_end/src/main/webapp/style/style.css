@@ -327,6 +327,10 @@ select {
   margin-left: 60px;
 }
 
+.selectDescriptif{
+    background-color: var(--menu_bg_hover);
+}
+
 /*          Partie droite              */
 .container:nth-child(2) {
   width: 65%;
