@@ -314,18 +314,30 @@ select {
 
 .lineCategorie {
   margin-left: 15px;
+  display: none;
 }
 
 .lineFamille {
   margin-left: 30px;
+  display: none;
 }
 
 .lineSousFamille {
   margin-left: 45px;
+  display: none;
 }
 
 .lineDescriptif {
   margin-left: 60px;
+  display: none;
+}
+
+.selectDescriptif{
+    background-color: var(--menu_bg_hover);
+}
+
+.lineSousCatConstruction, .lineCaractDim{
+    display: none;
 }
 
 /*          Partie droite              */
