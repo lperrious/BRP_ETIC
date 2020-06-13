@@ -7,7 +7,7 @@ var testChoixPresent = false;
 
 /************** Appels au chargement de la page ******************/
 window.onload = initDashboard;
-function initDashboard(){
+function initDashboard() {
   $(".container").first().click(unset_select_descriptif);
   $(".lineDescriptif").click(function () {
     select_descriptif(this);
@@ -86,22 +86,21 @@ function apply_filter() {
       //on va selectionner le parent
       var getParent = false;
       var beforeElement = this;
-      while(getParent == false){
+      while (getParent == false) {
         beforeElement = $(beforeElement).prev();
-        if (!beforeElement.attr('class').includes('lineDescriptif')) {
+        if (!beforeElement.attr("class").includes("lineDescriptif")) {
           var parent = beforeElement;
           getParent = true;
         }
       }
 
       //si le parent est visible alors on montre
-      if ($(parent).is(":visible")) 
-        $(this).show();
+      if ($(parent).is(":visible")) $(this).show();
     });
   }
   for (var i = 0; i < array_hide.length; i++) {
     $("." + array_hide[i]).each(function () {
-        $(this).hide();
+      $(this).hide();
     });
   }
 }
@@ -159,18 +158,21 @@ function gestion_arbo_bdd(element) {
 
     //on descend dans l'arbo
     if (action == "derouler") {
-      if (rangNextElement == rangElement + 1 || (rangNextElement == 5 && rangOldElement == rangElement)) {
-        if (rangNextElement == 5 && valFilter!="") {
+      if (
+        rangNextElement == rangElement + 1 ||
+        (rangNextElement == 5 && rangOldElement == rangElement)
+      ) {
+        if (rangNextElement == 5 && valFilter != "") {
           //si c'est un descriptif et qu'un filtre est demandé, on l'applique
           if (classNextElement.includes(valFilter)) {
             $(nextElement).css("display", "flex");
           }
-        }
-        else{
+        } else {
           $(nextElement).css("display", "flex");
         }
       }
-    } else {  //on remonte dans l'arbo
+    } else {
+      //on remonte dans l'arbo
       if (rangNextElement > rangElement) {
         $(nextElement).css("display", "none");
       }
@@ -192,36 +194,41 @@ function gestion_arbo_bdd(element) {
   } while (rangNextElement > rangElement);
 }
 
-function display_manage_project(){
-
-	if (!test_manageProjet) {
-		$('#manageProjet').css('display', 'flex');
-		$('#arboBDD').hide();
-		$('#menu').hide();
-		$('#infosProjet').hide();
-		$('.menuGestion').hide();
-		$('.nomProjet').last().html('<i class="fas fa-chevron-up">');
-		test_manageProjet = true;
-	}
-	else{
-		$('#manageProjet').hide();
-		$('#arboBDD').show();
-		$('#menu').show();
-		$('#infosProjet').hide();
-		$('.menuGestion').show();
-		$('.nomProjet').last().html('<i class="fas fa-chevron-down">');
-		test_manageProjet = false;
-	}	
+function display_manage_project() {
+  if (!test_manageProjet) {
+    $("#manageProjet").css("display", "flex");
+    $("#arboBDD").hide();
+    $("#menu").hide();
+    $("#infosProjet").hide();
+    $(".menuGestion").hide();
+    $(".nomProjet").last().html('<i class="fas fa-chevron-up">');
+    test_manageProjet = true;
+  } else {
+    $("#manageProjet").hide();
+    $("#arboBDD").show();
+    $("#menu").show();
+    $("#infosProjet").hide();
+    $(".menuGestion").show();
+    $(".nomProjet").last().html('<i class="fas fa-chevron-down">');
+    test_manageProjet = false;
+  }
 }
-
 
 /****************** Fonctions (partie droite) *********************/
 
-function AjouterElement(idPosition, idLotCourant) {
+function AjouterElement(idPosition, idlot) {
   //Si un descriptif a été sélectionné alors on l'insère directement dans l'arborescence
   if ($(".selectDescriptif") !== null) {
-    if ($("#" + idPosition).prev() !== null) {
-      //On créer le div du descriptif avec le stlye correspondant à sa place dans l'arbo
+    alert($(".selectDescriptif").val());
+    //On n'autorise pas un descriptif à se mettre avant un titre1
+    if (
+      $("#" + idPosition)
+        .next()
+        .children(":first")
+        .children(":first")
+        .html() != "I."
+    ) {
+      //On créer le div du descriptif avec le style correspondant à sa place dans l'arbo
       var divInsertionDescriptif = document.createElement("div");
 
       var titreAuDessus = $("#" + idPosition).prev();
@@ -271,8 +278,7 @@ function AjouterElement(idPosition, idLotCourant) {
 
       if (!$(".selectDescriptif").hasClass("generique")) {
         var divInputGroupLigneChiffrage = document.createElement("div");
-        divInputGroupLigneChiffrage.className =
-          "input-group ligneChiffrage";
+        divInputGroupLigneChiffrage.className = "input-group ligneChiffrage";
 
         var inputLocalisation = document.createElement("input");
         inputLocalisation.type = "text";
@@ -295,9 +301,7 @@ function AjouterElement(idPosition, idLotCourant) {
 
         divInputGroupLigneChiffrage.appendChild(inputLocalisation);
         divInputGroupLigneChiffrage.appendChild(inputQuantite);
-        divInputGroupLigneChiffrage.appendChild(
-          divInputGroupPrependUnite
-        );
+        divInputGroupLigneChiffrage.appendChild(divInputGroupPrependUnite);
 
         divInsertionDescriptif.appendChild(divInputGroupTitre);
         divInsertionDescriptif.appendChild(divInputGroupDescription);
@@ -427,8 +431,7 @@ function AjouterElement(idPosition, idLotCourant) {
       divInsertionTitre.appendChild(divType2);
     }
 
-    if (type1 == null || type2 == null)
-      divInsertionTitre.style.height = "25px";
+    if (type1 == null || type2 == null) divInsertionTitre.style.height = "25px";
 
     var nodePositionRef = document.getElementById(idPosition);
     var parent = nodePositionRef.parentNode;
@@ -531,13 +534,7 @@ function NumerotationArbo() {
           var numeroTitre = $(this).children(":first").children(":first"); //On récupère le span du chiffre romain
           numTitre5++;
           numeroTitre.html(
-            numTitre2 +
-              "." +
-              numTitre3 +
-              "." +
-              numTitre4 +
-              "." +
-              numTitre5
+            numTitre2 + "." + numTitre3 + "." + numTitre4 + "." + numTitre5
           );
         }
       } else {
@@ -571,13 +568,7 @@ function NumerotationArbo() {
           var numeroTitre = $(this).children(":first").children(":first"); //On récupère le span du chiffre romain
           numTitre5++;
           numeroTitre.html(
-            numTitre2 +
-              "." +
-              numTitre3 +
-              "." +
-              numTitre4 +
-              "." +
-              numTitre5
+            numTitre2 + "." + numTitre3 + "." + numTitre4 + "." + numTitre5
           );
         }
       }
@@ -586,11 +577,51 @@ function NumerotationArbo() {
 }
 
 function AfficherOnglet(lotAfficher) {
-  $(".lotCourant").hide();
+  $(".lot").hide();
   lotAfficher.show();
 }
 
-function CreerOnglet() {}
+function CreerOnglet() {
+  //Création du div contenant tout le lot (on l'affiche par défaut)
+  var numOnglet = Number($("#ongletsLot").children().last().prev().html()) + 1;
+  var idOnglet = "lot_" + numOnglet;
+
+  var divNouvelOnglet = document.createElement("div");
+  divNouvelOnglet.className = "lot";
+  divNouvelOnglet.id = idOnglet;
+
+  //Création d'une barre d'insertion dans ce nouvel onglet
+  var divBarreInsertion = document.createElement("div");
+  divBarreInsertion.className = "barreInsertion";
+  divBarreInsertion.id = "barre_" + barreInsertionNextId;
+  barreInsertionNextId++;
+
+  //On insère dans la page
+  divNouvelOnglet.appendChild(divBarreInsertion);
+
+  $(divNouvelOnglet).insertBefore($("#ongletsLot"));
+
+  //On ajoute les évènements nécessaires au click
+  $("#" + divBarreInsertion.id).click(function () {
+    AjouterElement(divBarreInsertion.id, idOnglet);
+  });
+
+  $(".ongletLot")
+    .last()
+    .prev()
+    .click(function () {
+      AfficherOnglet($("#" + idOnglet));
+    });
+
+  //On affiche par défaut
+  AfficherOnglet($("#" + idOnglet));
+
+  //Création d'un nouveau bouton d'onglet avant le '+'
+  var divBoutonOnglet = document.createElement("div");
+  divBoutonOnglet.className = "ongletLot";
+  divBoutonOnglet.innerHTML = numOnglet;
+  $(divBoutonOnglet).insertBefore($(".ongletLot").last());
+}
 
 function toRoman(num) {
   if (isNaN(num)) return NaN;
@@ -632,10 +663,3 @@ function toRoman(num) {
   while (i--) roman = (key[+digits.pop() + i * 10] || "") + roman;
   return Array(+digits.join("") + 1).join("M") + roman;
 }
-
-
-
-
-
-
-
