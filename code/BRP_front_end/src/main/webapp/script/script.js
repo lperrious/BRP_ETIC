@@ -25,6 +25,12 @@ function initDashboard() {
     gestion_arbo_bdd(this);
   });
   $(".container").last().click(SuppressionChoixInsertionTitre);
+  $('.barreInsertion').mouseenter(function () {
+    survolBarreInsertion(this);
+  });
+  $('.barreInsertion').mouseleave(function () {
+    sortieBarreInsertion(this);
+  });
 }
 
 /****************** Fonctions (partie gauche) *********************/
@@ -212,6 +218,18 @@ function display_manage_project() {
     $(".nomProjet").last().html('<i class="fas fa-chevron-down">');
     test_manageProjet = false;
   }
+}
+
+function survolBarreInsertion(element){
+  var element = $('#'+$(element).attr('id')+' > .panBarreInsertion').first();
+  $(element).css("border-bottom", "solid");
+  $(element).css("border-width", "1.5px");
+  $(element).css("border-color", "rgb(95, 95, 95)");
+}
+
+function sortieBarreInsertion(element){
+  var element = $('#'+$(element).attr('id')+' > .panBarreInsertion').first();
+  $(element).css("border-bottom", "none");
 }
 
 /****************** Fonctions (partie droite) *********************/
