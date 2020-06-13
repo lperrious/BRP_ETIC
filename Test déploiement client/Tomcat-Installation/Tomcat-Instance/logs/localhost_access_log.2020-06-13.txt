@@ -1473,3 +1473,9 @@
 0:0:0:0:0:0:0:1 - - [13/Jun/2020:15:30:00 +0200] "GET /BRP_front_end/style/style.css HTTP/1.1" 200 9169
 0:0:0:0:0:0:0:1 - - [13/Jun/2020:15:30:00 +0200] "GET /BRP_front_end/script/script.js HTTP/1.1" 200 20853
 0:0:0:0:0:0:0:1 - - [13/Jun/2020:15:30:01 +0200] "GET /favicon.ico HTTP/1.1" 200 21630
+127.0.0.1 - - [13/Jun/2020:15:31:20 +0200] "HEAD /netbeans-tomcat-status-test HTTP/1.1" 404 -
+127.0.0.1 - tomcat [13/Jun/2020:15:31:20 +0200] "GET /manager/text/ HTTP/1.1" 200 41
+127.0.0.1 - - [13/Jun/2020:15:31:20 +0200] "HEAD /netbeans-tomcat-status-test HTTP/1.1" 404 -
+127.0.0.1 - tomcat [13/Jun/2020:15:31:20 +0200] "GET /manager/text/ HTTP/1.1" 200 41
+127.0.0.1 - - [13/Jun/2020:15:31:20 +0200] "HEAD /netbeans-tomcat-status-test HTTP/1.1" 404 -
+127.0.0.1 - tomcat [13/Jun/2020:15:31:20 +0200] "GET /manager/text/ HTTP/1.1" 200 41
