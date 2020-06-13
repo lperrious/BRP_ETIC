@@ -83,12 +83,25 @@ function apply_filter() {
 
   for (var i = 0; i < array_show.length; i++) {
     $("." + array_show[i]).each(function () {
-      $(this).show();
+      //on va selectionner le parent
+      var getParent = false;
+      var beforeElement = this;
+      while(getParent == false){
+        beforeElement = $(beforeElement).prev();
+        if (!beforeElement.attr('class').includes('lineDescriptif')) {
+          var parent = beforeElement;
+          getParent = true;
+        }
+      }
+
+      //si le parent est visible alors on montre
+      if ($(parent).is(":visible")) 
+        $(this).show();
     });
   }
   for (var i = 0; i < array_hide.length; i++) {
     $("." + array_hide[i]).each(function () {
-      $(this).hide();
+        $(this).hide();
     });
   }
 }
@@ -136,6 +149,7 @@ function gestion_arbo_bdd(element) {
   var classNextElement = null;
   var rangNextElement = null;
   var rangOldElement = null;
+  var valFilter = $(".filtre").val();
   do {
     nextElement = $(oldElement).next();
     classNextElement = $(nextElement).attr("class").substr(8);
@@ -143,14 +157,20 @@ function gestion_arbo_bdd(element) {
 
     if (classNextElement && rangNextElement == null) rangNextElement = 5;
 
+    //on descend dans l'arbo
     if (action == "derouler") {
-      if (
-        rangNextElement == rangElement + 1 ||
-        (rangNextElement == 5 && rangOldElement == rangElement)
-      ) {
-        $(nextElement).css("display", "flex");
+      if (rangNextElement == rangElement + 1 || (rangNextElement == 5 && rangOldElement == rangElement)) {
+        if (rangNextElement == 5 && valFilter!="") {
+          //si c'est un descriptif et qu'un filtre est demandé, on l'applique
+          if (classNextElement.includes(valFilter)) {
+            $(nextElement).css("display", "flex");
+          }
+        }
+        else{
+          $(nextElement).css("display", "flex");
+        }
       }
-    } else {
+    } else {  //on remonte dans l'arbo
       if (rangNextElement > rangElement) {
         $(nextElement).css("display", "none");
       }
