@@ -10,7 +10,7 @@
   --border: rgb(95, 95, 95);
   --text_grey: grey;
   --text_soft: white;
-  --menu_bg_hover: rgba(80, 25, 0, 0.05);
+  --menu_bg_hover: rgba(70, 55, 0, 0.05);
 }
 
 /* Inscription */
@@ -137,10 +137,11 @@ select {
 #manageProjet{
     display: none;
     flex: 1;
+    flex-direction: column;
 }
 
 #search_input{
-    margin: 20px 15% 0px;
+    margin: 25px 0 1em 25px;
     width: 70%;
     border: solid;
     border-width: 1px;
@@ -153,12 +154,34 @@ select {
     font-weight: 300;
 }
 
-.lineProjet{
-    display: flex;
-    margin: 1em 15px 0;
+#containerLineProjet{
+    overflow: auto;
+    max-height: 68vh;
 }
 
-.lineProject:hover{
+.flex1{
+    flex: 1;
+}
+
+.lineProjet{
+    display: flex;
+    padding: 0em 25px 0;
+}
+
+.iconProjet{
+    font-size: 140%;
+    color: var(--border);
+    margin-right: 10px;
+}
+
+.textLineProjet{
+    display: flex;
+    flex: 1;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+.lineProjet:hover{
     background-color: var(--menu_bg_hover);
     cursor: pointer;
 }
@@ -166,6 +189,20 @@ select {
 .propositionNomProjet{
     flex: 1;
     font-size: 120%;
+    position: relative;
+    top: 5px;
+    margin-right: 10px;
+}
+
+.actionProjet{
+    position: relative;
+    top: 0.5em;
+    height: 35px;
+}
+
+.createProjet{
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
 }
 
 #arboBDD{
