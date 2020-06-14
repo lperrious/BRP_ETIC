@@ -2,7 +2,8 @@
 
 test_select_descriptif = false; //permet de ne pas supprimer la selection d'un element à peine faite
 test_manageProjet = false;
-var barreInsertionNextId = 19;
+var barreInsertionNextId = 19; //Mettre à 0
+var barreInsertionChiffrageNextId = 3; //Mettre à 0
 var testChoixPresent = false;
 
 /************** Appels au chargement de la page ******************/
@@ -24,6 +25,12 @@ $(document).ready(function () {
     gestion_arbo_bdd(this);
   });
   $(".container").last().click(SuppressionChoixInsertionTitre);
+  $(".barreInsertion").mouseenter(function () {
+    survolBarreInsertion(this);
+  });
+  $(".barreInsertion").mouseleave(function () {
+    sortieBarreInsertion(this);
+  });
 });
 
 /****************** Fonctions (partie gauche) *********************/
@@ -213,6 +220,22 @@ function display_manage_project() {
   }
 }
 
+function survolBarreInsertion(element) {
+  var element = $(
+    "#" + $(element).attr("id") + " > .panBarreInsertion"
+  ).first();
+  $(element).css("border-bottom", "solid");
+  $(element).css("border-width", "1.5px");
+  $(element).css("border-color", "rgb(95, 95, 95)");
+}
+
+function sortieBarreInsertion(element) {
+  var element = $(
+    "#" + $(element).attr("id") + " > .panBarreInsertion"
+  ).first();
+  $(element).css("border-bottom", "none");
+}
+
 /****************** Fonctions (partie droite) *********************/
 
 function AjouterElement(idPosition) {
@@ -313,10 +336,40 @@ function AjouterElement(idPosition) {
         divBarreInsertion.className = "barreInsertion";
         divBarreInsertion.id = "barre_" + barreInsertionNextId;
         barreInsertionNextId++;
+        var divPanBarreInsertionFirst = document.createElement("div");
+        divPanBarreInsertionFirst.className = "panBarreInsertion";
+        var divPanBarreInsertionSecond = document.createElement("div");
+        divPanBarreInsertionSecond.className = "panBarreInsertion";
+        divBarreInsertion.appendChild(divPanBarreInsertionFirst);
+        divBarreInsertion.appendChild(divPanBarreInsertionSecond);
         var parent = divInsertionDescriptif.parentElement;
         parent.insertBefore(divBarreInsertion, divInsertionDescriptif);
         $("#" + divBarreInsertion.id).click(function () {
           AjouterElement(divBarreInsertion.id);
+        });
+
+        //On ajoute une barre d'insertion ligneChiffrage à la fin de l'ouvrage/prestation
+        var divBarreInsertionLigneChiffrage = document.createElement("div");
+        divBarreInsertionLigneChiffrage.className =
+          "barreInsertionLigneChiffrage";
+        divBarreInsertionLigneChiffrage.id =
+          "barreChiffrage_" + barreInsertionChiffrageNextId;
+        barreInsertionChiffrageNextId++;
+        var divPanBarreInsertionChiffrageFirst = document.createElement("div");
+        divPanBarreInsertionChiffrageFirst.className =
+          "panBarreInsertionLigneChiffrage";
+        var divPanBarreInsertionChiffrageSecond = document.createElement("div");
+        divPanBarreInsertionChiffrageSecond.className =
+          "panBarreInsertionLigneChiffrage";
+        divBarreInsertionLigneChiffrage.appendChild(
+          divPanBarreInsertionChiffrageFirst
+        );
+        divBarreInsertionLigneChiffrage.appendChild(
+          divPanBarreInsertionChiffrageSecond
+        );
+        divInsertionDescriptif.appendChild(divBarreInsertionLigneChiffrage);
+        $("#" + divBarreInsertionLigneChiffrage.id).click(function () {
+          AjouterLigneChiffrage(divBarreInsertionLigneChiffrage.id);
         });
 
         //Appel de la fonction de numérotation de l'arborescence
@@ -332,6 +385,12 @@ function AjouterElement(idPosition) {
         divBarreInsertion.className = "barreInsertion";
         divBarreInsertion.id = "barre_" + barreInsertionNextId;
         barreInsertionNextId++;
+        var divPanBarreInsertionFirst = document.createElement("div");
+        divPanBarreInsertionFirst.className = "panBarreInsertion";
+        var divPanBarreInsertionSecond = document.createElement("div");
+        divPanBarreInsertionSecond.className = "panBarreInsertion";
+        divBarreInsertion.appendChild(divPanBarreInsertionFirst);
+        divBarreInsertion.appendChild(divPanBarreInsertionSecond);
         var parent = divInsertionDescriptif.parentElement;
         parent.insertBefore(divBarreInsertion, divInsertionDescriptif);
         $("#" + divBarreInsertion.id).click(function () {
@@ -489,6 +548,12 @@ function AjouterTitre(evt) {
   divBarreInsertion.className = "barreInsertion";
   divBarreInsertion.id = "barre_" + barreInsertionNextId;
   barreInsertionNextId++;
+  var divPanBarreInsertionFirst = document.createElement("div");
+  divPanBarreInsertionFirst.className = "panBarreInsertion";
+  var divPanBarreInsertionSecond = document.createElement("div");
+  divPanBarreInsertionSecond.className = "panBarreInsertion";
+  divBarreInsertion.appendChild(divPanBarreInsertionFirst);
+  divBarreInsertion.appendChild(divPanBarreInsertionSecond);
   parent.insertBefore(divBarreInsertion, divNewTitle);
   $("#" + divBarreInsertion.id).click(function () {
     AjouterElement(divBarreInsertion.id);
@@ -606,6 +671,12 @@ function CreerOnglet() {
   divBarreInsertionDessus.className = "barreInsertion";
   divBarreInsertionDessus.id = "barre_" + barreInsertionNextId;
   barreInsertionNextId++;
+  var divPanBarreInsertionFirstDessus = document.createElement("div");
+  divPanBarreInsertionFirstDessus.className = "panBarreInsertion";
+  var divPanBarreInsertionSecondDessus = document.createElement("div");
+  divPanBarreInsertionSecondDessus.className = "panBarreInsertion";
+  divBarreInsertionDessus.appendChild(divPanBarreInsertionFirstDessus);
+  divBarreInsertionDessus.appendChild(divPanBarreInsertionSecondDessus);
 
   var divTitre1 = document.createElement("div");
   divTitre1.className = "input-group titre1";
@@ -625,6 +696,12 @@ function CreerOnglet() {
   divBarreInsertionDessous.className = "barreInsertion";
   divBarreInsertionDessous.id = "barre_" + barreInsertionNextId;
   barreInsertionNextId++;
+  var divPanBarreInsertionFirstDessous = document.createElement("div");
+  divPanBarreInsertionFirstDessous.className = "panBarreInsertion";
+  var divPanBarreInsertionSecondDessous = document.createElement("div");
+  divPanBarreInsertionSecondDessous.className = "panBarreInsertion";
+  divBarreInsertionDessous.appendChild(divPanBarreInsertionFirstDessous);
+  divBarreInsertionDessous.appendChild(divPanBarreInsertionSecondDessous);
 
   var divFinLot = document.createElement("div");
   divFinLot.className = "finLot";
@@ -636,6 +713,12 @@ function CreerOnglet() {
 
   $(divNouvelOnglet).insertBefore($("#ongletsLot"));
 
+  //Création d'un nouveau bouton d'onglet avant le '+'
+  var divBoutonOnglet = document.createElement("div");
+  divBoutonOnglet.className = "ongletLot";
+  divBoutonOnglet.innerHTML = numOnglet;
+  $(divBoutonOnglet).insertBefore($(".ongletLot").last());
+
   //On ajoute les évènements nécessaires au click
   $("#" + divBarreInsertionDessus.id).click(function () {
     AjouterElement(divBarreInsertionDessus.id);
@@ -646,8 +729,7 @@ function CreerOnglet() {
   });
 
   $(".ongletLot")
-    .last()
-    .prev()
+    .eq(-2)
     .click(function () {
       AfficherOnglet($("#" + idOnglet));
     });
@@ -657,12 +739,6 @@ function CreerOnglet() {
 
   //On numérote l'unique titre
   NumerotationArbo(idOnglet);
-
-  //Création d'un nouveau bouton d'onglet avant le '+'
-  var divBoutonOnglet = document.createElement("div");
-  divBoutonOnglet.className = "ongletLot";
-  divBoutonOnglet.innerHTML = numOnglet;
-  $(divBoutonOnglet).insertBefore($(".ongletLot").last());
 }
 
 function toRoman(num) {
@@ -704,4 +780,35 @@ function toRoman(num) {
     i = 3;
   while (i--) roman = (key[+digits.pop() + i * 10] || "") + roman;
   return Array(+digits.join("") + 1).join("M") + roman;
+}
+
+function AjouterLigneChiffrage(idBarre) {
+  //Création d'une nouvelle ligneChiffrage au dessus de la barre d'insertion ligneChiffrage
+  var divInputGroupLigneChiffrage = document.createElement("div");
+  divInputGroupLigneChiffrage.className = "input-group ligneChiffrage";
+
+  var inputLocalisation = document.createElement("input");
+  inputLocalisation.type = "text";
+  inputLocalisation.className = "form-control";
+  inputLocalisation.placeholder = "Localisation";
+
+  var inputQuantite = document.createElement("input");
+  inputQuantite.type = "text";
+  inputQuantite.className = "form-control";
+  inputQuantite.placeholder = "Quantité";
+
+  var divInputGroupPrependUnite = document.createElement("div");
+  divInputGroupPrependUnite.className = "input-group-prepend";
+
+  var spanInputGroupTextUnite = document.createElement("span");
+  spanInputGroupTextUnite.className = "input-group-text";
+  //Faut rajouter l'unité en AJAX
+
+  divInputGroupPrependUnite.appendChild(spanInputGroupTextUnite);
+
+  divInputGroupLigneChiffrage.appendChild(inputLocalisation);
+  divInputGroupLigneChiffrage.appendChild(inputQuantite);
+  divInputGroupLigneChiffrage.appendChild(divInputGroupPrependUnite);
+
+  $(divInputGroupLigneChiffrage).insertBefore($("#" + idBarre));
 }
