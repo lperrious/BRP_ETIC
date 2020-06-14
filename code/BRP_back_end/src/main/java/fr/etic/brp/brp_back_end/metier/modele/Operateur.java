@@ -25,6 +25,7 @@ public class Operateur implements Serializable {
     private Integer salt;
     private String token;
     private String nom;
+    private Boolean admin;
 
     public Operateur() {
     }
@@ -35,6 +36,15 @@ public class Operateur implements Serializable {
         this.salt = salt;
         this.nom = nom;
         this.token = null;
+        this.admin = false;
+    }
+
+    public Boolean getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        this.admin = admin;
     }
 
     public Long getIdOperateur() {
@@ -83,6 +93,6 @@ public class Operateur implements Serializable {
 
     @Override
     public String toString() {
-        return "Operateur{" + "idOperateur=" + idOperateur + ", mail=" + mail + ", mdp=" + mdp + ", salt=" + salt + ", token=" + token + ", nom=" + nom + '}';
+        return "Operateur{" + "idOperateur=" + idOperateur + ", mail=" + mail + ", mdp=" + mdp + ", salt=" + salt + ", token=" + token + ", nom=" + nom + ", admin=" + admin + '}';
     }
 }
