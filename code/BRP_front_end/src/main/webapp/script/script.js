@@ -233,7 +233,7 @@ function sortieBarreInsertion(element) {
 
 /****************** Fonctions (partie droite) *********************/
 
-function addEventsDescriptifs(){
+function addEventsDescriptifs() {
   $(".barreInsertion").mouseenter(function () {
     survolBarreInsertion(this);
   });
@@ -304,7 +304,7 @@ function AjouterElement(idPosition) {
 
       if (!$(".selectDescriptif").hasClass("generique")) {
         var divInputGroupLigneChiffrage = document.createElement("div");
-        divInputGroupLigneChiffrage.className = "input-group ligneChiffrage";
+        divInputGroupLigneChiffrage.className = "ligneChiffrage";
 
         var inputLocalisation = document.createElement("input");
         inputLocalisation.type = "text";
@@ -351,7 +351,6 @@ function AjouterElement(idPosition) {
         $("#" + divBarreInsertion.id).click(function () {
           AjouterElement(divBarreInsertion.id);
         });
-        //!Ajout de l'hover sur toutes les barres d'insertions titre
 
         //On ajoute une barre d'insertion ligneChiffrage à la fin de l'ouvrage/prestation
         var divBarreInsertionLigneChiffrage = document.createElement("div");
@@ -401,6 +400,9 @@ function AjouterElement(idPosition) {
         $("#" + divBarreInsertion.id).click(function () {
           AjouterElement(divBarreInsertion.id);
         });
+
+        //Ajout de l'hover sur toutes les barres d'insertions titre
+        addEventsDescriptifs();
 
         //Appel de la fonction de numérotation de l'arborescence
         NumerotationArbo();
@@ -563,6 +565,8 @@ function AjouterTitre(evt) {
   $("#" + divBarreInsertion.id).click(function () {
     AjouterElement(divBarreInsertion.id);
   });
+  //Ajout de l'hover sur toutes les barres d'insertions titre
+  addEventsDescriptifs();
 
   //On supprime le panneau de choix des titres
   $(".divInsertionTitre").remove();
@@ -738,6 +742,9 @@ function CreerOnglet() {
     .click(function () {
       AfficherOnglet($("#" + idOnglet));
     });
+
+  //Ajout de l'hover sur toutes les barres d'insertions titre
+  addEventsDescriptifs();
 
   //On affiche par défaut
   AfficherOnglet($("#" + idOnglet));
