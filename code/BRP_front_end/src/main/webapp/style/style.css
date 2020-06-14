@@ -466,6 +466,17 @@ select {
   margin-bottom: 15px;
 }
 
+.suppressionLigneChiffrage {
+  position: relative;
+  top: 6px;
+  opacity: 0;
+}
+
+.suppressionLigneChiffrage:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
 .ligneChiffrage > input {
   border: solid;
   border-width: 1px;

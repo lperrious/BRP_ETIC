@@ -26,6 +26,7 @@ $(document).ready(function () {
   });
   $(".container").last().click(SuppressionChoixInsertionTitre);
   addEventsDescriptifs();
+  AjoutEventSupprLigneChiffrage();
 });
 
 /****************** Fonctions (partie gauche) *********************/
@@ -215,30 +216,25 @@ function display_manage_project() {
   }
 }
 
-function survolBarreInsertion(element) {
-  var element = $(
-    "#" + $(element).attr("id") + " > .panBarreInsertion"
-  ).first();
-  $(element).css("border-bottom", "solid");
-  $(element).css("border-width", "1.5px");
-  $(element).css("border-color", "rgb(95, 95, 95)");
-}
-
-function sortieBarreInsertion(element) {
-  var element = $(
-    "#" + $(element).attr("id") + " > .panBarreInsertion"
-  ).first();
-  $(element).css("border-bottom", "none");
-}
-
 /****************** Fonctions (partie droite) *********************/
 
 function addEventsDescriptifs() {
   $(".barreInsertion").mouseenter(function () {
-    survolBarreInsertion(this);
+    var element = $("#" + $(this).attr("id") + " > .panBarreInsertion").first();
+    $(element).css("border-bottom", "solid");
+    $(element).css("border-width", "1.5px");
+    $(element).css("border-color", "rgb(95, 95, 95)");
   });
   $(".barreInsertion").mouseleave(function () {
-    sortieBarreInsertion(this);
+    var element = $("#" + $(this).attr("id") + " > .panBarreInsertion").first();
+    $(element).css("border-bottom", "none");
+  });
+}
+
+function AjoutEventSupprLigneChiffrage() {
+  $(".descriptif > .ligneChiffrage").first().children().last().html("");
+  $(".suppressionLigneChiffrage").click(function () {
+    $(this).parent().remove();
   });
 }
 
@@ -323,17 +319,27 @@ function AjouterElement(idPosition) {
         spanInputGroupTextUnite.className = "input-group-text";
         //Faut rajouter l'unité en AJAX
 
+        var divSuppressionLigneChiffrage = document.createElement("div");
+        divSuppressionLigneChiffrage.className = "suppressionLigneChiffrage";
+        var svgSuppr = document.createElement("i");
+        svgSuppr.className = "fas fa-times";
+        divSuppressionLigneChiffrage.appendChild(svgSuppr);
+
         divInputGroupPrependUnite.appendChild(spanInputGroupTextUnite);
 
         divInputGroupLigneChiffrage.appendChild(inputLocalisation);
         divInputGroupLigneChiffrage.appendChild(inputQuantite);
         divInputGroupLigneChiffrage.appendChild(divInputGroupPrependUnite);
+        divInputGroupLigneChiffrage.appendChild(divSuppressionLigneChiffrage);
 
         divInsertionDescriptif.appendChild(divInputGroupTitre);
         divInsertionDescriptif.appendChild(divInputGroupDescription);
         divInsertionDescriptif.appendChild(divInputGroupLigneChiffrage);
 
         $(divInsertionDescriptif).insertBefore($("#" + idPosition));
+
+        //Ajout évènement suppression ligne chiffrage
+        AjoutEventSupprLigneChiffrage();
 
         //On insère une barre d'insertion au dessus du nouveau descriptif
         var divBarreInsertion = document.createElement("div");
@@ -816,11 +822,21 @@ function AjouterLigneChiffrage(idBarre) {
   spanInputGroupTextUnite.className = "input-group-text";
   //Faut rajouter l'unité en AJAX
 
+  var divSuppressionLigneChiffrage = document.createElement("div");
+  divSuppressionLigneChiffrage.className = "suppressionLigneChiffrage";
+  var svgSuppr = document.createElement("i");
+  svgSuppr.className = "fas fa-times";
+  divSuppressionLigneChiffrage.appendChild(svgSuppr);
+
   divInputGroupPrependUnite.appendChild(spanInputGroupTextUnite);
 
   divInputGroupLigneChiffrage.appendChild(inputLocalisation);
   divInputGroupLigneChiffrage.appendChild(inputQuantite);
   divInputGroupLigneChiffrage.appendChild(divInputGroupPrependUnite);
+  divInputGroupLigneChiffrage.appendChild(divSuppressionLigneChiffrage);
 
   $(divInputGroupLigneChiffrage).insertBefore($("#" + idBarre));
+
+  //Ajout évènement suppression ligne chiffrage
+  AjoutEventSupprLigneChiffrage();
 }
