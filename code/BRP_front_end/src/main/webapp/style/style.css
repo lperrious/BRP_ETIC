@@ -1,8 +1,8 @@
 :root {
   --background_1: white;
   --text: black;
-  --cta: #f56e47;
-  --cta_hover: rgba(223, 59, 12, 0.85);
+  --cta: #3a88c5;
+  --cta_hover: #0070c9;
   --error: rgba(255, 0, 0, 0.8);
   --error_bg: rgba(255, 0, 0, 0.05);
   --success: rgb(4, 180, 92);
@@ -456,6 +456,7 @@ select {
   background-color: var(--background_1);
   border: none;
   padding-left: 0;
+  color: var(--text);
 }
 
 .ligneChiffrage {
@@ -505,7 +506,7 @@ select {
 
 .ongletLot {
   display: inline-block;
-  height: 20px;
+  height: 25px;
   width: 50px;
   border-color: var(--cta);
   background-color: var(--cta);
@@ -546,7 +547,7 @@ select {
 }
 
 .barreInsertionLigneChiffrage {
-  width: 900px;
+  width: 500px;
   height: 30px;
   display: flex;
   flex-direction: column;
@@ -558,31 +559,28 @@ select {
 
 .barreInsertionLigneChiffrage:hover {
   border-top: solid;
-  border-width: 1px;
+  border-width: 1.5px;
   border-color: var(--border);
   cursor: pointer;
 }
 
 .divInsertionTitre {
   width: 400px;
-  height: 50px;
   border-radius: 3px;
-  background: grey;
+  background-color: var(--cta);
   color: var(--text_soft);
   display: flex;
   flex-direction: column;
+  margin-left: 15px;
 }
 
 .sousDivInsertionTitre {
+    padding: 3px;
   padding-left: 15px;
   cursor: pointer;
 }
 
 .sousDivInsertionTitre:hover {
-  background-color: whitesmoke;
-  color: grey;
-}
-
-textarea {
-  resize: none;
+  background-color: var(--cta_hover);
+  border-radius: 3px;
 }
