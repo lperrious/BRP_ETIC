@@ -25,12 +25,7 @@ $(document).ready(function () {
     gestion_arbo_bdd(this);
   });
   $(".container").last().click(SuppressionChoixInsertionTitre);
-  $(".barreInsertion").mouseenter(function () {
-    survolBarreInsertion(this);
-  });
-  $(".barreInsertion").mouseleave(function () {
-    sortieBarreInsertion(this);
-  });
+  addEventsDescriptifs();
 });
 
 /****************** Fonctions (partie gauche) *********************/
@@ -237,6 +232,15 @@ function sortieBarreInsertion(element) {
 }
 
 /****************** Fonctions (partie droite) *********************/
+
+function addEventsDescriptifs(){
+  $(".barreInsertion").mouseenter(function () {
+    survolBarreInsertion(this);
+  });
+  $(".barreInsertion").mouseleave(function () {
+    sortieBarreInsertion(this);
+  });
+}
 
 function AjouterElement(idPosition) {
   //Si un descriptif a été sélectionné alors on l'insère directement dans l'arborescence
