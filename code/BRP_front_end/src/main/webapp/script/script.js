@@ -319,27 +319,17 @@ function AjouterElement(idPosition) {
         spanInputGroupTextUnite.className = "input-group-text";
         //Faut rajouter l'unité en AJAX
 
-        var divSuppressionLigneChiffrage = document.createElement("div");
-        divSuppressionLigneChiffrage.className = "suppressionLigneChiffrage";
-        var svgSuppr = document.createElement("i");
-        svgSuppr.className = "fas fa-times";
-        divSuppressionLigneChiffrage.appendChild(svgSuppr);
-
         divInputGroupPrependUnite.appendChild(spanInputGroupTextUnite);
 
         divInputGroupLigneChiffrage.appendChild(inputLocalisation);
         divInputGroupLigneChiffrage.appendChild(inputQuantite);
         divInputGroupLigneChiffrage.appendChild(divInputGroupPrependUnite);
-        divInputGroupLigneChiffrage.appendChild(divSuppressionLigneChiffrage);
 
         divInsertionDescriptif.appendChild(divInputGroupTitre);
         divInsertionDescriptif.appendChild(divInputGroupDescription);
         divInsertionDescriptif.appendChild(divInputGroupLigneChiffrage);
 
         $(divInsertionDescriptif).insertBefore($("#" + idPosition));
-
-        //Ajout évènement suppression ligne chiffrage
-        AjoutEventSupprLigneChiffrage();
 
         //On insère une barre d'insertion au dessus du nouveau descriptif
         var divBarreInsertion = document.createElement("div");
@@ -383,7 +373,8 @@ function AjouterElement(idPosition) {
         });
 
         //Appel de la fonction de numérotation de l'arborescence
-        NumerotationArbo();
+        //var lot = parent.parentElement;
+        NumerotationArbo(parent.id);
       } else {
         divInsertionDescriptif.appendChild(divInputGroupTitre);
         divInsertionDescriptif.appendChild(divInputGroupDescription);
@@ -411,7 +402,7 @@ function AjouterElement(idPosition) {
         addEventsDescriptifs();
 
         //Appel de la fonction de numérotation de l'arborescence
-        NumerotationArbo();
+        NumerotationArbo(parent.id);
       }
     }
   } else {
@@ -670,6 +661,14 @@ function NumerotationArbo(idOnglet) {
 function AfficherOnglet(lotAfficher) {
   $(".lot").hide();
   lotAfficher.show();
+  var numBouton = lotAfficher.attr("id").slice(-1); //On récupère le numéro de l'onglet qui doit être mis en couleur plus foncée
+  $(".ongletLot").css("background-color", "#3a88c5");
+  if (numBouton != "+") {
+    $(".ongletLot:nth-child(" + (Number(numBouton) + 1) + ")").css(
+      "background-color",
+      "#0070c9"
+    );
+  }
 }
 
 function CreerOnglet() {
