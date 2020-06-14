@@ -458,21 +458,21 @@ select {
   padding-left: 0;
 }
 
-.ligneChiffrage{
-    display: flex;
-    justify-content: space-between;
-    width: 85%;
-    margin-top: 0.75em;
+.ligneChiffrage {
+  display: flex;
+  justify-content: space-between;
+  width: 85%;
+  margin-top: 0.75em;
 }
 
-.ligneChiffrage > input{
-    border: solid;
-    border-width: 1px;
-    border-color: var(--border);
-    border-radius: 5px;
-    display: block;
-    width: 35%;
-    padding-left: 15px;
+.ligneChiffrage > input {
+  border: solid;
+  border-width: 1px;
+  border-color: var(--border);
+  border-radius: 5px;
+  display: block;
+  width: 35%;
+  padding-left: 15px;
 }
 
 .titre1 {
@@ -533,14 +533,32 @@ select {
   flex-direction: column;
 }
 
-.panBarreInsertion{
-    flex: 1;
+.panBarreInsertion {
+  flex: 1;
 }
 
 .barreInsertion:hover {
   /*border-top: solid;
   border-width: 1px;
   border-color: var(--border);*/
+  cursor: pointer;
+}
+
+.barreInsertionLigneChiffrage {
+  width: 900px;
+  height: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.panBarreInsertionLigneChiffrage {
+  flex: 1;
+}
+
+.barreInsertionLigneChiffrage:hover {
+  border-top: solid;
+  border-width: 1px;
+  border-color: var(--border);
   cursor: pointer;
 }
 
