@@ -463,6 +463,7 @@ select {
   justify-content: space-between;
   width: 85%;
   margin-top: 0.75em;
+  margin-bottom: 15px;
 }
 
 .ligneChiffrage > input {
