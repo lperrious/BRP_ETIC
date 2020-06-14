@@ -51,6 +51,8 @@ public class Projet implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date datePrixRef;
     private Float coeffAdapt;
+    private CaractDim caractDimSelection;
+    private SousCategorieConstruction sousCategorieConstructionSelection;
     
     @ManyToOne
     private CoeffRaccordement coeffRaccordement; 
@@ -69,6 +71,24 @@ public class Projet implements Serializable {
         this.coeffRaccordement = null;
         this.datePrixRef = null;
         this.idProjet = null;
+        this.caractDimSelection = null;
+        this.sousCategorieConstructionSelection = null;
+    }
+
+    public CaractDim getCaractDimSelection() {
+        return caractDimSelection;
+    }
+
+    public void setCaractDimSelection(CaractDim caractDimSelection) {
+        this.caractDimSelection = caractDimSelection;
+    }
+
+    public SousCategorieConstruction getSousCategorieConstructionSelection() {
+        return sousCategorieConstructionSelection;
+    }
+
+    public void setSousCategorieConstructionSelection(SousCategorieConstruction sousCategorieConstructionSelection) {
+        this.sousCategorieConstructionSelection = sousCategorieConstructionSelection;
     }
 
     public String getRefBRP() {
@@ -157,6 +177,6 @@ public class Projet implements Serializable {
 
     @Override
     public String toString() {
-        return "Projet{" + "idProjet=" + idProjet + ", refBRP=" + refBRP + ", nomProjet=" + nomProjet + ", typeMarche=" + typeMarche + ", typeConstruction=" + typeConstruction + ", typeLot=" + typeLot + ", site=" + site + ", datePrixRef=" + datePrixRef + ", coeffAdapt=" + coeffAdapt + ", coeffRaccordement=" + coeffRaccordement + ", categorieConstruction=" + categorieConstruction + '}';
+        return "Projet{" + "idProjet=" + idProjet + ", refBRP=" + refBRP + ", nomProjet=" + nomProjet + ", typeMarche=" + typeMarche + ", typeConstruction=" + typeConstruction + ", typeLot=" + typeLot + ", site=" + site + ", datePrixRef=" + datePrixRef + ", coeffAdapt=" + coeffAdapt + ", caractDimSelection=" + caractDimSelection + ", sousCategorieConstructionSelection=" + sousCategorieConstructionSelection + ", coeffRaccordement=" + coeffRaccordement + ", categorieConstruction=" + categorieConstruction + '}';
     }
 }

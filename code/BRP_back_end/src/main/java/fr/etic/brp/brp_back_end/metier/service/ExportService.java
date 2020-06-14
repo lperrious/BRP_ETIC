@@ -30,7 +30,6 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
-import org.apache.poi.xssf.usermodel.DefaultIndexedColorMap;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -91,10 +90,76 @@ public class ExportService {
             String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
             Document xml = projetXMLDao.ObtenirDocument(uri);
             
-            //On créer le dossier d'export du Projet
+            //On insère les infos projets dans le XML
             JpaUtil.creerContextePersistance();
             Projet projet = projetDao.ChercherParId(idProjet);
             JpaUtil.fermerContextePersistance();
+            Element baliseTypeMarche = xml.createElement("typeMarche");
+            if(projet.getTypeMarche() != null)
+                baliseTypeMarche.setTextContent(projet.getTypeMarche().toString());
+            Element baliseTypeConstruction = xml.createElement("typeConstruction");
+            if(projet.getTypeConstruction() != null)
+                baliseTypeConstruction.setTextContent(projet.getTypeConstruction().toString());
+            Element baliseTypeLot = xml.createElement("typeLot");
+            if(projet.getTypeLot() != null)
+                baliseTypeLot.setTextContent(projet.getTypeLot().toString());
+            Element baliseSite = xml.createElement("site");
+            if(projet.getSite() != null)
+                baliseSite.setTextContent(projet.getSite().toString());
+            Element baliseDatePrixRef = xml.createElement("datePrixRef");
+            if(projet.getDatePrixRef() != null)
+                baliseDatePrixRef.setTextContent(projet.getDatePrixRef().toString());
+            Element baliseCoeffAdapt = xml.createElement("coeffAdapt");
+            if(projet.getCoeffAdapt() != null)
+                baliseCoeffAdapt.setTextContent(projet.getCoeffAdapt().toString());
+            Element baliseCoeffRaccordement = xml.createElement("coeffRaccordement");
+            Element baliseLocalisationCoeffRaccordement = xml.createElement("localisationCoeffRaccordement");
+            if(projet.getCoeffRaccordement() != null)
+                baliseLocalisationCoeffRaccordement.setTextContent(projet.getCoeffRaccordement().getLocalisation());
+            Element baliseValeurCoeffRaccordement = xml.createElement("valeurCoeffRaccordement");
+            if(projet.getCoeffRaccordement() != null)
+                baliseValeurCoeffRaccordement.setTextContent(projet.getCoeffRaccordement().getValeur().toString());
+            baliseCoeffRaccordement.appendChild(baliseLocalisationCoeffRaccordement);
+            baliseCoeffRaccordement.appendChild(baliseValeurCoeffRaccordement);
+            Element baliseCategorieConstruction = xml.createElement("categorieConstruction");
+            Element baliseCategorieConstructionIntitule = xml.createElement("intituleCategorieConstruction");
+            if(projet.getCategorieConstruction() != null)
+                baliseCategorieConstructionIntitule.setTextContent(projet.getCategorieConstruction().getIntituleCategorieConstruction());
+            Element baliseCategorieConstructionCode = xml.createElement("codeCategorieConstruction");
+            if(projet.getCategorieConstruction() != null)
+                baliseCategorieConstructionCode.setTextContent(projet.getCategorieConstruction().getCodeCategorieConstruction());
+            baliseCategorieConstruction.appendChild(baliseCategorieConstructionIntitule);
+            baliseCategorieConstruction.appendChild(baliseCategorieConstructionCode);
+            Element baliseSousCategorieConstruction = xml.createElement("sousCategorieConstruction");
+            if(projet.getSousCategorieConstructionSelection() != null)
+                baliseSousCategorieConstruction.setTextContent(projet.getSousCategorieConstructionSelection().getIntituleSousCategorieConstruction());
+            Element baliseCaractDim = xml.createElement("caractDim");
+            Element baliseCaractDimCode = xml.createElement("codeCaractDim");
+            if(projet.getCaractDimSelection() != null)
+                baliseCaractDim.setTextContent(projet.getCaractDimSelection().getCodeCaractDim());
+            Element baliseCaractDimValeur = xml.createElement("valeurCaractDim");
+            if(projet.getCaractDimSelection() != null)
+                baliseCaractDimValeur.setTextContent(projet.getCaractDimSelection().getValeur().toString());
+            baliseCaractDim.appendChild(baliseCaractDimCode);
+            baliseCaractDim.appendChild(baliseCaractDimValeur);
+            
+            Node baliseLotInfosProjet = xml.getElementsByTagName("lot").item(0);
+            Element root = xml.getDocumentElement();
+            root.insertBefore(baliseTypeMarche, baliseLotInfosProjet);
+            root.insertBefore(baliseTypeConstruction, baliseLotInfosProjet);
+            root.insertBefore(baliseTypeLot, baliseLotInfosProjet);
+            root.insertBefore(baliseSite, baliseLotInfosProjet);
+            root.insertBefore(baliseDatePrixRef, baliseLotInfosProjet);
+            root.insertBefore(baliseCoeffAdapt, baliseLotInfosProjet);
+            root.insertBefore(baliseCoeffRaccordement, baliseLotInfosProjet);
+            root.insertBefore(baliseCategorieConstruction, baliseLotInfosProjet);
+            root.insertBefore(baliseSousCategorieConstruction, baliseLotInfosProjet);
+            root.insertBefore(baliseCaractDim, baliseLotInfosProjet);
+            
+            //On écrit par dessus l'ancien XML
+            projetXMLDao.saveXMLContent(xml, uri);
+            
+            //On créer le dossier d'export du Projet
             Boolean succesCreationDossier = (new File("../export_files/Exports/"+ projet.getNomProjet() + "_" + projet.getIdProjet())).mkdirs();
             if (!succesCreationDossier) {
                 throw new Exception();
@@ -901,9 +966,5 @@ public class ExportService {
         style.setBorderLeft(BorderStyle.THIN);
         style.setLeftBorderColor(IndexedColors.BLACK.getIndex());
         return style;
-    }
-    
-    private String getCharForNumber(int i) { //0-based
-        return i > -1 && i < 26 ? String.valueOf((char)(i + 97)) : null;
     }
 }

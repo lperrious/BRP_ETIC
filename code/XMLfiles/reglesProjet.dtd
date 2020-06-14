@@ -1,4 +1,4 @@
-<!ELEMENT projet (nextId?, nomProjet?, typeMarche?, typeConstruction?, typeLot?, site?, datePrixRef?, coeffAdapt?, lot*)>
+<!ELEMENT projet (nextId?, nomProjet?, typeMarche?, typeConstruction?, typeLot?, site?, datePrixRef?, coeffAdapt?, coeffRaccordement?, categorieConstruction?,  sousCategorieConstruction?, caractDim?, lot*)>
 <!ELEMENT nextId (#PCDATA)>
 <!ELEMENT lot (titre1*)>
 <!ELEMENT titre1 ANY>
@@ -14,6 +14,16 @@
 <!ELEMENT site (#PCDATA)>
 <!ELEMENT datePrixRef (#PCDATA)>
 <!ELEMENT coeffAdapt (#PCDATA)>
+<!ELEMENT coeffRaccordement (localisationCoeffRaccordement, valeurCoeffRaccordement)>
+<!ELEMENT localisationCoeffRaccordement (#PCDATA)>
+<!ELEMENT valeurCoeffRaccordement (#PCDATA)>
+<!ELEMENT intituleCategorieConstruction (#PCDATA)>
+<!ELEMENT codeCategorieConstruction (#PCDATA)>
+<!ELEMENT codeCaractDim (#PCDATA)>
+<!ELEMENT valeurCaractDim (#PCDATA)>
+<!ELEMENT categorieConstruction (intituleCategorieConstruction, codeCategorieConstruction)>
+<!ELEMENT sousCategorieConstruction (#PCDATA)>
+<!ELEMENT caractDim (codeCaractDim, valeurCaractDim)>
 <!ELEMENT nomDescriptif (#PCDATA)>
 <!ELEMENT description ANY>
 <!ELEMENT courteDescription (#PCDATA)>

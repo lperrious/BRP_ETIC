@@ -789,7 +789,7 @@ function toRoman(num) {
 function AjouterLigneChiffrage(idBarre) {
   //Création d'une nouvelle ligneChiffrage au dessus de la barre d'insertion ligneChiffrage
   var divInputGroupLigneChiffrage = document.createElement("div");
-  divInputGroupLigneChiffrage.className = "input-group ligneChiffrage";
+  divInputGroupLigneChiffrage.className = "ligneChiffrage";
 
   var inputLocalisation = document.createElement("input");
   inputLocalisation.type = "text";
