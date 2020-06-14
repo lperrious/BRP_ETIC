@@ -124,10 +124,8 @@ public class Main {
         
 //        Scenario1();                     
 //        Scenario2();
-//          Scenario3();
+//        Scenario3();
 
-                                                            
-        
         JpaUtil.destroy();
         DomUtil.destroy();
     }
@@ -1122,12 +1120,12 @@ public static void Scenario3() {
         //Doit fonctionner
         /*String nomProjet = "projet1";
 
-        Boolean projetTest1 = service.CreerProjet(nomProjet);
-        if (projetTest1) {
-            System.out.println("Succès: création du projet: "+nomProjet);
+        Long projetTest1 = service.CreerProjet(nomProjet);
+        if (projetTest1 != -1) {
+            System.out.println("Succès: création du projet: " + nomProjet);
         }
         else {
-            System.out.println("Echec: impossible de créer: "+nomProjet);
+            System.out.println("Echec: impossible de créer: " + nomProjet);
         }
         
         //Doit fonctionner (nom deja présent BD)
