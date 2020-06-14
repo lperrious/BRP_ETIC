@@ -347,6 +347,7 @@ function AjouterElement(idPosition) {
         $("#" + divBarreInsertion.id).click(function () {
           AjouterElement(divBarreInsertion.id);
         });
+        //!Ajout de l'hover sur toutes les barres d'insertions titre
 
         //On ajoute une barre d'insertion ligneChiffrage à la fin de l'ouvrage/prestation
         var divBarreInsertionLigneChiffrage = document.createElement("div");
