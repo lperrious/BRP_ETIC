@@ -181,7 +181,7 @@ function apply_filter() {
       }
 
       //si le parent est visible alors on montre
-      if ($(parent).is(":visible")) $(this).show();
+      if ($(parent).is(":visible")) $(this).css("display", "flex");
     });
   }
   for (var i = 0; i < array_hide.length; i++) {
@@ -753,6 +753,8 @@ function AfficherOnglet(lotAfficher) {
       "#0070c9"
     );
   }
+  //on affiche le titre du lot
+  AfficherTitreLot($("#divTitreLot_" + numBouton));
 }
 
 function AfficherTitreLot(divTitreLotAfficher) {
@@ -823,11 +825,7 @@ function CreerOnglet() {
   $(divBoutonOnglet).insertBefore($(".ongletLot").last());
 
   //Création d'un nouveau input de titre lot
-  $(".lot")
-    .children(":first")
-    .insertBefore(
-      "<div class='divTitreLot'><input type='text' class='titreLot' placeholder='Titre Lot' /></div>"
-    );
+  $(".container").last().prepend("<div class='divTitreLot' id='divTitreLot_"+numOnglet+"'><input type='text' class='titreLot' placeholder='Titre Lot' /></div>");
   //$(".divTitreLot").last().attr("id") = "divTitreLot_" + numOnglet;
 
   //On ajoute les évènements nécessaires au click
