@@ -69,14 +69,14 @@ public class Main {
 //        InitialiserChapitre();
 //        InitialiserDescriptif();
 //        InitialiserFamille();
-//        InitialiserOperateur();
+        InitialiserOperateur();
 //        InitialiserProjets();
 //        InitialiserSousFamille();
         
     //----------tests-des-services-----------------
     
-//        testerModifBaseDescriptif();
-//        testerModifBasePrixRef();
+        testerModifBaseDescriptif();
+        testerModifBasePrixRef();
 //        testerListerBasePrixRefs();
 //        testerListerCaractDims();
 //        testerListerCategories();
@@ -995,18 +995,19 @@ public static void Scenario3() {
         EntityManager em = emf.createEntityManager();     
         
         int salt = (int)(Math.random()*1000);
-        String mdpConcat = "monMDP"+salt;
+        String mdpConcat = "admin"+salt;
         String mdpHash = Hashing.sha256().hashString(mdpConcat, StandardCharsets.UTF_8).toString();
         
-        Operateur operateur1 = new Operateur("quentinmarc@orange.fr", mdpHash, salt, "quentin");
+        Operateur admin = new Operateur("benoit@orange.fr", mdpHash, salt, "Benoît");
+        admin.setAdmin(Boolean.TRUE);
          
         System.out.println("** Operateur avant persistance: ");
-        afficherOperateur(operateur1);
+        afficherOperateur(admin);
         System.out.println();
 
         try {
             em.getTransaction().begin();
-            em.persist(operateur1);
+            em.persist(admin);
             em.getTransaction().commit();
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service InitialiserOperateur()", ex);
@@ -1021,7 +1022,7 @@ public static void Scenario3() {
         }
         
         System.out.println("** Operateur après persistance: ");
-        afficherOperateur(operateur1);
+        afficherOperateur(admin);
         System.out.println();
     }
     public static void InitialiserSousCategorieConstruction() {
