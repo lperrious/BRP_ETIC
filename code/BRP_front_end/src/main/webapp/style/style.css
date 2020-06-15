@@ -421,14 +421,19 @@ select {
   padding-bottom: 15px;
 }
 
-#titreLot {
-  text-align: center;
-  font-size: 160%;
-  padding: 10px;
+.divTitreLot {
+  padding: 9px;
   border-bottom: solid;
   border-bottom-width: 1px;
   border-bottom-color: var(--border);
+}
+
+.titreLot {
+  margin: auto;
+  text-align: center;
+  font-size: 160%;
   font-weight: 300;
+  border: none;
 }
 
 .lot {

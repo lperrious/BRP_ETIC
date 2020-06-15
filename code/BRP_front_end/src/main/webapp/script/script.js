@@ -8,22 +8,106 @@ var testChoixPresent = false;
 
 /************** Appels au chargement de la page ******************/
 $(document).ready(function () {
+  //Récupère l'arbo Descriptifs de la BDD
+  $.ajax({
+    url: "./ActionServlet",
+    method: "GET",
+    data: {
+      todo: "arboDescriptifs",
+    },
+    dataType: "json",
+  })
+    .done(function (response) {
+      // Fonction appelée en cas d'appel AJAX réussi
+      console.log("Response", response); // LOG dans Console Javascript
+      if (!response.Error) {
+        //On insère l'arbo dans le HTML
+        for (let i = 0; i < response.arborescence.length; i++) {
+          const chapitre = response.arborescence[i];
+          $("#arboBDD").append(
+            "<div class='lineBDD lineChapitre'><span class='iconBDD'><i class='fas fa-caret-right arrow'></i></span><div class='intitule'>" +
+              chapitre.intituleChapitre +
+              "</div></div>"
+          );
+          for (let j = 0; j < chapitre.categories.length; j++) {
+            const categorie = chapitre.categories[j];
+            $("#arboBDD").append(
+              "<div class='lineBDD lineCategorie'><span class='iconBDD'><i class='fas fa-caret-right arrow'></i></span><div class='intitule'>" +
+                categorie.intituleCategorie +
+                "</div></div>"
+            );
+            for (let k = 0; k < categorie.familles.length; k++) {
+              const famille = categorie.familles[k];
+              $("#arboBDD").append(
+                "<div class='lineBDD lineFamille'><span class='iconBDD'><i class='fas fa-caret-right arrow'></i></span><div class='intitule'>" +
+                  famille.intituleFamille +
+                  "</div></div>"
+              );
+              for (let l = 0; l < famille.sousFamilles.length; l++) {
+                const sousFamille = famille.sousFamilles[l];
+                $("#arboBDD").append(
+                  "<div class='lineBDD lineSousFamille'><span class='iconBDD'><i class='fas fa-caret-right arrow'></i></span><div class='intitule'>" +
+                    sousFamille.intituleSousFamille +
+                    "</div></div>"
+                );
+                for (let m = 0; m < sousFamille.descriptifs.length; m++) {
+                  const descriptif = sousFamille.descriptifs[m];
+                  if (descriptif.type == "generique") {
+                    $("#arboBDD").append(
+                      "<div class='lineBDD lineDescriptif generique'><input type='hidden' class='idDescriptif' value=" +
+                        descriptif.id +
+                        "/><span class='iconBDD'>-</span><div class='intitule'>" +
+                        descriptif.nom +
+                        "</div></div>"
+                    );
+                  } else if (descriptif.type == "ouvrage") {
+                    $("#arboBDD").append(
+                      "<div class='lineBDD lineDescriptif ouvrage'><input type='hidden' class='idDescriptif' value=" +
+                        descriptif.id +
+                        "/><span class='iconBDD'>-</span><div class='intitule'>" +
+                        descriptif.nom +
+                        "</div></div>"
+                    );
+                  } else if (descriptif.type == "prestation") {
+                    $("#arboBDD").append(
+                      "<div class='lineBDD lineDescriptif prestation'><input type='hidden' class='idDescriptif' value=" +
+                        descriptif.id +
+                        "/><span class='iconBDD'>-</span><div class='intitule'>" +
+                        descriptif.nom +
+                        "</div></div>"
+                    );
+                  }
+                }
+              }
+            }
+          }
+        }
+        $(".lineDescriptif").click(function () {
+          select_descriptif(this);
+        });
+        $(".lineChapitre").click(function () {
+          gestion_arbo_bdd(this);
+        });
+        $(".lineCategorie").click(function () {
+          gestion_arbo_bdd(this);
+        });
+        $(".lineFamille").click(function () {
+          gestion_arbo_bdd(this);
+        });
+        $(".lineSousFamille").click(function () {
+          gestion_arbo_bdd(this);
+        });
+      }
+    })
+    .fail(function (error) {
+      // Fonction appelée en cas d'erreur lors de l'appel AJAX
+      //console.log("Error", error); // LOG dans Console Javascript
+      console.log(
+        "Erreur lors de l'appel AJAX pour recuperer l'arborescence BDD"
+      );
+    });
+
   $(".container").first().click(unset_select_descriptif);
-  $(".lineDescriptif").click(function () {
-    select_descriptif(this);
-  });
-  $(".lineChapitre").click(function () {
-    gestion_arbo_bdd(this);
-  });
-  $(".lineCategorie").click(function () {
-    gestion_arbo_bdd(this);
-  });
-  $(".lineFamille").click(function () {
-    gestion_arbo_bdd(this);
-  });
-  $(".lineSousFamille").click(function () {
-    gestion_arbo_bdd(this);
-  });
   $(".container").last().click(SuppressionChoixInsertionTitre);
   addEventsDescriptifs();
   AjoutEventSupprLigneChiffrage();
@@ -671,6 +755,11 @@ function AfficherOnglet(lotAfficher) {
   }
 }
 
+function AfficherTitreLot(divTitreLotAfficher) {
+  $(".divTitreLot").hide();
+  divTitreLotAfficher.show();
+}
+
 function CreerOnglet() {
   //Création du div contenant tout le lot (on l'affiche par défaut)
   var numOnglet = Number($("#ongletsLot").children().last().prev().html()) + 1;
@@ -733,6 +822,14 @@ function CreerOnglet() {
   divBoutonOnglet.innerHTML = numOnglet;
   $(divBoutonOnglet).insertBefore($(".ongletLot").last());
 
+  //Création d'un nouveau input de titre lot
+  $(".lot")
+    .children(":first")
+    .insertBefore(
+      "<div class='divTitreLot'><input type='text' class='titreLot' placeholder='Titre Lot' /></div>"
+    );
+  //$(".divTitreLot").last().attr("id") = "divTitreLot_" + numOnglet;
+
   //On ajoute les évènements nécessaires au click
   $("#" + divBarreInsertionDessus.id).click(function () {
     AjouterElement(divBarreInsertionDessus.id);
@@ -753,6 +850,9 @@ function CreerOnglet() {
 
   //On affiche par défaut
   AfficherOnglet($("#" + idOnglet));
+
+  //On affiche le bon titre lot
+  AfficherTitreLot($("#divTitreLot_" + numOnglet));
 
   //On numérote l'unique titre
   NumerotationArbo(idOnglet);

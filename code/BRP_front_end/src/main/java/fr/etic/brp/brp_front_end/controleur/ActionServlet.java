@@ -2,9 +2,11 @@ package fr.etic.brp.brp_front_end.controleur;
 
 import fr.etic.brp.brp_back_end.dao.JpaUtil;
 import fr.etic.brp.brp_front_end.actions.Action;
+import fr.etic.brp.brp_front_end.actions.ArboDescriptifsAction;
 import fr.etic.brp.brp_front_end.actions.ConnectionAction;
 import fr.etic.brp.brp_front_end.actions.InscriptionAction;
 import fr.etic.brp.brp_front_end.actions.TestConnectionAction;
+import fr.etic.brp.brp_front_end.serialisations.ArboDescriptifsSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.ConnectionSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.InscriptionSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.Serialisation;
@@ -69,6 +71,11 @@ public class ActionServlet extends HttpServlet {
             case "testConnection" : {
                 action = new TestConnectionAction();
                 serialisation = new TestConnectionSerialisation();
+                break;
+            }
+            case "arboDescriptifs" : {
+                action = new ArboDescriptifsAction();
+                serialisation = new ArboDescriptifsSerialisation();
                 break;
             }
         }
