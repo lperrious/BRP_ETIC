@@ -20,6 +20,17 @@
     <script src="./script/script.js"></script>
   </head>
   <body>
+  	<div id="popUpWindow">
+  		<div class="flex1"></div>
+  		<div class="popupNomProjet">
+    		<input type="text" id="nomProjetInput" placeholder="Nom du projet">
+    		<div class="buttons">
+    			<div class="button" onclick="popUpNomProjet(false)">Annuler</div>
+    			<div class="button" onclick="createProject()">Valider</div>
+    		</div>
+    	</div>
+    	<div class="flex1"></div>
+  	</div>
     <div id="container">
       <div class="container">
         <div id="nomProjet" onclick="display_manage_project()">
@@ -303,7 +314,7 @@
           <div class="flex1"></div>
           <div class="lineProjet createProjet">
             <div class="iconProjet"><i class="far fa-plus-square"></i></div>
-            <div class="propositionNomProjet">Nouveau projet</div>
+            <div class="propositionNomProjet" onclick="popUpNomProjet(true)">Nouveau projet</div>
           </div>
         </div>
         <div id="menu">
