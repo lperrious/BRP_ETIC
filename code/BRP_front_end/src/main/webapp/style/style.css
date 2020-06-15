@@ -426,14 +426,20 @@ select {
   border-bottom: solid;
   border-bottom-width: 1px;
   border-bottom-color: var(--border);
+  display: none;
+}
+
+.divTitreLot:nth-child(1){
+    display: block;
 }
 
 .titreLot {
   margin: auto;
-  text-align: center;
   font-size: 160%;
   font-weight: 300;
   border: none;
+  display: block;
+  text-align: center;
 }
 
 .lot {
