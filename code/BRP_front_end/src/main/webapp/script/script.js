@@ -111,6 +111,11 @@ $(document).ready(function () {
   $(".container").last().click(SuppressionChoixInsertionTitre);
   addEventsDescriptifs();
   AjoutEventSupprLigneChiffrage();
+
+  //à ajouter une fois lorsque l'utilisateur cherche un projet
+  $(".textLineProjet").click(function () {
+          clicProjet($(this).parent());
+  });
 });
 
 /****************** Fonctions (popup) *********************/
@@ -146,6 +151,24 @@ function createProject(){
         // Fonction appelée en cas d'appel AJAX réussi
         console.log("Response", response);
   });
+}
+
+function clicProjet(element){
+    var idProjet = $(element).children(".idProjet").val();
+    var action = $(element).children(".actionProjet").val();
+    
+    if (action == "ouvrir") ouvrirProjet(idProjet);
+    else dupliquerProjet(idProjet);
+}
+
+//a completer
+function dupliquerProjet(idProjet){
+    alert('dupliquer '+idProjet);
+}
+
+//a completer
+function ouvrirProjet(idProjet){
+    alert('ouvrir '+idProjet);
 }
 
 function unset_select_descriptif() {
