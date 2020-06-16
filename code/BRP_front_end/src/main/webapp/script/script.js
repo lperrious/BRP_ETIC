@@ -114,100 +114,136 @@ $(document).ready(function () {
 
   //à ajouter une fois lorsque l'utilisateur cherche un projet
   $(".textLineProjet").click(function () {
-          clicProjet($(this).parent());
+    clicProjet($(this).parent());
   });
 });
 
 /****************** Fonctions (popup) *********************/
-function popUpNomProjet(sens, idProjet){
+function popUpNomProjet(sens, idProjet) {
   //on le montre
   if (sens) {
-    $('#popUpWindow').css("display", "flex");
-    $('#container').css("filter", "blur(5px)");
+    $("#popUpWindow").css("display", "flex");
+    $("#container").css("filter", "blur(5px)");
   }
   //sinon on le cache
-  else{
-    $('#popUpWindow').hide();
-    $('#nomProjetInput').val("");
-    $('#container').css("filter", "blur(0px)");
+  else {
+    $("#popUpWindow").hide();
+    $("#nomProjetInput").val("");
+    $("#container").css("filter", "blur(0px)");
   }
 
-  //on tenete de duppliquer
+  //on tente de duppliquer
   if (idProjet)
-  //on essaie juste de créer un nouveau projet
-    $('.popupNomProjet > .buttons > .button').last().click(function () {
-          dupliquerProjet(idProjet)
-  });
-  else  
-    $('.popupNomProjet > .buttons > .button').last().click(createProject);
+    //on essaie juste de créer un nouveau projet
+    $(".popupNomProjet > .buttons > .button")
+      .last()
+      .click(function () {
+        dupliquerProjet(idProjet);
+      });
+  else $(".popupNomProjet > .buttons > .button").last().click(createProject);
 }
 
 /****************** Fonctions (partie gauche) *********************/
-function createProject(){
-
-  var nomProjet = $('#nomProjetInput').val();
+function createProject() {
+  var nomProjet = $("#nomProjetInput").val();
 
   $.ajax({
     url: "./ActionServlet",
     method: "POST",
     data: {
       todo: "creationProjet",
-      nomProjet : nomProjet
+      nomProjet: nomProjet,
     },
     dataType: "json",
-  })
-      .done(function (response) {
-        // Fonction appelée en cas d'appel AJAX réussi
-        console.log("Response", response);
+  }).done(function (response) {
+    // Fonction appelée en cas d'appel AJAX réussi
+    console.log("Response", response);
 
-        //on ferme le popup
-        popUpNomProjet(false);
+    //on ferme le popup
+    popUpNomProjet(false);
 
-        //gestion erreur?
-
-        ouvrirProjet(response['idProjet']);
+    ouvrirProjet(response["idProjet"]);
   });
 }
 
-function clicProjet(element){
-    var idProjet = $(element).children(".idProjet").val();
-    var action = $(element).children(".actionProjet").val();
-    
-    if (action == "ouvrir") ouvrirProjet(idProjet);
-    else popUpNomProjet(true, idProjet);
+function clicProjet(element) {
+  var idProjet = $(element).children(".idProjet").val();
+  var action = $(element).children(".actionProjet").val();
+
+  if (action == "ouvrir") ouvrirProjet(idProjet);
+  else popUpNomProjet(true, idProjet);
 }
 
-function dupliquerProjet(idProjet){
-
-  var nomProjet = $('#nomProjetInput').val();
+function dupliquerProjet(idProjet) {
+  var nomProjet = $("#nomProjetInput").val();
 
   $.ajax({
     url: "./ActionServlet",
     method: "POST",
     data: {
       todo: "dupliquerProjet",
-      idProjet : idProjet,
-      nomProjet : nomProjet
+      idProjet: idProjet,
+      nomProjet: nomProjet,
     },
     dataType: "json",
-  })
-      .done(function (response) {
-        // Fonction appelée en cas d'appel AJAX réussi
-        console.log("Response", response);
+  }).done(function (response) {
+    // Fonction appelée en cas d'appel AJAX réussi
+    console.log("Response", response);
 
-        //on ferme le popup
-        popUpNomProjet(false);
+    //on ferme le popup
+    popUpNomProjet(false);
 
-        //gestion erreur?
-
-        ouvrirProjet(response['newIdProjet']);
+    ouvrirProjet(response["newIdProjet"]);
   });
 }
 
-//a completer
-function ouvrirProjet(idProjet){
-    alert('ouvrir '+idProjet);
-    //Appel ajax
+function ouvrirProjet(idProjet) {
+  var xslDocumentUrl =
+    "/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/XMLfiles/ouvrirProjet.xslt";
+  var xmlDocumentUrl =
+    "/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/XMLfiles/" +
+    idProjet +
+    ".xml";
+  var idElementRemplacement = $("#idElementInsertionProjet");
+
+  var xsltProcessor = new XSLTProcessor();
+
+  // Chargement du fichier XSL à l'aide de XMLHttpRequest synchrone
+  var xslDocument = chargerHttpXML(xslDocumentUrl);
+
+  // Importation du .xsl
+  xsltProcessor.importStylesheet(xslDocument);
+
+  // transfère les paramètres à la feuille de style
+  //xsltProcessor.setParameter(null, "idLot", code);
+
+  // Chargement du fichier XML à l'aide de XMLHttpRequest synchrone
+  var xmlDocument = chargerHttpXML(xmlDocumentUrl);
+
+  // Création du document XML transformé par le XSL
+  var newXmlDocument = xsltProcessor.transformToDocument(xmlDocument);
+
+  //On remplace toutes les balises concernant l'ancien projet actuellement existantes par les nouvelles
+  $(".container").last().html(newXmlDocument);
+}
+
+//charge le fichier XML se trouvant à l'URL relative donné dans le paramètre et le retourne
+function chargerHttpXML(xmlDocumentUrl) {
+  var httpAjax;
+
+  httpAjax = window.XMLHttpRequest
+    ? new XMLHttpRequest()
+    : new ActiveXObject("Microsoft.XMLHTTP");
+
+  if (httpAjax.overrideMimeType) {
+    httpAjax.overrideMimeType("text/xml");
+  }
+
+  //chargement du fichier XML à l'aide de XMLHttpRequest synchrone (le 3ème paramètre est défini sur false)
+  httpAjax.open("GET", xmlDocumentUrl, false);
+  httpAjax.send();
+
+  return httpAjax.responseXML;
 }
 
 function modifierInfosProjet(){
@@ -972,7 +1008,13 @@ function CreerOnglet() {
   $(divBoutonOnglet).insertBefore($(".ongletLot").last());
 
   //Création d'un nouveau input de titre lot
-  $(".container").last().prepend("<div class='divTitreLot' id='divTitreLot_"+numOnglet+"'><input type='text' class='titreLot' placeholder='Titre Lot' /></div>");
+  $(".container")
+    .last()
+    .prepend(
+      "<div class='divTitreLot' id='divTitreLot_" +
+        numOnglet +
+        "'><input type='text' class='titreLot' placeholder='Titre Lot' /></div>"
+    );
   //$(".divTitreLot").last().attr("id") = "divTitreLot_" + numOnglet;
 
   //On ajoute les évènements nécessaires au click
