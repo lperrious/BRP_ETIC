@@ -197,36 +197,6 @@ function dupliquerProjet(idProjet) {
   });
 }
 
-function ouvrirProjet(idProjet) {
-  var xslDocumentUrl =
-    "/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/XMLfiles/ouvrirProjet.xslt";
-  var xmlDocumentUrl =
-    "/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/XMLfiles/" +
-    idProjet +
-    ".xml";
-  var idElementRemplacement = $("#idElementInsertionProjet");
-
-  var xsltProcessor = new XSLTProcessor();
-
-  // Chargement du fichier XSL à l'aide de XMLHttpRequest synchrone
-  var xslDocument = chargerHttpXML(xslDocumentUrl);
-
-  // Importation du .xsl
-  xsltProcessor.importStylesheet(xslDocument);
-
-  // transfère les paramètres à la feuille de style
-  //xsltProcessor.setParameter(null, "idLot", code);
-
-  // Chargement du fichier XML à l'aide de XMLHttpRequest synchrone
-  var xmlDocument = chargerHttpXML(xmlDocumentUrl);
-
-  // Création du document XML transformé par le XSL
-  var newXmlDocument = xsltProcessor.transformToDocument(xmlDocument);
-
-  //On remplace toutes les balises concernant l'ancien projet actuellement existantes par les nouvelles
-  $(".container").last().html(newXmlDocument);
-}
-
 //charge le fichier XML se trouvant à l'URL relative donné dans le paramètre et le retourne
 function chargerHttpXML(xmlDocumentUrl) {
   var httpAjax;
@@ -244,6 +214,34 @@ function chargerHttpXML(xmlDocumentUrl) {
   httpAjax.send();
 
   return httpAjax.responseXML;
+}
+
+function ouvrirProjet(idProjet) {
+  console.log("url=" + document.URL);
+  var xslDocumentUrl =
+   "ouvrirProjet.xsl";
+  var xmlDocumentUrl =
+    "/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/XMLfiles/" +
+    idProjet +
+    ".xml";
+  var idElementRemplacement = $("#idElementInsertionProjet");
+
+  var xsltProcessor = new XSLTProcessor();
+
+  // Chargement du fichier XSL à l'aide de XMLHttpRequest synchrone
+  var xslDocument = chargerHttpXML(xslDocumentUrl);
+
+  // Importation du .xsl
+  xsltProcessor.importStylesheet(xslDocument);
+
+  // Chargement du fichier XML à l'aide de XMLHttpRequest synchrone
+  var xmlDocument = chargerHttpXML(xmlDocumentUrl);
+
+  // Création du document XML transformé par le XSL
+  var newXmlDocument = xsltProcessor.transformToDocument(xmlDocument);
+
+  //On remplace toutes les balises concernant l'ancien projet actuellement existantes par les nouvelles
+  $(".container").last().html(newXmlDocument);
 }
 
 function modifierInfosProjet(){

@@ -1,13 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-    <xsl:output method="html" encoding="UTF-8" indent="yes" />
+    <xsl:output method="html" />
 
     <xsl:template match="/">
-        <html>
+            <xsl:if test="count(//lot) = 0"> <!-- Si nouveau projet -->
+                <div class="divTitreLot" id="divTitreLot_1">
+                    <input type="text" class="titreLot" placeholder="Titre Lot" />
+                </div>
+                <div class="barreInsertion" onclick="AjouterElement('barre_1', 'lot_0');">
+                    <div class="panBarreInsertion"></div>
+                    <div class="panBarreInsertion"></div>
+                </div>
+                <div class="input-group titre1">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"></span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Titre 1" value="Titre 1" />
+                </div>
+                <div class="barreInsertion" onclick="AjouterElement('barre_2', 'lot_0');">
+                    <div class="panBarreInsertion"></div>
+                    <div class="panBarreInsertion"></div>
+                </div>
+            </xsl:if>
             <xsl:for-each select="//lot">
                 <xsl:variable name="i" select="position()" />
-                <div class="divTitreLot" id="divTitreLot_$i">
+                <div class="divTitreLot" id="divTitreLot_{$i}">
                     <input type="text" class="titreLot" placeholder="Titre Lot" />
                 </div>
             </xsl:for-each>
@@ -15,7 +33,11 @@
                 <xsl:apply-templates select="." />
                 <div class="finLot"></div>
             </xsl:for-each>
-        </html>
+            <xsl:for-each select="//lot">
+                <!--<div class="ongletLot" onclick="AfficherOnglet($('#lot_{$i}'));">
+                    <xsl:value-of select="$i"/>
+                </div>-->
+            </xsl:for-each>
     </xsl:template>
 
     <xsl:template match="lot">
@@ -23,7 +45,7 @@
             <div class="panBarreInsertion"></div>
             <div class="panBarreInsertion"></div>
         </div>
-        <xsl:for-each select=".titre1">
+        <xsl:for-each select="titre1">
             <xsl:apply-templates select="." />
         </xsl:for-each>
     </xsl:template>
@@ -39,7 +61,9 @@
             <div class="panBarreInsertion"></div>
             <div class="panBarreInsertion"></div>
         </div>
-        <xsl:apply-templates select="." />
+        <xsl:for-each select="*">
+            <xsl:apply-templates select="." />
+        </xsl:for-each>
     </xsl:template>
 
     <xsl:template match="titre2">
@@ -53,7 +77,9 @@
             <div class="panBarreInsertion"></div>
             <div class="panBarreInsertion"></div>
         </div>
-        <xsl:apply-templates select="." />
+        <xsl:for-each select="*">
+            <xsl:apply-templates select="." />
+        </xsl:for-each>
     </xsl:template>
 
     <xsl:template match="titre3">
@@ -67,7 +93,9 @@
             <div class="panBarreInsertion"></div>
             <div class="panBarreInsertion"></div>
         </div>
-        <xsl:apply-templates select="." />
+        <xsl:for-each select="*">
+            <xsl:apply-templates select="." />
+        </xsl:for-each>
     </xsl:template>
 
     <xsl:template match="titre4">
@@ -81,7 +109,9 @@
             <div class="panBarreInsertion"></div>
             <div class="panBarreInsertion"></div>
         </div>
-        <xsl:apply-templates select="." />
+        <xsl:for-each select="*">
+            <xsl:apply-templates select="." />
+        </xsl:for-each>
     </xsl:template>
 
     <xsl:template match="titre5">
@@ -99,7 +129,7 @@
     </xsl:template>
 
     <xsl:template match="descriptif">
-        <div class="descriptif {name(..)}" id="{@idBDD}">
+        <div class="descriptif {name(..)}" id="{@idBD}">
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1"></span>
@@ -115,8 +145,8 @@
                 <textarea class="form-control" aria-label="With textarea" placeholder="Description"></textarea>
             </div>
             <xsl:if test="@type = 'ouvrage' or @type = 'prestation'">
-                <xsl:for-each select=".ligneChiffrage">
-                    <xsl:apply-templates select="."></xsl:apply-templates>
+                <xsl:for-each select="ligneChiffrage">
+                    <xsl:apply-templates select="."/>
                 </xsl:for-each>
             </xsl:if>
         </div>
