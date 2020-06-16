@@ -163,6 +163,8 @@ function createProject(){
         //on ferme le popup
         popUpNomProjet(false);
 
+        //gestion erreur?
+
         ouvrirProjet(response['idProjet']);
   });
 }
@@ -196,6 +198,8 @@ function dupliquerProjet(idProjet){
         //on ferme le popup
         popUpNomProjet(false);
 
+        //gestion erreur?
+
         ouvrirProjet(response['newIdProjet']);
   });
 }
@@ -207,8 +211,54 @@ function ouvrirProjet(idProjet){
 }
 
 function modifierInfosProjet(){
-    var typeMarche = $('.typeMarche').val();
-    alert(typeMarche);
+
+    //on va chercher les infos du projet
+    var typeMarche = $('input[name="typeMarche"]:checked').val();
+    var typeConstruction = $('input[name="typeConstruction"]:checked').val();
+    var typelot = $('input[name="typelot"]:checked').val();
+    var typeSite = $('input[name="typeSite"]:checked').val();
+    var datePrixref = $('.datePrixref').val();
+    var coeffAdapt = $('.coeffAdapt').val();
+    var coeffRaccordement = $('#coeffRaccordement').val();
+    var categorieConstruction = $('#categorieConstruction').val(); 
+    var sousCategorieConstruction = $('#sousCategorieConstruction').val(); 
+    var caractDim = $('#caractDim').val();  
+
+    //on formate les données
+    if (typeof typeMarche === "undefined") typeMarche = "";
+    if (typeof typeConstruction === "undefined") typeConstruction = ""; 
+    if (typeof typelot === "undefined") typelot = ""; 
+    if (typeof typeSite === "undefined") typeSite = ""; 
+    if (categorieConstruction == "") {
+        sousCategorieConstruction = "";
+        caractDim = "";
+    } 
+
+    //on envoie à l'ajax
+    $.ajax({
+      url: "./ActionServlet",
+      method: "POST",
+      data: {
+        todo: "editerInfosProjet",
+        typeMarche : typeMarche,
+        typeConstruction : typeConstruction,
+        typelot : typelot,
+        typeSite : typeSite,
+        datePrixref : datePrixref,
+        coeffAdapt : coeffAdapt,
+        coeffRaccordement : coeffRaccordement,
+        categorieConstruction : categorieConstruction,
+        sousCategorieConstruction : sousCategorieConstruction,
+        caractDim : caractDim,
+      },
+      dataType: "json",
+    })
+        .done(function (response) {
+          // Fonction appelée en cas d'appel AJAX réussi
+          console.log("Response", response);
+
+          
+    });
 }
 
 function unset_select_descriptif() {
