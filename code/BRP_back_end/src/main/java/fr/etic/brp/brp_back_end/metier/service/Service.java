@@ -308,6 +308,7 @@ public class Service {
             Projet projet = projetDao.ChercherDernierParNom(nomProjet);
             idProjet = projet.getIdProjet();
             String uri = "Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/XMLfiles/"+idProjet+".xml";
+            //System.out.println("Working Directory = " + System.getProperty("user.dir"));
             //"../XMLfiles/"+idProjet+".xml";
             Document xml = projetXMLDao.Creer();
             
@@ -327,7 +328,9 @@ public class Service {
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service CreerProjet(nomProjet)", ex);
             //Supprimer le projet dans la BD si erreur XML
+            System.out.println("YES");
             try {
+                System.out.println("YES YES");
                 JpaUtil.ouvrirTransaction();
                 projetDao.Remove(newProjet);
                 JpaUtil.validerTransaction();
