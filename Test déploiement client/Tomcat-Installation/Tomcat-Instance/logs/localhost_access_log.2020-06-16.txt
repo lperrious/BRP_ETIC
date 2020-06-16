@@ -1918,3 +1918,9 @@
 0:0:0:0:0:0:0:1 - - [16/Jun/2020:16:33:31 +0200] "GET /favicon.ico HTTP/1.1" 200 21630
 0:0:0:0:0:0:0:1 - - [16/Jun/2020:16:33:31 +0200] "GET /BRP_front_end/ActionServlet?todo=arboDescriptifs HTTP/1.1" 200 23253
 0:0:0:0:0:0:0:1 - - [16/Jun/2020:16:33:36 +0200] "POST /BRP_front_end/ActionServlet HTTP/1.1" 200 41
+127.0.0.1 - - [16/Jun/2020:17:09:10 +0200] "HEAD /netbeans-tomcat-status-test HTTP/1.1" 404 -
+127.0.0.1 - tomcat [16/Jun/2020:17:09:10 +0200] "GET /manager/text/ HTTP/1.1" 200 41
+127.0.0.1 - - [16/Jun/2020:17:09:10 +0200] "HEAD /netbeans-tomcat-status-test HTTP/1.1" 404 -
+127.0.0.1 - tomcat [16/Jun/2020:17:09:10 +0200] "GET /manager/text/ HTTP/1.1" 200 41
+127.0.0.1 - - [16/Jun/2020:17:09:10 +0200] "HEAD /netbeans-tomcat-status-test HTTP/1.1" 404 -
+127.0.0.1 - tomcat [16/Jun/2020:17:09:10 +0200] "GET /manager/text/ HTTP/1.1" 200 41
