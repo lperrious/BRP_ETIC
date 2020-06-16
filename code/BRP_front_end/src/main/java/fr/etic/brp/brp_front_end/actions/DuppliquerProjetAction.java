@@ -1,6 +1,7 @@
 package fr.etic.brp.brp_front_end.actions;
 
 import fr.etic.brp.brp_back_end.metier.service.Service;
+import static java.lang.Long.parseLong;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -13,8 +14,8 @@ public class DuppliquerProjetAction extends Action {
     public void execute(HttpServletRequest request){ //Implémentation de la méthode Action.execute()
         
         //Récupération des paramètres de la requête
-        String idProjet = request.getParameter("idProjet");
-        String nomProjet = request.getParameter("nomProjet");
+        Long idProjet = parseLong(request.getParameter("idProjet"));
+        String nomProjet = (String)request.getParameter("nomProjet");
         
         //Instanciation de la classe de Service
         Service service = new Service();

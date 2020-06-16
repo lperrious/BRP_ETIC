@@ -1,5 +1,6 @@
 package fr.etic.brp.brp_back_end.metier.service;
 
+import fr.etic.brp.brp_back_end.dao.DomUtil;
 import fr.etic.brp.brp_back_end.dao.JpaUtil;
 import fr.etic.brp.brp_back_end.dao.ProjetDao;
 import fr.etic.brp.brp_back_end.dao.ProjetXMLDao;
@@ -74,6 +75,7 @@ public class ExportService {
     }
     
     public Boolean ExporterProjet(Long idProjet, int choixTemplate) {
+        DomUtil.init();
         Boolean resultat = false;
         
         Map<String, String> template1 = new HashMap<>();
@@ -87,7 +89,8 @@ public class ExportService {
 
         try {
             //Obtention du document XML
-            String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            String uri = "Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/XMLfiles/"+idProjet+".xml";
+            //"../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
             Document xml = projetXMLDao.ObtenirDocument(uri);
             
             //On insère les infos projets dans le XML
@@ -635,6 +638,8 @@ public class ExportService {
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service ExporterProjet(Long idProjet, int choixTemplate)", ex);
             //RM le dossier crée ?
+        } finally {
+            DomUtil.destroy();
         }
         return resultat;
     }

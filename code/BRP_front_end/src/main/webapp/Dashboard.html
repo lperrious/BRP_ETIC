@@ -20,17 +20,17 @@
     <script src="./script/script.js"></script>
   </head>
   <body>
-  	<div id="popUpWindow">
-  		<div class="flex1"></div>
-  		<div class="popupNomProjet">
-    		<input type="text" id="nomProjetInput" placeholder="Nom du projet">
-    		<div class="buttons">
-    			<div class="button" onclick="popUpNomProjet(false)">Annuler</div>
-    			<div class="button" >Valider</div>
-    		</div>
-    	</div>
-    	<div class="flex1"></div>
-  	</div>
+    <div id="popUpWindow">
+      <div class="flex1"></div>
+      <div class="popupNomProjet">
+        <input type="text" id="nomProjetInput" placeholder="Nom du projet" />
+        <div class="buttons">
+          <div class="button" onclick="popUpNomProjet(false)">Annuler</div>
+          <div class="button">Valider</div>
+        </div>
+      </div>
+      <div class="flex1"></div>
+    </div>
     <div id="container">
       <div class="container">
         <div id="nomProjet" onclick="display_manage_project()">
@@ -41,7 +41,7 @@
           <input type="text" id="search_input" placeholder="Chercher projet" />
           <div id="containerLineProjet">
             <div class="lineProjet">
-              <input type="hidden" class="idProjet" value="1">
+              <input type="hidden" class="idProjet" value="1" />
               <div class="textLineProjet">
                 <div class="iconProjet"><i class="far fa-file-alt"></i></div>
                 <div class="propositionNomProjet">Projet 1</div>
@@ -52,7 +52,7 @@
               </select>
             </div>
             <div class="lineProjet">
-      		  <input type="hidden" class="idProjet" value="2">
+              <input type="hidden" class="idProjet" value="2" />
               <div class="textLineProjet">
                 <div class="iconProjet"><i class="far fa-file-alt"></i></div>
                 <div class="propositionNomProjet">Projet 1</div>
@@ -63,7 +63,7 @@
               </select>
             </div>
             <div class="lineProjet">
-              <input type="hidden" class="idProjet" value="3">
+              <input type="hidden" class="idProjet" value="3" />
               <div class="textLineProjet">
                 <div class="iconProjet"><i class="far fa-file-alt"></i></div>
                 <div class="propositionNomProjet">Projet 1</div>
@@ -77,7 +77,9 @@
           <div class="flex1"></div>
           <div class="lineProjet createProjet">
             <div class="iconProjet"><i class="far fa-plus-square"></i></div>
-            <div class="propositionNomProjet" onclick="popUpNomProjet(true)">Nouveau projet</div>
+            <div class="propositionNomProjet" onclick="popUpNomProjet(true)">
+              Nouveau projet
+            </div>
           </div>
         </div>
         <div id="menu">
