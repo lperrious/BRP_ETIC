@@ -89,7 +89,8 @@ public class ExportService {
 
         try {
             //Obtention du document XML
-            String uri = "Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/XMLfiles/"+idProjet+".xml";
+            String uri = "/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/XMLfiles/"+idProjet+".xml";
+            //String uri = "Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/XMLfiles/"+idProjet+".xml";
             //"../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
             Document xml = projetXMLDao.ObtenirDocument(uri);
             

@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author quentinmarc
  */
-public class DuppliquerProjetAction extends Action {
+public class DupliquerProjetAction extends Action {
     
     @Override
     public void execute(HttpServletRequest request){ //Implémentation de la méthode Action.execute()
@@ -28,9 +28,9 @@ public class DuppliquerProjetAction extends Action {
             request.setAttribute("ErrorState", true);
         }
         
-        if(idProjet != null) {
+        if(newIdProjet != null) {
             request.setAttribute("ErrorState", false);
-            request.setAttribute("idProjet", newIdProjet);
+            request.setAttribute("newIdProjet", newIdProjet);
         }
     }
 }

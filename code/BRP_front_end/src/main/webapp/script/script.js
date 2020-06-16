@@ -163,8 +163,7 @@ function createProject(){
         //on ferme le popup
         popUpNomProjet(false);
 
-        //verif
-        ouvrirProjet(idProjet);
+        ouvrirProjet(response['idProjet']);
   });
 }
 
@@ -184,7 +183,7 @@ function dupliquerProjet(idProjet){
     url: "./ActionServlet",
     method: "POST",
     data: {
-      todo: "duppliquerProjet",
+      todo: "dupliquerProjet",
       idProjet : idProjet,
       nomProjet : nomProjet
     },
@@ -197,8 +196,7 @@ function dupliquerProjet(idProjet){
         //on ferme le popup
         popUpNomProjet(false);
 
-        //verif
-        ouvrirProjet(newIdProjet);
+        ouvrirProjet(response['newIdProjet']);
   });
 }
 
