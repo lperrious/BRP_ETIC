@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author quentinmarc
  */
-public class CreationProjetSerialisation extends Serialisation {
+public class DuppliquerProjetSerialisation extends Serialisation {
     
     @Override
     public void serialiser(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -21,13 +21,12 @@ public class CreationProjetSerialisation extends Serialisation {
         
         //Lecture des attributs de la requête (stockés par l'action)
         boolean ErrorState = (boolean)request.getAttribute("ErrorState");
-        
         container.addProperty("Error", ErrorState);
         
-        if(ErrorState == false)
+        if(ErrorState == false) 
         {   
-            Long idProjet = (Long)request.getAttribute("idProjet");
-            container.addProperty("idProjet", idProjet);
+            Long newIdProjet = (Long)request.getAttribute("newIdProjet");
+            container.addProperty("newIdProjet", newIdProjet);
         }
         
         //Formatage de la structure de données JSON => Ecriture sur le flux de sortie de la réponse

@@ -7,28 +7,29 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author quentinmarc
  */
-public class CreationProjetAction extends Action {
+public class DuppliquerProjetAction extends Action {
     
     @Override
     public void execute(HttpServletRequest request){ //Implémentation de la méthode Action.execute()
         
         //Récupération des paramètres de la requête
+        String idProjet = request.getParameter("idProjet");
         String nomProjet = request.getParameter("nomProjet");
         
         //Instanciation de la classe de Service
         Service service = new Service();
         
         //Appel des services métiers (=méthodes de la classe Service)
-        Long idProjet = null;
+        Long newIdProjet = null;
         try {
-            idProjet = service.CreerProjet(nomProjet);
+            newIdProjet = service.DupliquerProjet(idProjet, nomProjet);
         } catch(Exception ex) {
             request.setAttribute("ErrorState", true);
         }
         
         if(idProjet != null) {
             request.setAttribute("ErrorState", false);
-            request.setAttribute("idProjet", idProjet);
+            request.setAttribute("idProjet", newIdProjet);
         }
     }
 }

@@ -119,18 +119,27 @@ $(document).ready(function () {
 });
 
 /****************** Fonctions (popup) *********************/
-function popUpNomProjet(sens){
+function popUpNomProjet(sens, idProjet){
   //on le montre
   if (sens) {
     $('#popUpWindow').css("display", "flex");
     $('#container').css("filter", "blur(5px)");
   }
-
   //sinon on le cache
   else{
     $('#popUpWindow').hide();
+    $('#nomProjetInput').val("");
     $('#container').css("filter", "blur(0px)");
   }
+
+  //on tenete de duppliquer
+  if (idProjet)
+  //on essaie juste de créer un nouveau projet
+    $('.popupNomProjet > .buttons > .button').last().click(function () {
+          dupliquerProjet(idProjet)
+  });
+  else  
+    $('.popupNomProjet > .buttons > .button').last().click(createProject);
 }
 
 /****************** Fonctions (partie gauche) *********************/
@@ -140,7 +149,7 @@ function createProject(){
 
   $.ajax({
     url: "./ActionServlet",
-    method: "GET",
+    method: "POST",
     data: {
       todo: "creationProjet",
       nomProjet : nomProjet
@@ -150,6 +159,12 @@ function createProject(){
       .done(function (response) {
         // Fonction appelée en cas d'appel AJAX réussi
         console.log("Response", response);
+
+        //on ferme le popup
+        popUpNomProjet(false);
+
+        //verif
+        ouvrirProjet(idProjet);
   });
 }
 
@@ -158,17 +173,39 @@ function clicProjet(element){
     var action = $(element).children(".actionProjet").val();
     
     if (action == "ouvrir") ouvrirProjet(idProjet);
-    else dupliquerProjet(idProjet);
+    else popUpNomProjet(true, idProjet);
 }
 
-//a completer
 function dupliquerProjet(idProjet){
-    alert('dupliquer '+idProjet);
+
+  var nomProjet = $('#nomProjetInput').val();
+
+  $.ajax({
+    url: "./ActionServlet",
+    method: "POST",
+    data: {
+      todo: "duppliquerProjet",
+      idProjet : idProjet,
+      nomProjet : nomProjet
+    },
+    dataType: "json",
+  })
+      .done(function (response) {
+        // Fonction appelée en cas d'appel AJAX réussi
+        console.log("Response", response);
+
+        //on ferme le popup
+        popUpNomProjet(false);
+
+        //verif
+        ouvrirProjet(newIdProjet);
+  });
 }
 
 //a completer
 function ouvrirProjet(idProjet){
     alert('ouvrir '+idProjet);
+    //Appel ajax
 }
 
 function unset_select_descriptif() {
