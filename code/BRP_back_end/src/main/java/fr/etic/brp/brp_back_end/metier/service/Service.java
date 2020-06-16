@@ -8,6 +8,7 @@ import fr.etic.brp.brp_back_end.dao.CategorieDao;
 import fr.etic.brp.brp_back_end.dao.CoeffRaccordementDao;
 import fr.etic.brp.brp_back_end.dao.ChapitreDao;
 import fr.etic.brp.brp_back_end.dao.DescriptifDao;
+import fr.etic.brp.brp_back_end.dao.DomUtil;
 import fr.etic.brp.brp_back_end.dao.FamilleDao;
 import fr.etic.brp.brp_back_end.dao.JpaUtil;
 import fr.etic.brp.brp_back_end.dao.OperateurDao;
@@ -291,6 +292,7 @@ public class Service {
     
     public Long CreerProjet(String nomProjet) {
         JpaUtil.creerContextePersistance();
+        DomUtil.init();
         Projet newProjet = null;
         Long idProjet = -1L;
         
@@ -305,7 +307,8 @@ public class Service {
             //Creation du XML si tout a fonctionné
             Projet projet = projetDao.ChercherDernierParNom(nomProjet);
             idProjet = projet.getIdProjet();
-            String uri = "../XMLfiles/"+idProjet+".xml";
+            String uri = "Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/XMLfiles/"+idProjet+".xml";
+            //"../XMLfiles/"+idProjet+".xml";
             Document xml = projetXMLDao.Creer();
             
             //Création de la racine
@@ -334,6 +337,7 @@ public class Service {
             newProjet = null;
         } finally {
             JpaUtil.fermerContextePersistance();
+            DomUtil.destroy();
         }
      
         return idProjet;
@@ -590,6 +594,7 @@ public class Service {
         Long idProjet = -1L;
         
         JpaUtil.creerContextePersistance();
+        DomUtil.init();
         
         try {
             if(idProjetADupliquer != null)
@@ -615,8 +620,10 @@ public class Service {
                     //Copie du XML si tout a fonctionné
                     Projet projet = projetDao.ChercherDernierParNom(nomProjetDuplique);
                     idProjet = projet.getIdProjet();
-                    String uriNewXML = "../XMLfiles/"+idProjet+".xml";
-                    String uriOldXML = "../XMLfiles/"+idProjetADupliquer+".xml";
+                    String uriNewXML = "Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/XMLfiles/"+idProjet+".xml";
+                    //"../XMLfiles/"+idProjet+".xml";
+                    String uriOldXML = "Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/XMLfiles/"+idProjetADupliquer+".xml";
+                    //"../XMLfiles/"+idProjetADupliquer+".xml";
                     Document xml = projetXMLDao.ObtenirDocument(uriOldXML);
 
                     //MAJ de l'id de la racine projet
@@ -643,6 +650,7 @@ public class Service {
             projetDuplique = null;
         } finally {
             JpaUtil.fermerContextePersistance();
+            DomUtil.destroy();
         }
         
         return idProjet;   
@@ -654,6 +662,7 @@ public class Service {
         Double quantite = 0.0;
         Double prixUnitaire = 0.0;
         JpaUtil.creerContextePersistance();
+        DomUtil.init();
         try {
             Projet projet = projetDao.ChercherParId(idProjet);
             
@@ -662,7 +671,8 @@ public class Service {
             Double coeffRaccordement = projet.getCoeffRaccordement().getValeur();
             
             //on se positionne dans le corps souhaite
-            String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            String uri = "Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/XMLfiles/"+idProjet+".xml";
+            //"../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
             Document xml = projetXMLDao.ObtenirDocument(uri);
             NodeList rootNodes = xml.getElementsByTagName(typeBalise);
                         
@@ -697,6 +707,7 @@ public class Service {
             return null; //utile si coeffRaccordement ou coeffAdapt non définis
         } finally {
             JpaUtil.fermerContextePersistance();
+            DomUtil.destroy();
         }
         
         return total;
@@ -704,11 +715,13 @@ public class Service {
     
     public Boolean AjouterLot(Long idProjet, String placement, String idRefPlacement) {
         JpaUtil.creerContextePersistance();
+        DomUtil.init();
         Boolean resultat = false;
         
         try {
             //Obtention du document
-            String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            String uri = "Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/XMLfiles/"+idProjet+".xml";
+            //"../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
             Document xml = projetXMLDao.ObtenirDocument(uri);
             Element root = xml.getDocumentElement();
             //Création balise lot
@@ -735,17 +748,20 @@ public class Service {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterLot(Long idProjet, String placement, String idRefPlacement)");
         } finally {
             JpaUtil.fermerContextePersistance();
+            DomUtil.destroy();
         }
         return resultat;
     }
     
     public Boolean AjouterTitre1(Long idProjet, String placement, String idRefPlacement) {
         JpaUtil.creerContextePersistance();
+        DomUtil.init();
         Boolean resultat = false;
         
         try {
             //Obtention du document
-            String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            String uri = "Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/XMLfiles/"+idProjet+".xml";
+            //"../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
             Document xml = projetXMLDao.ObtenirDocument(uri);
             Element root = xml.getDocumentElement();
             //Création balise titre1
@@ -773,17 +789,20 @@ public class Service {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterTitre1(Long idProjet, String placement, String idRefPlacement)");
         } finally {
             JpaUtil.fermerContextePersistance();
+            DomUtil.destroy();
         }
         return resultat;
     }
     
     public Boolean AjouterTitre2(Long idProjet, String placement, String idRefPlacement) {
         JpaUtil.creerContextePersistance();
+        DomUtil.init();
         Boolean resultat = false;
         
         try {
             //Obtention du document
-            String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            String uri = "Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/XMLfiles/"+idProjet+".xml";
+            //"../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
             Document xml = projetXMLDao.ObtenirDocument(uri);
             //Création balise titre1
             Element baliseTitre2 = xml.createElement("titre2");
@@ -811,17 +830,20 @@ public class Service {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterTitre2(Long idProjet, String placement, String idRefPlacement)");
         } finally {
             JpaUtil.fermerContextePersistance();
+            DomUtil.destroy();
         }
         return resultat;
     }
     
     public Boolean AjouterTitre3(Long idProjet, String placement, String idRefPlacement) {
         JpaUtil.creerContextePersistance();
+        DomUtil.init();
         Boolean resultat = false;
         
         try {
             //Obtention du document
-            String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            String uri = "Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/XMLfiles/"+idProjet+".xml";
+            //"../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
             Document xml = projetXMLDao.ObtenirDocument(uri);
             //Création balise titre1
             Element baliseTitre3 = xml.createElement("titre3");
@@ -849,17 +871,20 @@ public class Service {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterTitre3(Long idProjet, String placement, String idRefPlacement)");
         } finally {
             JpaUtil.fermerContextePersistance();
+            DomUtil.destroy();
         }
         return resultat;
     }
     
     public Boolean AjouterTitre4(Long idProjet, String placement, String idRefPlacement) {
         JpaUtil.creerContextePersistance();
+        DomUtil.init();
         Boolean resultat = false;
         
         try {
             //Obtention du document
-            String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            String uri = "Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/XMLfiles/"+idProjet+".xml";
+            //"../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
             Document xml = projetXMLDao.ObtenirDocument(uri);
             //Création balise titre1
             Element baliseTitre4 = xml.createElement("titre4");
@@ -887,12 +912,14 @@ public class Service {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterTitre4(Long idProjet, String placement, String idRefPlacement)");
         } finally {
             JpaUtil.fermerContextePersistance();
+            DomUtil.destroy();
         }
         return resultat;
     }
      
     public Boolean AjouterDescriptif(Long idProjet, String placement, String idRefPlacement, String idDescriptif){
         JpaUtil.creerContextePersistance();
+        DomUtil.init();
         Boolean resultat = false;
         Boolean testInsertion = false;
                 
@@ -1052,12 +1079,14 @@ public class Service {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterDescriptif(Long idProjet, String placement, String idRefPlacement, String idDescriptif)", ex);
         } finally {
             JpaUtil.fermerContextePersistance();
+            DomUtil.destroy();
         }
         return resultat;
     }
     
     public Boolean AjouterLigneChiffrage(Long idProjet, String idDescriptif){
         JpaUtil.creerContextePersistance();
+        DomUtil.init();
         Boolean resultat = false;
         Boolean testInsertion = false;
         Double quantite = 1.0;
@@ -1134,6 +1163,7 @@ public class Service {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service AjouterPrestation(Long idProjet, String idDescriptif, String idPrestation)", ex);
         } finally {
             JpaUtil.fermerContextePersistance();
+            DomUtil.destroy();
         }
         return resultat;
     }
@@ -1141,6 +1171,7 @@ public class Service {
     public Boolean SuppressionBalise(Long idProjet, String idBalise) {
         
         Boolean resultat = false;
+        DomUtil.init();
         
         try {
             //Obtention du document
@@ -1156,12 +1187,15 @@ public class Service {
             
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service SuppressionBalise(Long idProjet, String idBalise)", ex);
+        } finally {
+            DomUtil.destroy();
         }
         return resultat;
     }
     
     //verif si fonctionne
     public Boolean SupprimerLigneChiffrage(Long idProjet, String idDescriptif, String idLigneChiffrage){
+        DomUtil.init();
         Boolean testSuppression = false;
         Boolean resultat = false;
         
@@ -1200,12 +1234,14 @@ public class Service {
             }
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service SupprimerLigneChiffrage(Long idProjet, String idDescriptif, String idLigneChiffrage)", ex);
+        } finally {
+            DomUtil.destroy();
         }
         return resultat;
     }
     
     public Boolean ModifierIntituleTitre(Long idProjet, String idTitre, String intitule) {
-        
+        DomUtil.init();
         Boolean resultat = false;
         
         try {
@@ -1223,11 +1259,14 @@ public class Service {
             
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service ModifierIntituleTitre(Long idProjet, String idTitre, String intitule)", ex);
+        } finally {
+            DomUtil.destroy();
         }
         return resultat;
     }
     
     public Boolean ModifierDescriptionDescriptif(Long idProjet, String idDescriptif, String newDescription){
+        DomUtil.init();
         Boolean testModif = false;
         Boolean resultat = false;
         
@@ -1257,11 +1296,14 @@ public class Service {
             }
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service ModifierDescriptionDescriptif(Long idProjet, String idDescriptif, String newDescription)", ex);
+        } finally {
+            DomUtil.destroy();
         }
         return resultat;
     }
     
     public Boolean ModifierCourteDescriptionDescriptif(Long idProjet, String idDescriptif, String newDescription){
+        DomUtil.init();
         Boolean testModif = false;
         Boolean resultat = false;
         
@@ -1291,11 +1333,14 @@ public class Service {
             }
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service ModifierCourteDescriptionDescriptif(Long idProjet, String idDescriptif, String newDescription)", ex);
+        } finally {
+            DomUtil.destroy();
         }
         return resultat;
     }
     
     public Boolean ModifierLocalisationDescriptif(Long idProjet, String idDescriptif, String idLigneChiffrage, String newLocalisation){
+        DomUtil.init();
         Boolean testModif = false;
         Boolean resultat = false;
         
@@ -1333,6 +1378,8 @@ public class Service {
             }
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service ModifierLocalisationDescriptif(Long idProjet, String idDescriptif, String idLigneChiffrage, String newLocalisation)", ex);
+        } finally {
+            DomUtil.destroy();
         }
         return resultat;
     }
@@ -1345,6 +1392,7 @@ public class Service {
         Boolean resultat = false;
         String idDescriptifBD = null;
         JpaUtil.creerContextePersistance();
+        DomUtil.init();
         
         try {
             //Obtention du document
@@ -1413,12 +1461,13 @@ public class Service {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service ModifierQuantiteDescriptif(Long idProjet, String idDescriptif, String idLigneChiffrage, Double quantite)", ex);
         } finally {
             JpaUtil.fermerContextePersistance();
+            DomUtil.destroy();
         }
         return resultat;
     }
     
     public Boolean ModifierPrixLigneChiffrage(Long idProjet, String idDescriptif, String idLigneChiffrage, Double prix){
-        
+        DomUtil.init();
         Boolean testModif = false;
         Boolean resultat = false;
         
@@ -1456,6 +1505,8 @@ public class Service {
             }
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service  ModifierPrixLigneChiffrage(Long idProjet, String idDescriptif, String idLigneChiffrage, Double prix)", ex);
+        } finally {
+            DomUtil.destroy();
         }
         return resultat;
     }

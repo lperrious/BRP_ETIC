@@ -113,7 +113,41 @@ $(document).ready(function () {
   AjoutEventSupprLigneChiffrage();
 });
 
+/****************** Fonctions (popup) *********************/
+function popUpNomProjet(sens){
+  //on le montre
+  if (sens) {
+    $('#popUpWindow').css("display", "flex");
+    $('#container').css("filter", "blur(5px)");
+  }
+
+  //sinon on le cache
+  else{
+    $('#popUpWindow').hide();
+    $('#container').css("filter", "blur(0px)");
+  }
+}
+
 /****************** Fonctions (partie gauche) *********************/
+function createProject(){
+
+  var nomProjet = $('#nomProjetInput').val();
+
+  $.ajax({
+    url: "./ActionServlet",
+    method: "GET",
+    data: {
+      todo: "creationProjet",
+      nomProjet : nomProjet
+    },
+    dataType: "json",
+  })
+      .done(function (response) {
+        // Fonction appelée en cas d'appel AJAX réussi
+        console.log("Response", response);
+  });
+}
+
 function unset_select_descriptif() {
   if (!test_select_descriptif) {
     $(".selectDescriptif").removeClass("selectDescriptif");
@@ -181,7 +215,7 @@ function apply_filter() {
       }
 
       //si le parent est visible alors on montre
-      if ($(parent).is(":visible")) $(this).show();
+      if ($(parent).is(":visible")) $(this).css("display", "flex");
     });
   }
   for (var i = 0; i < array_hide.length; i++) {
@@ -753,6 +787,8 @@ function AfficherOnglet(lotAfficher) {
       "#0070c9"
     );
   }
+  //on affiche le titre du lot
+  AfficherTitreLot($("#divTitreLot_" + numBouton));
 }
 
 function AfficherTitreLot(divTitreLotAfficher) {
@@ -823,11 +859,7 @@ function CreerOnglet() {
   $(divBoutonOnglet).insertBefore($(".ongletLot").last());
 
   //Création d'un nouveau input de titre lot
-  $(".lot")
-    .children(":first")
-    .insertBefore(
-      "<div class='divTitreLot'><input type='text' class='titreLot' placeholder='Titre Lot' /></div>"
-    );
+  $(".container").last().prepend("<div class='divTitreLot' id='divTitreLot_"+numOnglet+"'><input type='text' class='titreLot' placeholder='Titre Lot' /></div>");
   //$(".divTitreLot").last().attr("id") = "divTitreLot_" + numOnglet;
 
   //On ajoute les évènements nécessaires au click

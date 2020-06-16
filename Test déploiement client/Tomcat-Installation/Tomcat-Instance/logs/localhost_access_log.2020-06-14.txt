@@ -940,3 +940,9 @@
 0:0:0:0:0:0:0:1 - - [14/Jun/2020:15:16:30 +0200] "GET /BRP_front_end/Dashboard.html HTTP/1.1" 304 -
 0:0:0:0:0:0:0:1 - - [14/Jun/2020:15:16:30 +0200] "GET /BRP_front_end/style/style.css HTTP/1.1" 304 -
 0:0:0:0:0:0:0:1 - - [14/Jun/2020:15:16:30 +0200] "GET /BRP_front_end/script/script.js HTTP/1.1" 304 -
+127.0.0.1 - - [14/Jun/2020:17:35:35 +0200] "HEAD /netbeans-tomcat-status-test HTTP/1.1" 404 -
+127.0.0.1 - tomcat [14/Jun/2020:17:35:35 +0200] "GET /manager/text/ HTTP/1.1" 200 41
+127.0.0.1 - - [14/Jun/2020:17:35:35 +0200] "HEAD /netbeans-tomcat-status-test HTTP/1.1" 404 -
+127.0.0.1 - tomcat [14/Jun/2020:17:35:35 +0200] "GET /manager/text/ HTTP/1.1" 200 41
+127.0.0.1 - - [14/Jun/2020:17:35:35 +0200] "HEAD /netbeans-tomcat-status-test HTTP/1.1" 404 -
+127.0.0.1 - tomcat [14/Jun/2020:17:35:35 +0200] "GET /manager/text/ HTTP/1.1" 200 41

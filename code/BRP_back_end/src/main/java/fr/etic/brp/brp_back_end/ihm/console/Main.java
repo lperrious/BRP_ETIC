@@ -61,22 +61,22 @@ public class Main {
     
         // A faire tout le temps (l'ordre est important)
 //        InitialiserBasePrixRef();
-        InitialiserCaractDim();
-        InitialiserSousCategorieConstruction();
+//        InitialiserCaractDim();
+//        InitialiserSousCategorieConstruction();
 //        InitialiserCategorie();
-        InitialiserCategorieConstruction();
-        InitialiserCoeffRaccordement();
+//        InitialiserCategorieConstruction();
+//        InitialiserCoeffRaccordement();
 //        InitialiserChapitre();
 //        InitialiserDescriptif();
 //        InitialiserFamille();
-        InitialiserOperateur();
+//        InitialiserOperateur();
 //        InitialiserProjets();
 //        InitialiserSousFamille();
         
     //----------tests-des-services-----------------
     
-        testerModifBaseDescriptif();
-        testerModifBasePrixRef();
+//        testerModifBaseDescriptif();
+//        testerModifBasePrixRef();
 //        testerListerBasePrixRefs();
 //        testerListerCaractDims();
 //        testerListerCategories();
@@ -1119,7 +1119,7 @@ public static void Scenario3() {
         Service service = new Service();
         
         //Doit fonctionner
-        /*String nomProjet = "projet1";
+        String nomProjet = "projet1";
 
         Long projetTest1 = service.CreerProjet(nomProjet);
         if (projetTest1 != -1) {
@@ -1127,7 +1127,7 @@ public static void Scenario3() {
         }
         else {
             System.out.println("Echec: impossible de créer: " + nomProjet);
-        }
+        }/*
         
         //Doit fonctionner (nom deja présent BD)
         Boolean projetTest2 = service.CreerProjet(nomProjet);
