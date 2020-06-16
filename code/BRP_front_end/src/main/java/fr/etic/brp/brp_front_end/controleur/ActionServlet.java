@@ -6,12 +6,14 @@ import fr.etic.brp.brp_front_end.actions.ArboDescriptifsAction;
 import fr.etic.brp.brp_front_end.actions.ConnectionAction;
 import fr.etic.brp.brp_front_end.actions.CreationProjetAction;
 import fr.etic.brp.brp_front_end.actions.DupliquerProjetAction;
+import fr.etic.brp.brp_front_end.actions.EditerInfosProjetAction;
 import fr.etic.brp.brp_front_end.actions.InscriptionAction;
 import fr.etic.brp.brp_front_end.actions.TestConnectionAction;
 import fr.etic.brp.brp_front_end.serialisations.ArboDescriptifsSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.ConnectionSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.CreationProjetSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.DupliquerProjetSerialisation;
+import fr.etic.brp.brp_front_end.serialisations.EditerInfosProjetSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.InscriptionSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.Serialisation;
 import fr.etic.brp.brp_front_end.serialisations.TestConnectionSerialisation;
@@ -90,6 +92,11 @@ public class ActionServlet extends HttpServlet {
             case "dupliquerProjet" : {
                 action = new DupliquerProjetAction();
                 serialisation = new DupliquerProjetSerialisation();
+                break;
+            }
+            case "editerInfosProjet" : {
+                action = new EditerInfosProjetAction();
+                serialisation = new EditerInfosProjetSerialisation();
                 break;
             }
         }
