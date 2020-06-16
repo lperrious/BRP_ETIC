@@ -96,19 +96,19 @@
             <option value="prestation">Prestations</option>
           </select>
         </div>
-        <div id="infosProjet">
+        <div id="infosProjet" onchange="modifierInfosProjet()">
           <div class="infoProjet">
             <div class="titleInfo">Type de marché</div>
             <div class="valueInfo">
               <input
-                class="radioOption"
+                class="radioOption typeMarche"
                 type="radio"
                 name="typeMarche"
                 value="marchePublic"
               />
               <label for="marchePublic">Public</label>
               <input
-                class="radioOption"
+                class="radioOption typeMarche"
                 type="radio"
                 name="typeMarche"
                 value="marchePrive"

@@ -208,6 +208,11 @@ function ouvrirProjet(idProjet){
     //Appel ajax
 }
 
+function modifierInfosProjet(){
+    var typeMarche = $('.typeMarche').val();
+    alert(typeMarche);
+}
+
 function unset_select_descriptif() {
   if (!test_select_descriptif) {
     $(".selectDescriptif").removeClass("selectDescriptif");
