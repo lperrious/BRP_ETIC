@@ -2,19 +2,9 @@ package fr.etic.brp.brp_front_end.serialisations;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import fr.etic.brp.brp_back_end.metier.modele.Categorie;
-import fr.etic.brp.brp_back_end.metier.modele.Chapitre;
-import fr.etic.brp.brp_back_end.metier.modele.Descriptif;
-import fr.etic.brp.brp_back_end.metier.modele.Famille;
-import fr.etic.brp.brp_back_end.metier.modele.Generique;
-import fr.etic.brp.brp_back_end.metier.modele.Ouvrage;
-import fr.etic.brp.brp_back_end.metier.modele.Prestation;
-import fr.etic.brp.brp_back_end.metier.modele.SousFamille;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -30,9 +20,15 @@ public class CreationProjetSerialisation extends Serialisation {
         JsonObject container = new JsonObject(); //Objet "conteneur JSON" pour structurer les données à sérialiser
         
         //Lecture des attributs de la requête (stockés par l'action)
-        String idProjet = (String) request.getAttribute("test");
+        boolean ErrorState = (boolean)request.getAttribute("ErrorState");
         
-        container.addProperty("Test", idProjet);
+        container.addProperty("Error", ErrorState);
+        
+        if(ErrorState == false) //Deux sorties possibles
+        {   
+            Long idProjet = (Long)request.getAttribute("idProjet");
+            container.addProperty("idProjet", idProjet);
+        }
         
         //Formatage de la structure de données JSON => Ecriture sur le flux de sortie de la réponse
         PrintWriter out = this.getWriter(response);

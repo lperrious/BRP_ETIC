@@ -12,11 +12,23 @@ public class CreationProjetAction extends Action {
     @Override
     public void execute(HttpServletRequest request){ //Implémentation de la méthode Action.execute()
         
+        //Récupération des paramètres de la requête
+        String nomProjet = request.getParameter("nomProjet");
+        
         //Instanciation de la classe de Service
         Service service = new Service();
         
-        Long idProjet = service.CreerProjet(request.getParameter("nomProjet"));
+        //Appel des services métiers (=méthodes de la classe Service)
+        Long idProjet = null;
+        try {
+            idProjet = service.CreerProjet(nomProjet);
+        } catch(Exception ex) {
+            request.setAttribute("ErrorState", true);
+        }
         
-        request.setAttribute("idProjet", idProjet);
+        if(idProjet != null) {
+            request.setAttribute("ErrorState", false);
+            request.setAttribute("idProjet", idProjet);
+        }
     }
 }
