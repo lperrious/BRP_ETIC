@@ -84,4 +84,7 @@
             </titre2>
         </titre1>
     </lot>
+    <lot id="_20" intitule="testLot">
+        <titre1 id="_21" intitule="test1"></titre1>
+    </lot>
 </projet>
