@@ -3,7 +3,6 @@
 /Test déploiement client/DASI-TD2-Correction/target/
 /code/BRP_back_end/target/
 /code/BRP_back_end/target/*
-/code/XMLfiles
 *.DS_Store
 /persistence.xml
 /code/BRP_front_end/target/
