@@ -9,19 +9,21 @@
                     <div class="divTitreLot" id="divTitreLot_0">
                         <input type="text" class="titreLot" placeholder="Titre Lot" />
                     </div>
-                    <div class="barreInsertion" onclick="AjouterElement(this);">
-                        <div class="panBarreInsertion"></div>
-                        <div class="panBarreInsertion"></div>
-                    </div>
-                    <div class="input-group titre1">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"></span>
+                    <div class="lot" id="lot_0">
+                        <div class="barreInsertion" onclick="AjouterElement(this);">
+                            <div class="panBarreInsertion"></div>
+                            <div class="panBarreInsertion"></div>
                         </div>
-                        <input type="text" class="form-control" placeholder="Titre 1" value="Titre 1" />
-                    </div>
-                    <div class="barreInsertion" onclick="AjouterElement(this);">
-                        <div class="panBarreInsertion"></div>
-                        <div class="panBarreInsertion"></div>
+                        <div class="input-group titre1">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"></span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Titre 1" />
+                        </div>
+                        <div class="barreInsertion" onclick="AjouterElement(this);">
+                            <div class="panBarreInsertion"></div>
+                            <div class="panBarreInsertion"></div>
+                        </div>
                     </div>
                     <div id="ongletsLot">
                         <div class="ongletLot" onclick="AfficherOnglet($('#lot_0'));">0</div>
@@ -152,10 +154,10 @@
                         <span class="input-group-text" id="basic-addon1"></span>
                     </div>
                     <xsl:if test="@type = 'generique'">
-                        <input type="text" class="form-control" placeholder="Générique" value="Générique" />
+                        <input type="text" class="form-control" placeholder="Générique" />
                     </xsl:if>
                     <xsl:if test="@type = 'ouvrage' or @type = 'prestation'">
-                        <input type="text" class="form-control" placeholder="Ouvrage/Prestation" value="Ouvrage/Prestation" />
+                        <input type="text" class="form-control" placeholder="Ouvrage/Prestation" />
                     </xsl:if>
                 </div>
                 <div class="input-group description">
@@ -175,10 +177,10 @@
                         <span class="input-group-text" id="basic-addon1"></span>
                     </div>
                     <xsl:if test="@type = 'generique'">
-                        <input type="text" class="form-control" placeholder="Générique" value="Générique" />
+                        <input type="text" class="form-control" placeholder="Générique" />
                     </xsl:if>
                     <xsl:if test="@type = 'ouvrage' or @type = 'prestation'">
-                        <input type="text" class="form-control" placeholder="Ouvrage/Prestation" value="Ouvrage/Prestation" />
+                        <input type="text" class="form-control" placeholder="Ouvrage/Prestation" />
                     </xsl:if>
                 </div>
                 <div class="input-group description">
@@ -198,14 +200,14 @@
                         <span class="input-group-text" id="basic-addon1"></span>
                     </div>
                     <xsl:if test="@type = 'generique'">
-                        <input type="text" class="form-control" placeholder="Générique" value="Générique" />
+                        <input type="text" class="form-control" placeholder="Générique" />
                     </xsl:if>
                     <xsl:if test="@type = 'ouvrage' or @type = 'prestation'">
-                        <input type="text" class="form-control" placeholder="Ouvrage/Prestation" value="Ouvrage/Prestation" />
+                        <input type="text" class="form-control" placeholder="Ouvrage/Prestation" />
                     </xsl:if>
                 </div>
                 <div class="input-group description">
-                    <textarea class="form-control" aria-label="With textarea" placeholder="Description"></textarea>
+                    <textarea class="form-control" placeholder="Description"></textarea>
                 </div>
                 <xsl:if test="@type = 'ouvrage' or @type = 'prestation'">
                     <xsl:for-each select="ligneChiffrage">
@@ -221,10 +223,10 @@
                         <span class="input-group-text" id="basic-addon1"></span>
                     </div>
                     <xsl:if test="@type = 'generique'">
-                        <input type="text" class="form-control" placeholder="Générique" value="Générique" />
+                        <input type="text" class="form-control" placeholder="Générique" />
                     </xsl:if>
                     <xsl:if test="@type = 'ouvrage' or @type = 'prestation'">
-                        <input type="text" class="form-control" placeholder="Ouvrage/Prestation" value="Ouvrage/Prestation" />
+                        <input type="text" class="form-control" placeholder="Ouvrage/Prestation" />
                     </xsl:if>
                 </div>
                 <div class="input-group description">

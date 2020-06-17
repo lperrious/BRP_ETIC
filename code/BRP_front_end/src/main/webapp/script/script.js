@@ -216,8 +216,7 @@ function chargerHttpXML(xmlDocumentUrl) {
 
 function ouvrirProjet(idProjet) {
   var xslDocumentUrl = "stylesheet/ouvrirProjet.xsl";
-  var xmlDocumentUrl = "XMLfiles/templateProjet.xml";
-    //"XMLfiles/" + idProjet + ".xml";
+  var xmlDocumentUrl = "XMLfiles/" + idProjet + ".xml";
 
   var xsltProcessor = new XSLTProcessor();
 
@@ -233,11 +232,11 @@ function ouvrirProjet(idProjet) {
   // Création du document XML transformé par le XSL
   var newXmlDocument = xsltProcessor.transformToDocument(xmlDocument);
 
-  // Le div permet juste de récupèrer tout le dom
+  // Le div permet juste de récupèrer tout le DOM
   var elementAInserer = newXmlDocument.getElementsByTagName("div")[0];
 
   // On remplace toutes les balises concernant l'ancien projet actuellement existantes par les nouvelles
-  $(".container").last().html(elementAInserer);
+  $(".container").last().html(elementAInserer.childNodes);
 
   //Ajout de l'hover sur toutes les barres d'insertions titre
   addEventsDescriptifs();
@@ -548,7 +547,7 @@ function AjouterElement(element) {
       if (!$(".selectDescriptif").hasClass("generique")) {
 
         $(divInsertionDescriptif).html("<div class='input-group'><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control' placeholder='Ouvrage/Prestation'/></div><div class='input-group description'><textarea class='form-control' placeholder='Description'></textarea></div><div class='ligneChiffrage'><input type='text' class='form-control' placeholder='Localisation'/><input type='text' class='form-control' placeholder='Quantité'/><div class='input-group-prepend'><span class='input-group-text'></span></div></div>");
-        //! Rajouter la description et l'unité en AJAX
+        //! Rajouter la description ET l'unité en AJAX
 
         $(divInsertionDescriptif).insertBefore($(element));
 
@@ -626,7 +625,13 @@ function AjouterElement(element) {
       }
     }
 
+    //Permet de gérer les cas ou on va proposer deux fois le même type de titre
+    //Ou quand il n'y a rien en dessous pour proposer un titre plus bas dans l'arbo
     if (type1 == type2) type2 = null;
+    else if (type1 == "titre1" && type2 == null) type2 = "titre2";
+    else if (type1 == "titre2" && type2 == null) type2 = "titre3";
+    else if (type1 == "titre3" && type2 == null) type2 = "titre4";
+    else if (type1 == "titre4" && type2 == null) type2 = "titre5";
 
     //On affiche un panneau demandant quel type de titre il veut afficher parmis les choix dispo
     var divInsertionTitre = document.createElement("div");
@@ -833,7 +838,7 @@ function CreerOnglet() {
   $(divNouvelOnglet).insertBefore($("#ongletsLot"));
 
   //Création de deux barres d'insertion d'un titre1 et d'une fin de lot dans ce nouvel onglet
-  var divBoutonOnglet = $("<div class='ongletLot' onclick='AfficherOnglet(\"#" + idOnglet + "\"));'>"+ numOnglet + "</div>");
+  var divBoutonOnglet = $("<div class='ongletLot' onclick='AfficherOnglet($(\"#" + idOnglet + "\"));'>"+ numOnglet + "</div>");
   $(divBoutonOnglet).insertBefore($(".ongletLot").last());
 
   //Création d'un nouveau input de titre lot
@@ -895,40 +900,9 @@ function toRoman(num) {
 
 function AjouterLigneChiffrage(element) {
   //Création d'une nouvelle ligneChiffrage au dessus de la barre d'insertion ligneChiffrage
-  var divInputGroupLigneChiffrage = document.createElement("div");
-  divInputGroupLigneChiffrage.className = "ligneChiffrage";
-
-  var inputLocalisation = document.createElement("input");
-  inputLocalisation.type = "text";
-  inputLocalisation.className = "form-control";
-  inputLocalisation.placeholder = "Localisation";
-
-  var inputQuantite = document.createElement("input");
-  inputQuantite.type = "text";
-  inputQuantite.className = "form-control";
-  inputQuantite.placeholder = "Quantité";
-
-  var divInputGroupPrependUnite = document.createElement("div");
-  divInputGroupPrependUnite.className = "input-group-prepend";
-
-  var spanInputGroupTextUnite = document.createElement("span");
-  spanInputGroupTextUnite.className = "input-group-text";
-  //Faut rajouter l'unité en AJAX
-
-  var divSuppressionLigneChiffrage = document.createElement("div");
-  divSuppressionLigneChiffrage.className = "suppressionLigneChiffrage";
-  var svgSuppr = document.createElement("i");
-  svgSuppr.className = "fas fa-times";
-  divSuppressionLigneChiffrage.appendChild(svgSuppr);
-
-  divInputGroupPrependUnite.appendChild(spanInputGroupTextUnite);
-
-  divInputGroupLigneChiffrage.appendChild(inputLocalisation);
-  divInputGroupLigneChiffrage.appendChild(inputQuantite);
-  divInputGroupLigneChiffrage.appendChild(divInputGroupPrependUnite);
-  divInputGroupLigneChiffrage.appendChild(divSuppressionLigneChiffrage);
-
-  $(divInputGroupLigneChiffrage).insertBefore($(element));
+  var divBarreInsertionLigneChiffrage = $("<div class='ligneChiffrage'><input type='text' class='form-control' placeholder='Localisation'/><input type='text' class='form-control' placeholder='Quantité'/><div class='input-group-prepend'><span class='input-group-text'></span></div><div class='suppressionLigneChiffrage'><i class='fas fa-times'></i></div></div>");
+  //! Appel AJAX pour rajouter l'unité dans le div juste inséré
+  $(divBarreInsertionLigneChiffrage).insertBefore($(element));
 
   //Ajout évènement suppression ligne chiffrage
   AjoutEventSupprLigneChiffrage();
