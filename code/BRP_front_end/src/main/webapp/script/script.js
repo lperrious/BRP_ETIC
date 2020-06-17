@@ -197,11 +197,30 @@ function dupliquerProjet(idProjet) {
   });
 }
 
+//charge le fichier XML se trouvant à l'URL relative donné dans le paramètre et le retourne
+function chargerHttpXML(xmlDocumentUrl) {
+  var httpAjax;
+
+  httpAjax = window.XMLHttpRequest
+    ? new XMLHttpRequest()
+    : new ActiveXObject("Microsoft.XMLHTTP");
+
+  if (httpAjax.overrideMimeType) {
+    httpAjax.overrideMimeType("text/xml");
+  }
+
+  //chargement du fichier XML à l'aide de XMLHttpRequest synchrone (le 3ème paramètre est défini sur false)
+  httpAjax.open("GET", xmlDocumentUrl, false);
+  httpAjax.send();
+
+  return httpAjax.responseXML;
+}
+
 function ouvrirProjet(idProjet) {
   var xslDocumentUrl =
-    "/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/XMLfiles/ouvrirProjet.xslt";
+    "/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/XMLfiles/ouvrirProjet.xslt";
   var xmlDocumentUrl =
-    "/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/XMLfiles/" +
+    "/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/XMLfiles/" +
     idProjet +
     ".xml";
   var idElementRemplacement = $("#idElementInsertionProjet");
@@ -227,31 +246,12 @@ function ouvrirProjet(idProjet) {
   $(".container").last().html(newXmlDocument);
 }
 
-//charge le fichier XML se trouvant à l'URL relative donné dans le paramètre et le retourne
-function chargerHttpXML(xmlDocumentUrl) {
-  var httpAjax;
-
-  httpAjax = window.XMLHttpRequest
-    ? new XMLHttpRequest()
-    : new ActiveXObject("Microsoft.XMLHTTP");
-
-  if (httpAjax.overrideMimeType) {
-    httpAjax.overrideMimeType("text/xml");
-  }
-
-  //chargement du fichier XML à l'aide de XMLHttpRequest synchrone (le 3ème paramètre est défini sur false)
-  httpAjax.open("GET", xmlDocumentUrl, false);
-  httpAjax.send();
-
-  return httpAjax.responseXML;
-}
-
 function modifierInfosProjet(){
 
     //on va chercher les infos du projet
     var typeMarche = $('input[name="typeMarche"]:checked').val();
     var typeConstruction = $('input[name="typeConstruction"]:checked').val();
-    var typelot = $('input[name="typelot"]:checked').val();
+    var typeLot = $('input[name="typeLot"]:checked').val();
     var typeSite = $('input[name="typeSite"]:checked').val();
     var datePrixref = $('.datePrixref').val();
     var coeffAdapt = $('.coeffAdapt').val();
@@ -263,7 +263,7 @@ function modifierInfosProjet(){
     //on formate les données
     if (typeof typeMarche === "undefined") typeMarche = "";
     if (typeof typeConstruction === "undefined") typeConstruction = ""; 
-    if (typeof typelot === "undefined") typelot = ""; 
+    if (typeof typeLot === "undefined") typeLot = ""; 
     if (typeof typeSite === "undefined") typeSite = ""; 
     if (categorieConstruction == "") {
         sousCategorieConstruction = "";
@@ -278,7 +278,7 @@ function modifierInfosProjet(){
         todo: "editerInfosProjet",
         typeMarche : typeMarche,
         typeConstruction : typeConstruction,
-        typelot : typelot,
+        typeLot : typeLot,
         typeSite : typeSite,
         datePrixref : datePrixref,
         coeffAdapt : coeffAdapt,
