@@ -255,25 +255,27 @@ function ouvrirProjet(idProjet) {
 
 function modifierInfosProjet(){
     //on va chercher les infos du projet
+    var nomProjet = $('.nomProjetUpdate').val();
+    var refBRP = $('.refBRP').val();
     var typeMarche = $('input[name="typeMarche"]:checked').val();
     var typeConstruction = $('input[name="typeConstruction"]:checked').val();
     var typeLot = $('input[name="typeLot"]:checked').val();
     var typeSite = $('input[name="typeSite"]:checked').val();
     var datePrixref = $('.datePrixref').val();
     var coeffAdapt = $('.coeffAdapt').val();
-    var coeffRaccordement = $('#coeffRaccordement').val();
-    var categorieConstruction = $('#categorieConstruction').val(); 
-    var sousCategorieConstruction = $('#sousCategorieConstruction').val(); 
-    var caractDim = $('#caractDim').val();  
+    var idCoeffRaccordement = $('#coeffRaccordement').val();
+    var idCategorieConstruction = $('#categorieConstruction').val(); 
+    var idSousCategorieConstruction = $('#sousCategorieConstruction').val(); 
+    var idCaractDim = $('#caractDim').val();  
 
     //on formate les données
     if (typeof typeMarche === "undefined") typeMarche = "";
     if (typeof typeConstruction === "undefined") typeConstruction = ""; 
     if (typeof typeLot === "undefined") typeLot = ""; 
     if (typeof typeSite === "undefined") typeSite = ""; 
-    if (categorieConstruction == "") {
-        sousCategorieConstruction = "";
-        caractDim = "";
+    if (idCategorieConstruction == "") {
+        idSousCategorieConstruction = "";
+        idCaractDim = "";
     }
 
     //on envoie à l'ajax
@@ -282,16 +284,18 @@ function modifierInfosProjet(){
       method: "POST",
       data: {
         todo: "editerInfosProjet",
+        nomProjet:nomProjet,
+        refBRP:refBRP,
         typeMarche : typeMarche,
         typeConstruction : typeConstruction,
         typeLot : typeLot,
         typeSite : typeSite,
         datePrixref : datePrixref,
         coeffAdapt : coeffAdapt,
-        coeffRaccordement : coeffRaccordement,
-        categorieConstruction : categorieConstruction,
-        sousCategorieConstruction : sousCategorieConstruction,
-        caractDim : caractDim,
+        idCoeffRaccordement : idCoeffRaccordement,
+        idCategorieConstruction : idCategorieConstruction,
+        idSousCategorieConstruction : idSousCategorieConstruction,
+        idCaractDim : idCaractDim,
       },
       dataType: "json",
     })
