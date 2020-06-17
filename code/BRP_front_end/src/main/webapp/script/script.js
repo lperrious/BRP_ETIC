@@ -215,19 +215,9 @@ function chargerHttpXML(xmlDocumentUrl) {
 }
 
 function ouvrirProjet(idProjet) {
-  var xslDocumentUrl =
-<<<<<<< HEAD
-    "/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/XMLfiles/ouvrirProjet.xslt";
-  var xmlDocumentUrl =
-    "/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/XMLfiles/" +
-    idProjet +
-    ".xml";
-  var idElementRemplacement = $("#idElementInsertionProjet");
-=======
-   "stylesheet/ouvrirProjet.xsl";
+  var xslDocumentUrl = "stylesheet/ouvrirProjet.xsl";
   var xmlDocumentUrl = "XMLfiles/templateProjet.xml";
     //"XMLfiles/" + idProjet + ".xml";
->>>>>>> bcee485a877a9b12a34478c6c513f1715e4364ee
 
   var xsltProcessor = new XSLTProcessor();
 
@@ -246,8 +236,6 @@ function ouvrirProjet(idProjet) {
   // Le div permet juste de récupèrer tout le dom
   var elementAInserer = newXmlDocument.getElementsByTagName("div")[0];
 
-<<<<<<< HEAD
-=======
   // On remplace toutes les balises concernant l'ancien projet actuellement existantes par les nouvelles
   $(".container").last().html(elementAInserer);
 
@@ -266,7 +254,6 @@ function ouvrirProjet(idProjet) {
   }
 }
 
->>>>>>> bcee485a877a9b12a34478c6c513f1715e4364ee
 function modifierInfosProjet(){
     //on va chercher les infos du projet
     var typeMarche = $('input[name="typeMarche"]:checked').val();

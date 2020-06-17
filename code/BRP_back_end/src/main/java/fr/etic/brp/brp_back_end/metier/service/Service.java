@@ -64,6 +64,9 @@ public class Service {
     protected PrestationDao prestationDao = new PrestationDao();
     protected ProjetXMLDao projetXMLDao = new ProjetXMLDao();
     
+    protected String rootXMLFiles = "../../../../code/BRP_front_end/src/main/webapp/XMLfiles/";
+    
+    
     public Descriptif RechercherDescriptifParId(String id) {
         Descriptif resultat = null;
         JpaUtil.creerContextePersistance();
@@ -307,10 +310,8 @@ public class Service {
             //Creation du XML si tout a fonctionné
             Projet projet = projetDao.ChercherDernierParNom(nomProjet);
             idProjet = projet.getIdProjet();
-            String uri = "/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/XMLfiles/"+idProjet+".xml";
-            //String uri = "Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/XMLfiles/"+idProjet+".xml";
-            //System.out.println("Working Directory = " + System.getProperty("user.dir"));
-            //"../XMLfiles/"+idProjet+".xml";
+            
+            String uri = rootXMLFiles+idProjet+".xml";
             Document xml = projetXMLDao.Creer();
             
             //Création de la racine
@@ -624,12 +625,8 @@ public class Service {
                     //Copie du XML si tout a fonctionné
                     Projet projet = projetDao.ChercherDernierParNom(nomProjetDuplique);
                     idProjet = projet.getIdProjet();
-                    String uriNewXML = "/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/XMLfiles/"+idProjet+".xml";
-                    //String uriNewXML = "Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/XMLfiles/"+idProjet+".xml";
-                    //"../XMLfiles/"+idProjet+".xml";
-                    String uriOldXML = "/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/XMLfiles/"+idProjetADupliquer+".xml";
-                    //String uriOldXML = "Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/XMLfiles/"+idProjetADupliquer+".xml";
-                    //"../XMLfiles/"+idProjetADupliquer+".xml";
+                    String uriNewXML = rootXMLFiles+idProjet+".xml";
+                    String uriOldXML = rootXMLFiles+idProjetADupliquer+".xml";
                     Document xml = projetXMLDao.ObtenirDocument(uriOldXML);
 
                     //MAJ de l'id de la racine projet
@@ -677,9 +674,7 @@ public class Service {
             Double coeffRaccordement = projet.getCoeffRaccordement().getValeur();
             
             //on se positionne dans le corps souhaite
-            String uri = "/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/XMLfiles/"+idProjet+".xml";
-            //String uri = "Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/XMLfiles/"+idProjet+".xml";
-            //"../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            String uri = rootXMLFiles+idProjet+".xml";
             Document xml = projetXMLDao.ObtenirDocument(uri);
             NodeList rootNodes = xml.getElementsByTagName(typeBalise);
                         
@@ -727,9 +722,7 @@ public class Service {
         
         try {
             //Obtention du document
-            String uri = "/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/XMLfiles/"+idProjet+".xml";
-            //String uri = "Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/XMLfiles/"+idProjet+".xml";
-            //"../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            String uri = rootXMLFiles+idProjet+".xml";
             Document xml = projetXMLDao.ObtenirDocument(uri);
             Element root = xml.getDocumentElement();
             //Création balise lot
@@ -768,9 +761,7 @@ public class Service {
         
         try {
             //Obtention du document
-            String uri = "/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/XMLfiles/"+idProjet+".xml";
-            //String uri = "Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/XMLfiles/"+idProjet+".xml";
-            //"../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            String uri = rootXMLFiles+idProjet+".xml";
             Document xml = projetXMLDao.ObtenirDocument(uri);
             Element root = xml.getDocumentElement();
             //Création balise titre1
@@ -810,9 +801,7 @@ public class Service {
         
         try {
             //Obtention du document
-            String uri = "/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/XMLfiles/"+idProjet+".xml";
-            //String uri = "Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/XMLfiles/"+idProjet+".xml";
-            //"../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            String uri = rootXMLFiles+idProjet+".xml";
             Document xml = projetXMLDao.ObtenirDocument(uri);
             //Création balise titre1
             Element baliseTitre2 = xml.createElement("titre2");
@@ -852,9 +841,7 @@ public class Service {
         
         try {
             //Obtention du document
-            String uri = "/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/XMLfiles/"+idProjet+".xml";
-            //String uri = "Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/XMLfiles/"+idProjet+".xml";
-            //"../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            String uri = rootXMLFiles+idProjet+".xml";
             Document xml = projetXMLDao.ObtenirDocument(uri);
             //Création balise titre1
             Element baliseTitre3 = xml.createElement("titre3");
@@ -894,9 +881,7 @@ public class Service {
         
         try {
             //Obtention du document
-            String uri = "/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/XMLfiles/"+idProjet+".xml";
-            //String uri = "Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/XMLfiles/"+idProjet+".xml";
-            //"../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            String uri = rootXMLFiles+idProjet+".xml";
             Document xml = projetXMLDao.ObtenirDocument(uri);
             //Création balise titre1
             Element baliseTitre4 = xml.createElement("titre4");
@@ -937,8 +922,7 @@ public class Service {
                 
         try {
             //Obtention du document
-            String uri = "/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/XMLfiles/"+idProjet+".xml";
-            //String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            String uri = rootXMLFiles+idProjet+".xml";
             Document xml = projetXMLDao.ObtenirDocument(uri);
             
             //on récupère le descriptif puis on crée la balise correspondante
@@ -1108,8 +1092,7 @@ public class Service {
         
         try {
             //Obtention du document
-            String uri = "/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/XMLfiles/"+idProjet+".xml";
-            //String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            String uri = rootXMLFiles+idProjet+".xml";
             Document xml = projetXMLDao.ObtenirDocument(uri);
             NodeList rootNodes = xml.getElementsByTagName("descriptif");
             
@@ -1189,8 +1172,7 @@ public class Service {
         
         try {
             //Obtention du document
-            String uri = "/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/XMLfiles/"+idProjet+".xml";
-            //String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            String uri = rootXMLFiles+idProjet+".xml";
             Document xml = projetXMLDao.ObtenirDocument(uri);
             
             Element element = (Element) xml.getElementById(idBalise);
@@ -1216,8 +1198,7 @@ public class Service {
         
         try {
             //Obtention du document
-            String uri = "/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/XMLfiles/"+idProjet+".xml";
-            //String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            String uri = rootXMLFiles+idProjet+".xml";
             Document xml = projetXMLDao.ObtenirDocument(uri);
  
             int nbLigneChiffrage = 0;
@@ -1262,8 +1243,7 @@ public class Service {
         
         try {
             //Obtention du document
-            String uri = "/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/XMLfiles/"+idProjet+".xml";
-            //String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            String uri = rootXMLFiles+idProjet+".xml";
             Document xml = projetXMLDao.ObtenirDocument(uri);
             
             Element element = (Element) xml.getElementById(idTitre);
@@ -1289,8 +1269,7 @@ public class Service {
         
         try {
             //Obtention du document
-            String uri = "/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/XMLfiles/"+idProjet+".xml";
-            //String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            String uri = rootXMLFiles+idProjet+".xml";
             Document xml = projetXMLDao.ObtenirDocument(uri);
             
             Element baliseDescriptif = (Element) xml.getElementById(idDescriptif);
@@ -1327,8 +1306,7 @@ public class Service {
         
         try {
             //Obtention du document
-            String uri = "/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/XMLfiles/"+idProjet+".xml";
-            //String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            String uri = rootXMLFiles+idProjet+".xml";
             Document xml = projetXMLDao.ObtenirDocument(uri);
             
             Element baliseDescriptif = (Element) xml.getElementById(idDescriptif);
@@ -1365,8 +1343,7 @@ public class Service {
         
         try {
             //Obtention du document
-            String uri = "/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/XMLfiles/"+idProjet+".xml";
-            //String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            String uri = rootXMLFiles+idProjet+".xml";
             Document xml = projetXMLDao.ObtenirDocument(uri);
             
             Element baliseDescriptif = (Element) xml.getElementById(idDescriptif);
@@ -1416,8 +1393,7 @@ public class Service {
         
         try {
             //Obtention du document
-            String uri = "/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/XMLfiles/"+idProjet+".xml";
-            //String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            String uri = rootXMLFiles+idProjet+".xml";
             Document xml = projetXMLDao.ObtenirDocument(uri);
             
             Element baliseDescriptif = (Element) xml.getElementById(idDescriptif);
@@ -1494,8 +1470,7 @@ public class Service {
         
         try {
             //Obtention du document
-            String uri = "/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/XMLfiles/"+idProjet+".xml";
-            //String uri = "../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            String uri = rootXMLFiles+idProjet+".xml";
             Document xml = projetXMLDao.ObtenirDocument(uri);
             
             Element baliseDescriptif = (Element) xml.getElementById(idDescriptif);

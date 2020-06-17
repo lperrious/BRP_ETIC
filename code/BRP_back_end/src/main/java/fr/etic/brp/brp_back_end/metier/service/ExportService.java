@@ -49,6 +49,8 @@ public class ExportService {
     protected ProjetXMLDao projetXMLDao = new ProjetXMLDao();
     protected ProjetDao projetDao = new ProjetDao();
     
+    protected String rootXMLFiles = "../../../../code/BRP_front_end/src/main/webapp/XMLfiles/";
+    
     private final static TreeMap<Integer, String> map = new TreeMap<Integer, String>();
     static {
         map.put(1000, "M");
@@ -89,9 +91,7 @@ public class ExportService {
 
         try {
             //Obtention du document XML
-            String uri = "/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/XMLfiles/"+idProjet+".xml";
-            //String uri = "Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/XMLfiles/"+idProjet+".xml";
-            //"../XMLfiles/"+idProjet+".xml"; //Surement à changer lors de l'installation client
+            String uri = rootXMLFiles+idProjet+".xml";
             Document xml = projetXMLDao.ObtenirDocument(uri);
             
             //On insère les infos projets dans le XML
