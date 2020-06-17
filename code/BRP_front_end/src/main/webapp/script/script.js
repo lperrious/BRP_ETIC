@@ -2,8 +2,6 @@
 
 test_select_descriptif = false; //permet de ne pas supprimer la selection d'un element à peine faite
 test_manageProjet = false;
-var barreInsertionNextId = 19; //Mettre à 0
-var barreInsertionChiffrageNextId = 3; //Mettre à 0
 var testChoixPresent = false;
 
 /************** Appels au chargement de la page ******************/
@@ -218,12 +216,18 @@ function chargerHttpXML(xmlDocumentUrl) {
 
 function ouvrirProjet(idProjet) {
   var xslDocumentUrl =
+<<<<<<< HEAD
     "/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/XMLfiles/ouvrirProjet.xslt";
   var xmlDocumentUrl =
     "/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/XMLfiles/" +
     idProjet +
     ".xml";
   var idElementRemplacement = $("#idElementInsertionProjet");
+=======
+   "stylesheet/ouvrirProjet.xsl";
+  var xmlDocumentUrl = "XMLfiles/templateProjet.xml";
+    //"XMLfiles/" + idProjet + ".xml";
+>>>>>>> bcee485a877a9b12a34478c6c513f1715e4364ee
 
   var xsltProcessor = new XSLTProcessor();
 
@@ -233,21 +237,37 @@ function ouvrirProjet(idProjet) {
   // Importation du .xsl
   xsltProcessor.importStylesheet(xslDocument);
 
-  // transfère les paramètres à la feuille de style
-  //xsltProcessor.setParameter(null, "idLot", code);
-
   // Chargement du fichier XML à l'aide de XMLHttpRequest synchrone
   var xmlDocument = chargerHttpXML(xmlDocumentUrl);
 
   // Création du document XML transformé par le XSL
   var newXmlDocument = xsltProcessor.transformToDocument(xmlDocument);
 
-  //On remplace toutes les balises concernant l'ancien projet actuellement existantes par les nouvelles
-  $(".container").last().html(newXmlDocument);
+  // Le div permet juste de récupèrer tout le dom
+  var elementAInserer = newXmlDocument.getElementsByTagName("div")[0];
+
+<<<<<<< HEAD
+=======
+  // On remplace toutes les balises concernant l'ancien projet actuellement existantes par les nouvelles
+  $(".container").last().html(elementAInserer);
+
+  //Ajout de l'hover sur toutes les barres d'insertions titre
+  addEventsDescriptifs();
+
+  //On affiche par défaut le premier lot
+  AfficherOnglet($("#lot_0"));
+
+  //On affiche le bon titre lot
+  AfficherTitreLot($("#divTitreLot_0"));
+
+  //On numérote l'arbo
+  for (let index = 0; index < $(".lot").length; index++) {
+    NumerotationArbo("lot_" + index);
+  }
 }
 
+>>>>>>> bcee485a877a9b12a34478c6c513f1715e4364ee
 function modifierInfosProjet(){
-
     //on va chercher les infos du projet
     var typeMarche = $('input[name="typeMarche"]:checked').val();
     var typeConstruction = $('input[name="typeConstruction"]:checked').val();
@@ -268,7 +288,7 @@ function modifierInfosProjet(){
     if (categorieConstruction == "") {
         sousCategorieConstruction = "";
         caractDim = "";
-    } 
+    }
 
     //on envoie à l'ajax
     $.ajax({
@@ -487,13 +507,13 @@ function display_manage_project() {
 
 function addEventsDescriptifs() {
   $(".barreInsertion").mouseenter(function () {
-    var element = $("#" + $(this).attr("id") + " > .panBarreInsertion").first();
+    var element = $(this).children(":first");
     $(element).css("border-bottom", "solid");
     $(element).css("border-width", "1.5px");
     $(element).css("border-color", "rgb(95, 95, 95)");
   });
   $(".barreInsertion").mouseleave(function () {
-    var element = $("#" + $(this).attr("id") + " > .panBarreInsertion").first();
+    var element = $(this).children(":first");
     $(element).css("border-bottom", "none");
   });
 }
@@ -505,12 +525,12 @@ function AjoutEventSupprLigneChiffrage() {
   });
 }
 
-function AjouterElement(idPosition) {
+function AjouterElement(element) {
   //Si un descriptif a été sélectionné alors on l'insère directement dans l'arborescence
   if ($(".selectDescriptif").length) {
     //On n'autorise pas un descriptif à se mettre avant un titre1
     if (
-      $("#" + idPosition)
+      $(element)
         .next()
         .children(":first")
         .children(":first")
@@ -519,7 +539,7 @@ function AjouterElement(idPosition) {
       //On créer le div du descriptif avec le style correspondant à sa place dans l'arbo
       var divInsertionDescriptif = document.createElement("div");
 
-      var titreAuDessus = $("#" + idPosition).prev();
+      var titreAuDessus = $(element).prev();
       if (!titreAuDessus.hasClass("descriptif")) {
         if (titreAuDessus.hasClass("titre1")) {
           divInsertionDescriptif.className = "descriptif titre2";
@@ -535,135 +555,39 @@ function AjouterElement(idPosition) {
         divInsertionDescriptif.className = classDescriptifAuDessus;
       }
 
-      var divInputGroupTitre = document.createElement("div");
-      divInputGroupTitre.className = "input-group";
-
-      var divInputGroupPrependNumero = document.createElement("div");
-      divInputGroupPrependNumero.className = "input-group-prepend";
-
-      var spanInputGroupText = document.createElement("span");
-      spanInputGroupText.className = "input-group-text";
-
-      divInputGroupPrependNumero.appendChild(spanInputGroupText);
-
-      var inputTitre = document.createElement("input");
-      inputTitre.type = "text";
-      inputTitre.className = "form-control";
-      inputTitre.placeholder = "Descriptif";
-
-      divInputGroupTitre.appendChild(divInputGroupPrependNumero);
-      divInputGroupTitre.appendChild(inputTitre);
-
-      var divInputGroupDescription = document.createElement("div");
-      divInputGroupDescription.className = "input-group description";
-
-      var textareaFormControl = document.createElement("textarea");
-      textareaFormControl.className = "form-control";
-      textareaFormControl.placeholder = "Description";
       //Appel AJAX pour récupérer la description
       var idDescriptif = $(".selectDescriptif").children(":first").val();
 
-      divInputGroupDescription.appendChild(textareaFormControl);
-
       if (!$(".selectDescriptif").hasClass("generique")) {
-        var divInputGroupLigneChiffrage = document.createElement("div");
-        divInputGroupLigneChiffrage.className = "ligneChiffrage";
 
-        var inputLocalisation = document.createElement("input");
-        inputLocalisation.type = "text";
-        inputLocalisation.className = "form-control";
-        inputLocalisation.placeholder = "Localisation";
+        $(divInsertionDescriptif).html("<div class='input-group'><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control' placeholder='Ouvrage/Prestation'/></div><div class='input-group description'><textarea class='form-control' placeholder='Description'></textarea></div><div class='ligneChiffrage'><input type='text' class='form-control' placeholder='Localisation'/><input type='text' class='form-control' placeholder='Quantité'/><div class='input-group-prepend'><span class='input-group-text'></span></div></div>");
+        //! Rajouter la description et l'unité en AJAX
 
-        var inputQuantite = document.createElement("input");
-        inputQuantite.type = "text";
-        inputQuantite.className = "form-control";
-        inputQuantite.placeholder = "Quantité";
-
-        var divInputGroupPrependUnite = document.createElement("div");
-        divInputGroupPrependUnite.className = "input-group-prepend";
-
-        var spanInputGroupTextUnite = document.createElement("span");
-        spanInputGroupTextUnite.className = "input-group-text";
-        //Faut rajouter l'unité en AJAX
-
-        divInputGroupPrependUnite.appendChild(spanInputGroupTextUnite);
-
-        divInputGroupLigneChiffrage.appendChild(inputLocalisation);
-        divInputGroupLigneChiffrage.appendChild(inputQuantite);
-        divInputGroupLigneChiffrage.appendChild(divInputGroupPrependUnite);
-
-        divInsertionDescriptif.appendChild(divInputGroupTitre);
-        divInsertionDescriptif.appendChild(divInputGroupDescription);
-        divInsertionDescriptif.appendChild(divInputGroupLigneChiffrage);
-
-        $(divInsertionDescriptif).insertBefore($("#" + idPosition));
+        $(divInsertionDescriptif).insertBefore($(element));
 
         //On insère une barre d'insertion au dessus du nouveau descriptif
         var divBarreInsertion = document.createElement("div");
-        divBarreInsertion.className = "barreInsertion";
-        divBarreInsertion.id = "barre_" + barreInsertionNextId;
-        barreInsertionNextId++;
-        var divPanBarreInsertionFirst = document.createElement("div");
-        divPanBarreInsertionFirst.className = "panBarreInsertion";
-        var divPanBarreInsertionSecond = document.createElement("div");
-        divPanBarreInsertionSecond.className = "panBarreInsertion";
-        divBarreInsertion.appendChild(divPanBarreInsertionFirst);
-        divBarreInsertion.appendChild(divPanBarreInsertionSecond);
-        var parent = divInsertionDescriptif.parentElement;
-        parent.insertBefore(divBarreInsertion, divInsertionDescriptif);
-        $("#" + divBarreInsertion.id).click(function () {
-          AjouterElement(divBarreInsertion.id);
-        });
+        $(divBarreInsertion).html("<div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div>");
+        $(divBarreInsertion).insertBefore($(divInsertionDescriptif));
 
         //On ajoute une barre d'insertion ligneChiffrage à la fin de l'ouvrage/prestation
         var divBarreInsertionLigneChiffrage = document.createElement("div");
-        divBarreInsertionLigneChiffrage.className =
-          "barreInsertionLigneChiffrage";
-        divBarreInsertionLigneChiffrage.id =
-          "barreChiffrage_" + barreInsertionChiffrageNextId;
-        barreInsertionChiffrageNextId++;
-        var divPanBarreInsertionChiffrageFirst = document.createElement("div");
-        divPanBarreInsertionChiffrageFirst.className =
-          "panBarreInsertionLigneChiffrage";
-        var divPanBarreInsertionChiffrageSecond = document.createElement("div");
-        divPanBarreInsertionChiffrageSecond.className =
-          "panBarreInsertionLigneChiffrage";
-        divBarreInsertionLigneChiffrage.appendChild(
-          divPanBarreInsertionChiffrageFirst
-        );
-        divBarreInsertionLigneChiffrage.appendChild(
-          divPanBarreInsertionChiffrageSecond
-        );
-        divInsertionDescriptif.appendChild(divBarreInsertionLigneChiffrage);
-        $("#" + divBarreInsertionLigneChiffrage.id).click(function () {
-          AjouterLigneChiffrage(divBarreInsertionLigneChiffrage.id);
-        });
+        $(divBarreInsertionLigneChiffrage).html("<div class='barreInsertionLigneChiffrage' onclick='AjouterLigneChiffrage(this);'><div class='panBarreInsertionLigneChiffrage'></div><div class='panBarreInsertionLigneChiffrage'></div></div>");
+        $(divInsertionDescriptif).append($(divBarreInsertionLigneChiffrage));
 
         //Appel de la fonction de numérotation de l'arborescence
-        //var lot = parent.parentElement;
-        NumerotationArbo(parent.id);
+        var idLot = $(divInsertionDescriptif).parent().attr("id");
+        NumerotationArbo(idLot);
       } else {
-        divInsertionDescriptif.appendChild(divInputGroupTitre);
-        divInsertionDescriptif.appendChild(divInputGroupDescription);
-
-        $(divInsertionDescriptif).insertBefore($("#" + idPosition));
+        //On insère le générique
+        $(divInsertionDescriptif).html("<div class='input-group'><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control' placeholder='Générique'/></div><div class='input-group description'><textarea class='form-control' placeholder='Description'></textarea></div>");
+        $(divInsertionDescriptif).insertBefore($(element));
+        //! Rajouter la description en AJAX
 
         //On insère une barre d'insertion au dessus du nouveau descriptif
         var divBarreInsertion = document.createElement("div");
-        divBarreInsertion.className = "barreInsertion";
-        divBarreInsertion.id = "barre_" + barreInsertionNextId;
-        barreInsertionNextId++;
-        var divPanBarreInsertionFirst = document.createElement("div");
-        divPanBarreInsertionFirst.className = "panBarreInsertion";
-        var divPanBarreInsertionSecond = document.createElement("div");
-        divPanBarreInsertionSecond.className = "panBarreInsertion";
-        divBarreInsertion.appendChild(divPanBarreInsertionFirst);
-        divBarreInsertion.appendChild(divPanBarreInsertionSecond);
-        var parent = divInsertionDescriptif.parentElement;
-        parent.insertBefore(divBarreInsertion, divInsertionDescriptif);
-        $("#" + divBarreInsertion.id).click(function () {
-          AjouterElement(divBarreInsertion.id);
-        });
+        $(divBarreInsertion).html("<div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div>");
+        $(divBarreInsertion).insertBefore($(divInsertionDescriptif));
 
         //Ajout de l'hover sur toutes les barres d'insertions titre
         addEventsDescriptifs();
@@ -673,11 +597,11 @@ function AjouterElement(idPosition) {
       }
     }
   } else {
-    //Sinon on propose d'insérer un titre du même niveau d'arboresence que le titre d'au dessus ou de celui d'en-dessous sous réserve d'existence
+    //Sinon on propose d'insérer un titre du même niveau d'arboresence que le titre d'au-dessus ou de celui d'en-dessous sous réserve d'existence
     var type1 = null;
     var type2 = null;
-    var prev = $("#" + idPosition).prev();
-    var next = $("#" + idPosition).next();
+    var prev = $(element).prev();
+    var next = $(element).next();
     if (prev !== null) {
       if (prev.hasClass("titre1")) {
         type1 = "titre1";
@@ -772,9 +696,7 @@ function AjouterElement(idPosition) {
 
     if (type1 == null || type2 == null) divInsertionTitre.style.height = "25px";
 
-    var nodePositionRef = document.getElementById(idPosition);
-    var parent = nodePositionRef.parentNode;
-    parent.insertBefore(divInsertionTitre, nodePositionRef);
+    $(divInsertionTitre).insertBefore($(element));
 
     $(".sousDivInsertionTitre").click(function () {
       AjouterTitre(this);
@@ -792,43 +714,12 @@ function SuppressionChoixInsertionTitre() {
 function AjouterTitre(evt) {
   var titleClassName = evt.innerHTML.replace(" ", "").toLowerCase();
   //On ajoute le titre avec le bon style
-  var divNewTitle = document.createElement("div");
-  divNewTitle.className = "input-group " + titleClassName;
-
-  var divInputPrepend = document.createElement("div");
-  divInputPrepend.className = "input-group-prepend";
-
-  var spanPrepend = document.createElement("span");
-  spanPrepend.className = "input-group-text";
-
-  divInputPrepend.appendChild(spanPrepend);
-
-  var inputTitle = document.createElement("input");
-  inputTitle.type = "text";
-  inputTitle.className = "form-control";
-  inputTitle.placeholder = evt.innerHTML;
-
-  divNewTitle.appendChild(divInputPrepend);
-  divNewTitle.appendChild(inputTitle);
-
-  var parent = evt.parentNode.parentNode;
-  parent.insertBefore(divNewTitle, evt.parentNode);
+  var divNewTitle = $("<div class='input-group " + titleClassName + "'><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control' placeholder='" + evt.innerHTML + "'/></div>");
+  $(divNewTitle).insertBefore($(evt).parent());
 
   //On insère une barre d'insertion au-dessus du nouveau titre
-  var divBarreInsertion = document.createElement("div");
-  divBarreInsertion.className = "barreInsertion";
-  divBarreInsertion.id = "barre_" + barreInsertionNextId;
-  barreInsertionNextId++;
-  var divPanBarreInsertionFirst = document.createElement("div");
-  divPanBarreInsertionFirst.className = "panBarreInsertion";
-  var divPanBarreInsertionSecond = document.createElement("div");
-  divPanBarreInsertionSecond.className = "panBarreInsertion";
-  divBarreInsertion.appendChild(divPanBarreInsertionFirst);
-  divBarreInsertion.appendChild(divPanBarreInsertionSecond);
-  parent.insertBefore(divBarreInsertion, divNewTitle);
-  $("#" + divBarreInsertion.id).click(function () {
-    AjouterElement(divBarreInsertion.id);
-  });
+  $("<div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div>").insertBefore($(divNewTitle));
+
   //Ajout de l'hover sur toutes les barres d'insertions titre
   addEventsDescriptifs();
 
@@ -836,7 +727,8 @@ function AjouterTitre(evt) {
   $(".divInsertionTitre").remove();
 
   //Appel de la fonction de numérotation de l'arborescence
-  NumerotationArbo(parent.id);
+  var idLot = $(divNewTitle).parent().attr("id");
+  NumerotationArbo(idLot);
 }
 
 function NumerotationArbo(idOnglet) {
@@ -950,87 +842,15 @@ function CreerOnglet() {
   var numOnglet = Number($("#ongletsLot").children().last().prev().html()) + 1;
   var idOnglet = "lot_" + numOnglet;
 
-  var divNouvelOnglet = document.createElement("div");
-  divNouvelOnglet.className = "lot";
-  divNouvelOnglet.id = idOnglet;
-
-  //Création de deux barres d'insertion d'un titre1 et d'une fin de lot dans ce nouvel onglet
-  var divBarreInsertionDessus = document.createElement("div");
-  divBarreInsertionDessus.className = "barreInsertion";
-  divBarreInsertionDessus.id = "barre_" + barreInsertionNextId;
-  barreInsertionNextId++;
-  var divPanBarreInsertionFirstDessus = document.createElement("div");
-  divPanBarreInsertionFirstDessus.className = "panBarreInsertion";
-  var divPanBarreInsertionSecondDessus = document.createElement("div");
-  divPanBarreInsertionSecondDessus.className = "panBarreInsertion";
-  divBarreInsertionDessus.appendChild(divPanBarreInsertionFirstDessus);
-  divBarreInsertionDessus.appendChild(divPanBarreInsertionSecondDessus);
-
-  var divTitre1 = document.createElement("div");
-  divTitre1.className = "input-group titre1";
-  var divInputPrepend = document.createElement("div");
-  divInputPrepend.className = "input-group-prepend";
-  var spanPrepend = document.createElement("span");
-  spanPrepend.className = "input-group-text";
-  divInputPrepend.appendChild(spanPrepend);
-  var inputTitle = document.createElement("input");
-  inputTitle.type = "text";
-  inputTitle.className = "form-control";
-  inputTitle.placeholder = "Titre 1";
-  divTitre1.appendChild(divInputPrepend);
-  divTitre1.appendChild(inputTitle);
-
-  var divBarreInsertionDessous = document.createElement("div");
-  divBarreInsertionDessous.className = "barreInsertion";
-  divBarreInsertionDessous.id = "barre_" + barreInsertionNextId;
-  barreInsertionNextId++;
-  var divPanBarreInsertionFirstDessous = document.createElement("div");
-  divPanBarreInsertionFirstDessous.className = "panBarreInsertion";
-  var divPanBarreInsertionSecondDessous = document.createElement("div");
-  divPanBarreInsertionSecondDessous.className = "panBarreInsertion";
-  divBarreInsertionDessous.appendChild(divPanBarreInsertionFirstDessous);
-  divBarreInsertionDessous.appendChild(divPanBarreInsertionSecondDessous);
-
-  var divFinLot = document.createElement("div");
-  divFinLot.className = "finLot";
-  //On les insère dans la page
-  divNouvelOnglet.appendChild(divBarreInsertionDessus);
-  divNouvelOnglet.appendChild(divTitre1);
-  divNouvelOnglet.appendChild(divBarreInsertionDessous);
-  divNouvelOnglet.appendChild(divFinLot);
-
+  var divNouvelOnglet = $("<div class='lot' id='" + idOnglet + "'><div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div><div class='input-group titre1'><div class='input-group-prepend'><span class='input-group-text'>I.</span></div><input type='text' class='form-control' placeholder='Titre 1'/></div><div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div><div class='finLot'></div></div>");
   $(divNouvelOnglet).insertBefore($("#ongletsLot"));
 
-  //Création d'un nouveau bouton d'onglet avant le '+'
-  var divBoutonOnglet = document.createElement("div");
-  divBoutonOnglet.className = "ongletLot";
-  divBoutonOnglet.innerHTML = numOnglet;
+  //Création de deux barres d'insertion d'un titre1 et d'une fin de lot dans ce nouvel onglet
+  var divBoutonOnglet = $("<div class='ongletLot' onclick='AfficherOnglet(\"#" + idOnglet + "\"));'>"+ numOnglet + "</div>");
   $(divBoutonOnglet).insertBefore($(".ongletLot").last());
 
   //Création d'un nouveau input de titre lot
-  $(".container")
-    .last()
-    .prepend(
-      "<div class='divTitreLot' id='divTitreLot_" +
-        numOnglet +
-        "'><input type='text' class='titreLot' placeholder='Titre Lot' /></div>"
-    );
-  //$(".divTitreLot").last().attr("id") = "divTitreLot_" + numOnglet;
-
-  //On ajoute les évènements nécessaires au click
-  $("#" + divBarreInsertionDessus.id).click(function () {
-    AjouterElement(divBarreInsertionDessus.id);
-  });
-
-  $("#" + divBarreInsertionDessous.id).click(function () {
-    AjouterElement(divBarreInsertionDessous.id);
-  });
-
-  $(".ongletLot")
-    .eq(-2)
-    .click(function () {
-      AfficherOnglet($("#" + idOnglet));
-    });
+  $("<div class='divTitreLot' id='divTitreLot_" + numOnglet + "'><input type='text' class='titreLot' placeholder='Titre Lot' /></div>").insertBefore($(".lot").first());
 
   //Ajout de l'hover sur toutes les barres d'insertions titre
   addEventsDescriptifs();
@@ -1086,7 +906,7 @@ function toRoman(num) {
   return Array(+digits.join("") + 1).join("M") + roman;
 }
 
-function AjouterLigneChiffrage(idBarre) {
+function AjouterLigneChiffrage(element) {
   //Création d'une nouvelle ligneChiffrage au dessus de la barre d'insertion ligneChiffrage
   var divInputGroupLigneChiffrage = document.createElement("div");
   divInputGroupLigneChiffrage.className = "ligneChiffrage";
@@ -1121,7 +941,7 @@ function AjouterLigneChiffrage(idBarre) {
   divInputGroupLigneChiffrage.appendChild(divInputGroupPrependUnite);
   divInputGroupLigneChiffrage.appendChild(divSuppressionLigneChiffrage);
 
-  $(divInputGroupLigneChiffrage).insertBefore($("#" + idBarre));
+  $(divInputGroupLigneChiffrage).insertBefore($(element));
 
   //Ajout évènement suppression ligne chiffrage
   AjoutEventSupprLigneChiffrage();
