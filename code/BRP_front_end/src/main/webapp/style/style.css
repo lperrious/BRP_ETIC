@@ -288,6 +288,7 @@ select {
   padding-left: 15px;
   overflow: auto;
   margin-bottom: 15px;
+  padding-top: 15px;
 }
 
 #nomProjet {
