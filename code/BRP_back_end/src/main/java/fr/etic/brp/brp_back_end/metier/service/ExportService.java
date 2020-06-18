@@ -46,6 +46,8 @@ import org.w3c.dom.Node;
  */
 public class ExportService {
     
+    //! baliseNomprojet et les suppr des infos projet ont été rajoutés sans être testés
+    
     protected ProjetXMLDao projetXMLDao = new ProjetXMLDao();
     protected ProjetDao projetDao = new ProjetDao();
     
@@ -98,6 +100,8 @@ public class ExportService {
             JpaUtil.creerContextePersistance();
             Projet projet = projetDao.ChercherParId(idProjet);
             JpaUtil.fermerContextePersistance();
+            Element baliseNomprojet = xml.createElement("nomProjet");
+            baliseNomprojet.setTextContent(projet.getNomProjet());
             Element baliseTypeMarche = xml.createElement("typeMarche");
             if(projet.getTypeMarche() != null)
                 baliseTypeMarche.setTextContent(projet.getTypeMarche().toString());
@@ -149,6 +153,7 @@ public class ExportService {
             
             Node baliseLotInfosProjet = xml.getElementsByTagName("lot").item(0);
             Element root = xml.getDocumentElement();
+            root.insertBefore(baliseNomprojet, baliseLotInfosProjet);
             root.insertBefore(baliseTypeMarche, baliseLotInfosProjet);
             root.insertBefore(baliseTypeConstruction, baliseLotInfosProjet);
             root.insertBefore(baliseTypeLot, baliseLotInfosProjet);
@@ -633,6 +638,20 @@ public class ExportService {
             //On écrit en sortie le document EXCEL
             OutputStream fileOut = new FileOutputStream(outputDPGF);
             excel.write(fileOut);
+            
+            //On supprime les infos projets dans le XML
+            baliseNomprojet.getParentNode().removeChild(baliseNomprojet);
+            baliseTypeConstruction.getParentNode().removeChild(baliseTypeConstruction);
+            baliseTypeMarche.getParentNode().removeChild(baliseTypeMarche);
+            baliseTypeConstruction.getParentNode().removeChild(baliseTypeConstruction);
+            baliseTypeLot.getParentNode().removeChild(baliseTypeLot);
+            baliseSite.getParentNode().removeChild(baliseSite);
+            baliseDatePrixRef.getParentNode().removeChild(baliseDatePrixRef);
+            baliseCoeffAdapt.getParentNode().removeChild(baliseCoeffAdapt);
+            baliseCoeffRaccordement.getParentNode().removeChild(baliseCoeffRaccordement);
+            baliseCategorieConstruction.getParentNode().removeChild(baliseCategorieConstruction);
+            baliseSousCategorieConstruction.getParentNode().removeChild(baliseSousCategorieConstruction);
+            baliseCaractDim.getParentNode().removeChild(baliseCaractDim);
             
             resultat = true; //Si on est arrivé jusque là alors pas d'erreur
             
