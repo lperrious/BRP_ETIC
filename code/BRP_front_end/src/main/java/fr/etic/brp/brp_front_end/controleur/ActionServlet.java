@@ -8,6 +8,7 @@ import fr.etic.brp.brp_front_end.actions.CreationProjetAction;
 import fr.etic.brp.brp_front_end.actions.DupliquerProjetAction;
 import fr.etic.brp.brp_front_end.actions.EditerInfosProjetAction;
 import fr.etic.brp.brp_front_end.actions.InscriptionAction;
+import fr.etic.brp.brp_front_end.actions.OuvrirProjetAction;
 import fr.etic.brp.brp_front_end.actions.RecupererDescriptifAction;
 import fr.etic.brp.brp_front_end.actions.TestConnectionAction;
 import fr.etic.brp.brp_front_end.serialisations.ArboDescriptifsSerialisation;
@@ -16,6 +17,7 @@ import fr.etic.brp.brp_front_end.serialisations.CreationProjetSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.DupliquerProjetSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.EditerInfosProjetSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.InscriptionSerialisation;
+import fr.etic.brp.brp_front_end.serialisations.OuvrirProjetSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.RecupererDescriptifSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.Serialisation;
 import fr.etic.brp.brp_front_end.serialisations.TestConnectionSerialisation;
@@ -104,6 +106,11 @@ public class ActionServlet extends HttpServlet {
             case "recupererDescriptif" : {
                 action = new RecupererDescriptifAction();
                 serialisation = new RecupererDescriptifSerialisation();
+                break;
+            }
+            case "ouvrirProjet" : {
+                action = new OuvrirProjetAction();
+                serialisation = new OuvrirProjetSerialisation();
                 break;
             }
         }
