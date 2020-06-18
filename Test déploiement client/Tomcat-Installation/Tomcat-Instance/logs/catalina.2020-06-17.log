@@ -727,3 +727,11 @@ java.net.ProtocolException: cannot write to a URLConnection if doOutput=false - 
 17-Jun-2020 19:06:31.292 INFOS [http-nio-8081-exec-140] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
 17-Jun-2020 19:06:31.296 INFOS [http-nio-8081-exec-140] org.apache.catalina.core.StandardContext.reload Le rechargement de ce contexte est terminé
 17-Jun-2020 19:07:18.536 INFOS [http-nio-8081-exec-138] org.apache.catalina.startup.HostConfig.undeploy Repli (undeploy) de l'application web ayant pour chemin de contexte [/BRP_front_end]
+17-Jun-2020 19:52:40.662 INFOS [main] org.apache.catalina.core.StandardServer.await A valid shutdown command was received via the shutdown port. Stopping the Server instance.
+17-Jun-2020 19:52:40.663 INFOS [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8081"]
+17-Jun-2020 19:52:40.717 INFOS [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["ajp-nio-8009"]
+17-Jun-2020 19:52:40.770 INFOS [main] org.apache.catalina.core.StandardService.stopInternal Arrêt du service [Catalina]
+17-Jun-2020 19:52:40.792 INFOS [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8081"]
+17-Jun-2020 19:52:40.798 INFOS [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["ajp-nio-8009"]
+17-Jun-2020 19:52:40.802 INFOS [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8081"]
+17-Jun-2020 19:52:40.804 INFOS [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["ajp-nio-8009"]

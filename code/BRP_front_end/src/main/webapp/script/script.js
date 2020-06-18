@@ -284,7 +284,9 @@ function ouvrirProjet(idProjet) {
 }
 
 function modifierInfosProjet(){
+
     //on va chercher les infos du projet
+    var idProjet = $('#idProjetActuel').val();
     var nomProjet = $('.nomProjetUpdate').val();
     var refBRP = $('.refBRP').val();
     var typeMarche = $('input[name="typeMarche"]:checked').val();
@@ -314,6 +316,7 @@ function modifierInfosProjet(){
       method: "POST",
       data: {
         todo: "editerInfosProjet",
+        idProjet:idProjet,
         nomProjet:nomProjet,
         refBRP:refBRP,
         typeMarche : typeMarche,
@@ -333,6 +336,11 @@ function modifierInfosProjet(){
           // Fonction appelée en cas d'appel AJAX réussi
           console.log("Response", response);
 
+          if (response) {
+            if (response['Error']) {
+              alert("Une erreur est survenue lors de la sauvegarde des informations du projet (informations de la colonne de gauche)");
+            }
+          }
           
     });
 }
