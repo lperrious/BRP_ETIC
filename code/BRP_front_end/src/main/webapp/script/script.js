@@ -251,8 +251,8 @@ function ouvrirProjet(idProjet) {
       // On remplace toutes les balises concernant l'ancien projet actuellement existantes par les nouvelles
       $(".container").last().html(elementAInserer.childNodes);
 
-      //todo : On spécifie l'id du projet acutellement ouvert dans la partie infos projet
-      //$('idProjetActuel').val(idProjet);
+      //On spécifie l'id du projet acutellement ouvert dans la partie infos projet
+      $('#idProjetActuel').val(idProjet);
 
       //On ajoute les infos projet dans la partie correspondante
       $('#nomProjet').children(':first').html(response.nomProjet);
