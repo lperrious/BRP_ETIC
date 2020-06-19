@@ -554,9 +554,9 @@ public static void Scenario3() {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("BRP_PU");
         EntityManager em = emf.createEntityManager();        
         
-        BasePrixRef basePrixRef = new BasePrixRef(2018, 1L, 1.0, 1.0, 3.0, "m2", 10.0);
-        BasePrixRef basePrixRef2 = new BasePrixRef(2017, 2L, 1.0, 4.0, 6.0, "m2", 4.0);
-        BasePrixRef basePrixRef3 = new BasePrixRef(2019, 1L, 1.0, null, null, "m2", null);
+        BasePrixRef basePrixRef = new BasePrixRef(2018, 1L, 1.0, 1.0, 3.0, 10.0);
+        BasePrixRef basePrixRef2 = new BasePrixRef(2017, 2L, 1.0, 4.0, 6.0, 4.0);
+        BasePrixRef basePrixRef3 = new BasePrixRef(2019, 1L, 1.0, null, null, null);
         
         System.out.println("** BasePrixRef avant persistance: ");
         afficherBasePrixRef(basePrixRef);

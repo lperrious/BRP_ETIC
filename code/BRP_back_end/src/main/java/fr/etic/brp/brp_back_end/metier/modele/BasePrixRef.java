@@ -21,19 +21,17 @@ public class BasePrixRef implements Serializable {
     private Double BT;
     private Double qteInf;
     private Double qteSup;
-    private String unite;
     private Double prixUnitaire;
 
     public BasePrixRef() {
     }
 
-    public BasePrixRef(Integer annee, Long nbPrixRef, Double BT, Double qteInf, Double qteSup, String unite, Double prixUnitaire) {
+    public BasePrixRef(Integer annee, Long nbPrixRef, Double BT, Double qteInf, Double qteSup, Double prixUnitaire) {
         this.annee = annee;
         this.nbPrixRef = nbPrixRef;
         this.BT = BT;
         this.qteInf = qteInf;
         this.qteSup = qteSup;
-        this.unite = unite;
         this.prixUnitaire = prixUnitaire;
     }
 
@@ -81,14 +79,6 @@ public class BasePrixRef implements Serializable {
         this.qteSup = qteSup;
     }
 
-    public String getUnite() {
-        return unite;
-    }
-
-    public void setUnite(String unite) {
-        this.unite = unite;
-    }
-
     public Double getPrixUnitaire() {
         return prixUnitaire;
     }
@@ -99,6 +89,6 @@ public class BasePrixRef implements Serializable {
 
     @Override
     public String toString() {
-        return "BasePrixRef{" + "idBasePrixRef=" + idBasePrixRef + ", nbPrixRef=" + nbPrixRef + ", annee=" + annee + ", BT=" + BT + ", qteInf=" + qteInf + ", qteSup=" + qteSup + ", unite=" + unite + ", prixUnitaire=" + prixUnitaire + '}';
-    } 
+        return "BasePrixRef{" + "idBasePrixRef=" + idBasePrixRef + ", nbPrixRef=" + nbPrixRef + ", annee=" + annee + ", BT=" + BT + ", qteInf=" + qteInf + ", qteSup=" + qteSup + ", prixUnitaire=" + prixUnitaire + '}';
+    }
 }

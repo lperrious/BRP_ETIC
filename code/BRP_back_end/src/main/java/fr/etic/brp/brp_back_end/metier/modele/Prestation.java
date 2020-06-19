@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 @Entity
 public class Prestation extends Descriptif implements Serializable {
     
+    private String unite;
     @OneToMany(cascade=CascadeType.REMOVE)
     private List<BasePrixRef> listeBasePrixRefPrestation;
 
@@ -21,7 +22,16 @@ public class Prestation extends Descriptif implements Serializable {
 
     public Prestation(String idDescriptif, String nomDescriptif, String description, String courteDescription) {
         super(idDescriptif, nomDescriptif, description, courteDescription);
+        this.unite = null;
         this.listeBasePrixRefPrestation = null;
+    }
+
+    public String getUnite() {
+        return unite;
+    }
+
+    public void setUnite(String unite) {
+        this.unite = unite;
     }
 
     public List<BasePrixRef> getListeBasePrixRefPrestation() {
@@ -34,6 +44,6 @@ public class Prestation extends Descriptif implements Serializable {
 
     @Override
     public String toString() {
-        return "Prestation{" + "listeBasePrixRefPrestation=" + listeBasePrixRefPrestation + '}';
-    }  
+        return "Prestation{" + "unite=" + unite + ", listeBasePrixRefPrestation=" + listeBasePrixRefPrestation + '}';
+    }   
 }
