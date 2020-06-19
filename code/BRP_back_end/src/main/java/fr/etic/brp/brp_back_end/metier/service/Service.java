@@ -1032,8 +1032,9 @@ public class Service {
                     }
                 }
                 
-                Element baliseUnite = xml.createElement("unite");                                                                   
-                baliseUnite.appendChild(xml.createTextNode(listeBasePrixRef.get(indiceRef).getUnite())); 
+                Element baliseUnite = xml.createElement("unite");
+                if(descriptif instanceof Ouvrage) baliseUnite.appendChild(xml.createTextNode(((Ouvrage)descriptif).getUnite()));
+                if(descriptif instanceof Prestation) baliseUnite.appendChild(xml.createTextNode(((Prestation)descriptif).getUnite()));
                 
                 Element baliseLigneChiffrage = xml.createElement("ligneChiffrage"); 
                 baliseLigneChiffrage.setAttribute("idLigneChiffrage", "1");

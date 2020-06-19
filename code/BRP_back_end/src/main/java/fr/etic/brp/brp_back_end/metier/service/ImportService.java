@@ -594,11 +594,11 @@ public class ImportService {
         return resultat;
     }
     
-    //TO DO - Essayer sur un jeu de test
+    //! Non testé depuis la modif du champ unité
     public String ModifBasePrixRef(String uriExcel){
         //Importer le CSV
         //Parser le document cas par cas (ajout OU suppr) en sautant la premiere ligne
-        //Si suppr alors on delete dans la BD - ????
+        //Si suppr alors on delete dans la BD
         //Si ajout on add
         //Dans tous les cas on met à jour soit listeBasePrixRefOuvrage soit listeBasePrixRefPrestation
         //Si erreur alors on affiche l'erreur correspondante
@@ -644,9 +644,9 @@ public class ImportService {
                             JpaUtil.ouvrirTransaction();
                             //Si des valeurs chaines vides alors on le prend en compte pour la BDD en tant que null
                             Integer annee;
-                            if(attributes[9].equals("-")) {
+                            if(attributes[9].equals("-"))
                                 annee = null;
-                            } else
+                            else
                                 annee = Integer.parseInt(attributes[9]);
                             Long nbPrixRef = Long.parseLong(attributes[3]);
                             Double BT;
@@ -664,11 +664,6 @@ public class ImportService {
                                 qteSup = null;
                             else
                                 qteSup = Double.parseDouble(attributes[6]);
-                            String unite = null;
-                            if(attributes[7].equals("-"))
-                                qteSup = null;
-                            else
-                                unite = attributes[7];
                             Double prixUnitaire;
                             if(attributes[8].equals("-"))
                                 prixUnitaire = null;
@@ -686,7 +681,6 @@ public class ImportService {
                                         basePrixRefParcours.setBT(BT);
                                         basePrixRefParcours.setQteInf(qteInf);
                                         basePrixRefParcours.setQteSup(qteSup);
-                                        basePrixRefParcours.setUnite(unite);
                                         basePrixRefParcours.setPrixUnitaire(prixUnitaire);
                                         ouvrageAModifier.setListeBasePrixRefOuvrage(listeBasePrixRef);
                                         descriptifDao.Update(ouvrageAModifier);
@@ -705,7 +699,6 @@ public class ImportService {
                                         basePrixRefParcours.setBT(BT);
                                         basePrixRefParcours.setQteInf(qteInf);
                                         basePrixRefParcours.setQteSup(qteSup);
-                                        basePrixRefParcours.setUnite(unite);
                                         basePrixRefParcours.setPrixUnitaire(prixUnitaire);
                                         prestationAModifier.setListeBasePrixRefPrestation(listeBasePrixRef);
                                         descriptifDao.Update(prestationAModifier);
@@ -716,7 +709,7 @@ public class ImportService {
                                 }
                             }
                             if(!testDejaPresent) {
-                                newBasePrixRef = new BasePrixRef(annee, Long.parseLong(attributes[3]), BT, qteInf, qteSup, unite, prixUnitaire);
+                                newBasePrixRef = new BasePrixRef(annee, Long.parseLong(attributes[3]), BT, qteInf, qteSup, prixUnitaire);
                                 basePrixRefDao.Creer(newBasePrixRef);
                                 if(typeDescriptif.equals("Ouvrage")) {
                                     listeBasePrixRef.add(newBasePrixRef);
