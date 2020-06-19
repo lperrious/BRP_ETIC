@@ -44,3 +44,27 @@
 19-Jun-2020 08:44:38.365 INFOS [http-nio-8081-exec-8] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
 19-Jun-2020 08:44:38.369 INFOS [http-nio-8081-exec-8] org.apache.catalina.startup.HostConfig.deployDescriptor Deployment of configuration descriptor [/Users/quentinmarc/Documents/ETIC-git/Etude BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance/conf/Catalina/localhost/BRP_front_end.xml] has finished in [4 875] ms
 19-Jun-2020 08:44:38.376 INFOS [http-nio-8081-exec-2] org.apache.catalina.util.LifecycleBase.start The start() method was called on component [StandardEngine[Catalina].StandardHost[localhost].StandardContext[/BRP_front_end]] after start() had already been called. The second call will be ignored.
+19-Jun-2020 08:47:38.418 INFOS [http-nio-8081-exec-16] org.apache.catalina.core.StandardContext.reload Le rechargement du contexte [/BRP_front_end] a démarré
+19-Jun-2020 08:47:38.434 AVERTISSEMENT [http-nio-8081-exec-16] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesJdbc The web application [BRP_front_end] registered the JDBC driver [com.mysql.cj.jdbc.Driver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+19-Jun-2020 08:47:38.435 AVERTISSEMENT [http-nio-8081-exec-16] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesThreads The web application [BRP_front_end] appears to have started a thread named [mysql-cj-abandoned-connection-cleanup] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.lang.Object.wait(Native Method)
+ java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:143)
+ com.mysql.cj.jdbc.AbandonedConnectionCleanupThread.run(AbandonedConnectionCleanupThread.java:85)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+ java.lang.Thread.run(Thread.java:745)
+19-Jun-2020 08:47:40.136 INFOS [mysql-cj-abandoned-connection-cleanup] org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading Illegal access: this web application instance has been stopped already. Could not load []. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+ java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load []. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading(WebappClassLoaderBase.java:1311)
+	at org.apache.catalina.loader.WebappClassLoaderBase.getResource(WebappClassLoaderBase.java:986)
+	at com.mysql.cj.jdbc.AbandonedConnectionCleanupThread.checkThreadContextClassLoader(AbandonedConnectionCleanupThread.java:117)
+	at com.mysql.cj.jdbc.AbandonedConnectionCleanupThread.run(AbandonedConnectionCleanupThread.java:84)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+19-Jun-2020 08:47:44.680 INFOS [http-nio-8081-exec-16] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+19-Jun-2020 08:47:44.685 INFOS [http-nio-8081-exec-16] org.apache.catalina.core.StandardContext.reload Le rechargement de ce contexte est terminé
+19-Jun-2020 08:47:45.093 INFOS [http-nio-8081-exec-18] org.apache.catalina.core.StandardContext.reload Le rechargement du contexte [/BRP_front_end] a démarré
+19-Jun-2020 08:47:47.066 INFOS [http-nio-8081-exec-18] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+19-Jun-2020 08:47:47.071 INFOS [http-nio-8081-exec-18] org.apache.catalina.core.StandardContext.reload Le rechargement de ce contexte est terminé
