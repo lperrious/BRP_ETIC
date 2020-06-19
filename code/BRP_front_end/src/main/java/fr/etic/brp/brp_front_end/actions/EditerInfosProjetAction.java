@@ -37,7 +37,7 @@ public class EditerInfosProjetAction extends Action {
         String typeSite = request.getParameter("typeSite");
         String coeffAdaptString = request.getParameter("coeffAdapt");
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        String datePrixrefString = request.getParameter("datePrixref")+"-02-02";
+        String datePrixrefString = request.getParameter("datePrixref")+"-01 -02";
         Date datePrixref = null;
         try {
             datePrixref = format.parse(datePrixrefString);
@@ -46,7 +46,7 @@ public class EditerInfosProjetAction extends Action {
         }
         String idCoeffRaccordementString = request.getParameter("idCoeffRaccordement");
         String idCategorieConstructionString = request.getParameter("idCategorieConstruction");
-//        Long idSousCategorieConstruction = parseLong(request.getParameter("idSousCategorieConstruction"));
+        String idSousCategorieConstructionString = request.getParameter("idSousCategorieConstruction");
 //        Long idCaractDim = parseLong(request.getParameter("idCaractDim"));
         
         //Instanciation de la classe de Service
@@ -59,7 +59,8 @@ public class EditerInfosProjetAction extends Action {
            Boolean testEditerNom = service.EditerNomProjet(idProjet, nomProjet);
            if(!testEditerNom) nbErreur++;
            
-           //Editer refBrp
+           Boolean testEditerRefBRP = service.EditerRefBRPProjet(idProjet, refBRP);
+           if(!testEditerRefBRP) nbErreur++;
            
            if(typeMarche != ""){
                Boolean testEditerTypeMarche = service.EditerInfoEnumProjet(idProjet, "TypeMarche", typeMarche);
@@ -105,7 +106,13 @@ public class EditerInfosProjetAction extends Action {
            }   
            
            //Editer sousCategorieConstruction
-           //Editer CaractDim
+           if(idSousCategorieConstructionString != ""){
+               long idSousCategorieConstruction = parseLong(idSousCategorieConstructionString);
+               Boolean testEditerSousCategorieConstructionProjet = service.EditerSousCategorieConstructionProjet(idProjet, idSousCategorieConstruction);
+               if(!testEditerSousCategorieConstructionProjet) nbErreur++;
+           } 
+
+           //Editer CaractDim       -- A GERER 
            
         }catch(Exception ex){
             errorState = true;

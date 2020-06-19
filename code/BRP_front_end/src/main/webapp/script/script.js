@@ -160,7 +160,14 @@ function createProject() {
     //on ferme le popup
     popUpNomProjet(false);
 
-    ouvrirProjet(response["idProjet"]);
+    if (response) {
+      if (response['Error']) {
+        alert("Une erreur est survenue, impossible de créer un nouveau projet)");
+      }
+      else{
+        ouvrirProjet(response["idProjet"]);
+      }
+    }
   });
 }
 
@@ -191,7 +198,14 @@ function dupliquerProjet(idProjet) {
     //on ferme le popup
     popUpNomProjet(false);
 
-    ouvrirProjet(response["newIdProjet"]);
+    if (response) {
+      if (response['Error']) {
+        alert("Une erreur est survenue, impossible de duppliquer le projet)");
+      }
+      else{
+        ouvrirProjet(response["newIdProjet"]);
+      }
+    }
   });
 }
 
