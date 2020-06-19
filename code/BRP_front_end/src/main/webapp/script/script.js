@@ -24,54 +24,54 @@ $(document).ready(function () {
           const chapitre = response.arborescence[i];
           $("#arboBDD").append(
             "<div class='lineBDD lineChapitre'><span class='iconBDD'><i class='fas fa-caret-right arrow'></i></span><div class='intitule'>" +
-              chapitre.intituleChapitre +
+              chapitre.idChapitre + " - " + chapitre.intituleChapitre +
               "</div></div>"
           );
           for (let j = 0; j < chapitre.categories.length; j++) {
             const categorie = chapitre.categories[j];
             $("#arboBDD").append(
               "<div class='lineBDD lineCategorie'><span class='iconBDD'><i class='fas fa-caret-right arrow'></i></span><div class='intitule'>" +
-                categorie.intituleCategorie +
+                categorie.idCategorie.substr(3, 4) + " - " + categorie.intituleCategorie +
                 "</div></div>"
             );
             for (let k = 0; k < categorie.familles.length; k++) {
               const famille = categorie.familles[k];
               $("#arboBDD").append(
                 "<div class='lineBDD lineFamille'><span class='iconBDD'><i class='fas fa-caret-right arrow'></i></span><div class='intitule'>" +
-                  famille.intituleFamille +
+                  famille.idFamille.substr(7, 3) + " - " + famille.intituleFamille +
                   "</div></div>"
               );
               for (let l = 0; l < famille.sousFamilles.length; l++) {
                 const sousFamille = famille.sousFamilles[l];
                 $("#arboBDD").append(
                   "<div class='lineBDD lineSousFamille'><span class='iconBDD'><i class='fas fa-caret-right arrow'></i></span><div class='intitule'>" +
-                    sousFamille.intituleSousFamille +
+                    sousFamille.idSousFamille.substr(10, 13) + " - " + sousFamille.intituleSousFamille +
                     "</div></div>"
                 );
                 for (let m = 0; m < sousFamille.descriptifs.length; m++) {
                   const descriptif = sousFamille.descriptifs[m];
                   if (descriptif.type == "generique") {
                     $("#arboBDD").append(
-                      "<div class='lineBDD lineDescriptif generique'><input type='hidden' class='idDescriptif' value=" +
+                      "<div class='lineBDD lineDescriptif generique'><input type='hidden' class='idDescriptif' value='" +
                         descriptif.id +
-                        "/><span class='iconBDD'>-</span><div class='intitule'>" +
-                        descriptif.nom +
+                        "'/><span class='iconBDD'>-</span><div class='intitule'>" +
+                        descriptif.id.substr(13, 17) + " - " + descriptif.nom +
                         "</div></div>"
                     );
                   } else if (descriptif.type == "ouvrage") {
                     $("#arboBDD").append(
-                      "<div class='lineBDD lineDescriptif ouvrage'><input type='hidden' class='idDescriptif' value=" +
+                      "<div class='lineBDD lineDescriptif ouvrage'><input type='hidden' class='idDescriptif' value='" +
                         descriptif.id +
-                        "/><span class='iconBDD'>-</span><div class='intitule'>" +
-                        descriptif.nom +
+                        "'/><span class='iconBDD'>-</span><div class='intitule'>" +
+                        descriptif.id.substr(13, 17) + " - " + descriptif.nom +
                         "</div></div>"
                     );
                   } else if (descriptif.type == "prestation") {
                     $("#arboBDD").append(
-                      "<div class='lineBDD lineDescriptif prestation'><input type='hidden' class='idDescriptif' value=" +
+                      "<div class='lineBDD lineDescriptif prestation'><input type='hidden' class='idDescriptif' value='" +
                         descriptif.id +
-                        "/><span class='iconBDD'>-</span><div class='intitule'>" +
-                        descriptif.nom +
+                        "'/><span class='iconBDD'>-</span><div class='intitule'>" +
+                        descriptif.id.substr(17, 21) + " - " + descriptif.nom +
                         "</div></div>"
                     );
                   }
@@ -229,42 +229,72 @@ function chargerHttpXML(xmlDocumentUrl) {
 }
 
 function ouvrirProjet(idProjet) {
-  var xslDocumentUrl = "stylesheet/ouvrirProjet.xsl";
-  var xmlDocumentUrl = "XMLfiles/" + idProjet + ".xml";
 
-  var xsltProcessor = new XSLTProcessor();
+  $.ajax({
+    url: "./ActionServlet",
+    method: "GET",
+    data: {
+      todo: "ouvrirProjet",
+      idProjet: idProjet
+    },
+    dataType: "json",
+  }).done(function (response) {
+    // Fonction appelée en cas d'appel AJAX réussi
+    console.log("Response", response);
+    if(!response.ErrorState) {
+      var xslDocumentUrl = "stylesheet/ouvrirProjet.xsl";
+      var xmlDocumentUrl = "XMLfiles/" + idProjet + ".xml";
 
-  // Chargement du fichier XSL à l'aide de XMLHttpRequest synchrone
-  var xslDocument = chargerHttpXML(xslDocumentUrl);
+      var xsltProcessor = new XSLTProcessor();
 
-  // Importation du .xsl
-  xsltProcessor.importStylesheet(xslDocument);
+      // Chargement du fichier XSL à l'aide de XMLHttpRequest synchrone
+      var xslDocument = chargerHttpXML(xslDocumentUrl);
 
-  // Chargement du fichier XML à l'aide de XMLHttpRequest synchrone
-  var xmlDocument = chargerHttpXML(xmlDocumentUrl);
+      // Importation du .xsl
+      xsltProcessor.importStylesheet(xslDocument);
 
-  // Création du document XML transformé par le XSL
-  var newXmlDocument = xsltProcessor.transformToDocument(xmlDocument);
+      // Chargement du fichier XML à l'aide de XMLHttpRequest synchrone
+      var xmlDocument = chargerHttpXML(xmlDocumentUrl);
 
-  // Le div permet juste de récupèrer tout le DOM
-  var elementAInserer = newXmlDocument.getElementsByTagName("div")[0];
+      // Création du document XML transformé par le XSL
+      var newXmlDocument = xsltProcessor.transformToDocument(xmlDocument);
 
-  // On remplace toutes les balises concernant l'ancien projet actuellement existantes par les nouvelles
-  $(".container").last().html(elementAInserer.childNodes);
+      // Le div permet juste de récupèrer tout le DOM
+      var elementAInserer = newXmlDocument.getElementsByTagName("div")[0];
 
-  //Ajout de l'hover sur toutes les barres d'insertions titre
-  addEventsDescriptifs();
+      // On remplace toutes les balises concernant l'ancien projet actuellement existantes par les nouvelles
+      $(".container").last().html(elementAInserer.childNodes);
 
-  //On affiche par défaut le premier lot
-  AfficherOnglet($("#lot_0"));
+      //On spécifie l'id du projet acutellement ouvert dans la partie infos projet
+      $('#idProjetActuel').val(idProjet);
 
-  //On affiche le bon titre lot
-  AfficherTitreLot($("#divTitreLot_0"));
+      //On ajoute les infos projet dans la partie correspondante
+      $('#nomProjet').children(':first').html(response.nomProjet);
+      $('.nomProjetUpdate').val(response.nomProjet);
+      if(response.refBRP != null) $('.refBRP').val(response.refBRP);
+      if(response.typeMarche != null) $("input[value='" + response.typeMarche + "']").prop("checked",true);
+      if(response.typeConstruction != null) $("input[value='" + response.typeConstruction + "']").prop("checked",true);
+      if(response.typeLot != null) $("input[value='" + response.typeLot + "']").prop("checked",true);
+      if(response.site != null) $("input[value='" + response.site + "']").prop("checked",true);
+      if(response.anneeRef != null) $('.datePrixref').val(response.anneeRef);
+      if(response.coeffAdapt != null) $('.coeffAdapt').val(response.coeffAdapt);
+      if(response.localisationCoeffRaccordement != null) $('#coeffRaccordement').val(response.localisationCoeffRaccordement + "-" + response.valeurCoeffRaccordement);
 
-  //On numérote l'arbo
-  for (let index = 0; index < $(".lot").length; index++) {
-    NumerotationArbo("lot_" + index);
-  }
+      //Ajout de l'hover sur toutes les barres d'insertions titre
+      addEventsDescriptifs();
+
+      //On affiche par défaut le premier lot
+      AfficherOnglet($("#lot_0"));
+
+      //On affiche le bon titre lot
+      AfficherTitreLot($("#divTitreLot_0"));
+
+      //On numérote l'arbo
+      for (let index = 0; index < $(".lot").length; index++) {
+        NumerotationArbo("lot_" + index);
+      }
+    }
+  });
 }
 
 function modifierInfosProjet(){
@@ -567,8 +597,9 @@ function AjouterElement(element) {
         divInsertionDescriptif.className = classDescriptifAuDessus;
       }
 
-      //Appel AJAX pour récupérer la description
+      //Appel AJAX pour récupérer les infos du descriptif
       var idDescriptif = $(".selectDescriptif").children(":first").val();
+      console.log(idDescriptif);
       var unite, description, nomDescriptif;
 
       $.ajax({
@@ -582,18 +613,19 @@ function AjouterElement(element) {
       }).done(function (response) {
         // Fonction appelée en cas d'appel AJAX réussi
         console.log("Response", response);
-        if (!response.Error) {
+        if (!response.ErrorState) {
           //Récupérer la description (et l'unité si pas générique)
           if(response.typeDescriptif !== "Generique") {
-            //!unite = ;
+            //!unite = response.unite;
           }
           descriptionDescriptif = response.descriptionDescriptif;
           nomDescriptif = response.nomDescriptif;
 
           if (!$(".selectDescriptif").hasClass("generique")) {
 
-            $(divInsertionDescriptif).html("<div class='input-group'><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control' placeholder='" + nomDescriptif + "'/></div><div class='input-group description'><textarea class='form-control' placeholder='" + descriptionDescriptif + "'></textarea></div><div class='ligneChiffrage'><input type='text' class='form-control' placeholder='Localisation'/><input type='text' class='form-control' placeholder='Quantité'/><div class='input-group-prepend'><span class='input-group-text'></span></div></div>");
+            $(divInsertionDescriptif).html("<div class='input-group'><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control' placeholder='Ouvrage/Prestation' value='" + nomDescriptif + "'/></div><div class='input-group description'><textarea class='form-control' placeholder='Description' value='" + descriptionDescriptif + "'></textarea></div><div class='ligneChiffrage'><input type='text' class='form-control' placeholder='Localisation'/><input type='text' class='form-control' placeholder='Quantité'/><div class='input-group-prepend'><span class='input-group-text'></span></div></div>");
             //! Rajouter l'unité en AJAX
+            //! Rajouter la description stylisée en AJAX
     
             $(divInsertionDescriptif).insertBefore($(element));
     
@@ -612,9 +644,9 @@ function AjouterElement(element) {
             NumerotationArbo(idLot);
           } else {
             //On insère le générique
-            $(divInsertionDescriptif).html("<div class='input-group'><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control' placeholder='" + nomDescriptif + "'/></div><div class='input-group description'><textarea class='form-control' placeholder='" + descriptionDescriptif + "'></textarea></div>");
+            $(divInsertionDescriptif).html("<div class='input-group'><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control' placeholder='Générique' value='" + nomDescriptif + "'/></div><div class='input-group description'><textarea class='form-control' placeholder='Description' value='" + descriptionDescriptif + "'></textarea></div>");
             $(divInsertionDescriptif).insertBefore($(element));
-            //! Rajouter la description en AJAX
+            //! Rajouter la description stylisée en AJAX
     
             //On insère une barre d'insertion au dessus du nouveau descriptif
             var divBarreInsertion = document.createElement("div");
