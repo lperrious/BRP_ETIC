@@ -6,6 +6,35 @@ var testChoixPresent = false;
 
 /************** Appels au chargement de la page ******************/
 $(document).ready(function () {
+
+  $.ajax({
+    url: "./ActionServlet",
+    method: "GET",
+    data: {
+      todo: "listerRaccordementCatConst"
+    },
+    dataType: "json",
+  }).done(function (response) {
+    // Fonction appelée en cas d'appel AJAX réussi
+    console.log("Response", response);
+    if(!response.ErrorState) {
+      $.each(response.listeCoeffRaccordement, function (i, coeffRaccordement) {
+        $('#coeffRaccordement').append($('<option>', { 
+            value: i,
+            text : coeffRaccordement.localisation + " - " + coeffRaccordement.valeur,
+            name: coeffRaccordement.localisation
+        }));
+      });
+      $.each(response.listeCategorieConstruction, function (i, categorieConstruction) {
+        $('#categorieConstruction').append($('<option>', { 
+            value: i,
+            text: categorieConstruction.code + " - " + categorieConstruction.intitule,
+            name: categorieConstruction.code
+        }));
+      });
+    }
+  });
+
   //Récupère l'arbo Descriptifs de la BDD
   $.ajax({
     url: "./ActionServlet",
@@ -445,7 +474,36 @@ function show_catConstruction() {
   } else {
     $(".lineSousCatConstruction").css("display", "flex");
     $(".lineCaractDim").css("display", "flex");
-    //lien BDD
+    //On va chercher les sousCategorieConstruction et CaractDim en lien avec la CatConstruction sélectionnée
+    var idCategorieConstruction = $("#categorieConstruction").find('option:selected').attr("name");
+    $.ajax({
+      url: "./ActionServlet",
+      method: "GET",
+      data: {
+        todo: "listerSousCatConstCaractDim",
+        idCategorieConstruction: idCategorieConstruction
+      },
+      dataType: "json",
+    }).done(function (response) {
+      // Fonction appelée en cas d'appel AJAX réussi
+      console.log("Response", response);
+      if(!response.ErrorState) {
+        $.each(response.listeSousCategorieConstruction, function (i, sousCategorieConstruction) {
+          $('#sousCategorieConstruction').append($('<option>', { 
+              value: i,
+              text : sousCategorieConstruction.intitule,
+              name: sousCategorieConstruction.code
+          }));
+        });
+        /*$.each(response.listeCaractDim, function (i, caractDim) { //! Régler Caract Dim plus tard
+          $('#sousCategorieConstruction').append($('<option>', { 
+              value: i,
+              text : caractDim.valeur,
+              name: caractDim.code
+          }));
+        });*/
+      }
+    });
   }
 }
 

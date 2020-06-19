@@ -236,7 +236,7 @@ public static void Scenario1() {
     System.out.println();
     
     CategorieConstruction categorieConstruction = service.ListerCategorieConstructions().get(0);
-    resultat = service.EditerCategorieConstructionProjet(idProjet, categorieConstruction.getIdCategorieConstruction());
+    resultat = service.EditerCategorieConstructionProjet(idProjet, categorieConstruction.getCodeCategorieConstruction());
     if (resultat)
         System.out.println("Succès");
     else 
@@ -1457,9 +1457,9 @@ public static void Scenario3() {
         
         //Doit fonctionner
         Long idProjet = 1L;
-        Long idCategorieConstruction = 1L;
+        String codeCategorieConstruction = "codeCategorieConstruction1";
         
-        Boolean resultat = service.EditerCategorieConstructionProjet(idProjet, idCategorieConstruction);
+        Boolean resultat = service.EditerCategorieConstructionProjet(idProjet, codeCategorieConstruction);
         if(resultat)
         {
             System.out.println("Edition avec succès du projet n°" + idProjet);
@@ -1469,9 +1469,9 @@ public static void Scenario3() {
        
         //Ne doit pas fonctionner
         Long idProjet2 = 100L;
-        Long idCategorieConstruction2 = 1L;
+        String codeCategorieConstruction2 = "codeCategorieConstruction1";
         
-        Boolean resultat2 = service.EditerCategorieConstructionProjet(idProjet2, idCategorieConstruction2);
+        Boolean resultat2 = service.EditerCategorieConstructionProjet(idProjet2, codeCategorieConstruction2);
         if(resultat2)
         {
             System.out.println("Edition avec succès du projet n°" + idProjet2);
@@ -1481,9 +1481,9 @@ public static void Scenario3() {
         
         //Ne doit pas fonctionner
         Long idProjet3 = 1L;
-        Long idCategorieConstruction3 = 2L;
+        String codeCategorieConstruction3 = "codeCategorieConstruction3";
         
-        Boolean resultat3 = service.EditerCategorieConstructionProjet(idProjet3, idCategorieConstruction3);
+        Boolean resultat3 = service.EditerCategorieConstructionProjet(idProjet3, codeCategorieConstruction3);
         if(resultat3)
         {
             System.out.println("Edition avec succès du projet n°" + idProjet3);
