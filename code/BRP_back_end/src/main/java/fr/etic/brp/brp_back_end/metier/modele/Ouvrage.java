@@ -22,9 +22,9 @@ public class Ouvrage extends Descriptif implements Serializable {
     public Ouvrage(){ 
     }
     
-    public Ouvrage(String idDescriptif, String nomDescriptif, String description, String courteDescription){
+    public Ouvrage(String idDescriptif, String nomDescriptif, String description, String courteDescription, String unite){
         super(idDescriptif, nomDescriptif, description, courteDescription);
-        this.unite = null;
+        this.unite = unite;
         this.listeBasePrixRefOuvrage = null;
         this.listePrestation = null;
     }

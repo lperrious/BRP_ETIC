@@ -295,7 +295,7 @@ public class ImportService {
                                     ouvrage = (Ouvrage) descriptifDao.ChercherParId(idActuel);
                                     JpaUtil.ouvrirTransaction();
                                     if(ouvrage == null){   //on crée le chapitre
-                                        ouvrage = new Ouvrage(idActuel, docListe.get(i).get(3), docListe.get(i).get(4), docListe.get(i).get(5));
+                                        ouvrage = new Ouvrage(idActuel, docListe.get(i).get(3), docListe.get(i).get(4), docListe.get(i).get(5), docListe.get(i).get(6));
                                         descriptifDao.Creer(ouvrage);
                                     }
                                     else{   //on modifie le titre du chapitre
@@ -339,7 +339,7 @@ public class ImportService {
                                     prestation = prestationDao.ChercherParId(idActuel);
                                     JpaUtil.ouvrirTransaction();
                                     if(prestation == null){   //on crée la prestation
-                                        prestation = new Prestation(idActuel, docListe.get(i).get(3), docListe.get(i).get(4), docListe.get(i).get(5));
+                                        prestation = new Prestation(idActuel, docListe.get(i).get(3), docListe.get(i).get(4), docListe.get(i).get(5), docListe.get(i).get(6));
                                         prestationDao.Creer(prestation);
                                     }
                                     else{   //on modifie le titre de la prestation
