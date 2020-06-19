@@ -43,24 +43,28 @@ public class ArboDescriptifsSerialisation extends Serialisation {
                 Chapitre chapitre = chapitres.get(i);
                 JsonObject containerChapitre = new JsonObject();
                 containerChapitre.addProperty("intituleChapitre", chapitre.getIntituleChapitre());
+                containerChapitre.addProperty("idChapitre", chapitre.getIdChapitre());
                 JsonArray jaCategories = new JsonArray();
                 List<Categorie> categories = chapitre.getListCategorie();
                 for(int j = 0; j < categories.size(); j++) {
                     Categorie categorie = categories.get(j);
                     JsonObject containerCategorie = new JsonObject();
                     containerCategorie.addProperty("intituleCategorie", categorie.getIntituleCategorie());
+                    containerCategorie.addProperty("idCategorie", categorie.getIdCategorie());
                     JsonArray jaFamilles = new JsonArray();
                     List<Famille> familles = categorie.getListeFamille();
                     for(int k = 0; k < familles.size(); k++) {
                         Famille famille = familles.get(k);
                         JsonObject containerFamille = new JsonObject();
                         containerFamille.addProperty("intituleFamille", famille.getIntituleFamille());
+                        containerFamille.addProperty("idFamille", famille.getIdFamille());
                         JsonArray jaSousFamilles = new JsonArray();
                         List<SousFamille> sousFamilles = famille.getListSousFamille();
                         for(int l = 0; l < sousFamilles.size(); l++) {
                             SousFamille sousFamille = sousFamilles.get(l);
                             JsonObject containerSousFamille = new JsonObject();
                             containerSousFamille.addProperty("intituleSousFamille", sousFamille.getIntituleSousFamille());
+                            containerSousFamille.addProperty("idSousFamille", sousFamille.getIdSousFamille());
                             JsonArray jaDescriptifs = new JsonArray();
                             List<Descriptif> descriptifs = sousFamille.getListDescriptif();
                             for(int m = 0; m < descriptifs.size(); m++) {

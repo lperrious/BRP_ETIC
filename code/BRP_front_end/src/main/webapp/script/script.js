@@ -24,28 +24,28 @@ $(document).ready(function () {
           const chapitre = response.arborescence[i];
           $("#arboBDD").append(
             "<div class='lineBDD lineChapitre'><span class='iconBDD'><i class='fas fa-caret-right arrow'></i></span><div class='intitule'>" +
-              chapitre.intituleChapitre +
+              chapitre.idChapitre + " - " + chapitre.intituleChapitre +
               "</div></div>"
           );
           for (let j = 0; j < chapitre.categories.length; j++) {
             const categorie = chapitre.categories[j];
             $("#arboBDD").append(
               "<div class='lineBDD lineCategorie'><span class='iconBDD'><i class='fas fa-caret-right arrow'></i></span><div class='intitule'>" +
-                categorie.intituleCategorie +
+                categorie.idCategorie.substr(3, 4) + " - " + categorie.intituleCategorie +
                 "</div></div>"
             );
             for (let k = 0; k < categorie.familles.length; k++) {
               const famille = categorie.familles[k];
               $("#arboBDD").append(
                 "<div class='lineBDD lineFamille'><span class='iconBDD'><i class='fas fa-caret-right arrow'></i></span><div class='intitule'>" +
-                  famille.intituleFamille +
+                  famille.idFamille.substr(7, 3) + " - " + famille.intituleFamille +
                   "</div></div>"
               );
               for (let l = 0; l < famille.sousFamilles.length; l++) {
                 const sousFamille = famille.sousFamilles[l];
                 $("#arboBDD").append(
                   "<div class='lineBDD lineSousFamille'><span class='iconBDD'><i class='fas fa-caret-right arrow'></i></span><div class='intitule'>" +
-                    sousFamille.intituleSousFamille +
+                    sousFamille.idSousFamille.substr(10, 13) + " - " + sousFamille.intituleSousFamille +
                     "</div></div>"
                 );
                 for (let m = 0; m < sousFamille.descriptifs.length; m++) {
@@ -55,7 +55,7 @@ $(document).ready(function () {
                       "<div class='lineBDD lineDescriptif generique'><input type='hidden' class='idDescriptif' value='" +
                         descriptif.id +
                         "'/><span class='iconBDD'>-</span><div class='intitule'>" +
-                        descriptif.nom +
+                        descriptif.id.substr(13, 17) + " - " + descriptif.nom +
                         "</div></div>"
                     );
                   } else if (descriptif.type == "ouvrage") {
@@ -63,7 +63,7 @@ $(document).ready(function () {
                       "<div class='lineBDD lineDescriptif ouvrage'><input type='hidden' class='idDescriptif' value='" +
                         descriptif.id +
                         "'/><span class='iconBDD'>-</span><div class='intitule'>" +
-                        descriptif.nom +
+                        descriptif.id.substr(13, 17) + " - " + descriptif.nom +
                         "</div></div>"
                     );
                   } else if (descriptif.type == "prestation") {
@@ -71,7 +71,7 @@ $(document).ready(function () {
                       "<div class='lineBDD lineDescriptif prestation'><input type='hidden' class='idDescriptif' value='" +
                         descriptif.id +
                         "'/><span class='iconBDD'>-</span><div class='intitule'>" +
-                        descriptif.nom +
+                        descriptif.id.substr(17, 21) + " - " + descriptif.nom +
                         "</div></div>"
                     );
                   }
