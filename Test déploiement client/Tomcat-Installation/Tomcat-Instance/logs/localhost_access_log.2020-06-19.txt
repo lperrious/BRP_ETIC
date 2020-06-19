@@ -62,3 +62,6 @@
 127.0.0.1 - - [19/Jun/2020:08:47:45 +0200] "HEAD /netbeans-tomcat-status-test HTTP/1.1" 404 -
 127.0.0.1 - tomcat [19/Jun/2020:08:47:45 +0200] "GET /manager/text/ HTTP/1.1" 200 41
 127.0.0.1 - tomcat [19/Jun/2020:08:47:45 +0200] "GET /manager/text/list HTTP/1.1" 200 665
+127.0.0.1 - tomcat [19/Jun/2020:08:47:47 +0200] "GET /manager/text/reload?path=/BRP_front_end HTTP/1.1" 200 98
+127.0.0.1 - - [19/Jun/2020:08:47:47 +0200] "HEAD /netbeans-tomcat-status-test HTTP/1.1" 404 -
+127.0.0.1 - tomcat [19/Jun/2020:08:47:47 +0200] "GET /manager/text/ HTTP/1.1" 200 41
