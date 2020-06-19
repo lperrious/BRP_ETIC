@@ -354,7 +354,21 @@ public class Service {
         try {
             resultat = projetDao.ChercherParId(id);
         } catch (Exception ex) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service rechercherProjetParId(id)", ex);
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service RechercherProjetParId(id)", ex);
+            resultat = null;
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        return resultat;
+    }
+    
+    public CategorieConstruction RechercherCategorieConstructionParId(String id) {
+        CategorieConstruction resultat = null;
+        JpaUtil.creerContextePersistance();
+        try {
+            resultat = categorieConstructionDao.ChercherParId(id);
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service RechercherCategorieConstructionParId(id)", ex);
             resultat = null;
         } finally {
             JpaUtil.fermerContextePersistance();
@@ -558,7 +572,7 @@ public class Service {
             return false;
     }
     
-    public Boolean EditerCategorieConstructionProjet(Long idProjet, Long idCategorieConstruction){
+    public Boolean EditerCategorieConstructionProjet(Long idProjet, String idCategorieConstruction){
         Projet projetAModifier = null;
         CategorieConstruction categorieConstruction = null;
         JpaUtil.creerContextePersistance();
