@@ -716,6 +716,8 @@ function AjouterElement(element) {
             var idLot = $(divInsertionDescriptif).parent().attr("id");
             NumerotationArbo(idLot);
           }
+          //on actualise le xml
+          modifierXML();
         }
       });
     }
@@ -858,6 +860,8 @@ function AjouterTitre(evt) {
   //Appel de la fonction de numérotation de l'arborescence
   var idLot = $(divNewTitle).parent().attr("id");
   NumerotationArbo(idLot);
+  //on actualise le xml
+  modifierXML();
 }
 
 function NumerotationArbo(idOnglet) {
@@ -992,6 +996,9 @@ function CreerOnglet() {
 
   //On numérote l'unique titre
   NumerotationArbo(idOnglet);
+
+  //on actualise le xml
+  modifierXML();
 }
 
 function toRoman(num) {
@@ -1071,8 +1078,9 @@ function modifierXML(){
     //on va chercher les enfants du lot
     $('#lot_'+idLot).children().each(function () {
       classElement = $(this).attr("class");
+      
       //on verifie qu'on est dans un titre ou un descritpif
-      if (classElement != "barreInsertion" && classElement != "finLot") {
+      if (typeof(classElement) != 'undefined' && classElement != "barreInsertion" && classElement != "finLot") {
         //on crée le tableau secondaire
         xmlDatas[i] = Array();
 
@@ -1095,7 +1103,7 @@ function modifierXML(){
         //sinon c'est un descriptif
         else{
           xmlDatas[i]['idDescriptif'] = $(this).children('.idDescriptif').val();
-          xmlDatas[i]['nomDescriptif'] = $(this).find('.titreDescriptif').val();
+          xmlDatas[i]['nomDescriptif'] = $(this).find('.nomDescriptif').val();
           xmlDatas[i]['description'] = $(this).find('textarea').val();
 
           //on va chercher les lignes chiffrage s'il y en a 
@@ -1128,24 +1136,24 @@ function modifierXML(){
   console.log(xmlDatas);
 
   //une fois qu'on a rassemblé les informations de manière ordonnée, on fait l'appel AJAX
-  var idProjet = $(element).children("#idProjetActuel").val();
+  // var idProjet = $(element).children("#idProjetActuel").val();
 
-  $.ajax({
-    url: "./ActionServlet",
-    method: "POST",
-    data: {
-      todo: "modifierXML",
-      idProjet:idProjet,
-      xmlDatas:xmlDatas
-    },
-    dataType: "json",
-  }).done(function (response) {
-    // Fonction appelée en cas d'appel AJAX réussi
-    console.log("Response", response);
-    if(response.ErrorState){
-      alert("Un problème est survenu lors de la sauvegarde des données du projet. Rafraichir la page peut vous aider à l'identifier");
-    }
-  });
+  // $.ajax({
+  //   url: "./ActionServlet",
+  //   method: "POST",
+  //   data: {
+  //     todo: "modifierXML",
+  //     idProjet:idProjet,
+  //     xmlDatas:xmlDatas
+  //   },
+  //   dataType: "json",
+  // }).done(function (response) {
+  //   // Fonction appelée en cas d'appel AJAX réussi
+  //   console.log("Response", response);
+  //   if(response.ErrorState){
+  //     alert("Un problème est survenu lors de la sauvegarde des données du projet. Rafraichir la page peut vous aider à l'identifier");
+  //   }
+  // });
 }
 
 
