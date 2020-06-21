@@ -148,7 +148,8 @@
     <xsl:template match="descriptif">
         <xsl:choose>
 		  <xsl:when test="contains(name(..),'1')">
-		    <div class="descriptif titre2" id="{@idBD}">
+		    <div class="descriptif titre2">
+                <input type="hidden" class="idDescriptif" value="{@idBD}"/>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1"></span>
@@ -171,7 +172,8 @@
             </div>
 		  </xsl:when>
 		  <xsl:when test="contains(name(..),'2')">
-		    <div class="descriptif titre3" id="{@idBD}">
+		    <div class="descriptif titre3">
+                <input type="hidden" class="idDescriptif" value="{@idBD}"/>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1"></span>
@@ -194,7 +196,8 @@
             </div>
           </xsl:when>
           <xsl:when test="contains(name(..),'3')">
-		    <div class="descriptif titre4" id="{@idBD}">
+		    <div class="descriptif titre4">
+                <input type="hidden" class="idDescriptif" value="{@idBD}"/>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1"></span>
@@ -217,7 +220,8 @@
             </div>
           </xsl:when>
           <xsl:when test="contains(name(..),'4')">
-		    <div class="descriptif titre5" id="{@idBD}">
+		    <div class="descriptif titre5">
+                <input type="hidden" class="idDescriptif" value="{@idBD}"/>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1"></span>
@@ -244,10 +248,10 @@
 
     <xsl:template match="ligneChiffrage">
         <div class="ligneChiffrage">
-            <input type="text" aria-label="Localisation" class="form-control" placeholder="Localisation" />
-            <input type="text" aria-label="Quantite" class="form-control" placeholder="Quantité" />
+            <input type="text" class="form-control localisation" placeholder="Localisation" />
+            <input type="text" class="form-control quantite" placeholder="Quantité" />
             <div class="input-group-prepend">
-                <span class="input-group-text">
+                <span class="input-group-text unite">
                     <xsl:value-of select="../unite" />
                 </span>
             </div>
