@@ -404,6 +404,34 @@ public class Service {
             return false;
     }
     
+    public Boolean EditerRefBRPProjet(Long idProjet, String refBRP){
+        Projet projetAModifier = null;
+        JpaUtil.creerContextePersistance();
+        try{
+            if(idProjet != null) {
+                projetAModifier = projetDao.ChercherParId(idProjet);
+                if(projetAModifier != null) {
+                    projetAModifier.setRefBRP(refBRP);
+                    
+                    //On enregistre dans la BD
+                    JpaUtil.ouvrirTransaction();
+                    projetDao.Update(projetAModifier);
+                    JpaUtil.validerTransaction();
+                }
+            }
+        } catch(Exception ex){
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service EditerRefBRPProjet(idProjet, refBRP)", ex);
+            projetAModifier = null;
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        
+        if(projetAModifier != null)
+            return true;
+        else
+            return false;
+    }
+    
     public Boolean EditerInfoEnumProjet(Long idProjet, String typeEnum, String valeurEnum){
         Projet projetAModifier = null;
         JpaUtil.creerContextePersistance();
@@ -595,6 +623,40 @@ public class Service {
             }
         } catch(Exception ex){
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service EditerCategorieConstructionProjet(idProjet, idCategorieConstruction)", ex);
+            projetAModifier = null;
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        
+        if(projetAModifier != null)
+            return true;
+        else
+            return false;
+    }
+    
+    public Boolean EditerSousCategorieConstructionProjet(Long idProjet, Long idSousCategorieConstruction){
+        Projet projetAModifier = null;
+        SousCategorieConstruction sousCategorieConstruction = null;
+        JpaUtil.creerContextePersistance();
+        try{
+            if(idProjet != null) {
+                projetAModifier = projetDao.ChercherParId(idProjet);
+                if(projetAModifier != null) {
+                    sousCategorieConstruction = sousCategorieConstructionDao.ChercherParId(idSousCategorieConstruction);
+                    if(sousCategorieConstruction != null) {
+                        projetAModifier.setSousCategorieConstructionSelection(sousCategorieConstruction);
+                    
+                        //On enregistre dans la BD
+                        JpaUtil.ouvrirTransaction();
+                        projetDao.Update(projetAModifier);
+                        JpaUtil.validerTransaction();
+                    } else {
+                        projetAModifier = null;
+                    }
+                }
+            }
+        } catch(Exception ex){
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service EditerSousCategorieConstructionProjet(idProjet, idSousCategorieConstruction)", ex);
             projetAModifier = null;
         } finally {
             JpaUtil.fermerContextePersistance();
