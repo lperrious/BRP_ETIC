@@ -229,7 +229,7 @@
           <div class="exportButton">Générer livrable</div>
         </div>
       </div>
-      <div class="container">
+      <div class="container" onchange="modifierXML();">
         <div class="divTitreLot" id="divTitreLot_0">
           <input type="text" class="titreLot" placeholder="Titre Lot" />
         </div>
@@ -317,13 +317,15 @@
             <div class="panBarreInsertion"></div>
           </div>
           <div class="descriptif titre5">
+          	<input type="hidden" class="descriptifType" value="ouvrage">
+          	<input type="hidden" class="courteDescription" value="Ceci est une Courte Description">
             <div class="input-group">
               <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon1">1.1.1.1</span>
               </div>
               <input
                 type="text"
-                class="form-control"
+                class="form-control titreDescriptif"
                 placeholder="Ouvrage/Prestation"
                 value="Ouvrage/Prestation"
               />
@@ -331,7 +333,6 @@
             <div class="input-group description">
               <textarea
                 class="form-control"
-                aria-label="With textarea"
                 placeholder="Description"
               >
 Ceci est un descriptif et en voici sa description.Ceci est un descriptif et en voici sa description.Ceci est un descriptif et en voici sa description.Ceci est un descriptif et en voici sa descriptionCeci est un descriptif et en voici sa description.Ceci est un descriptif et en voici sa description.Ceci est un descriptif et en voici sa description.Ceci est un descriptif et en voici sa descriptionCeci est un descriptif et en voici sa description.Ceci est un descriptif et en voici sa description.Ceci est un descriptif et en voici sa description.Ceci est un descriptif et en voici sa descriptionCeci est un descriptif et en voici sa description.Ceci est un descriptif et en voici sa description.Ceci est un descriptif et en voici sa description.Ceci est un descriptif et en voici sa descriptionCeci est un descriptif et en voici sa description.Ceci est un descriptif et en voici sa description.Ceci est un descriptif et en voici sa description.Ceci est un descriptif et en voici sa descriptionCeci est un descriptif et en voici sa description.Ceci est un descriptif et en voici sa description.Ceci est un descriptif et en voici sa description.Ceci est un descriptif et en voici sa descriptionCeci est un descriptif et en voici sa description.Ceci est un descriptif et en voici sa description.Ceci est un descriptif et en voici sa description.Ceci est un descriptif et en voici sa descriptionCeci est un descriptif et en voici sa description.Ceci est un descriptif et en voici sa description.Ceci est un descriptif et en voici sa description.Ceci est un descriptif et en voici sa descriptionCeci est un descriptif et en voici sa description.Ceci est un descriptif et en voici sa description.Ceci est un descriptif et en voici sa description.Ceci est un descriptif et en voici sa descriptionCeci est un descriptif et en voici sa description.Ceci est un descriptif et en voici sa description.Ceci est un descriptif et en voici sa description.Ceci est un descriptif et en voici sa descriptionCeci est un descriptif et en voici sa description.Ceci est un descriptif et en voici sa description.Ceci est un descriptif et en voici sa description.Ceci est un descriptif et en voici sa description</textarea
@@ -340,18 +341,16 @@ Ceci est un descriptif et en voici sa description.Ceci est un descriptif et en v
             <div class="ligneChiffrage">
               <input
                 type="text"
-                aria-label="Localisation"
-                class="form-control"
+                class="form-control localisation"
                 placeholder="Localisation"
               />
               <input
                 type="text"
-                aria-label="Quantite"
-                class="form-control"
+                class="form-control quantite"
                 placeholder="Quantité"
               />
               <div class="input-group-prepend">
-                <span class="input-group-text">m2</span>
+                <span class="input-group-text unite">m2</span>
               </div>
               <div class="suppressionLigneChiffrage">
                 <i class="fas fa-times"></i>
@@ -393,13 +392,15 @@ Ceci est un descriptif et en voici sa description.Ceci est un descriptif et en v
             <div class="panBarreInsertion"></div>
           </div>
           <div class="descriptif titre2">
+          	<input type="hidden" class="descriptifType" value="prestation">
+          	<input type="hidden" class="courteDescription" value="Ceci est une Courte Description">
             <div class="input-group">
               <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon1">II.1</span>
               </div>
               <input
                 type="text"
-                class="form-control"
+                class="form-control titreDescriptif"
                 placeholder="Generique"
               />
             </div>
@@ -449,16 +450,16 @@ Ceci est un descriptif et en voici sa description.Ceci est un descriptif et en v
             <div class="panBarreInsertion"></div>
           </div>
           <div class="descriptif titre4">
+          	<input type="hidden" class="descriptifType" value="generique">
+          	<input type="hidden" class="courteDescription" value="Ceci est une Courte Description">
             <div class="input-group">
               <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon1">2.1.1</span>
               </div>
               <input
                 type="text"
-                class="form-control"
+                class="form-control titreDescriptif"
                 placeholder="Ouvrage/Prestation"
-                aria-label="titre4"
-                aria-describedby="basic-addon1"
               />
             </div>
             <div class="input-group description">
@@ -471,14 +472,12 @@ Ceci est un descriptif et en voici sa description.Ceci est un descriptif et en v
             <div class="ligneChiffrage">
               <input
                 type="text"
-                aria-label="Localisation"
-                class="form-control"
+                class="form-control localisation"
                 placeholder="Localisation"
               />
               <input
                 type="text"
-                aria-label="Quantite"
-                class="form-control"
+                class="form-control quantite"
                 placeholder="Quantité"
               />
               <div class="input-group-prepend">
@@ -488,14 +487,12 @@ Ceci est un descriptif et en voici sa description.Ceci est un descriptif et en v
             <div class="ligneChiffrage">
               <input
                 type="text"
-                aria-label="Localisation"
-                class="form-control"
+                class="form-control localisation"
                 placeholder="Localisation"
               />
               <input
                 type="text"
-                aria-label="Quantite"
-                class="form-control"
+                class="form-control quantite"
                 placeholder="Quantité"
               />
               <div class="input-group-prepend">
@@ -620,16 +617,15 @@ Ceci est un descriptif et en voici sa description.Ceci est un descriptif et en v
             <div class="panBarreInsertion"></div>
           </div>
           <div class="descriptif titre2">
+          	<input type="hidden" class="idDescriptif" value="01_AAA">
             <div class="input-group">
               <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon1">II.1</span>
               </div>
               <input
                 type="text"
-                class="form-control"
-                placeholder="Generique"
-                aria-label="titre2"
-                aria-describedby="basic-addon1"
+                class="form-control titreDescriptif"
+                placeholder="Ouvrage/Prestation"
               />
             </div>
             <div class="input-group description">
