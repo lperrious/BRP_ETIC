@@ -262,6 +262,9 @@ select {
   position: relative;
   top: 5px;
   margin-right: 10px;
+  overflow: auto;
+  height: 1.9em;
+  width: 100px;
 }
 
 .actionProjet {
@@ -302,7 +305,10 @@ select {
 }
 
 .nomProjet:nth-child(1) {
-  flex: 1;
+    flex: 1;
+    overflow: auto;
+    height: 1.5em;
+    margin-right: 15px;
 }
 
 .nomProjet:nth-child(2) {

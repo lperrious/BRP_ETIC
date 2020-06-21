@@ -61,11 +61,11 @@ public class Main {
     
         // A faire tout le temps (l'ordre est important)
 //        InitialiserBasePrixRef();
-//        InitialiserCaractDim();
-//        InitialiserSousCategorieConstruction();
+        InitialiserCaractDim();
+        InitialiserSousCategorieConstruction();
 //        InitialiserCategorie();
-//        InitialiserCategorieConstruction();
-//        InitialiserCoeffRaccordement();
+        InitialiserCategorieConstruction();
+        InitialiserCoeffRaccordement();
 //        InitialiserChapitre();
 //        InitialiserDescriptif();
 //        InitialiserFamille();
@@ -75,8 +75,8 @@ public class Main {
         
     //----------tests-des-services-----------------
     
-//        testerModifBaseDescriptif();
-//        testerModifBasePrixRef();
+        testerModifBaseDescriptif();
+        testerModifBasePrixRef();
 //        testerListerBasePrixRefs();
 //        testerListerCaractDims();
 //        testerListerCategories();
@@ -872,7 +872,7 @@ public static void Scenario3() {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("BRP_PU");
         EntityManager em = emf.createEntityManager();        
         
-        CategorieConstruction categorieConstruction1 = new CategorieConstruction("intituleCategorieConstruction1", "codeCategorieConstruction1");
+        CategorieConstruction categorieConstruction1 = new CategorieConstruction("codeCategorieConstruction1", "AAA");
         
         System.out.println("** CategorieConstruction avant persistance: ");
         afficherCategorieConstruction(categorieConstruction1);
