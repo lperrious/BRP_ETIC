@@ -17,7 +17,7 @@
         
         <div id="div_champs_inscription">
             <div id="div_consigne" align="center">Formulaire d'inscription</div><br><br>
-            <form action="#">
+            <form action="#" id="inscriptionForm">
                 <div class="form-group">
                   <label for="LastName">Nom</label>
                   <input type="text" class="form-control" id="LastName">
@@ -30,26 +30,43 @@
                   <label for="Password">Mot de passe</label>
                   <input type="password" class="form-control" id="Password">
                 </div>
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                  <label class="btn btn-secondary">
+                    <input type="radio" name="admin" id="admin" onclick="CheckAdmin();">Administrateur
+                  </label>
+                  <label class="btn btn-secondary active">
+                    <input type="radio" name="operateur" id="operateur" onclick="CheckOperateur();">Opérateur
+                  </label>
+                </div>
                 <div class="form-group" id="button_create_account">
-                    <button onclick="inscription();" class="btn btn-primary" id="button_create_account_html">Inscription</button>
-                    <button onclick="RetourConnexion();" class="btn btn-primary" id="button_back_home">Page de connexion</button>
+                    <button onclick="Inscription();" class="btn btn-primary" id="button_create_account_html">Inscription</button>
+                    <button onclick="RetourDashboard();" class="btn btn-primary" id="button_back_home">Dashboard</button>
                 </div>
             </form>
         </div>
         
             <script>
-                function inscription(){
-                  // Fonction appelée lors du clic sur le bouton
+                function CheckAdmin() {
+                  $("#admin").parent().attr('class', 'btn btn-secondary active');
+                  $("#operateur").parent().attr('class', 'btn btn-secondary');
+                }
 
-                  console.log("clic sur le bouton d'inscription"); // LOG dans Console Javascript
+                function CheckOperateur() {
+                  $("#admin").parent().attr('class', 'btn btn-secondary');
+                  $("#operateur").parent().attr('class', 'btn btn-secondary active');
+                }
+
+                function Inscription(){
                   $("#div_consigne").html("Inscription..."); // Message pour le paragraphe de notification
 
                   // Récupération de la valeur des champs du formulaire
                   var lastNameField = $("#LastName").val();
                   var emailField = $("#Email").val();
                   var passwordField = $("#Password").val();
-                  
-                  // Appel AJAX
+                  var isAdmin;
+                  if($(".active").children(':first').attr('id') == "admin") isAdmin = true;
+                  else isAdmin = false;
+
                   $.ajax({
                     url: "./ActionServlet",
                     method: "POST",
@@ -58,20 +75,17 @@
                       lastName: lastNameField,
                       email: emailField,
                       password: passwordField,
+                      isAdmin : isAdmin
                   },
                     dataType: "json"
                   })
                     .done(function(response) {
                       // Fonction appelée en cas d'appel AJAX réussi
-                      console.log("Response", response); // LOG dans Console Javascript
+                      console.log("Response", response);
                       if (!response.Error) {
-                        //On se déplace sur la page de connection
                         $("#div_consigne").html("Inscription bien prise en compte");
-                        document.getElementById("button_back_home").style.display = "none";
-                        $("#button_create_account_html").html("Connexion");
-                        document.getElementById("button_create_account_html").onclick = function(){window.location.href = "index.html"};
+                        $('#inscriptionForm').trigger("reset");
                       } else {
-                        //$("#div_consigne").html(response.errorDetail); // Message pour le paragraphe de notification
                         $("#div_consigne").html("Utilisateur déjà associé à ce mail");
                         $('#Email').css('border-color', 'red');
                       }
@@ -83,9 +97,10 @@
                     });
                 }
                 
-                function RetourConnexion(){
-                    window.location.href = "index.html";
+                function RetourDashboard(){
+                    window.location.href = "Dashboard.html";
                 }
         </script>
+
     </body>
 </html>

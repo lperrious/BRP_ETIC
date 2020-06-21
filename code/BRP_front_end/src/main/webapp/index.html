@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Connexion</title>
+	<title>Connexion - Gestion de Projet BRP</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
         
@@ -33,7 +33,6 @@
                         </div>
                         <div id="conteneur_button">
                             <button onclick="connexion()" class="btn btn-black" id="blogin_button">Connexion</button>
-                            <button onclick="location.href='Inscription.html';" class="btn btn-secondary" >Créer un compte</button>
                         </div>
                     </form>
                 </div>
@@ -47,9 +46,9 @@
         
         $.ajax({
           url: "./ActionServlet",
-          method: "POST",
+          method: "GET",
           data: {
-            todo: "testConnection"
+            todo: "testConnexion"
           },
           dataType: "json"
         }).done(function(response) {
@@ -57,26 +56,19 @@
             if (!response.Error) { //Si déjà connecté alors on redirige vers son dashboard
                 window.location.href = "Dashboard.html";
             }
-        }).fail(function(error) {
-            // Fonction appelée en cas d'erreur lors de l'appel AJAX
-            console.log("Error", error); // LOG dans Console Javascript
-            alert("Erreur lors de l'appel AJAX");
         });
-        
-        function connexion(){
-            // Fonction appelée lors du clic sur le bouton de login
-            console.log("clic sur le bouton de login"); // LOG dans Console Javascript
 
+        // Fonction appelée lors du clic sur le bouton de login
+        function connexion(){
             // Récupération de la valeur des champs du formulaire
             var emailField = $("#Email").val();
             var passwordField = $("#Password").val();
 
-            // Appel AJAX
             $.ajax({
               url: "./ActionServlet",
-              method: "POST",
+              method: "GET",
               data: {
-                todo: "connection",
+                todo: "connexion",
                 email: emailField,
                 password: passwordField
               },
@@ -89,10 +81,6 @@
                 } else {
                     $("#error_notif").css("display", "block"); // Message pour le paragraphe de notification
                 }
-            }).fail(function(error) {
-                // Fonction appelée en cas d'erreur lors de l'appel AJAX
-                console.log("Error", error); // LOG dans Console Javascript
-                alert("Erreur lors de l'appel AJAX");
             });
         }
     </script>

@@ -30,13 +30,13 @@ public class Operateur implements Serializable {
     public Operateur() {
     }
 
-    public Operateur(String mail, String mdp, Integer salt, String nom) {
+    public Operateur(String mail, String mdp, Integer salt, String nom, Boolean isAdmin) {
         this.mail = mail;
         this.mdp = mdp;
         this.salt = salt;
         this.nom = nom;
         this.token = null;
-        this.admin = false;
+        this.admin = isAdmin;
     }
 
     public Boolean getAdmin() {

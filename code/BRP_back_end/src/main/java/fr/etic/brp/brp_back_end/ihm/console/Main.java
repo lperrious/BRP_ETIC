@@ -997,8 +997,9 @@ public static void Scenario3() {
         int salt = (int)(Math.random()*1000);
         String mdpConcat = "admin"+salt;
         String mdpHash = Hashing.sha256().hashString(mdpConcat, StandardCharsets.UTF_8).toString();
+        Boolean isAdmin = true;
         
-        Operateur admin = new Operateur("benoit@orange.fr", mdpHash, salt, "Benoît");
+        Operateur admin = new Operateur("benoit@orange.fr", mdpHash, salt, "Benoît", isAdmin);
         admin.setAdmin(Boolean.TRUE);
          
         System.out.println("** Operateur avant persistance: ");

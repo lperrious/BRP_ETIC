@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author louisrob
  */
-public class TestConnectionSerialisation extends Serialisation {
+public class AffichageAdminSerialisation extends Serialisation {
     
     @Override
     public void serialiser(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -23,6 +23,11 @@ public class TestConnectionSerialisation extends Serialisation {
         boolean ErrorState = (boolean)request.getAttribute("ErrorState");
         
         container.addProperty("Error", ErrorState);
+        
+        if(!ErrorState) {
+            Boolean isAdmin = (boolean)request.getAttribute("isAdmin");
+            container.addProperty("isAdmin", isAdmin);
+        }
         
         //Formatage de la structure de données JSON => Ecriture sur le flux de sortie de la réponse
         PrintWriter out = this.getWriter(response);

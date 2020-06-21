@@ -19,6 +19,9 @@ public class InscriptionAction extends Action {
         String lastName = request.getParameter("lastName");
         String mail = request.getParameter("email");
         String password = request.getParameter("password");
+        Boolean isAdmin;
+        if(request.getParameter("isAdmin").equals("true")) isAdmin = true;
+        else isAdmin = false;
         
         //Instanciation de la classe de Service
         Service service = new Service();
@@ -28,7 +31,7 @@ public class InscriptionAction extends Action {
         String mdpConcat = password + salt;
         String mdpHash = Hashing.sha256().hashString(mdpConcat, StandardCharsets.UTF_8).toString();
         
-        Operateur newOperateur = new Operateur(mail, mdpHash, salt, lastName);
+        Operateur newOperateur = new Operateur(mail, mdpHash, salt, lastName, isAdmin);
         
         Boolean resultat = null;
         try{
@@ -37,10 +40,6 @@ public class InscriptionAction extends Action {
         catch(Exception e) //Stockage de l'erreur dans l'attribut de la requete
         {
             request.setAttribute("ErrorState", true);
-            /*AppUser appUserTest = service.AuthentifierAppUser(mail, password);
-            if(appUserTest != null){
-                request.setAttribute("errorDetail", "Utilisateur déjà associé à ce compte");
-            }*/
         }
 
         //Stockage des résultats dans les attributs de la requête
