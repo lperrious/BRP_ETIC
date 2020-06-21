@@ -155,10 +155,10 @@
                         <span class="input-group-text" id="basic-addon1"></span>
                     </div>
                     <xsl:if test="@type = 'generique'">
-                        <input type="text" class="form-control" placeholder="Générique" />
+                        <input type="text" class="form-control nomDescriptif" placeholder="Générique" />
                     </xsl:if>
                     <xsl:if test="@type = 'ouvrage' or @type = 'prestation'">
-                        <input type="text" class="form-control" placeholder="Ouvrage/Prestation" />
+                        <input type="text" class="form-control nomDescriptif" placeholder="Ouvrage/Prestation" />
                     </xsl:if>
                 </div>
                 <div class="input-group description">
@@ -179,10 +179,10 @@
                         <span class="input-group-text" id="basic-addon1"></span>
                     </div>
                     <xsl:if test="@type = 'generique'">
-                        <input type="text" class="form-control" placeholder="Générique" />
+                        <input type="text" class="form-control nomDescriptif" placeholder="Générique" />
                     </xsl:if>
                     <xsl:if test="@type = 'ouvrage' or @type = 'prestation'">
-                        <input type="text" class="form-control" placeholder="Ouvrage/Prestation" />
+                        <input type="text" class="form-control nomDescriptif" placeholder="Ouvrage/Prestation" />
                     </xsl:if>
                 </div>
                 <div class="input-group description">
@@ -203,10 +203,10 @@
                         <span class="input-group-text" id="basic-addon1"></span>
                     </div>
                     <xsl:if test="@type = 'generique'">
-                        <input type="text" class="form-control" placeholder="Générique" />
+                        <input type="text" class="form-control nomDescriptif" placeholder="Générique" />
                     </xsl:if>
                     <xsl:if test="@type = 'ouvrage' or @type = 'prestation'">
-                        <input type="text" class="form-control" placeholder="Ouvrage/Prestation" />
+                        <input type="text" class="form-control nomDescriptif" placeholder="Ouvrage/Prestation" />
                     </xsl:if>
                 </div>
                 <div class="input-group description">
@@ -227,10 +227,10 @@
                         <span class="input-group-text" id="basic-addon1"></span>
                     </div>
                     <xsl:if test="@type = 'generique'">
-                        <input type="text" class="form-control" placeholder="Générique" />
+                        <input type="text" class="form-control nomDescriptif" placeholder="Générique" />
                     </xsl:if>
                     <xsl:if test="@type = 'ouvrage' or @type = 'prestation'">
-                        <input type="text" class="form-control" placeholder="Ouvrage/Prestation" />
+                        <input type="text" class="form-control nomDescriptif" placeholder="Ouvrage/Prestation" />
                     </xsl:if>
                 </div>
                 <div class="input-group description">

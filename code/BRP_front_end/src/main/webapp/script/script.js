@@ -680,7 +680,7 @@ function AjouterElement(element) {
 
           if (!$(".selectDescriptif").hasClass("generique")) {
 
-            $(divInsertionDescriptif).html("<input type='hidden' class='idDescriptif' value='"+ idDescriptif +"'><div class='input-group'><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control' placeholder='Ouvrage/Prestation' value='" + nomDescriptif + "'/></div><div class='input-group description'><textarea class='form-control' placeholder='Description' value='" + descriptionDescriptif + "'></textarea></div><div class='ligneChiffrage'><input type='text' class='form-control localisation' placeholder='Localisation'/><input type='text' class='form-control quantite' placeholder='Quantité'/><div class='input-group-prepend'><span class='input-group-text unite'>" + unite + "</span></div></div>");
+            $(divInsertionDescriptif).html("<input type='hidden' class='idDescriptif' value='"+ idDescriptif +"'><div class='input-group'><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control nomDescriptif' placeholder='Ouvrage/Prestation' value='" + nomDescriptif + "'/></div><div class='input-group description'><textarea class='form-control' placeholder='Description' value='" + descriptionDescriptif + "'></textarea></div><div class='ligneChiffrage'><input type='text' class='form-control localisation' placeholder='Localisation'/><input type='text' class='form-control quantite' placeholder='Quantité'/><div class='input-group-prepend'><span class='input-group-text unite'>" + unite + "</span></div></div>");
             //! Rajouter la description stylisée en AJAX
     
             $(divInsertionDescriptif).insertBefore($(element));
@@ -700,7 +700,7 @@ function AjouterElement(element) {
             NumerotationArbo(idLot);
           } else {
             //On insère le générique
-            $(divInsertionDescriptif).html("<input type='hidden' class='idDescriptif' value='"+ idDescriptif +"'><div class='input-group'><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control' placeholder='Générique' value='" + nomDescriptif + "'/></div><div class='input-group description'><textarea class='form-control' placeholder='Description' value='" + descriptionDescriptif + "'></textarea></div>");
+            $(divInsertionDescriptif).html("<input type='hidden' class='idDescriptif' value='"+ idDescriptif +"'><div class='input-group'><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control nomDescriptif' placeholder='Générique' value='" + nomDescriptif + "'/></div><div class='input-group description'><textarea class='form-control' placeholder='Description' value='" + descriptionDescriptif + "'></textarea></div>");
             $(divInsertionDescriptif).insertBefore($(element));
             //! Rajouter la description stylisée en AJAX
     
