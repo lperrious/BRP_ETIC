@@ -623,6 +623,34 @@ function display_manage_project() {
   }
 }
 
+function GenererLivrable() {
+  //! Feature à rajouter : demander l'uri et l'enregistrer dans le XML de chaque projet
+  //! Feature à rajouter : demander le choix de template
+  var idProjet = $('#idProjetActuel').val();
+  var uriExport = "../../../../code/BRP_front_end/src/main/webapp/XMLfiles/" + idProjet + ".xml";
+  var choixTemplate = 1;
+
+  $.ajax({
+    url: "./ActionServlet",
+    method: "GET",
+    data: {
+      todo: "genererLivrable",
+      idProjet: idProjet,
+      choixTemplate: choixTemplate,
+      uriExport: uriExport
+    },
+    dataType: "json",
+  }).done(function (response) {
+    // Fonction appelée en cas d'appel AJAX réussi
+    console.log("Response", response);
+    if(!response.ErrorState) {
+      //Si l'export à réussi on prévient l'opérateur
+    } else {
+      //On previent l'opérateur que l'export a échoué
+    } 
+  });
+}
+
 /****************** Fonctions (partie droite) *********************/
 
 function addEventsDescriptifs() {

@@ -318,7 +318,7 @@ public static void Scenario1() {
     System.out.println("------------  Export Projet  -------------");
     ExportService exportService = new ExportService();
     
-    resultat = exportService.ExporterProjet(idProjet, 1);
+    resultat = exportService.ExporterProjet(idProjet, 1, "../../../../code/BRP_front_end/src/main/webapp/XMLfiles/" + idProjet + ".xml");
     if (resultat)
         System.out.println("Succès");
     else 
@@ -2279,7 +2279,7 @@ public static void Scenario3() {
         //Doit fonctionner
         Long idProjet = 1L;
         int choixTemplate = 1;
-        Boolean resultat = service.ExporterProjet(idProjet, choixTemplate);
+        Boolean resultat = service.ExporterProjet(idProjet, choixTemplate, "../../../../code/BRP_front_end/src/main/webapp/XMLfiles/" + idProjet + ".xml");
         
         if(resultat)
             System.out.println("Export avec succès du projet n° " + idProjet);

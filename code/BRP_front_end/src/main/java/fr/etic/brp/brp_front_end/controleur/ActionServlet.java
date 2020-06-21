@@ -8,6 +8,7 @@ import fr.etic.brp.brp_front_end.actions.ConnexionAction;
 import fr.etic.brp.brp_front_end.actions.CreationProjetAction;
 import fr.etic.brp.brp_front_end.actions.DupliquerProjetAction;
 import fr.etic.brp.brp_front_end.actions.EditerInfosProjetAction;
+import fr.etic.brp.brp_front_end.actions.GenererLivrableAction;
 import fr.etic.brp.brp_front_end.actions.InscriptionAction;
 import fr.etic.brp.brp_front_end.actions.ListerRaccordementCatConstAction;
 import fr.etic.brp.brp_front_end.actions.ListerSousCatConstCaractDimAction;
@@ -21,6 +22,7 @@ import fr.etic.brp.brp_front_end.serialisations.ConnexionSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.CreationProjetSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.DupliquerProjetSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.EditerInfosProjetSerialisation;
+import fr.etic.brp.brp_front_end.serialisations.GenererLivrableSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.InscriptionSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.ListerRaccordementCatConstSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.ListerSousCatConstCaractDimSerialisation;
@@ -139,6 +141,11 @@ public class ActionServlet extends HttpServlet {
             case "affichageAdmin" : {
                 action = new AffichageAdminAction();
                 serialisation = new AffichageAdminSerialisation();
+                break;
+            }
+            case "genererLivrable" : {
+                action = new GenererLivrableAction();
+                serialisation = new GenererLivrableSerialisation();
                 break;
             }
         }
