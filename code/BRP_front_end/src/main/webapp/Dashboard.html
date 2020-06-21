@@ -34,17 +34,17 @@
     <div id="container">
       <div class="container">
         <div id="nomProjet" onclick="display_manage_project()">
-          <div class="nomProjet">Nom projet</div>
+          <div class="nomProjet">UnNomDeProjetSuperMegaLoooooooooooooooooooooooooooooooooooog</div>
           <div class="nomProjet"><i class="fas fa-chevron-down"></i></div>
         </div>
         <div id="manageProjet">
           <input type="text" id="search_input" placeholder="Chercher projet" />
           <div id="containerLineProjet">
             <div class="lineProjet">
-              <input type="hidden" class="idProjet" value="6" />
+              <input type="hidden" class="idProjet" value="1" />
               <div class="textLineProjet">
                 <div class="iconProjet"><i class="far fa-file-alt"></i></div>
-                <div class="propositionNomProjet">Projet 1</div>
+                <div class="propositionNomProjet">UnNomDeProjetSuperMegaLoooooooooooooooooooooooooooooooooooog</div>
               </div>
               <select class="actionProjet">
                 <option value="ouvrir">Ouvrir</option>
@@ -99,7 +99,7 @@
           </select>
         </div>
         <div id="infosProjet" onchange="modifierInfosProjet()">
-       	  <input type="hidden" id="idProjetActuel" value="5">
+       	  <input type="hidden" id="idProjetActuel" value="1">
           <div class="infoProjet infoField">
             <div class="titleInfo">Nom du projet</div>
             <input type="text" class="nomProjetUpdate" />
@@ -206,7 +206,7 @@
               onchange="show_catConstruction()"
             >
               <option value="">---</option>
-              <option value="1">Batiment public</option>
+              <option value="AAA">Batiment public</option>
             </select>
           </div>
           <div class="infoProjet infoField lineSousCatConstruction">
@@ -226,10 +226,15 @@
         </div>
         <div class="menuGestion">
           <div class="importButton">Gestion bibliothèque</div>
-          <div class="exportButton">Exporter projet</div>
+          <div class="exportButton">Générer livrable</div>
         </div>
       </div>
       <div class="container">
+		<div class="divTitreLot" id="divTitreLot_0">
+          <input type="text" class="titreLot" placeholder="Titre Lot" />
+        </div>
+        <div class="lot" id="lot_0">
+        </div>
         <div id="ongletsLot">
           <div class="ongletLot" onclick="CreerOnglet();">+</div>
         </div>

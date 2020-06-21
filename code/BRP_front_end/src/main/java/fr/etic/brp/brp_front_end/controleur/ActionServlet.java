@@ -10,6 +10,7 @@ import fr.etic.brp.brp_front_end.actions.EditerInfosProjetAction;
 import fr.etic.brp.brp_front_end.actions.InscriptionAction;
 import fr.etic.brp.brp_front_end.actions.ListerRaccordementCatConstAction;
 import fr.etic.brp.brp_front_end.actions.ListerSousCatConstCaractDimAction;
+import fr.etic.brp.brp_front_end.actions.ModifierXMLAction;
 import fr.etic.brp.brp_front_end.actions.OuvrirProjetAction;
 import fr.etic.brp.brp_front_end.actions.RecupererDescriptifAction;
 import fr.etic.brp.brp_front_end.actions.TestConnectionAction;
@@ -21,6 +22,7 @@ import fr.etic.brp.brp_front_end.serialisations.EditerInfosProjetSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.InscriptionSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.ListerRaccordementCatConstSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.ListerSousCatConstCaractDimSerialisation;
+import fr.etic.brp.brp_front_end.serialisations.ModifierXMLSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.OuvrirProjetSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.RecupererDescriptifSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.Serialisation;
@@ -125,6 +127,11 @@ public class ActionServlet extends HttpServlet {
             case "listerSousCatConstCaractDim" : {
                 action = new ListerSousCatConstCaractDimAction();
                 serialisation = new ListerSousCatConstCaractDimSerialisation();
+                break;
+            }
+            case "modifierXML" : {
+                action = new ModifierXMLAction();
+                serialisation = new ModifierXMLSerialisation();
                 break;
             }
         }

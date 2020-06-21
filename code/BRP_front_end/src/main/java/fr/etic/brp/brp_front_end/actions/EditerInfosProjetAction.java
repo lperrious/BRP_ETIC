@@ -100,8 +100,7 @@ public class EditerInfosProjetAction extends Action {
             }
 
            if(idCategorieConstructionString != ""){
-               long idCategorieConstruction = parseLong(idCategorieConstructionString);
-               Boolean testEditerCategorieConstructionProjet = service.EditerCategorieConstructionProjet(idProjet, idCategorieConstruction);
+               Boolean testEditerCategorieConstructionProjet = service.EditerCategorieConstructionProjet(idProjet, idCategorieConstructionString);
                if(!testEditerCategorieConstructionProjet) nbErreur++;
            }   
            
