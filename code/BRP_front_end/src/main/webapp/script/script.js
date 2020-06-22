@@ -915,7 +915,7 @@ function SuppressionChoixInsertionTitre() {
 function AjouterTitre(evt) {
   var titleClassName = evt.innerHTML.replace(" ", "").toLowerCase();
   //On ajoute le titre avec le bon style
-  var divNewTitle = $("<div class='input-group " + titleClassName + "'><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control' placeholder='" + evt.innerHTML + "'/></div>");
+  var divNewTitle = $("<div class='input-group " + titleClassName + "'><input type='hidden' id='_0'/><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control' placeholder='" + evt.innerHTML + "'/></div>");
   $(divNewTitle).insertBefore($(evt).parent());
 
   //On insère une barre d'insertion au-dessus du nouveau titre
