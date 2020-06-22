@@ -728,7 +728,7 @@ function AjouterElement(element) {
 
           if (!$(".selectDescriptif").hasClass("generique")) {
 
-            $(divInsertionDescriptif).html("<input type='hidden' class='idDescriptif' value='"+ idDescriptif +"'><div class='input-group'><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control nomDescriptif' placeholder='Ouvrage/Prestation' value='" + nomDescriptif + "'/></div><div class='input-group description'><textarea class='form-control' placeholder='Description' value='" + descriptionDescriptif + "'></textarea></div><div class='ligneChiffrage'><input type='text' class='form-control localisation' placeholder='Localisation'/><input type='text' class='form-control quantite' placeholder='Quantité'/><div class='input-group-prepend'><span class='input-group-text unite'>" + unite + "</span></div></div>");
+            $(divInsertionDescriptif).html("<input type='hidden' id='_0'/><input type='hidden' class='idDescriptif' value='"+ idDescriptif +"'/><div class='input-group'><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control nomDescriptif' placeholder='Ouvrage/Prestation' value='" + nomDescriptif + "'/></div><div class='input-group description'><textarea class='form-control' placeholder='Description' value='" + descriptionDescriptif + "'></textarea></div><div class='ligneChiffrage'><input type='text' class='form-control localisation' placeholder='Localisation'/><input type='text' class='form-control quantite' placeholder='Quantité'/><div class='input-group-prepend'><span class='input-group-text unite'>" + unite + "</span></div></div>");
             //! Rajouter la description stylisée en AJAX
     
             $(divInsertionDescriptif).insertBefore($(element));
@@ -748,7 +748,7 @@ function AjouterElement(element) {
             NumerotationArbo(idLot);
           } else {
             //On insère le générique
-            $(divInsertionDescriptif).html("<input type='hidden' class='idDescriptif' value='"+ idDescriptif +"'><div class='input-group'><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control nomDescriptif' placeholder='Générique' value='" + nomDescriptif + "'/></div><div class='input-group description'><textarea class='form-control' placeholder='Description' value='" + descriptionDescriptif + "'></textarea></div>");
+            $(divInsertionDescriptif).html("<input type='hidden' id='_0'/><input type='hidden' class='idDescriptif' value='"+ idDescriptif +"'/><div class='input-group'><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control nomDescriptif' placeholder='Générique' value='" + nomDescriptif + "'/></div><div class='input-group description'><textarea class='form-control' placeholder='Description' value='" + descriptionDescriptif + "'></textarea></div>");
             $(divInsertionDescriptif).insertBefore($(element));
             //! Rajouter la description stylisée en AJAX
     
@@ -771,6 +771,8 @@ function AjouterElement(element) {
     //Sinon on propose d'insérer un titre du même niveau d'arboresence que le titre d'au-dessus ou de celui d'en-dessous sous réserve d'existence
     var type1 = null;
     var type2 = null;
+    var type3 = null;
+    var type4 = null;
     var prev = $(element).prev();
     var next = $(element).next();
     if (prev !== null) {
@@ -782,8 +784,6 @@ function AjouterElement(element) {
         type1 = "titre3";
       } else if (prev.hasClass("titre4")) {
         type1 = "titre4";
-      } else if (prev.hasClass("titre5")) {
-        type1 = "titre5";
       }
     }
     if (next !== null && next.attr("class") !== "finLot") {
@@ -795,18 +795,6 @@ function AjouterElement(element) {
         type2 = "titre3";
       } else if (next.hasClass("titre4")) {
         type2 = "titre4";
-      } else if (next.hasClass("titre5")) {
-        type2 = "titre5";
-      }
-    } else {
-      if (type1 == "titre1") {
-        type2 = "titre2";
-      } else if (type1 == "titre2") {
-        type2 = "titre3";
-      } else if (type1 == "titre3") {
-        type2 = "titre4";
-      } else if (type1 == "titre4") {
-        type2 = "titre5";
       }
     }
 
@@ -814,9 +802,18 @@ function AjouterElement(element) {
     //Ou quand il n'y a rien en dessous pour proposer un titre plus bas dans l'arbo
     if (type1 == type2) type2 = null;
     else if (type1 == "titre1" && type2 == null) type2 = "titre2";
-    else if (type1 == "titre2" && type2 == null) type2 = "titre3";
-    else if (type1 == "titre3" && type2 == null) type2 = "titre4";
-    else if (type1 == "titre4" && type2 == null) type2 = "titre5";
+    else if (type1 == "titre2" && type2 == null) { 
+      type2 = "titre3";
+      type3 = "titre1";
+    } else if (type1 == "titre3" && type2 == null) {
+      type2 = "titre4";
+      type3 = "titre2";
+      type4 = "titre1";
+    } else if (type1 == "titre4" && type2 == null) {
+      type2 = "titre3";
+      type3 = "titre2";
+      type4 = "titre1";
+    }
 
     //On affiche un panneau demandant quel type de titre il veut afficher parmis les choix dispo
     var divInsertionTitre = document.createElement("div");
@@ -837,9 +834,6 @@ function AjouterElement(element) {
           break;
         case "titre4":
           divType1.innerHTML = "Titre 4";
-          break;
-        case "titre5":
-          divType1.innerHTML = "Titre 5";
           break;
         default:
           break;
@@ -862,13 +856,43 @@ function AjouterElement(element) {
         case "titre4":
           divType2.innerHTML = "Titre 4";
           break;
-        case "titre5":
-          divType2.innerHTML = "Titre 5";
-          break;
         default:
           break;
       }
       divInsertionTitre.appendChild(divType2);
+    }
+    if (type3 !== null) {
+      var divType3 = document.createElement("div");
+      divType3.className = "sousDivInsertionTitre";
+      switch (type3) {
+        case "titre1":
+          divType3.innerHTML = "Titre 1";
+          break;
+        case "titre2":
+          divType3.innerHTML = "Titre 2";
+          break;
+        case "titre3":
+          divType3.innerHTML = "Titre 3";
+          break;
+        default:
+          break;
+      }
+      divInsertionTitre.appendChild(divType3);
+    }
+    if (type4 !== null) {
+      var divType4 = document.createElement("div");
+      divType4.className = "sousDivInsertionTitre";
+      switch (type4) {
+        case "titre1":
+          divType4.innerHTML = "Titre 1";
+          break;
+        case "titre2":
+          divType4.innerHTML = "Titre 2";
+          break;
+        default:
+          break;
+      }
+      divInsertionTitre.appendChild(divType4);
     }
 
     if (type1 == null || type2 == null) divInsertionTitre.style.height = "25px";
