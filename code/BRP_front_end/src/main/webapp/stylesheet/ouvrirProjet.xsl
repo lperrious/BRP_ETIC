@@ -10,13 +10,13 @@
                         <input type="text" class="titreLot" placeholder="Titre Lot" />
                     </div>
                     <div class="lot" id="lot_0" >
-                        <input type="hidden" />
+                        <input type="hidden" id="{@id}"/>
                         <div class="barreInsertion" onclick="AjouterElement(this);">
                             <div class="panBarreInsertion"></div>
                             <div class="panBarreInsertion"></div>
                         </div>
                         <div class="input-group titre1">
-                            <input type="hidden" />
+                            <input type="hidden" id="{@id}"/>
                             <div class="input-group-prepend">
                                 <span class="input-group-text"></span>
                             </div>
