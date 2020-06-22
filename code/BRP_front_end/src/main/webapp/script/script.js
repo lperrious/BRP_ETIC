@@ -1143,6 +1143,65 @@ function modifierXML(element){
     var idProjet = $("#idProjetActuel").val();
     classElement = $(element).attr("class");
 
+
+    //si ce n'est pas une ligne chiffrage, on détermine sa position 
+    //et le parent/consecutif associé
+    var idRefPlacement = null;
+    var placement = null;
+    var rangElement = null;
+    var rangNextElement = null;
+    if (!classElement.includes("ligneChiffrage")) {
+
+      //on détermine le rang de l'élément
+      if (classElement.includes("titre1")) 
+        rangElement = 1;
+      if (classElement.includes("titre2")) 
+        rangElement = 2;
+      if (classElement.includes("titre3")) 
+        rangElement = 3;
+      if (classElement.includes("titre4")) 
+        rangElement = 4;
+      if (classElement.includes("titre5")) 
+        rangElement = 5;
+
+      //on va chercher la class de l'élément suivant:
+      var classNextElement = $(element).next().next().class("attr");
+
+      if (classNextElement.includes("titre1")) 
+        rangNextElement = 1;
+      if (classNextElement.includes("titre2")) 
+        rangNextElement = 2;
+      if (classNextElement.includes("titre3")) 
+        rangNextElement = 3;
+      if (classNextElement.includes("titre4")) 
+        rangNextElement = 4;
+      if (classNextElement.includes("titre5")) 
+        rangNextElement = 5;
+
+      if (rangElement > rangNextElement || rangNextElement == null) {
+        placement = "APPEND";
+        //on va chercher l'ID du parent
+        //c'est un lot
+        if (rangNextElement == 1) {
+          idRefPlacement = $(element).parent().children("#idXML").val();
+        }
+        //sinon c'est le dernier titre de rang n-1
+        else{
+          idRefPlacement = $(element).prev('.titre'+(rangElement-1)).children("#idXML").val();
+        }
+      }
+      else{
+        placement = "BEFORE";
+        //on va chercher l'id de l'élément d'après
+        idRefPlacement = $(element).next().children("#idXML").val();
+      }
+      
+    }
+    else{
+      //c'est une ligneChiffrage, on va chercher l'ID du parent
+      idRefPlacement = $(element).parent().children("#idXML").val();
+    }
+
     //on détermine l'objet que l'on traite et on obtient ses informations
     var data = Array();
     if (classElement.includes("descriptif")){
@@ -1150,9 +1209,9 @@ function modifierXML(element){
         todo: "modifierXML",
         idProjet:idProjet,
         type: "descriptif",
-        id: "_1",
-        idRefPlacement: "_2",
-        placement: "APPEND", //ou BEFORE
+        id: $(element).children('#idXML').val(),
+        idRefPlacement: idRefPlacement,
+        placement: placement, //ou BEFORE
         idDescriptif: $(element).children('.idDescriptif').val(),
         nomDescriptif: $(element).find('.nomDescriptif').val(),
         description: $(element).find('textarea').val()
@@ -1164,9 +1223,9 @@ function modifierXML(element){
         todo: "modifierXML",
         idProjet:idProjet,
         type: "ligneChiffrage",
-        id: "_1",
-        idRefPlacement: "_2",
-        placement: "APPEND", //ou BEFORE
+        id: $(element).children('#idLigneChiffrage').val(),
+        idRefPlacement: idRefPlacement,
+        placement: "", //ou BEFORE
         localisation: $(element).find(".localisation").val(),
         quantite: $(element).find(".quantite").val()
       };
@@ -1176,10 +1235,10 @@ function modifierXML(element){
         todo: "modifierXML",
         idProjet:idProjet,
         type: "titre",
-        id: "_1",
-        idRefPlacement: "_2",
-        placement: "APPEND", //ou BEFORE
-        intitule: $(element).children('input').val()
+        id: $(element).children('#idXML').val(),
+        idRefPlacement: idRefPlacement,
+        placement: placement, //ou BEFORE
+        intitule: $(element).children('input').last().val()
       };
     }
 
