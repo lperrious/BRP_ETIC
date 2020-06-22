@@ -78,7 +78,7 @@ public class ExportService {
         return map.get(l) + toRoman(number-l);
     }
     
-    public Boolean ExporterProjet(Long idProjet, int choixTemplate) {
+    public Boolean ExporterProjet(Long idProjet, int choixTemplate, String uriExport) {
         DomUtil.init();
         Boolean resultat = false;
         
@@ -93,8 +93,8 @@ public class ExportService {
 
         try {
             //Obtention du document XML
-            String uri = rootXMLFiles+idProjet+".xml";
-            Document xml = projetXMLDao.ObtenirDocument(uri);
+            //!String uri = rootXMLFiles + idProjet + ".xml";
+            Document xml = projetXMLDao.ObtenirDocument(uriExport);
             
             //On insère les infos projets dans le XML
             JpaUtil.creerContextePersistance();
@@ -166,7 +166,7 @@ public class ExportService {
             root.insertBefore(baliseCaractDim, baliseLotInfosProjet);
             
             //On écrit par dessus l'ancien XML
-            projetXMLDao.saveXMLContent(xml, uri);
+            projetXMLDao.saveXMLContent(xml, uriExport);
             
             //On créer le dossier d'export du Projet
             Boolean succesCreationDossier = (new File("../export_files/Exports/"+ projet.getNomProjet() + "_" + projet.getIdProjet())).mkdirs();

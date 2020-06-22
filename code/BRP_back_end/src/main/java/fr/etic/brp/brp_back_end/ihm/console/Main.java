@@ -318,7 +318,7 @@ public static void Scenario1() {
     System.out.println("------------  Export Projet  -------------");
     ExportService exportService = new ExportService();
     
-    resultat = exportService.ExporterProjet(idProjet, 1);
+    resultat = exportService.ExporterProjet(idProjet, 1, "../../../../code/BRP_front_end/src/main/webapp/XMLfiles/" + idProjet + ".xml");
     if (resultat)
         System.out.println("Succès");
     else 
@@ -997,8 +997,9 @@ public static void Scenario3() {
         int salt = (int)(Math.random()*1000);
         String mdpConcat = "admin"+salt;
         String mdpHash = Hashing.sha256().hashString(mdpConcat, StandardCharsets.UTF_8).toString();
+        Boolean isAdmin = true;
         
-        Operateur admin = new Operateur("benoit@orange.fr", mdpHash, salt, "Benoît");
+        Operateur admin = new Operateur("benoit@orange.fr", mdpHash, salt, "Benoît", isAdmin);
         admin.setAdmin(Boolean.TRUE);
          
         System.out.println("** Operateur avant persistance: ");
@@ -2278,7 +2279,7 @@ public static void Scenario3() {
         //Doit fonctionner
         Long idProjet = 1L;
         int choixTemplate = 1;
-        Boolean resultat = service.ExporterProjet(idProjet, choixTemplate);
+        Boolean resultat = service.ExporterProjet(idProjet, choixTemplate, "../../../../code/BRP_front_end/src/main/webapp/XMLfiles/" + idProjet + ".xml");
         
         if(resultat)
             System.out.println("Export avec succès du projet n° " + idProjet);

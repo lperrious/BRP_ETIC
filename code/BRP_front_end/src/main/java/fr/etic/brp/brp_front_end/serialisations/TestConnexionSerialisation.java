@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author louisrob
  */
-public class InscriptionSerialisation extends Serialisation {
+public class TestConnexionSerialisation extends Serialisation {
     
     @Override
     public void serialiser(HttpServletRequest request, HttpServletResponse response) throws IOException {

@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author louisrob
  */
-public class ConnectionAction extends Action {
+public class ConnexionAction extends Action {
     
     @Override
     public void execute(HttpServletRequest request){ //Implémentation de la méthode Action.execute()
@@ -37,7 +37,8 @@ public class ConnectionAction extends Action {
             request.setAttribute("Operateur", resultat);
             
             // On creer des attributs dans la session pour stocker le userType et l'idUser de cette maniere :
-            request.getSession().setAttribute("operateur", resultat.getIdOperateur());
+            request.getSession().setAttribute("idOperateur", resultat.getIdOperateur());
+            request.getSession().setAttribute("isAdmin", resultat.getAdmin());
             request.getSession().setAttribute("sameSite", "None");
             
             // Si on veut recupérer le paramettre de la session il suffit de faire :

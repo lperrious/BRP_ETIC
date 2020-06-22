@@ -39,6 +39,11 @@
   justify-content: space-around;
 }
 
+.btn-group {
+  margin-left: 60px;
+  margin-bottom: 40px;
+}
+
 /* Connexion */
 #conteneur_connection {
   display: flex;
@@ -403,7 +408,8 @@ select {
 }
 
 .importButton,
-.exportButton {
+.exportButton,
+.creationCompte {
   background-color: var(--cta);
   color: var(--text_soft);
   padding: 8px;
@@ -414,7 +420,8 @@ select {
 }
 
 .importButton:hover,
-.exportButton:hover {
+.exportButton:hover,
+.creationCompte:hover {
   background-color: var(--cta_hover);
   cursor: pointer;
 }

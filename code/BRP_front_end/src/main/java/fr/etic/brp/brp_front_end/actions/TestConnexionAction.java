@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author louisrob
  */
-public class TestConnectionAction extends Action {
+public class TestConnexionAction extends Action {
     
     @Override
     public void execute(HttpServletRequest request){ //Implémentation de la méthode Action.execute()

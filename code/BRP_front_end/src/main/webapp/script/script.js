@@ -7,6 +7,26 @@ var testChoixPresent = false;
 /************** Appels au chargement de la page ******************/
 $(document).ready(function () {
 
+  //Affichage Admin ou opérateur classique
+  $.ajax({
+    url: "./ActionServlet",
+    method: "GET",
+    data: {
+      todo: "affichageAdmin"
+    },
+    dataType: "json",
+  }).done(function (response) {
+    // Fonction appelée en cas d'appel AJAX réussi
+    console.log("Response", response);
+    if(!response.ErrorState) {
+      if(response.isAdmin) {
+        //Si admin alors on affiche le bouton de création de compte Opérateur
+        $(".creationCompte").show();
+      }
+    }
+  });
+
+  //Lister coeff raccordements et cat construction dans infos projet
   $.ajax({
     url: "./ActionServlet",
     method: "GET",
@@ -601,6 +621,34 @@ function display_manage_project() {
     $(".nomProjet").last().html('<i class="fas fa-chevron-down">');
     test_manageProjet = false;
   }
+}
+
+function GenererLivrable() {
+  //! Feature à rajouter : demander l'uri et l'enregistrer dans le XML de chaque projet
+  //! Feature à rajouter : demander le choix de template
+  var idProjet = $('#idProjetActuel').val();
+  var uriExport = "../../../../code/BRP_front_end/src/main/webapp/XMLfiles/" + idProjet + ".xml";
+  var choixTemplate = 1;
+
+  $.ajax({
+    url: "./ActionServlet",
+    method: "GET",
+    data: {
+      todo: "genererLivrable",
+      idProjet: idProjet,
+      choixTemplate: choixTemplate,
+      uriExport: uriExport
+    },
+    dataType: "json",
+  }).done(function (response) {
+    // Fonction appelée en cas d'appel AJAX réussi
+    console.log("Response", response);
+    if(!response.ErrorState) {
+      //Si l'export à réussi on prévient l'opérateur
+    } else {
+      //On previent l'opérateur que l'export a échoué
+    } 
+  });
 }
 
 /****************** Fonctions (partie droite) *********************/

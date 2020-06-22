@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author louisrob
  */
-public class ConnectionSerialisation extends Serialisation {
+public class ConnexionSerialisation extends Serialisation {
     
     @Override
     public void serialiser(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -22,15 +22,14 @@ public class ConnectionSerialisation extends Serialisation {
         
         //Lecture des attributs de la requête (stockés par l'action)
         boolean ErrorState = (boolean)request.getAttribute("ErrorState");
-        Operateur operateur = (Operateur)request.getAttribute("Operateur");
         
         container.addProperty("Error", ErrorState);
         
         if(ErrorState == false) //Deux sorties possibles
-        {   //On créer un cookie
-            JsonObject jsonOperateur = new JsonObject();
-            jsonOperateur.addProperty("idOperateur", operateur.getIdOperateur());
-            container.add("operateur", jsonOperateur);
+        {   //On stocke les infos du cookie pour l'envoyer au client
+            Operateur operateur = (Operateur)request.getAttribute("Operateur");
+            container.addProperty("idOperateur", operateur.getIdOperateur());
+            container.addProperty("isAdmin", operateur.getAdmin());
         }
         
         //Formatage de la structure de données JSON => Ecriture sur le flux de sortie de la réponse

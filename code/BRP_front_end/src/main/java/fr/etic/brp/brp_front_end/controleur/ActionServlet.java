@@ -2,23 +2,27 @@ package fr.etic.brp.brp_front_end.controleur;
 
 import fr.etic.brp.brp_back_end.dao.JpaUtil;
 import fr.etic.brp.brp_front_end.actions.Action;
+import fr.etic.brp.brp_front_end.actions.AffichageAdminAction;
 import fr.etic.brp.brp_front_end.actions.ArboDescriptifsAction;
-import fr.etic.brp.brp_front_end.actions.ConnectionAction;
+import fr.etic.brp.brp_front_end.actions.ConnexionAction;
 import fr.etic.brp.brp_front_end.actions.CreationProjetAction;
 import fr.etic.brp.brp_front_end.actions.DupliquerProjetAction;
 import fr.etic.brp.brp_front_end.actions.EditerInfosProjetAction;
+import fr.etic.brp.brp_front_end.actions.GenererLivrableAction;
 import fr.etic.brp.brp_front_end.actions.InscriptionAction;
 import fr.etic.brp.brp_front_end.actions.ListerRaccordementCatConstAction;
 import fr.etic.brp.brp_front_end.actions.ListerSousCatConstCaractDimAction;
 import fr.etic.brp.brp_front_end.actions.ModifierXMLAction;
 import fr.etic.brp.brp_front_end.actions.OuvrirProjetAction;
 import fr.etic.brp.brp_front_end.actions.RecupererDescriptifAction;
-import fr.etic.brp.brp_front_end.actions.TestConnectionAction;
+import fr.etic.brp.brp_front_end.actions.TestConnexionAction;
+import fr.etic.brp.brp_front_end.serialisations.AffichageAdminSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.ArboDescriptifsSerialisation;
-import fr.etic.brp.brp_front_end.serialisations.ConnectionSerialisation;
+import fr.etic.brp.brp_front_end.serialisations.ConnexionSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.CreationProjetSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.DupliquerProjetSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.EditerInfosProjetSerialisation;
+import fr.etic.brp.brp_front_end.serialisations.GenererLivrableSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.InscriptionSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.ListerRaccordementCatConstSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.ListerSousCatConstCaractDimSerialisation;
@@ -26,7 +30,7 @@ import fr.etic.brp.brp_front_end.serialisations.ModifierXMLSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.OuvrirProjetSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.RecupererDescriptifSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.Serialisation;
-import fr.etic.brp.brp_front_end.serialisations.TestConnectionSerialisation;
+import fr.etic.brp.brp_front_end.serialisations.TestConnexionSerialisation;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -79,14 +83,14 @@ public class ActionServlet extends HttpServlet {
                 serialisation = new InscriptionSerialisation();  
                 break;
             }
-            case "connection" : {
-                action = new ConnectionAction();
-                serialisation = new ConnectionSerialisation();  
+            case "connexion" : {
+                action = new ConnexionAction();
+                serialisation = new ConnexionSerialisation(); 
                 break;
             }
-            case "testConnection" : {
-                action = new TestConnectionAction();
-                serialisation = new TestConnectionSerialisation();
+            case "testConnexion" : {
+                action = new TestConnexionAction();
+                serialisation = new TestConnexionSerialisation();
                 break;
             }
             case "arboDescriptifs" : {
@@ -132,6 +136,16 @@ public class ActionServlet extends HttpServlet {
             case "modifierXML" : {
                 action = new ModifierXMLAction();
                 serialisation = new ModifierXMLSerialisation();
+                break;
+            }
+            case "affichageAdmin" : {
+                action = new AffichageAdminAction();
+                serialisation = new AffichageAdminSerialisation();
+                break;
+            }
+            case "genererLivrable" : {
+                action = new GenererLivrableAction();
+                serialisation = new GenererLivrableSerialisation();
                 break;
             }
         }
