@@ -1501,3 +1501,16 @@
 127.0.0.1 - tomcat [22/Jun/2020:12:37:08 +0200] "GET /manager/text/list HTTP/1.1" 200 665
 127.0.0.1 - - [22/Jun/2020:12:37:08 +0200] "HEAD /netbeans-tomcat-status-test HTTP/1.1" 404 -
 127.0.0.1 - tomcat [22/Jun/2020:12:37:08 +0200] "GET /manager/text/ HTTP/1.1" 200 41
+0:0:0:0:0:0:0:1 - - [22/Jun/2020:12:37:39 +0200] "GET /BRP_front_end/Dashboard.html HTTP/1.1" 200 9550
+0:0:0:0:0:0:0:1 - - [22/Jun/2020:12:37:39 +0200] "GET /BRP_front_end/style/style.css HTTP/1.1" 200 11564
+0:0:0:0:0:0:0:1 - - [22/Jun/2020:12:37:39 +0200] "GET /BRP_front_end/script/script.js HTTP/1.1" 200 43998
+0:0:0:0:0:0:0:1 - - [22/Jun/2020:12:37:41 +0200] "GET /favicon.ico HTTP/1.1" 200 21630
+0:0:0:0:0:0:0:1 - - [22/Jun/2020:12:37:43 +0200] "GET /BRP_front_end/ActionServlet?todo=affichageAdmin HTTP/1.1" 200 19
+0:0:0:0:0:0:0:1 - - [22/Jun/2020:12:37:43 +0200] "GET /BRP_front_end/ActionServlet?todo=listerRaccordementCatConst HTTP/1.1" 200 242
+0:0:0:0:0:0:0:1 - - [22/Jun/2020:12:37:43 +0200] "GET /BRP_front_end/ActionServlet?todo=arboDescriptifs HTTP/1.1" 200 24186
+0:0:0:0:0:0:0:1 - - [22/Jun/2020:12:38:29 +0200] "GET /BRP_front_end/Dashboard.html HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [22/Jun/2020:12:38:29 +0200] "GET /BRP_front_end/style/style.css HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [22/Jun/2020:12:38:29 +0200] "GET /BRP_front_end/script/script.js HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [22/Jun/2020:12:38:29 +0200] "GET /BRP_front_end/ActionServlet?todo=affichageAdmin HTTP/1.1" 200 19
+0:0:0:0:0:0:0:1 - - [22/Jun/2020:12:38:29 +0200] "GET /BRP_front_end/ActionServlet?todo=listerRaccordementCatConst HTTP/1.1" 200 242
+0:0:0:0:0:0:0:1 - - [22/Jun/2020:12:38:29 +0200] "GET /BRP_front_end/ActionServlet?todo=arboDescriptifs HTTP/1.1" 200 24186
