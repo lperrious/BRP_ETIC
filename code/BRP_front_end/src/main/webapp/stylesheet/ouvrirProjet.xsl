@@ -258,7 +258,7 @@
 
     <xsl:template match="ligneChiffrage">
         <div class="ligneChiffrage">
-            <input type="hidden" id="{@idLigneChiffrage}"/>
+            <input type="hidden" id="idLigneChiffrage" value="{@idLigneChiffrage}"/>
             <input type="text" class="form-control localisation" placeholder="Localisation" />
             <input type="text" class="form-control quantite" placeholder="Quantité" />
             <div class="input-group-prepend">
