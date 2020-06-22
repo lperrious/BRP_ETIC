@@ -1127,8 +1127,9 @@ function modifierXML(element){
         idProjet:idProjet,
         type: "descriptif",
         id: "_1",
-        id_parent: "_2",
-        id_before: "_3",
+        idRefPlacement: "_2",
+        placement: "APPEND", //ou BEFORE
+        idDescriptif: $(element).children('.idDescriptif').val(),
         nomDescriptif: $(element).find('.nomDescriptif').val(),
         description: $(element).find('textarea').val()
       };
@@ -1140,8 +1141,8 @@ function modifierXML(element){
         idProjet:idProjet,
         type: "ligneChiffrage",
         id: "_1",
-        id_parent: "_2",
-        id_before: "_3",
+        idRefPlacement: "_2",
+        placement: "APPEND", //ou BEFORE
         localisation: $(element).find(".localisation").val(),
         quantite: $(element).find(".quantite").val()
       };
@@ -1152,8 +1153,8 @@ function modifierXML(element){
         idProjet:idProjet,
         type: "titre",
         id: "_1",
-        id_parent: "_2",
-        id_before: "_3",
+        idRefPlacement: "_2",
+        placement: "APPEND", //ou BEFORE
         intitule: $(element).children('input').val()
       };
     }

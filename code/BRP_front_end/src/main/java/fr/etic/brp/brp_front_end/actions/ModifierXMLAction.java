@@ -20,10 +20,10 @@ public class ModifierXMLAction extends Action {
         Long idProjet = parseLong(request.getParameter("idProjet"));
         String type = request.getParameter("type");
         String id = request.getParameter("id");
-        String idParent = request.getParameter("id_parent");
-        String idBefore = request.getParameter("id_before");
+        String idRefPlacement = request.getParameter("idRefPlacement");
+        String placement = request.getParameter("placement");
         String intitule = null;
-        //String idDescriptif = null;
+        String idDescriptif = null;
         String nomDescriptif = null;
         String description = null;
         String localisation = null;
@@ -35,7 +35,7 @@ public class ModifierXMLAction extends Action {
                 intitule = request.getParameter("intitule");
                 break;
             case "descriptif":
-                //idDescriptif = request.getParameter("idDescriptif");
+                idDescriptif = request.getParameter("idDescriptif");
                 nomDescriptif = request.getParameter("nomDescriptif");
                 description = request.getParameter("description");
                 break;
@@ -67,6 +67,7 @@ public class ModifierXMLAction extends Action {
                     if("_0".equals(id)){
                         //on détermine si c'est un APPEND ou BEFORE
                         //on ajoute et on retourne l'idXML
+                        testModification = service.AjouterDescriptif(idProjet, placement, idRefPlacement, idDescriptif);
                     }else{
                         //on modifie la description
                         testModification = service.ModifierDescriptionDescriptif(idProjet, id, description);
