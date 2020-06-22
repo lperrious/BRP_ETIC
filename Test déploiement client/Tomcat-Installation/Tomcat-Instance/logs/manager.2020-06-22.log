@@ -166,3 +166,4 @@
 22-Jun-2020 11:50:16.343 INFOS [http-nio-8081-exec-168] org.apache.catalina.core.ApplicationContext.log Manager: restart: Reloading web application '/BRP_front_end'
 22-Jun-2020 11:52:39.991 INFOS [http-nio-8081-exec-177] org.apache.catalina.core.ApplicationContext.log Manager: list: Listing contexts for virtual host 'localhost'
 22-Jun-2020 11:53:52.992 INFOS [http-nio-8081-exec-179] org.apache.catalina.core.ApplicationContext.log Manager: list: Listing contexts for virtual host 'localhost'
+22-Jun-2020 11:54:34.776 INFOS [http-nio-8081-exec-178] org.apache.catalina.core.ApplicationContext.log Manager: list: Listing contexts for virtual host 'localhost'
