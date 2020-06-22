@@ -28,11 +28,14 @@ public class ModifierXMLAction extends Action {
         String description = null;
         String localisation = null;
         Double quantite = null;
+        String titreType = null;
+        String idInsere = null;
         
         
         switch(type){
             case "titre":
                 intitule = request.getParameter("intitule");
+                titreType = request.getParameter("titreType");
                 break;
             case "descriptif":
                 idDescriptif = request.getParameter("idDescriptif");
@@ -55,9 +58,27 @@ public class ModifierXMLAction extends Action {
                 case "titre":
                     //c'est un ajout
                     if("_0".equals(id)){
-                        //on cherche l'IdParent (s'il ny'en a pas, c'est un lot) et on détermine la balise
-                        //on détermine si c'est un APPEND ou BEFORE
                         //on ajoute et on retourne l'idXML
+                        switch(titreType){
+                            case "lot":
+                                testModification = service.AjouterLot(idProjet, placement, idRefPlacement);
+                                break;
+                            case "titre1":
+                                testModification = service.AjouterTitre1(idProjet, placement, idRefPlacement);
+                                break;
+                            case "titre2":
+                                testModification = service.AjouterTitre2(idProjet, placement, idRefPlacement);
+                                break;
+                            case "titre3":
+                                testModification = service.AjouterTitre3(idProjet, placement, idRefPlacement);
+                                break;
+                            case "titre4":
+                                testModification = service.AjouterTitre4(idProjet, placement, idRefPlacement);
+                                break;
+                        }
+                        //on va chercher l'idInsere si on était dans une insertion
+                        if(testModification)
+                            idInsere = service.GetIdInsere(idProjet);
                     }else{
                         testModification = service.ModifierIntituleTitre(idProjet, id, intitule);
                     }
@@ -65,9 +86,10 @@ public class ModifierXMLAction extends Action {
                 case "descriptif":
                     //c'est un ajout
                     if("_0".equals(id)){
-                        //on détermine si c'est un APPEND ou BEFORE
-                        //on ajoute et on retourne l'idXML
                         testModification = service.AjouterDescriptif(idProjet, placement, idRefPlacement, idDescriptif);
+                        //on va chercher l'idInsere si on était dans une insertion
+                        if(testModification)
+                            idInsere = service.GetIdInsere(idProjet);
                     }else{
                         //on modifie la description
                         testModification = service.ModifierDescriptionDescriptif(idProjet, id, description);
@@ -82,14 +104,15 @@ public class ModifierXMLAction extends Action {
                         //on ajoute et on retourne l'idXML
                     }else{
                         //on modifie la localisation
-                        testModification = service.ModifierLocalisationDescriptif(idProjet,idParent, id, localisation);
+                        testModification = service.ModifierLocalisationDescriptif(idProjet,idRefPlacement, id, localisation);
                         //on modifie la quantite et le prix unitaire
                         if(testModification)
-                            testModification = service.ModifierQuantiteDescriptif(idProjet,idParent, id, quantite);
+                            testModification = service.ModifierQuantiteDescriptif(idProjet,idRefPlacement, id, quantite);
                     }
                     break;
             }
             request.setAttribute("ErrorState", false);
+            request.setAttribute("idInsere", idInsere);     //a faire pour balise
         }catch(Exception e){
             request.setAttribute("ErrorState", true);
         }

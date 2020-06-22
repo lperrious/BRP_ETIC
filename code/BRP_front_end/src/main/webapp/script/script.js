@@ -728,7 +728,7 @@ function AjouterElement(element) {
 
           if (!$(".selectDescriptif").hasClass("generique")) {
 
-            $(divInsertionDescriptif).html("<input type='hidden' id='idXML' value='_0'/><input type='hidden' class='idDescriptif' value='"+ idDescriptif +"'/><div class='input-group'><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control nomDescriptif' placeholder='Ouvrage/Prestation' value='" + nomDescriptif + "'/></div><div class='input-group description'><textarea class='form-control' placeholder='Description' value='" + descriptionDescriptif + "'></textarea></div><div class='ligneChiffrage'><input type='hidden' id='idLigneChiffrage' value='0'/><input type='text' class='form-control localisation' placeholder='Localisation'/><input type='text' class='form-control quantite' placeholder='Quantité'/><div class='input-group-prepend'><span class='input-group-text unite'>" + unite + "</span></div></div>");
+            $(divInsertionDescriptif).html("<input type='hidden' id='idXML' value='_0'/><input type='hidden' class='idDescriptif' value='"+ idDescriptif +"'/><div class='input-group'><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control nomDescriptif' placeholder='Ouvrage/Prestation' value='" + nomDescriptif + "'/><div class='deleteXML'><i class=\"fas fa-times-circle\"></i></div></div><div class='input-group description'><textarea class='form-control' placeholder='Description' value='" + descriptionDescriptif + "'></textarea></div><div class='ligneChiffrage'><input type='hidden' id='idLigneChiffrage' value='0'/><input type='text' class='form-control localisation' placeholder='Localisation'/><input type='text' class='form-control quantite' placeholder='Quantité' value='1.0'/><div class='input-group-prepend'><span class='input-group-text unite'>" + unite + "</span></div><div style='width: 25px;'></div></div>");
             //! Rajouter la description stylisée en AJAX
     
             $(divInsertionDescriptif).insertBefore($(element));
@@ -748,7 +748,7 @@ function AjouterElement(element) {
             NumerotationArbo(idLot);
           } else {
             //On insère le générique
-            $(divInsertionDescriptif).html("<input type='hidden' id='idXML' value='_0'/><input type='hidden' class='idDescriptif' value='"+ idDescriptif +"'/><div class='input-group'><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control nomDescriptif' placeholder='Générique' value='" + nomDescriptif + "'/></div><div class='input-group description'><textarea class='form-control' placeholder='Description' value='" + descriptionDescriptif + "'></textarea></div>");
+            $(divInsertionDescriptif).html("<input type='hidden' id='idXML' value='_0'/><input type='hidden' class='idDescriptif' value='"+ idDescriptif +"'/><div class='input-group'><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control nomDescriptif' placeholder='Générique' value='" + nomDescriptif + "'/><div class='deleteXML'><i class=\"fas fa-times-circle\"></i></div></div><div class='input-group description'><textarea class='form-control' placeholder='Description' value='" + descriptionDescriptif + "'></textarea></div>");
             $(divInsertionDescriptif).insertBefore($(element));
             //! Rajouter la description stylisée en AJAX
     
@@ -769,7 +769,7 @@ function AjouterElement(element) {
           attacheEventModifXML();
 
           //on actualise le xml
-          //modifierXML();
+          modifierXML(divInsertionDescriptif);
         }
       });
     }
@@ -921,7 +921,7 @@ function SuppressionChoixInsertionTitre() {
 function AjouterTitre(evt) {
   var titleClassName = evt.innerHTML.replace(" ", "").toLowerCase();
   //On ajoute le titre avec le bon style
-  var divNewTitle = $("<div class='input-group " + titleClassName + "'><input type='hidden' id='idXML' value='_0'/><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control' placeholder='" + evt.innerHTML + "'/></div>");
+  var divNewTitle = $("<div class='input-group " + titleClassName + "'><input type='hidden' id='idXML' value='_0'/><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control' placeholder='" + evt.innerHTML + "'/><div class='deleteXML'><i class=\"fas fa-times-circle\"></i></div></div>");
   $(divNewTitle).insertBefore($(evt).parent());
 
   //On insère une barre d'insertion au-dessus du nouveau titre
@@ -941,7 +941,7 @@ function AjouterTitre(evt) {
   attacheEventModifXML();
 
   //on actualise le xml
-  //modifierXML();
+  modifierXML(divNewTitle);
 }
 
 function NumerotationArbo(idOnglet) {
@@ -1053,9 +1053,14 @@ function AfficherTitreLot(divTitreLotAfficher) {
 function CreerOnglet() {
   //Création du div contenant tout le lot (on l'affiche par défaut)
   var numOnglet = Number($("#ongletsLot").children().last().prev().html()) + 1;
+  if(isNaN(numOnglet)){
+    $('.presentationRight').hide();
+    numOnglet = 0;
+  }
+
   var idOnglet = "lot_" + numOnglet;
 
-  var divNouvelOnglet = $("<div class='lot' id='" + idOnglet + "'><input type='hidden' id='idXML' value='_0'/><div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div><div class='input-group titre1'><input type='hidden' id='idXML' value='_0'/><div class='input-group-prepend'><span class='input-group-text'>I.</span></div><input type='text' class='form-control' placeholder='Titre 1'/></div><div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div><div class='finLot'></div></div>");
+  var divNouvelOnglet = $("<div class='lot' id='" + idOnglet + "'><input type='hidden' id='idXML' value='_0'/><div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div><div class='input-group titre1'><input type='hidden' id='idXML' value='_0'/><div class='input-group-prepend'><span class='input-group-text'>I.</span></div><input type='text' class='form-control' placeholder='Titre 1'/><div class='deleteXML'><i class=\"fas fa-times-circle\"></i></div></div><div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div><div class='finLot'></div></div>");
   $(divNouvelOnglet).insertBefore($("#ongletsLot"));
 
   //Création de deux barres d'insertion d'un titre1 et d'une fin de lot dans ce nouvel onglet
@@ -1081,7 +1086,9 @@ function CreerOnglet() {
   attacheEventModifXML();
 
   //on actualise le xml
-  //modifierXML();
+  var newOnglet = $("#divTitreLot_" + numOnglet);
+  var premierTitre = $(".titre1");
+  modifierXML(newOnglet, premierTitre);
 }
 
 function toRoman(num) {
@@ -1128,15 +1135,18 @@ function toRoman(num) {
 function AjouterLigneChiffrage(element) {
   //Création d'une nouvelle ligneChiffrage au dessus de la barre d'insertion ligneChiffrage
   var unite = $(element).prev().children(":eq(3)").children(":first").html(); //On va chercher l'unité dans la ligneChiffrage d'au dessus
-  var divBarreInsertionLigneChiffrage = $("<div class='ligneChiffrage'><input type='hidden' id='idLigneChiffrage' value='0'/><input type='text' class='form-control localisation' placeholder='Localisation'/><input type='text' class='form-control quantite' placeholder='Quantité'/><div class='input-group-prepend'><span class='input-group-text unite'>" + unite + "</span></div><div class='suppressionLigneChiffrage'><i class='fas fa-times'></i></div></div>");
+  var divBarreInsertionLigneChiffrage = $("<div class='ligneChiffrage'><input type='hidden' id='idLigneChiffrage' value='0'/><input type='text' class='form-control localisation' placeholder='Localisation'/><input type='text' class='form-control quantite' placeholder='Quantité' value='1.0'/><div class='input-group-prepend'><span class='input-group-text unite'>" + unite + "</span></div><div class='suppressionLigneChiffrage'><i class='fas fa-times-circle'</div>");
 
   $(divBarreInsertionLigneChiffrage).insertBefore($(element));
 
   //Ajout évènement suppression ligne chiffrage
   AjoutEventSupprLigneChiffrage();
+
+  //on actualise le XML
+  modifierXML(divBarreInsertionLigneChiffrage);
 }
 
-function modifierXML(element){
+function modifierXML(element, element2){
 
   if (typeof(element) != "undefined") {
     
@@ -1144,14 +1154,14 @@ function modifierXML(element){
     var idProjet = $("#idProjetActuel").val();
     classElement = $(element).attr("class");
 
-
     //si ce n'est pas une ligne chiffrage, on détermine sa position 
     //et le parent/consecutif associé
     var idRefPlacement = null;
     var placement = null;
     var rangElement = null;
     var rangNextElement = null;
-    if (!classElement.includes("ligneChiffrage")) {
+    var titreType = null;
+    if (!classElement.includes("ligneChiffrage") && !classElement.includes("divTitreLot")) {
 
       //on détermine le rang de l'élément
       if (classElement.includes("titre1")) 
@@ -1165,8 +1175,10 @@ function modifierXML(element){
       if (classElement.includes("titre5")) 
         rangElement = 5;
 
+      titreType = 'titre'+rangElement;
+
       //on va chercher la class de l'élément suivant:
-      var classNextElement = $(element).next().next().class("attr");
+      var classNextElement = $(element).next().next().attr("class");
 
       if (classNextElement.includes("titre1")) 
         rangNextElement = 1;
@@ -1183,24 +1195,37 @@ function modifierXML(element){
         placement = "APPEND";
         //on va chercher l'ID du parent
         //c'est un lot
-        if (rangNextElement == 1) {
+        if (rangElement == 1) {
           idRefPlacement = $(element).parent().children("#idXML").val();
         }
         //sinon c'est le dernier titre de rang n-1
         else{
-          idRefPlacement = $(element).prev('.titre'+(rangElement-1)).children("#idXML").val();
+          idRefPlacement = $(element).prevAll('.titre'+(rangElement-1)).first().children("#idXML").val();
         }
       }
       else{
         placement = "BEFORE";
         //on va chercher l'id de l'élément d'après
-        idRefPlacement = $(element).next().children("#idXML").val();
+        idRefPlacement = $(element).next().next().children("#idXML").val();
       }
       
     }
-    else{
+    else if(classElement.includes("ligneChiffrage")){
       //c'est une ligneChiffrage, on va chercher l'ID du parent
       idRefPlacement = $(element).parent().children("#idXML").val();
+    }
+    else{
+      titreType = 'lot';
+      //il y'a un element après
+      if($(element).next().attr("class").includes("divTitreLot")){
+        placement = "BEFORE";
+        var idNext = $(element).next().attr("id").substr(12);
+        idRefPlacement = $("#lot_"+idNext).children("#idXML").val();
+      }
+      else{
+        placement = "APPEND";
+        idRefPlacement = "_0";
+      }
     }
 
     //on détermine l'objet que l'on traite et on obtient ses informations
@@ -1232,32 +1257,54 @@ function modifierXML(element){
       };
     }
     else{
+      if(titreType == "lot"){
+        var idDiv = $(element).attr("id").substr(12);
+        var id = $("#lot_"+idDiv).children("#idXML").val();
+      }
+      else{
+        var id = $(element).children('#idXML').val();
+      }
       data = {
         todo: "modifierXML",
         idProjet:idProjet,
+        titreType:titreType,
         type: "titre",
-        id: $(element).children('#idXML').val(),
+        id: id,
         idRefPlacement: idRefPlacement,
         placement: placement, //ou BEFORE
         intitule: $(element).children('input').last().val()
       };
     }
 
-    console.log(data);
+    //console.log(data);
 
     //Ajax
-    // $.ajax({
-    //   url: "./ActionServlet",
-    //   method: "POST",
-    //   data: data,
-    //   dataType: "json",
-    // }).done(function (response) {
-    //   // Fonction appelée en cas d'appel AJAX réussi
-    //   console.log("Response", response);
-    //   if(response.ErrorState){
-    //     alert("Un problème est survenu lors de la sauvegarde des données du projet. Rafraichir la page peut vous aider à l'identifier");
-    //   }
-    // });
+    $.ajax({
+      url: "./ActionServlet",
+      method: "POST",
+      data: data,
+      dataType: "json",
+    }).done(function (response) {
+      // Fonction appelée en cas d'appel AJAX réussi
+      console.log("Response", response);
+      if(response.ErrorState){
+        alert("Un problème est survenu lors de la sauvegarde des données du projet. Rafraichir la page peut vous aider à l'identifier");
+      }
+      else{
+        if (response['idInsere'] != "" && response['idInsere'] != null) {
+          if (titreType == "lot") {
+            $("#lot_"+$(element).attr("id").substr(12)).children("#idXML").val(response['idInsere']);
+          }
+          else{
+            $(element).children("#idXML").val(response['idInsere']);
+          }
+        }
+      }
+
+      if (element2 != null) {
+        modifierXML(element2);
+      }
+    });
   }
 }
 
@@ -1279,6 +1326,9 @@ function attacheEventModifXML(){
     modifierXML(this);
   });
   $('.ligneChiffrage').change(function(){
+    modifierXML(this);
+  });
+  $('.divTitreLot').change(function(){
     modifierXML(this);
   });
 }

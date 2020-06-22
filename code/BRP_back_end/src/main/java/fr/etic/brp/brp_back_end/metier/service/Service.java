@@ -32,6 +32,7 @@ import fr.etic.brp.brp_back_end.metier.modele.Prestation;
 import fr.etic.brp.brp_back_end.metier.modele.Projet;
 import fr.etic.brp.brp_back_end.metier.modele.SousCategorieConstruction;
 import fr.etic.brp.brp_back_end.metier.modele.SousFamille;
+import static java.lang.Long.parseLong;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.List;
@@ -789,6 +790,26 @@ public class Service {
         }
         
         return total;
+    }
+    
+    public String GetIdInsere(Long idProjet){
+        String idInsere = null;
+        JpaUtil.creerContextePersistance();
+        DomUtil.init();
+        try{
+            String uri = rootXMLFiles+idProjet+".xml";
+            Document xml = projetXMLDao.ObtenirDocument(uri);
+            Node nextIdBalise = xml.getElementsByTagName("nextId").item(0);
+            Long idInserelong = parseLong(nextIdBalise.getTextContent())-1L;
+            idInsere = "_"+idInserelong.toString();
+        }
+        catch(Exception e){
+            idInsere = null;
+        }finally{
+            JpaUtil.fermerContextePersistance();
+            DomUtil.destroy();
+        }      
+        return idInsere;
     }
     
     public Boolean AjouterLot(Long idProjet, String placement, String idRefPlacement) {

@@ -22,10 +22,10 @@ public class ModifierXMLSerialisation extends Serialisation {
         
         //Lecture des attributs de la requête (stockés par l'action)
         boolean ErrorState = (boolean)request.getAttribute("ErrorState");
-        Long idProjet = (Long) request.getAttribute("idProjet");
+        String idInsere = (String) request.getAttribute("idInsere");
         
         container.addProperty("Error", ErrorState);
-        container.addProperty("idProjet", idProjet);
+        container.addProperty("idInsere", idInsere);
         
         //Formatage de la structure de données JSON => Ecriture sur le flux de sortie de la réponse
         PrintWriter out = this.getWriter(response);

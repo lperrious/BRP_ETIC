@@ -11,6 +11,7 @@
   --text_grey: grey;
   --text_soft: white;
   --menu_bg_hover: rgba(70, 55, 0, 0.05);
+  --indications: #fbfee5;
 }
 
 /* Inscription */
@@ -499,6 +500,21 @@ select {
   padding-bottom: 15px;
 }
 
+.presentationRight{
+  flex: 1;
+}
+
+.textPresentationRight{
+  width: 500px;
+  padding: 15px;
+  font-size: 120%;
+  border-radius: 5px;
+  background-color: var(--indications);
+  margin: auto;
+  text-align: center;
+  margin-top: 300px;
+}
+
 .divTitreLot {
   padding: 9px;
   border-bottom: solid;
@@ -538,7 +554,8 @@ select {
 }
 
 .input-group {
-  width: 80%;
+  width: auto;
+  margin-right: 30px;
 }
 
 .input-group-text {
@@ -551,18 +568,26 @@ select {
 .ligneChiffrage {
   display: flex;
   justify-content: space-between;
-  width: 85%;
   margin-top: 0.75em;
   margin-bottom: 15px;
+  margin-right: 30px;
 }
 
 .suppressionLigneChiffrage {
   position: relative;
   top: 6px;
   opacity: 0;
+  color: var(--border);
+  width: 25px;
 }
 
-.suppressionLigneChiffrage:hover {
+.deleteXML{
+  opacity: 0;
+  color: var(--border);
+  width: 25px;
+}
+
+.suppressionLigneChiffrage:hover, .deleteXML:hover {
   opacity: 1;
   cursor: pointer;
 }
@@ -573,8 +598,17 @@ select {
   border-color: var(--border);
   border-radius: 5px;
   display: block;
-  width: 35%;
   padding-left: 15px;
+}
+
+.quantite{
+  text-align: right;
+  padding-right: 15px;
+  width: 20%;
+}
+
+.localisation{
+    width: 50%;
 }
 
 .titre1 {
@@ -612,8 +646,17 @@ select {
   background-color: var(--cta);
   text-align: center;
   color: var(--text_soft);
-  border-radius: 2px;
   font-size: 100%;
+}
+
+.ongletLot:first-child{
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+}
+
+.ongletLot:last-child{
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
 }
 
 .ongletLot:hover {
