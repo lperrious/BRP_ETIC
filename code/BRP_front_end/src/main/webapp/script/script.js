@@ -764,8 +764,12 @@ function AjouterElement(element) {
             var idLot = $(divInsertionDescriptif).parent().attr("id");
             NumerotationArbo(idLot);
           }
+
+          //on attache l'evt pour modifier le xml
+          attacheEventModifXML();
+
           //on actualise le xml
-          modifierXML();
+          //modifierXML();
         }
       });
     }
@@ -908,8 +912,12 @@ function AjouterTitre(evt) {
   //Appel de la fonction de numérotation de l'arborescence
   var idLot = $(divNewTitle).parent().attr("id");
   NumerotationArbo(idLot);
+
+  //on attache l'evt pour modifier le xml
+  attacheEventModifXML();
+
   //on actualise le xml
-  modifierXML();
+  //modifierXML();
 }
 
 function NumerotationArbo(idOnglet) {
@@ -1045,8 +1053,11 @@ function CreerOnglet() {
   //On numérote l'unique titre
   NumerotationArbo(idOnglet);
 
+  //on attache l'evt pour modifier le xml
+  attacheEventModifXML();
+
   //on actualise le xml
-  modifierXML();
+  //modifierXML();
 }
 
 function toRoman(num) {
@@ -1100,111 +1111,92 @@ function AjouterLigneChiffrage(element) {
   AjoutEventSupprLigneChiffrage();
 }
 
-function modifierXML(){
+function modifierXML(element){
 
-  var xmlDatas = Array();
-  var i = 0;
-  var j = 0;
-  var classElement = null;
-  var containerDescription = null;
-  var localisation = null;
-  var quantite = null;
-  var firstLigneChiffrage = true;
-  
-  //pour chaque lot, on reconstitue l'arborescence
-  $('.divTitreLot').each(function () {
+  if (typeof(element) != "undefined") {
+    
+    //on détermine l'idProjet
+    var idProjet = $("#idProjetActuel").val();
+    classElement = $(element).attr("class");
 
-    //on crée le tableau secondaire
-    xmlDatas[i] = Array();
-     
-    //on enregistre le nom du lot
-    xmlDatas[i]['type'] = 'lot';
-    xmlDatas[i]['intitule'] = $(this).children('.titreLot').val();
-    idLot = $(this).attr("id").substr(12);
-    i++;
-
-    //on va chercher les enfants du lot
-    $('#lot_'+idLot).children().each(function () {
-      classElement = $(this).attr("class");
-      
-      //on verifie qu'on est dans un titre ou un descritpif
-      if (typeof(classElement) != 'undefined' && classElement != "barreInsertion" && classElement != "finLot") {
-        //on crée le tableau secondaire
-        xmlDatas[i] = Array();
-
-        //on enregistre son echelon
-        if (classElement.includes("titre1")) 
-            xmlDatas[i]['type'] = 'titre1';
-        if (classElement.includes("titre2")) 
-          xmlDatas[i]['type'] = 'titre2';
-        if (classElement.includes("titre3")) 
-          xmlDatas[i]['type'] = 'titre3';
-        if (classElement.includes("titre4")) 
-          xmlDatas[i]['type'] = 'titre4';
-        if (classElement.includes("titre5")) 
-          xmlDatas[i]['type'] = 'titre5';
-
-        //si l'élement est un titre
-        if (!classElement.includes("descriptif")) {
-          xmlDatas[i]['intitule'] = $(this).children('input').val();
-        }
-        //sinon c'est un descriptif
-        else{
-          xmlDatas[i]['idDescriptif'] = $(this).children('.idDescriptif').val();
-          xmlDatas[i]['nomDescriptif'] = $(this).find('.nomDescriptif').val();
-          xmlDatas[i]['description'] = $(this).find('textarea').val();
-
-          //on va chercher les lignes chiffrage s'il y en a 
-          $(this).find(".ligneChiffrage").each(function(){
-            localisation = $(this).find(".localisation").val();
-            quantite = $(this).find(".quantite").val();
-            //si la ligne chiffrage comporte une info, on l'enregistre
-            if (!(localisation == "" && quantite == "")) {
-
-              if (firstLigneChiffrage) {
-                xmlDatas[i]['ligneChiffrage'] = Array();
-                firstLigneChiffrage = false;
-              }
-
-              xmlDatas[i]['ligneChiffrage'][j] = Array();
-              xmlDatas[i]['ligneChiffrage'][j]['localisation'] = localisation;
-              xmlDatas[i]['ligneChiffrage'][j]['quantite'] = quantite;
-              xmlDatas[i]['ligneChiffrage'][j]['unite'] = $(this).find(".unite").text();
-              j++;
-            }
-          });
-          j = 0;
-        }
-        firstLigneChiffrage = true;
-        i++;
-      }
-    });
-  });
-
-  //console.log(xmlDatas);
-
-  //une fois qu'on a rassemblé les informations de manière ordonnée, on fait l'appel AJAX
-  var idProjet = $("#idProjetActuel").val();
-
-  $.ajax({
-    url: "./ActionServlet",
-    method: "POST",
-    data: {
-      todo: "modifierXML",
-      idProjet:idProjet,
-      xmlDatas:xmlDatas
-    },
-    dataType: "json",
-  }).done(function (response) {
-    // Fonction appelée en cas d'appel AJAX réussi
-    console.log("Response", response);
-    if(response.ErrorState){
-      alert("Un problème est survenu lors de la sauvegarde des données du projet. Rafraichir la page peut vous aider à l'identifier");
+    //on détermine l'objet que l'on traite et on obtient ses informations
+    var data = Array();
+    if (classElement.includes("descriptif")){
+      data = {
+        todo: "modifierXML",
+        idProjet:idProjet,
+        type: "descriptif",
+        id: "_1",
+        id_parent: "_2",
+        id_before: "_3",
+        nomDescriptif: $(element).find('.nomDescriptif').val(),
+        description: $(element).find('textarea').val()
+      };
     }
-  });
+    // idDescriptif: $(element).children('.idDescriptif').val(),
+    else if(classElement.includes("ligneChiffrage")){
+      data = {
+        todo: "modifierXML",
+        idProjet:idProjet,
+        type: "ligneChiffrage",
+        id: "_1",
+        id_parent: "_2",
+        id_before: "_3",
+        localisation: $(element).find(".localisation").val(),
+        quantite: $(element).find(".quantite").val()
+      };
+    }
+    else{
+      data = {
+        todo: "modifierXML",
+        idProjet:idProjet,
+        type: "titre",
+        id: "_1",
+        id_parent: "_2",
+        id_before: "_3",
+        intitule: $(element).children('input').val()
+      };
+    }
+
+    console.log(data);
+
+    //Ajax
+    // $.ajax({
+    //   url: "./ActionServlet",
+    //   method: "POST",
+    //   data: data,
+    //   dataType: "json",
+    // }).done(function (response) {
+    //   // Fonction appelée en cas d'appel AJAX réussi
+    //   console.log("Response", response);
+    //   if(response.ErrorState){
+    //     alert("Un problème est survenu lors de la sauvegarde des données du projet. Rafraichir la page peut vous aider à l'identifier");
+    //   }
+    // });
+  }
 }
 
+function attacheEventModifXML(){
 
+  $('.titre1').change(function(){
+    modifierXML(this);
+  });
+  $('.titre2').change(function(){
+    modifierXML(this);
+  });
+  $('.titre3').change(function(){
+    modifierXML(this);
+  });
+  $('.titre4').change(function(){
+    modifierXML(this);
+  });
+  $('.titre5').change(function(){
+    modifierXML(this);
+  });
+  $('.ligneChiffrage').change(function(){
+    modifierXML(this);
+  });
+}
 
 
 

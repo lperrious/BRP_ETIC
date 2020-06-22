@@ -1376,6 +1376,43 @@ public class Service {
         return resultat;
     }
     
+    public Boolean ModifierNomDescriptif(Long idProjet, String idDescriptif, String newNom){
+        DomUtil.init();
+        Boolean testModif = false;
+        Boolean resultat = false;
+        
+        try {
+            //Obtention du document
+            String uri = rootXMLFiles+idProjet+".xml";
+            Document xml = projetXMLDao.ObtenirDocument(uri);
+            
+            Element baliseDescriptif = (Element) xml.getElementById(idDescriptif);
+            if(baliseDescriptif != null){
+                NodeList listeEnfantsDescriptif = baliseDescriptif.getChildNodes();
+                for(int j = 0; j < listeEnfantsDescriptif.getLength(); j++){
+                    if(listeEnfantsDescriptif.item(j).getNodeName().equals("nomDescriptif")){
+                        //On modifie la balise description
+                        Element baliseNom = (Element) listeEnfantsDescriptif.item(j);
+                        baliseNom.setTextContent(newNom);
+                        testModif = true;
+                    }
+                }
+            }
+
+            //On écrit par dessus l'ancien XML
+            projetXMLDao.saveXMLContent(xml, uri);
+            
+            if(testModif){
+                resultat = true; //Si on est arrivé jusque là alors pas d'erreur
+            }
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service ModifierDescriptionDescriptif(Long idProjet, String idDescriptif, String newDescription)", ex);
+        } finally {
+            DomUtil.destroy();
+        }
+        return resultat;
+    }
+    
     public Boolean ModifierCourteDescriptionDescriptif(Long idProjet, String idDescriptif, String newDescription){
         DomUtil.init();
         Boolean testModif = false;
