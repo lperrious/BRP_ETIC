@@ -10,13 +10,13 @@
                         <input type="text" class="titreLot" placeholder="Titre Lot" />
                     </div>
                     <div class="lot" id="lot_0" >
-                        <input type="hidden" id="{@id}"/>
+                        <input type="hidden" id="idXML" value="{@id}"/>
                         <div class="barreInsertion" onclick="AjouterElement(this);">
                             <div class="panBarreInsertion"></div>
                             <div class="panBarreInsertion"></div>
                         </div>
                         <div class="input-group titre1">
-                            <input type="hidden" id="{@id}"/>
+                            <input type="hidden" id="idXML" value="{@id}"/>
                             <div class="input-group-prepend">
                                 <span class="input-group-text"></span>
                             </div>
@@ -35,14 +35,14 @@
                 <xsl:for-each select="//lot">
                     <xsl:variable name="i" select="position()" />
                     <div class="divTitreLot" id="divTitreLot_{$i - 1}">
-                        <input type="hidden" id="{@id}"/>
+                        <input type="hidden" id="idXML" value="{@id}"/>
                         <input type="text" class="titreLot" placeholder="Titre Lot" />
                     </div>
                 </xsl:for-each>
                 <xsl:for-each select="//lot">
                     <xsl:variable name="i" select="position()" />
                     <div class="lot" id="lot_{$i - 1}">
-                        <input type="hidden" id="{@id}"/>
+                        <input type="hidden" id="idXML" value="{@id}"/>
                         <xsl:apply-templates select="." />
                         <div class="finLot"></div>
                     </div>
@@ -72,7 +72,7 @@
     </xsl:template>
 
     <xsl:template match="titre1">
-        <input type="hidden" id="{@id}"/>
+        <input type="hidden" id="idXML" value="{@id}"/>
         <div class="input-group titre1">
             <div class="input-group-prepend">
                 <span class="input-group-text"></span>
@@ -89,7 +89,7 @@
     </xsl:template>
 
     <xsl:template match="titre2">
-        <input type="hidden" id="{@id}"/>
+        <input type="hidden" id="idXML" value="{@id}"/>
         <div class="input-group titre2">
             <div class="input-group-prepend">
                 <span class="input-group-text"></span>
@@ -106,7 +106,7 @@
     </xsl:template>
 
     <xsl:template match="titre3">
-        <input type="hidden" id="{@id}"/>
+        <input type="hidden" id="idXML" value="{@id}"/>
         <div class="input-group titre3">
             <div class="input-group-prepend">
                 <span class="input-group-text"></span>
@@ -123,7 +123,7 @@
     </xsl:template>
 
     <xsl:template match="titre4">
-        <input type="hidden" id="{@id}"/>
+        <input type="hidden" id="idXML" value="{@id}"/>
         <div class="input-group titre4">
             <div class="input-group-prepend">
                 <span class="input-group-text"></span>
@@ -155,7 +155,7 @@
     </xsl:template>-->
 
     <xsl:template match="descriptif">
-        <input type="hidden" id="{@id}"/>
+        <input type="hidden" id="idXML" value="{@id}"/>
         <xsl:choose>
 		  <xsl:when test="contains(name(..),'1')">
 		    <div class="descriptif titre2">

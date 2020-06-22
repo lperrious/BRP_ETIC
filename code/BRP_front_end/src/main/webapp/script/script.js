@@ -728,7 +728,7 @@ function AjouterElement(element) {
 
           if (!$(".selectDescriptif").hasClass("generique")) {
 
-            $(divInsertionDescriptif).html("<input type='hidden' id='_0'/><input type='hidden' class='idDescriptif' value='"+ idDescriptif +"'/><div class='input-group'><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control nomDescriptif' placeholder='Ouvrage/Prestation' value='" + nomDescriptif + "'/></div><div class='input-group description'><textarea class='form-control' placeholder='Description' value='" + descriptionDescriptif + "'></textarea></div><div class='ligneChiffrage'><input type='text' class='form-control localisation' placeholder='Localisation'/><input type='text' class='form-control quantite' placeholder='Quantité'/><div class='input-group-prepend'><span class='input-group-text unite'>" + unite + "</span></div></div>");
+            $(divInsertionDescriptif).html("<input type='hidden' id='idXML' value='_0'/><input type='hidden' class='idDescriptif' value='"+ idDescriptif +"'/><div class='input-group'><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control nomDescriptif' placeholder='Ouvrage/Prestation' value='" + nomDescriptif + "'/></div><div class='input-group description'><textarea class='form-control' placeholder='Description' value='" + descriptionDescriptif + "'></textarea></div><div class='ligneChiffrage'><input type='text' class='form-control localisation' placeholder='Localisation'/><input type='text' class='form-control quantite' placeholder='Quantité'/><div class='input-group-prepend'><span class='input-group-text unite'>" + unite + "</span></div></div>");
             //! Rajouter la description stylisée en AJAX
     
             $(divInsertionDescriptif).insertBefore($(element));
@@ -748,7 +748,7 @@ function AjouterElement(element) {
             NumerotationArbo(idLot);
           } else {
             //On insère le générique
-            $(divInsertionDescriptif).html("<input type='hidden' id='_0'/><input type='hidden' class='idDescriptif' value='"+ idDescriptif +"'/><div class='input-group'><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control nomDescriptif' placeholder='Générique' value='" + nomDescriptif + "'/></div><div class='input-group description'><textarea class='form-control' placeholder='Description' value='" + descriptionDescriptif + "'></textarea></div>");
+            $(divInsertionDescriptif).html("<input type='hidden' id='idXML' value='_0'/><input type='hidden' class='idDescriptif' value='"+ idDescriptif +"'/><div class='input-group'><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control nomDescriptif' placeholder='Générique' value='" + nomDescriptif + "'/></div><div class='input-group description'><textarea class='form-control' placeholder='Description' value='" + descriptionDescriptif + "'></textarea></div>");
             $(divInsertionDescriptif).insertBefore($(element));
             //! Rajouter la description stylisée en AJAX
     
@@ -915,7 +915,7 @@ function SuppressionChoixInsertionTitre() {
 function AjouterTitre(evt) {
   var titleClassName = evt.innerHTML.replace(" ", "").toLowerCase();
   //On ajoute le titre avec le bon style
-  var divNewTitle = $("<div class='input-group " + titleClassName + "'><input type='hidden' id='_0'/><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control' placeholder='" + evt.innerHTML + "'/></div>");
+  var divNewTitle = $("<div class='input-group " + titleClassName + "'><input type='hidden' id='idXML' value='_0'/><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control' placeholder='" + evt.innerHTML + "'/></div>");
   $(divNewTitle).insertBefore($(evt).parent());
 
   //On insère une barre d'insertion au-dessus du nouveau titre
@@ -1043,7 +1043,7 @@ function CreerOnglet() {
   var numOnglet = Number($("#ongletsLot").children().last().prev().html()) + 1;
   var idOnglet = "lot_" + numOnglet;
 
-  var divNouvelOnglet = $("<div class='lot' id='" + idOnglet + "'><div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div><div class='input-group titre1'><div class='input-group-prepend'><span class='input-group-text'>I.</span></div><input type='text' class='form-control' placeholder='Titre 1'/></div><div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div><div class='finLot'></div></div>");
+  var divNouvelOnglet = $("<div class='lot' id='" + idOnglet + "'><div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div><div class='input-group titre1'><input type='hidden' id='idXML' value='_0'/><div class='input-group-prepend'><span class='input-group-text'>I.</span></div><input type='text' class='form-control' placeholder='Titre 1'/></div><div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div><div class='finLot'></div></div>");
   $(divNouvelOnglet).insertBefore($("#ongletsLot"));
 
   //Création de deux barres d'insertion d'un titre1 et d'une fin de lot dans ce nouvel onglet
