@@ -1133,27 +1133,27 @@ function modifierXML(){
     });
   });
 
-  console.log(xmlDatas);
+  //console.log(xmlDatas);
 
   //une fois qu'on a rassemblé les informations de manière ordonnée, on fait l'appel AJAX
-  // var idProjet = $(element).children("#idProjetActuel").val();
+  var idProjet = $("#idProjetActuel").val();
 
-  // $.ajax({
-  //   url: "./ActionServlet",
-  //   method: "POST",
-  //   data: {
-  //     todo: "modifierXML",
-  //     idProjet:idProjet,
-  //     xmlDatas:xmlDatas
-  //   },
-  //   dataType: "json",
-  // }).done(function (response) {
-  //   // Fonction appelée en cas d'appel AJAX réussi
-  //   console.log("Response", response);
-  //   if(response.ErrorState){
-  //     alert("Un problème est survenu lors de la sauvegarde des données du projet. Rafraichir la page peut vous aider à l'identifier");
-  //   }
-  // });
+  $.ajax({
+    url: "./ActionServlet",
+    method: "POST",
+    data: {
+      todo: "modifierXML",
+      idProjet:idProjet,
+      xmlDatas:xmlDatas
+    },
+    dataType: "json",
+  }).done(function (response) {
+    // Fonction appelée en cas d'appel AJAX réussi
+    console.log("Response", response);
+    if(response.ErrorState){
+      alert("Un problème est survenu lors de la sauvegarde des données du projet. Rafraichir la page peut vous aider à l'identifier");
+    }
+  });
 }
 
 
