@@ -1043,7 +1043,7 @@ function CreerOnglet() {
   var numOnglet = Number($("#ongletsLot").children().last().prev().html()) + 1;
   var idOnglet = "lot_" + numOnglet;
 
-  var divNouvelOnglet = $("<div class='lot' id='" + idOnglet + "'><div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div><div class='input-group titre1'><input type='hidden' id='idXML' value='_0'/><div class='input-group-prepend'><span class='input-group-text'>I.</span></div><input type='text' class='form-control' placeholder='Titre 1'/></div><div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div><div class='finLot'></div></div>");
+  var divNouvelOnglet = $("<div class='lot' id='" + idOnglet + "'><input type='hidden' id='idXML' value='_0'/><div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div><div class='input-group titre1'><input type='hidden' id='idXML' value='_0'/><div class='input-group-prepend'><span class='input-group-text'>I.</span></div><input type='text' class='form-control' placeholder='Titre 1'/></div><div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div><div class='finLot'></div></div>");
   $(divNouvelOnglet).insertBefore($("#ongletsLot"));
 
   //Création de deux barres d'insertion d'un titre1 et d'une fin de lot dans ce nouvel onglet
