@@ -16,23 +16,14 @@
 
 /* Inscription */
 #div_champs_inscription {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 60px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  width: 470px;
-  background: rgba(255, 255, 255, 0.5);
-  padding: 40px 60px;
-  border-radius: 16px;
+  width: 500px;
+  margin: auto;
+  text-align: center;
 }
 
 #div_consigne {
-  margin-top: 0px;
-  font-size: 26px;
+  font-size: 200%;
   font-weight: bold;
-  margin-bottom: 30px;
 }
 
 #button_create_account {
@@ -40,51 +31,83 @@
   justify-content: space-around;
 }
 
+#button_create_account > button{
+  width: 200px;
+  font-size: 120%;
+}
+
 .btn-group {
-  margin-left: 60px;
-  margin-bottom: 40px;
+  margin: 0.5em auto 2.5em;
+}
+
+.btn-secondary{
+  width: 140px;
 }
 
 /* Connexion */
-#conteneur_connection {
+.titleLogin{
+  margin-bottom: 3em;
+}
+
+.titleLogin > h2{
+  font-size: 225%;
+}
+
+#clientbody{
   display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 300px;
-  margin-left: 300px;
-  width: 1000px;
-  background: rgba(255, 255, 255, 0.5);
-  padding-top: 40px;
-  padding-bottom: 40px;
-  border-radius: 16px;
+  flex-direction: column;
+  height: 100vh;
 }
 
-.main {
-  width: 600px;
+#conteneur_connection{
+  width: 500px;
+  margin: auto;
+  text-align: center;
 }
 
-#conteneur_button {
-  display: flex;
-  justify-content: space-between;
+.fieldsLog{
+  border: solid;
+  border-width: 1px;
+  border-color: var(--border);
+  padding: 5px;
+  padding-left: 10px;
+  font-size: 120%;
+  border-radius: 4px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Helvetica Neue", "Fira Sans",
+    Arial, Helvetica, sans-serif;
+  font-weight: 300;
+  width: 80%;
 }
 
-.sidenav {
-  width: 300px;
+.fieldsLog{
+  margin-top: 0.25em;
 }
 
-.login-main-text a {
-  color: inherit; /* blue colors for links too */
-  text-decoration: inherit; /* no underline */
-  font-weight: bold;
+#conteneur_button > button{
+  width: 200px;
+  background-color: var(--cta);
+  color: var(--text_soft);
+  font-size: 130%;
+  margin-top: 1em;
+}
+
+#conteneur_button > button:hover{
+  cursor: pointer;
+  background-color: var(--cta_hover);
 }
 
 #error_notif {
-  margin-left: 500px;
-  margin-top: 50px;
-  width: 400px;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.5);
+  margin: auto;
+  width: 800px;
+  border-radius: 5px;
+  background-color: var(--error_bg);
+  color: var(--error);
   text-align: center;
+  font-size: 150%;
+  position: relative;
+  bottom: 2em;
+  padding: 12px;
 }
 
 /* Dashboard */
