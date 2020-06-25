@@ -106,7 +106,7 @@ public class Main {
 //        testerAjouterTitre2();
 //        testerAjouterTitre3();
 //        testerAjouterTitre4();
-//        testerAjouterDescriptif();
+        testerAjouterDescriptif();
 //        testerAjouterLigneChiffrage();
 //        testerCoutSynthese();
 //        testerSuppressionBalise();
@@ -1564,7 +1564,7 @@ public static void Scenario3() {
         //Doit fonctionner
         Long idProjet = 01L;
         String placement = "APPEND";
-        String idRefPlacement = "_1";
+        String idRefPlacement = "_12";
         
         Boolean resultat = service.AjouterTitre1(idProjet, placement, idRefPlacement);
         if(resultat)
@@ -1773,9 +1773,9 @@ public static void Scenario3() {
         }*/
         
         Long idProjet = 1L;
-        String idDescriptif = "11_DAP_10_10_001";
+        String idDescriptif = "04_ETA_03_01_001";
         String placement = "APPEND";
-        String idRefPlacement = "_6";
+        String idRefPlacement = "_13";
         
         Boolean resultat = service.AjouterDescriptif(idProjet, placement, idRefPlacement, idDescriptif);
         if(resultat){

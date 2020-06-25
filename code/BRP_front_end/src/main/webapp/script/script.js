@@ -728,7 +728,7 @@ function AjouterElement(element) {
 
           if (!$(".selectDescriptif").hasClass("generique")) {
 
-            $(divInsertionDescriptif).html("<input type='hidden' id='idXML' value='_0'/><input type='hidden' class='idDescriptif' value='"+ idDescriptif +"'/><div class='input-group'><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control nomDescriptif' placeholder='Ouvrage/Prestation' value='" + nomDescriptif + "'/><div class='deleteXML'><i class=\"fas fa-times-circle\"></i></div></div><div class='input-group description'><textarea class='form-control' placeholder='Description' value='" + descriptionDescriptif + "'></textarea></div><div class='ligneChiffrage'><input type='hidden' id='idLigneChiffrage' value='0'/><input type='text' class='form-control localisation' placeholder='Localisation'/><input type='text' class='form-control quantite' placeholder='Quantité' value='1.0'/><div class='input-group-prepend'><span class='input-group-text unite'>" + unite + "</span></div><div style='width: 25px;'></div></div>");
+            $(divInsertionDescriptif).html("<input type='hidden' id='idXML' value='_0'/><input type='hidden' class='idDescriptif' value='"+ idDescriptif +"'/><div class='input-group'><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control nomDescriptif' placeholder='Ouvrage/Prestation' value='" + nomDescriptif + "'/><div class='deleteXML'><i class=\"fas fa-times-circle\"></i></div></div><div class='input-group description'><textarea class='form-control' placeholder='Description' value='" + descriptionDescriptif + "'></textarea></div><div class='ligneChiffrage'><input type='hidden' id='idLigneChiffrage' value='1'/><input type='text' class='form-control localisation' placeholder='Localisation'/><input type='text' class='form-control quantite' placeholder='Quantité' value='1.0'/><div class='input-group-prepend'><span class='input-group-text unite'>" + unite + "</span></div><div style='width: 25px;'></div></div>");
             //! Rajouter la description stylisée en AJAX
     
             $(divInsertionDescriptif).insertBefore($(element));
@@ -1237,7 +1237,7 @@ function modifierXML(element, element2){
         type: "descriptif",
         id: $(element).children('#idXML').val(),
         idRefPlacement: idRefPlacement,
-        placement: placement, //ou BEFORE
+        placement: placement, 
         idDescriptif: $(element).children('.idDescriptif').val(),
         nomDescriptif: $(element).find('.nomDescriptif').val(),
         description: $(element).find('textarea').val()
@@ -1251,7 +1251,7 @@ function modifierXML(element, element2){
         type: "ligneChiffrage",
         id: $(element).children('#idLigneChiffrage').val(),
         idRefPlacement: idRefPlacement,
-        placement: "", //ou BEFORE
+        placement: "", 
         localisation: $(element).find(".localisation").val(),
         quantite: $(element).find(".quantite").val()
       };
@@ -1271,12 +1271,12 @@ function modifierXML(element, element2){
         type: "titre",
         id: id,
         idRefPlacement: idRefPlacement,
-        placement: placement, //ou BEFORE
+        placement: placement,
         intitule: $(element).children('input').last().val()
       };
     }
 
-    //console.log(data);
+    console.log(data);
 
     //Ajax
     $.ajax({
@@ -1287,7 +1287,7 @@ function modifierXML(element, element2){
     }).done(function (response) {
       // Fonction appelée en cas d'appel AJAX réussi
       console.log("Response", response);
-      if(response.ErrorState){
+      if(response.Error){
         alert("Un problème est survenu lors de la sauvegarde des données du projet. Rafraichir la page peut vous aider à l'identifier");
       }
       else{
@@ -1296,11 +1296,16 @@ function modifierXML(element, element2){
             $("#lot_"+$(element).attr("id").substr(12)).children("#idXML").val(response['idInsere']);
           }
           else{
-            $(element).children("#idXML").val(response['idInsere']);
+            // si c'est un id de ligne chiffrage, il ne s'incremente pas tout seul
+            if (response['idInsere'] == "_0")
+              $(element).children("#idLigneChiffrage").val($(element).parent().children('.ligneChiffrage').length);
+            else
+              $(element).children("#idXML").val(response['idInsere']);
           }
         }
       }
 
+      //on desynchronise l'appel
       if (element2 != null) {
         modifierXML(element2);
       }

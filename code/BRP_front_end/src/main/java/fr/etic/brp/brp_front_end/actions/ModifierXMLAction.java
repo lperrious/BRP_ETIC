@@ -102,6 +102,9 @@ public class ModifierXMLAction extends Action {
                     //c'est un ajout
                     if("0".equals(id)){
                         //on ajoute et on retourne l'idXML
+                        testModification = service.AjouterLigneChiffrage(idProjet, idRefPlacement);
+                        if(testModification)
+                            idInsere = "_0";
                     }else{
                         //on modifie la localisation
                         testModification = service.ModifierLocalisationDescriptif(idProjet,idRefPlacement, id, localisation);
@@ -110,6 +113,7 @@ public class ModifierXMLAction extends Action {
                             testModification = service.ModifierQuantiteDescriptif(idProjet,idRefPlacement, id, quantite);
                     }
                     break;
+                    //retours de l'identifiant plus id=1 pour la premiere ligneChiffrage
             }
             request.setAttribute("ErrorState", false);
             request.setAttribute("idInsere", idInsere);     //a faire pour balise

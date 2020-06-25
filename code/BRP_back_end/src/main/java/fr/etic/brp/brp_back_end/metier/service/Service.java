@@ -1179,7 +1179,7 @@ public class Service {
         return resultat;
     }
     
-    public Boolean AjouterLigneChiffrage(Long idProjet, String idDescriptif){
+    public Boolean AjouterLigneChiffrage(Long idProjet, String idXMLDescriptif){
         JpaUtil.creerContextePersistance();
         DomUtil.init();
         Boolean resultat = false;
@@ -1205,7 +1205,7 @@ public class Service {
             //on parcours les descriptifs
             for (int i = 0; i<rootNodes.getLength(); i++) {
                 Element descriptif = (Element) rootNodes.item(i);
-                if(descriptif.getAttribute("idBD").equals(idDescriptif)){
+                if(descriptif.getAttribute("id").equals(idXMLDescriptif)){
                     
                     //on compte les lignes chiffrages qu'il y a 
                     NodeList ligneChiffrageNodes = descriptif.getElementsByTagName("ligneChiffrage");
@@ -1215,11 +1215,11 @@ public class Service {
                     //on va chercher l'idDescriptif du parent
                     List<BasePrixRef> listeBasePrixRef = null;
                     if(descriptif.getAttribute("type").equals("ouvrage")){
-                        Ouvrage ouvrage = (Ouvrage) descriptifDao.ChercherParId(idDescriptif); 
+                        Ouvrage ouvrage = (Ouvrage) descriptifDao.ChercherParId(descriptif.getAttribute("idBD")); 
                         listeBasePrixRef = ouvrage.getListeBasePrixRefOuvrage(); 
                     }
                     else{
-                        Prestation descriptifBD = prestationDao.ChercherParId(idDescriptif);
+                        Prestation descriptifBD = prestationDao.ChercherParId(descriptif.getAttribute("idBD"));
                         listeBasePrixRef = descriptifBD.getListeBasePrixRefPrestation(); 
                     }       
                     
