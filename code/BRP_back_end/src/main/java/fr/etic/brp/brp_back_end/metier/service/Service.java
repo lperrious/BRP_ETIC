@@ -1632,4 +1632,60 @@ public class Service {
         }
         return resultat;
     }
+    
+    public Boolean EnregistrerUriProjetExport(Long idProjet, String uriProjetExport) {
+        DomUtil.init();
+        Boolean resultat = false;
+        
+        try {
+            //Obtention du document
+            String uri = rootXMLFiles+idProjet+".xml";
+            Document xml = projetXMLDao.ObtenirDocument(uri);
+            Element root = xml.getDocumentElement();
+            
+            Element baliseUriExport = (Element) xml.getElementsByTagName("uriExport").item(0); 
+            if(baliseUriExport == null) { //Ou bien on renseigne pour la première fois le champ
+                baliseUriExport = xml.createElement("uriExport");
+                baliseUriExport.setTextContent(uriProjetExport);
+                Node baliseLotInfosProjet = xml.getElementsByTagName("lot").item(0);
+                root.insertBefore(baliseUriExport, baliseLotInfosProjet);
+            } else { //Ou bien on écrase l'ancienne
+                baliseUriExport.setTextContent(uriProjetExport);
+            }
+            
+            //On écrit par dessus l'ancien XML
+            projetXMLDao.saveXMLContent(xml, uri);
+            
+            resultat = true; //Si on est arrivé jusque là alors pas d'erreur
+            
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service EnregistrerUriProjetExport(Long idProjet, String uriProjetExport)", ex);
+        } finally {
+            DomUtil.destroy();
+        }
+        return resultat;
+    }
+    
+    public String RecupererUriProjetExport(Long idProjet) {
+        DomUtil.init();
+        String resultat = null;
+        
+        try {
+            //Obtention du document
+            String uri = rootXMLFiles+idProjet+".xml";
+            Document xml = projetXMLDao.ObtenirDocument(uri);
+            
+            Element baliseUriExport = (Element) xml.getElementsByTagName("uriExport").item(0);
+            resultat = baliseUriExport.getTextContent();
+            
+            //On écrit par dessus l'ancien XML
+            projetXMLDao.saveXMLContent(xml, uri);
+            
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service RecupererUriProjetExport(Long idProjet)", ex);
+        } finally {
+            DomUtil.destroy();
+        }
+        return resultat;
+    }
 }
