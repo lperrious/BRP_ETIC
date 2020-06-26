@@ -2,6 +2,7 @@
 
 test_select_descriptif = false; //permet de ne pas supprimer la selection d'un element à peine faite
 test_manageProjet = false;
+deplacementDescriptif = false;
 var testChoixPresent = false;
 
 /************** Appels au chargement de la page ******************/
@@ -22,9 +23,10 @@ $(document).ready(function () {
       if(response.isAdmin) {
         //Si admin alors on affiche le bouton de création de compte Opérateur
         $(".creationCompte").show();
-      } else {
-        window.location.href = "index.html";
-      }
+      } 
+      // else {
+      //   window.location.href = "index.html";
+      // }
     }
   });
 
@@ -187,6 +189,7 @@ $(document).ready(function () {
 
   $(".container").first().click(unset_select_descriptif);
   $(".container").last().click(SuppressionChoixInsertionTitre);
+  $(".container").last().click(removeSelectDescriptifXML);
   addEventsDescriptifs();
 
   //à ajouter une fois lorsque l'utilisateur cherche un projet
@@ -971,6 +974,17 @@ function SuppressionChoixInsertionTitre() {
   testChoixPresent = false;
 }
 
+function removeSelectDescriptifXML(){
+  if (!deplacementDescriptif) {
+    //on peut supprimer l'évènement
+    $('.selectDescriptifXML').css('background-color', "white");
+    $('.selectDescriptifXML').removeClass('selectDescriptifXML');
+  }
+  else{
+    deplacementDescriptif = false;
+  }
+}
+
 function AjouterTitre(evt) {
   var titleClassName = evt.innerHTML.replace(" ", "").toLowerCase();
   //On ajoute le titre avec le bon style
@@ -1609,7 +1623,8 @@ function supprimerXML(croix, type){
 }
 
 function addSelectedClassXML(elementPuce){
-    $(elementPuce).parent().parent().addClass('selectDescriptifXML');
+  deplacementDescriptif = true;
+  $(elementPuce).parent().parent().addClass('selectDescriptifXML');
 }
 
 function survolDeplacerDescriptif(elementPuce, sens){

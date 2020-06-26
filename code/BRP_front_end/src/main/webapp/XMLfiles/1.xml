@@ -1,16 +1,45 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE projet SYSTEM "reglesProjet.dtd">
 <projet idProjet="1">
-    <nextId>52</nextId>
-    <lot id="_6" intitule="">
-        <titre1 id="_7" intitule=""/>
+    <nextId>90</nextId>
+    <lot id="_74" intitule="">
+        <titre1 id="_75" intitule=""/>
+        <titre1 id="_76" intitule="">
+            <descriptif id="_77" idBD="04_ETA_03_01_001" type="ouvrage">
+                <nomDescriptif>Membrane d’étanchéité TPO</nomDescriptif>
+                <description>
+                    <p/>
+                </description>
+                <courteDescription/>
+                <unite>m2</unite>
+                <ligneChiffrage idLigneChiffrage="1">
+                    <localisation/>
+                    <quantite>1.0</quantite>
+                    <prixUnitaire>17.0</prixUnitaire>
+                </ligneChiffrage>
+            </descriptif>
+        </titre1>
     </lot>
-    <lot id="_8" intitule="">
-        <titre1 id="_9" intitule=""/>
+    <lot id="_78" intitule="">
+        <titre1 id="_79" intitule="">
+            <descriptif id="_80" idBD="04_ETA_03_01_001" type="ouvrage">
+                <nomDescriptif>Membrane d’étanchéité TPO</nomDescriptif>
+                <description>
+                    <p/>
+                </description>
+                <courteDescription/>
+                <unite>m2</unite>
+                <ligneChiffrage idLigneChiffrage="1">
+                    <localisation/>
+                    <quantite>1.0</quantite>
+                    <prixUnitaire>17.0</prixUnitaire>
+                </ligneChiffrage>
+            </descriptif>
+        </titre1>
     </lot>
-    <lot id="_10" intitule="">
-        <titre1 id="_11" intitule="">
-            <descriptif id="_12" idBD="04_ETA_03_01_001_020" type="prestation">
+    <lot id="_81" intitule="">
+        <titre1 id="_82" intitule="">
+            <descriptif id="_83" idBD="04_ETA_03_01_001_020" type="prestation">
                 <nomDescriptif>Membrane d’étanchéité TPO 1.8mm fixé méca</nomDescriptif>
                 <description>
                     <p>
@@ -51,9 +80,9 @@
             </descriptif>
         </titre1>
     </lot>
-    <lot id="_13" intitule="">
-        <titre1 id="_14" intitule="">
-            <descriptif id="_15" idBD="04_ETA_03_01_001" type="ouvrage">
+    <lot id="_84" intitule="">
+        <titre1 id="_85" intitule="">
+            <descriptif id="_86" idBD="04_ETA_03_01_001" type="ouvrage">
                 <nomDescriptif>Membrane d’étanchéité TPO</nomDescriptif>
                 <description>
                     <p/>
@@ -68,274 +97,9 @@
             </descriptif>
         </titre1>
     </lot>
-    <lot id="_16" intitule="">
-        <titre1 id="_17" intitule="">
-            <descriptif id="_18" idBD="04_ETA_03_01_001_020" type="prestation">
-                <nomDescriptif>Membrane d’étanchéité TPO 1.8mm fixé méca</nomDescriptif>
-                <description>
-                    <p>
-                        <normal>Mise en œuvre d’une membrane d’étanchéité TPO fixée mécaniquement selon DTA ou ETN en cours de validité.</normal>
-                    </p>
-                    <p/>
-                    <p>
-                        <normal>Les caractéristiques de la membrane sont les suivantes :</normal>
-                    </p>
-                    <li>
-                        <normal>TPO Épaisseur : 1,8 mm </normal>
-                    </li>
-                    <li>
-                        <normal>Allongement à la rupture permettant d’absorber les mouvements du support sans fissuration après vieillissement du matériau (à justifier dans l’offre)</normal>
-                    </li>
-                    <p>
-                        <normal>Résistance au poinçonnement : </normal>
-                        <highlightYellow>I4</highlightYellow>
-                    </p>
-                    <p>
-                        <normal>Étanchéité partie courante, les lès de membrane sont collés en plein sur un isolant support d’étanchéité approprié ou fixés mécaniquement (avec justification) selon DTA ou ETN en cours de validité y compris tous renforts utiles en faîtages et noues ou chéneaux. </normal>
-                    </p>
-                    <p>
-                        <normal>En fin de journée, avec ou sans intempéries prévisibles, ou en cas d’arrêt inopiné en cours de travaux, pour cause d’intempéries, les points singuliers doivent être réalisés à l’avancement et l’ouvrage en partie courante est mis hors eau et hors humidité, sous la responsabilité de l’étancheur.</normal>
-                    </p>
-                    <p>
-                        <highlightYellow>Le complexe support + isolant + revêtement d’étanchéité devra bénéficier d’un classement Broof T3</highlightYellow>
-                    </p>
-                    <p/>
-                </description>
-                <courteDescription/>
-                <unite>m²</unite>
-                <ligneChiffrage idLigneChiffrage="1">
-                    <localisation/>
-                    <quantite>1.0</quantite>
-                    <prixUnitaire>19.0</prixUnitaire>
-                </ligneChiffrage>
-            </descriptif>
-        </titre1>
-    </lot>
-    <lot id="_19" intitule="">
-        <titre1 id="_20" intitule="">
-            <descriptif id="_21" idBD="04_ETA_03_01_001" type="ouvrage">
-                <nomDescriptif>Membrane d’étanchéité TPO</nomDescriptif>
-                <description>
-                    <p/>
-                </description>
-                <courteDescription/>
-                <unite>m2</unite>
-                <ligneChiffrage idLigneChiffrage="1">
-                    <localisation/>
-                    <quantite>1.0</quantite>
-                    <prixUnitaire>17.0</prixUnitaire>
-                </ligneChiffrage>
-            </descriptif>
-        </titre1>
-    </lot>
-    <lot id="_22" intitule="">
-        <titre1 id="_23" intitule="">
-            <descriptif id="_24" idBD="04_ETA_03_01_001_020" type="prestation">
-                <nomDescriptif>Membrane d’étanchéité TPO 1.8mm fixé méca</nomDescriptif>
-                <description>
-                    <p>
-                        <normal>Mise en œuvre d’une membrane d’étanchéité TPO fixée mécaniquement selon DTA ou ETN en cours de validité.</normal>
-                    </p>
-                    <p/>
-                    <p>
-                        <normal>Les caractéristiques de la membrane sont les suivantes :</normal>
-                    </p>
-                    <li>
-                        <normal>TPO Épaisseur : 1,8 mm </normal>
-                    </li>
-                    <li>
-                        <normal>Allongement à la rupture permettant d’absorber les mouvements du support sans fissuration après vieillissement du matériau (à justifier dans l’offre)</normal>
-                    </li>
-                    <p>
-                        <normal>Résistance au poinçonnement : </normal>
-                        <highlightYellow>I4</highlightYellow>
-                    </p>
-                    <p>
-                        <normal>Étanchéité partie courante, les lès de membrane sont collés en plein sur un isolant support d’étanchéité approprié ou fixés mécaniquement (avec justification) selon DTA ou ETN en cours de validité y compris tous renforts utiles en faîtages et noues ou chéneaux. </normal>
-                    </p>
-                    <p>
-                        <normal>En fin de journée, avec ou sans intempéries prévisibles, ou en cas d’arrêt inopiné en cours de travaux, pour cause d’intempéries, les points singuliers doivent être réalisés à l’avancement et l’ouvrage en partie courante est mis hors eau et hors humidité, sous la responsabilité de l’étancheur.</normal>
-                    </p>
-                    <p>
-                        <highlightYellow>Le complexe support + isolant + revêtement d’étanchéité devra bénéficier d’un classement Broof T3</highlightYellow>
-                    </p>
-                    <p/>
-                </description>
-                <courteDescription/>
-                <unite>m²</unite>
-                <ligneChiffrage idLigneChiffrage="1">
-                    <localisation/>
-                    <quantite>1.0</quantite>
-                    <prixUnitaire>19.0</prixUnitaire>
-                </ligneChiffrage>
-            </descriptif>
-        </titre1>
-    </lot>
-    <lot id="_25" intitule="">
-        <titre1 id="_26" intitule="">
-            <descriptif id="_27" idBD="04_ETA_03_01_001_020" type="prestation">
-                <nomDescriptif>Membrane d’étanchéité TPO 1.8mm fixé méca</nomDescriptif>
-                <description>
-                    <p>
-                        <normal>Mise en œuvre d’une membrane d’étanchéité TPO fixée mécaniquement selon DTA ou ETN en cours de validité.</normal>
-                    </p>
-                    <p/>
-                    <p>
-                        <normal>Les caractéristiques de la membrane sont les suivantes :</normal>
-                    </p>
-                    <li>
-                        <normal>TPO Épaisseur : 1,8 mm </normal>
-                    </li>
-                    <li>
-                        <normal>Allongement à la rupture permettant d’absorber les mouvements du support sans fissuration après vieillissement du matériau (à justifier dans l’offre)</normal>
-                    </li>
-                    <p>
-                        <normal>Résistance au poinçonnement : </normal>
-                        <highlightYellow>I4</highlightYellow>
-                    </p>
-                    <p>
-                        <normal>Étanchéité partie courante, les lès de membrane sont collés en plein sur un isolant support d’étanchéité approprié ou fixés mécaniquement (avec justification) selon DTA ou ETN en cours de validité y compris tous renforts utiles en faîtages et noues ou chéneaux. </normal>
-                    </p>
-                    <p>
-                        <normal>En fin de journée, avec ou sans intempéries prévisibles, ou en cas d’arrêt inopiné en cours de travaux, pour cause d’intempéries, les points singuliers doivent être réalisés à l’avancement et l’ouvrage en partie courante est mis hors eau et hors humidité, sous la responsabilité de l’étancheur.</normal>
-                    </p>
-                    <p>
-                        <highlightYellow>Le complexe support + isolant + revêtement d’étanchéité devra bénéficier d’un classement Broof T3</highlightYellow>
-                    </p>
-                    <p/>
-                </description>
-                <courteDescription/>
-                <unite>m²</unite>
-                <ligneChiffrage idLigneChiffrage="1">
-                    <localisation/>
-                    <quantite>1.0</quantite>
-                    <prixUnitaire>19.0</prixUnitaire>
-                </ligneChiffrage>
-            </descriptif>
-        </titre1>
-    </lot>
-    <lot id="_28" intitule="">
-        <titre1 id="_29" intitule="">
-            <descriptif id="_30" idBD="04_ETA_03_01_001" type="ouvrage">
-                <nomDescriptif>Membrane d’étanchéité TPO</nomDescriptif>
-                <description>
-                    <p/>
-                </description>
-                <courteDescription/>
-                <unite>m2</unite>
-                <ligneChiffrage idLigneChiffrage="1">
-                    <localisation/>
-                    <quantite>1.0</quantite>
-                    <prixUnitaire>17.0</prixUnitaire>
-                </ligneChiffrage>
-            </descriptif>
-        </titre1>
-    </lot>
-    <lot id="_31" intitule="">
-        <titre1 id="_32" intitule="">
-            <descriptif id="_33" idBD="04_ETA_03_01_001" type="ouvrage">
-                <nomDescriptif>Membrane d’étanchéité TPO</nomDescriptif>
-                <description>
-                    <p/>
-                </description>
-                <courteDescription/>
-                <unite>m2</unite>
-                <ligneChiffrage idLigneChiffrage="1">
-                    <localisation/>
-                    <quantite>1.0</quantite>
-                    <prixUnitaire>17.0</prixUnitaire>
-                </ligneChiffrage>
-            </descriptif>
-        </titre1>
-    </lot>
-    <lot id="_34" intitule="">
-        <titre1 id="_35" intitule="">
-            <descriptif id="_36" idBD="04_ETA_03_01_001" type="ouvrage">
-                <nomDescriptif>Membrane d’étanchéité TPO</nomDescriptif>
-                <description>
-                    <p/>
-                </description>
-                <courteDescription/>
-                <unite>m2</unite>
-                <ligneChiffrage idLigneChiffrage="1">
-                    <localisation/>
-                    <quantite>1.0</quantite>
-                    <prixUnitaire>17.0</prixUnitaire>
-                </ligneChiffrage>
-            </descriptif>
-        </titre1>
-    </lot>
-    <lot id="_37" intitule="">
-        <titre1 id="_38" intitule="">
-            <descriptif id="_39" idBD="04_ETA_03_01_001" type="ouvrage">
-                <nomDescriptif>Membrane d’étanchéité TPO</nomDescriptif>
-                <description>
-                    <p/>
-                </description>
-                <courteDescription/>
-                <unite>m2</unite>
-                <ligneChiffrage idLigneChiffrage="1">
-                    <localisation/>
-                    <quantite>1.0</quantite>
-                    <prixUnitaire>17.0</prixUnitaire>
-                </ligneChiffrage>
-            </descriptif>
-        </titre1>
-    </lot>
-    <lot id="_40" intitule="">
-        <titre1 id="_41" intitule="">
-            <descriptif id="_42" idBD="04_ETA_03_01_001" type="ouvrage">
-                <nomDescriptif>Membrane d’étanchéité TPO</nomDescriptif>
-                <description>
-                    <p/>
-                </description>
-                <courteDescription/>
-                <unite>m2</unite>
-                <ligneChiffrage idLigneChiffrage="1">
-                    <localisation/>
-                    <quantite>1.0</quantite>
-                    <prixUnitaire>17.0</prixUnitaire>
-                </ligneChiffrage>
-            </descriptif>
-        </titre1>
-    </lot>
-    <lot id="_43" intitule="">
-        <titre1 id="_44" intitule="">
-            <descriptif id="_45" idBD="04_ETA_03_01_001" type="ouvrage">
-                <nomDescriptif>Membrane d’étanchéité TPO</nomDescriptif>
-                <description>
-                    <p/>
-                </description>
-                <courteDescription/>
-                <unite>m2</unite>
-                <ligneChiffrage idLigneChiffrage="1">
-                    <localisation/>
-                    <quantite>1.0</quantite>
-                    <prixUnitaire>17.0</prixUnitaire>
-                </ligneChiffrage>
-            </descriptif>
-        </titre1>
-    </lot>
-    <lot id="_46" intitule="">
-        <titre1 id="_47" intitule="">
-            <descriptif id="_48" idBD="04_ETA_03_01_001" type="ouvrage">
-                <nomDescriptif>Membrane d’étanchéité TPO</nomDescriptif>
-                <description>
-                    <p/>
-                </description>
-                <courteDescription/>
-                <unite>m2</unite>
-                <ligneChiffrage idLigneChiffrage="1">
-                    <localisation/>
-                    <quantite>1.0</quantite>
-                    <prixUnitaire>17.0</prixUnitaire>
-                </ligneChiffrage>
-            </descriptif>
-        </titre1>
-    </lot>
-    <lot id="_49" intitule="">
-        <titre1 id="_50" intitule="">
-            <descriptif id="_51" idBD="04_ETA_03_01_001" type="ouvrage">
+    <lot id="_87" intitule="">
+        <titre1 id="_88" intitule="">
+            <descriptif id="_89" idBD="04_ETA_03_01_001" type="ouvrage">
                 <nomDescriptif>Membrane d’étanchéité TPO</nomDescriptif>
                 <description>
                     <p/>

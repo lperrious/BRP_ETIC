@@ -479,8 +479,7 @@ label.importButton input[type="file"], label.exportButton input[type="file"] {
 }
 
 .importButton:hover,
-.exportButton:hover,
-.creationCompte:hover {
+.exportButton:hover {
   background-color: var(--cta_hover);
   cursor: pointer;
 }
