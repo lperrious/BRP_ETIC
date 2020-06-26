@@ -115,14 +115,16 @@ $(document).ready(function () {
                         descriptif.id.substr(13, 17) + " - " + descriptif.nom +
                         "</div></div>"
                     );
-                  } else if (descriptif.type == "prestation") {
-                    $("#arboBDD").append(
-                      "<div class='lineBDD lineDescriptif prestation'><input type='hidden' class='idDescriptif' value='" +
-                        descriptif.id +
-                        "'/><span class='iconBDD'>-</span><div class='intitule'>" +
-                        descriptif.id.substr(17, 21) + " - " + descriptif.nom +
-                        "</div></div>"
-                    );
+                    for(n = 0; n < descriptif.prestations.length; n++) {
+                      const prestation = descriptif.prestations[n];
+                      $("#arboBDD").append(
+                        "<div class='lineBDD lineDescriptif prestation'><input type='hidden' class='idDescriptif' value='" +
+                        prestation.id +
+                          "'/><span class='iconBDD'>-</span><div class='intitule'>" +
+                          prestation.id.substr(17, 21) + " - " + prestation.nom +
+                          "</div></div>"
+                      );
+                    }
                   }
                 }
               }

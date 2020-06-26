@@ -74,9 +74,20 @@ public class ArboDescriptifsSerialisation extends Serialisation {
                                     containerDescriptif.addProperty("type", "generique");
                                 else if(descriptif instanceof Ouvrage) {
                                     containerDescriptif.addProperty("type", "ouvrage");
+                                    JsonArray jaPrestations = new JsonArray();
+                                    List<Prestation> prestations = ((Ouvrage) descriptif).getListePrestation();
+                                    for(int n = 0; n < prestations.size(); n++) {
+                                        Prestation prestation = prestations.get(n);
+                                        JsonObject containerPrestation = new JsonObject();
+                                        containerPrestation.addProperty("type", "prestation");
+                                        containerPrestation.addProperty("id", prestation.getIdDescriptif());
+                                        containerPrestation.addProperty("nom", prestation.getNomDescriptif());
+                                        containerPrestation.addProperty("description", prestation.getDescription());
+                                        containerPrestation.addProperty("courteDescription", prestation.getCourteDescription());
+                                        jaPrestations.add(containerPrestation);
+                                    }
+                                    containerDescriptif.add("prestations", jaPrestations);
                                 }
-                                else if(descriptif instanceof Prestation)
-                                    containerDescriptif.addProperty("type", "prestation");
                                 containerDescriptif.addProperty("id", descriptif.getIdDescriptif());
                                 containerDescriptif.addProperty("nom", descriptif.getNomDescriptif());
                                 containerDescriptif.addProperty("description", descriptif.getDescription());
