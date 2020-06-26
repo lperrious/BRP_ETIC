@@ -21,6 +21,8 @@ $(document).ready(function () {
       if (response.isAdmin) {
         //Si admin alors on affiche le bouton de création de compte Opérateur
         $(".creationCompte").show();
+      } else {
+        window.location.href = "index.html";
       }
     }
   });
