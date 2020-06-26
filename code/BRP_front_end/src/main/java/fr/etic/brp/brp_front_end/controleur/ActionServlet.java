@@ -15,6 +15,7 @@ import fr.etic.brp.brp_front_end.actions.ListerSousCatConstCaractDimAction;
 import fr.etic.brp.brp_front_end.actions.ModifierXMLAction;
 import fr.etic.brp.brp_front_end.actions.OuvrirProjetAction;
 import fr.etic.brp.brp_front_end.actions.RecupererDescriptifAction;
+import fr.etic.brp.brp_front_end.actions.SupprimerXMLAction;
 import fr.etic.brp.brp_front_end.actions.TestConnexionAction;
 import fr.etic.brp.brp_front_end.serialisations.AffichageAdminSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.ArboDescriptifsSerialisation;
@@ -30,6 +31,7 @@ import fr.etic.brp.brp_front_end.serialisations.ModifierXMLSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.OuvrirProjetSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.RecupererDescriptifSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.Serialisation;
+import fr.etic.brp.brp_front_end.serialisations.SupprimerXMLSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.TestConnexionSerialisation;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -136,6 +138,11 @@ public class ActionServlet extends HttpServlet {
             case "modifierXML" : {
                 action = new ModifierXMLAction();
                 serialisation = new ModifierXMLSerialisation();
+                break;
+            }
+            case "supprimerXML" : {
+                action = new SupprimerXMLAction();
+                serialisation = new SupprimerXMLSerialisation();
                 break;
             }
             case "affichageAdmin" : {

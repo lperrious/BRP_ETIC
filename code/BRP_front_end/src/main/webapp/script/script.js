@@ -17,7 +17,7 @@ $(document).ready(function () {
     dataType: "json",
   }).done(function (response) {
     // Fonction appelée en cas d'appel AJAX réussi
-    console.log("Response", response);
+    //console.log("Response", response);
     if(!response.ErrorState) {
       if(response.isAdmin) {
         //Si admin alors on affiche le bouton de création de compte Opérateur
@@ -36,7 +36,7 @@ $(document).ready(function () {
     dataType: "json",
   }).done(function (response) {
     // Fonction appelée en cas d'appel AJAX réussi
-    console.log("Response", response);
+    //console.log("Response", response);
     if(!response.ErrorState) {
       $.each(response.listeCoeffRaccordement, function (i, coeffRaccordement) {
         $('#coeffRaccordement').append($('<option>', { 
@@ -66,7 +66,7 @@ $(document).ready(function () {
   })
     .done(function (response) {
       // Fonction appelée en cas d'appel AJAX réussi
-      console.log("Response", response); // LOG dans Console Javascript
+      //console.log("Response", response); // LOG dans Console Javascript
       if (!response.Error) {
         //On insère l'arbo dans le HTML
         for (let i = 0; i < response.arborescence.length; i++) {
@@ -149,15 +149,14 @@ $(document).ready(function () {
     .fail(function (error) {
       // Fonction appelée en cas d'erreur lors de l'appel AJAX
       //console.log("Error", error); // LOG dans Console Javascript
-      console.log(
-        "Erreur lors de l'appel AJAX pour recuperer l'arborescence BDD"
-      );
+      // console.log(
+      //   "Erreur lors de l'appel AJAX pour recuperer l'arborescence BDD"
+      // );
     });
 
   $(".container").first().click(unset_select_descriptif);
   $(".container").last().click(SuppressionChoixInsertionTitre);
   addEventsDescriptifs();
-  AjoutEventSupprLigneChiffrage();
 
   //à ajouter une fois lorsque l'utilisateur cherche un projet
   $(".textLineProjet").click(function () {
@@ -204,7 +203,7 @@ function createProject() {
     dataType: "json",
   }).done(function (response) {
     // Fonction appelée en cas d'appel AJAX réussi
-    console.log("Response", response);
+    //console.log("Response", response);
 
     //on ferme le popup
     popUpNomProjet(false);
@@ -242,7 +241,7 @@ function dupliquerProjet(idProjet) {
     dataType: "json",
   }).done(function (response) {
     // Fonction appelée en cas d'appel AJAX réussi
-    console.log("Response", response);
+    //console.log("Response", response);
 
     //on ferme le popup
     popUpNomProjet(false);
@@ -289,7 +288,7 @@ function ouvrirProjet(idProjet) {
     dataType: "json",
   }).done(function (response) {
     // Fonction appelée en cas d'appel AJAX réussi
-    console.log("Response", response);
+    //console.log("Response", response);
     if(!response.ErrorState) {
       var xslDocumentUrl = "stylesheet/ouvrirProjet.xsl";
       var xmlDocumentUrl = "XMLfiles/" + idProjet + ".xml";
@@ -397,7 +396,7 @@ function modifierInfosProjet(){
     })
         .done(function (response) {
           // Fonction appelée en cas d'appel AJAX réussi
-          console.log("Response", response);
+          //console.log("Response", response);
 
           if (response) {
             if (response['Error']) {
@@ -506,7 +505,7 @@ function show_catConstruction() {
       dataType: "json",
     }).done(function (response) {
       // Fonction appelée en cas d'appel AJAX réussi
-      console.log("Response", response);
+      // console.log("Response", response);
       if(!response.ErrorState) {
         $.each(response.listeSousCategorieConstruction, function (i, sousCategorieConstruction) {
           $('#sousCategorieConstruction').append($('<option>', { 
@@ -642,7 +641,7 @@ function GenererLivrable() {
     dataType: "json",
   }).done(function (response) {
     // Fonction appelée en cas d'appel AJAX réussi
-    console.log("Response", response);
+    // console.log("Response", response);
     if(!response.ErrorState) {
       //Si l'export à réussi on prévient l'opérateur
     } else {
@@ -663,13 +662,6 @@ function addEventsDescriptifs() {
   $(".barreInsertion").mouseleave(function () {
     var element = $(this).children(":first");
     $(element).css("border-bottom", "none");
-  });
-}
-
-function AjoutEventSupprLigneChiffrage() {
-  $(".descriptif > .ligneChiffrage").first().children().last().html("");
-  $(".suppressionLigneChiffrage").click(function () {
-    $(this).parent().remove();
   });
 }
 
@@ -717,7 +709,7 @@ function AjouterElement(element) {
         dataType: "json",
       }).done(function (response) {
         // Fonction appelée en cas d'appel AJAX réussi
-        console.log("Response", response);
+        // console.log("Response", response);
         if (!response.ErrorState) {
           //Récupérer la description (et l'unité si pas générique)
           if(response.typeDescriptif !== "Generique") {
@@ -1036,7 +1028,7 @@ function AfficherOnglet(lotAfficher) {
   var numBouton = lotAfficher.attr("id").slice(-1); //On récupère le numéro de l'onglet qui doit être mis en couleur plus foncée
   $(".ongletLot").css("background-color", "#3a88c5");
   if (numBouton != "+") {
-    $(".ongletLot:nth-child(" + (Number(numBouton) + 1) + ")").css(
+      $(".ongletLot:contains('"+(Number(numBouton))+"')").css(
       "background-color",
       "#0070c9"
     );
@@ -1060,7 +1052,7 @@ function CreerOnglet() {
 
   var idOnglet = "lot_" + numOnglet;
 
-  var divNouvelOnglet = $("<div class='lot' id='" + idOnglet + "'><input type='hidden' id='idXML' value='_0'/><div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div><div class='input-group titre1'><input type='hidden' id='idXML' value='_0'/><div class='input-group-prepend'><span class='input-group-text'>I.</span></div><input type='text' class='form-control' placeholder='Titre 1'/><div class='deleteXML'><i class=\"fas fa-times-circle\"></i></div></div><div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div><div class='finLot'></div></div>");
+  var divNouvelOnglet = $("<div class='lot' id='" + idOnglet + "'><input type='hidden' id='idXML' value='_0'/><div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div><div class='input-group titre1'><input type='hidden' id='idXML' value='_0'/><div class='input-group-prepend'><span class='input-group-text'>I.</span></div><input type='text' class='form-control' placeholder='Titre 1'/></div><div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div><div class='finLot'></div></div>");
   $(divNouvelOnglet).insertBefore($("#ongletsLot"));
 
   //Création de deux barres d'insertion d'un titre1 et d'une fin de lot dans ce nouvel onglet
@@ -1068,7 +1060,7 @@ function CreerOnglet() {
   $(divBoutonOnglet).insertBefore($(".ongletLot").last());
 
   //Création d'un nouveau input de titre lot
-  $("<div class='divTitreLot' id='divTitreLot_" + numOnglet + "'><input type='text' class='titreLot' placeholder='Titre Lot' /></div>").insertBefore($(".lot").first());
+  $("<div class='divTitreLot' id='divTitreLot_" + numOnglet + "'><input type='text' class='titreLot' placeholder='Titre Lot' /><div class='deleteXMLlot'><i class=\"fas fa-times-circle\"></i></div></div>").insertBefore($(".lot").first());
 
   //Ajout de l'hover sur toutes les barres d'insertions titre
   addEventsDescriptifs();
@@ -1140,9 +1132,6 @@ function AjouterLigneChiffrage(element) {
 
   $(divBarreInsertionLigneChiffrage).insertBefore($(element));
 
-  //Ajout évènement suppression ligne chiffrage
-  AjoutEventSupprLigneChiffrage();
-
   //on attache l'evt pour modifier le xml
   attacheEventModifXML();
 
@@ -1156,7 +1145,7 @@ function modifierXML(element){
   if (typeof(element) != "undefined" && enCours == false) {
 
     enCours = true;
-    console.log("debut "+jQuery.now());
+    // console.log("debut "+jQuery.now());
     
     //on détermine l'idProjet
     var idProjet = $("#idProjetActuel").val();
@@ -1253,6 +1242,11 @@ function modifierXML(element){
     }
     // idDescriptif: $(element).children('.idDescriptif').val(),
     else if(classElement.includes("ligneChiffrage")){
+      var quantite = $(element).find(".quantite").val();
+      if (quantite == "") {
+        quantite = "1.0";
+        $(element).find(".quantite").val("1.0");
+      }
       data = {
         todo: "modifierXML",
         idProjet:idProjet,
@@ -1261,7 +1255,7 @@ function modifierXML(element){
         idRefPlacement: idRefPlacement,
         placement: "", 
         localisation: $(element).find(".localisation").val(),
-        quantite: $(element).find(".quantite").val()
+        quantite: quantite
       };
     }
     else{
@@ -1284,7 +1278,7 @@ function modifierXML(element){
       };
     }
 
-    console.log(data);
+    //console.log(data);
 
     //Ajax
     $.ajax({
@@ -1314,11 +1308,107 @@ function modifierXML(element){
       }
 
       enCours = false;
-      console.log("Fin "+jQuery.now());
+      //console.log("Fin "+jQuery.now());
     });
   }
   else if(typeof(element) != "undefined" && enCours == true && $(element).attr("class").includes("titre1")){
     setTimeout(function(){ modifierXML(element); }, 30);
+  }
+}
+
+supprimerXMLEnCours = false;
+function supprimerXML(croix, type){
+
+  if (supprimerXMLEnCours == false) {
+
+    supprimerXMLEnCours = true;
+    var data = Array();
+
+    parent = null;
+    lotDelete = null;
+    titreLotdelete = null;
+    if (type == "ligneChiffrage") {
+      data = {
+          todo: "supprimerXML",
+          type:type,
+          idProjet: $("#idProjetActuel").val(),
+          idXML: $(croix).parent().children("#idLigneChiffrage").val(),
+          idDescriptifXML: $(croix).parent().parent().children("#idXML").val()
+        };
+        parent = $(croix).parent();
+    }
+    else if(type == "lot"){
+        data = {
+          todo: "supprimerXML",
+          type:"balise",
+          idProjet: $("#idProjetActuel").val(),
+          idXML: $("#lot_"+$(croix).parent().attr("id").substr(12)).children("#idXML").val()
+        };
+        lotDelete = $("#lot_"+$(croix).parent().attr("id").substr(12));
+        titreLotdelete = $(croix).parent();
+        ongletLotDelete = $(".ongletLot:contains('"+$(croix).parent().attr("id").substr(12)+"')");
+    }
+    else{
+
+      //si c'est un descriptif, son idXML est deux étages au dessus
+      if($(croix).parents('.descriptif').length){
+        var idXML = $(croix).parent().parent().children("#idXML").val();
+        parent = $(croix).parent().parent();
+      }
+      //sinon il n'est qu'à un étage au dessus
+      else{
+        var idXML = $(croix).parent().children("#idXML").val();
+        parent = $(croix).parent();
+      }
+
+      data = {
+          todo: "supprimerXML",
+          type:type,
+          idProjet: $("#idProjetActuel").val(),
+          idXML: idXML
+        };
+    }
+
+    console.log(data);
+
+    //on a reunit toutes les infortmations, on fait l'appel AJAX
+    $.ajax({
+      url: "./ActionServlet",
+      method: "POST",
+      data: data,
+      dataType: "json",
+    }).done(function (response) {
+      // Fonction appelée en cas d'appel AJAX réussi
+      console.log("Response", response);
+      if(response.Error){
+        alert("Un problème est survenu lors de la suppression. Rafraichir la page peut vous aider à l'identifier");
+      }
+      else{
+        if (type != "ligneChiffrage" && lotDelete == null) {
+          $(parent).next('.barreInsertion').remove();
+          $(parent).remove();
+        }
+        else if(lotDelete != null){
+          $(lotDelete).remove();
+          $(titreLotdelete).remove();
+          $(ongletLotDelete).remove();
+
+          var nbLots = $('.lot').length;
+          if (nbLots == 0) {
+            $('.presentationRight').show();
+          }
+          else{
+            AfficherOnglet($('.lot').first());
+          }
+        }
+        else{
+          $(parent).remove();
+        }
+        parent = null;
+      }
+
+      supprimerXMLEnCours = false;
+    });
   }
 }
 
@@ -1345,6 +1435,15 @@ function attacheEventModifXML(){
   });
   $('.divTitreLot').change(function(){
     modifierXML(this);
+  });
+  $('.deleteXML').click(function(){
+    supprimerXML(this, "balise");
+  });
+  $('.deleteXMLlot').click(function(){
+    supprimerXML(this, "lot");
+  });
+  $('.suppressionLigneChiffrage').click(function(){
+    supprimerXML(this, "ligneChiffrage");
   });
 }
 

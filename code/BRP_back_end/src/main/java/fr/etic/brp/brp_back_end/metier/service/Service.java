@@ -1290,37 +1290,27 @@ public class Service {
     
     //verif si fonctionne
     public Boolean SupprimerLigneChiffrage(Long idProjet, String idDescriptif, String idLigneChiffrage){
-        DomUtil.init();
+        
         Boolean testSuppression = false;
         Boolean resultat = false;
-        
+        DomUtil.init();
         try {
             //Obtention du document
             String uri = rootXMLFiles+idProjet+".xml";
             Document xml = projetXMLDao.ObtenirDocument(uri);
  
-            int nbLigneChiffrage = 0;
-            Element ligneChiffrageASupprimer = null;
             Element baliseDescriptif = (Element) xml.getElementById(idDescriptif);
             NodeList listeEnfantsDescriptif = baliseDescriptif.getChildNodes();
             for(int j = 0; j < listeEnfantsDescriptif.getLength(); j++){
                 if(listeEnfantsDescriptif.item(j).getNodeName().equals("ligneChiffrage")){
-                    nbLigneChiffrage++;
                     Element ligneChiffrage = (Element) listeEnfantsDescriptif.item(j);
                     if(ligneChiffrage.getAttribute("idLigneChiffrage").equals(idLigneChiffrage)){
-                        ligneChiffrageASupprimer = ligneChiffrage;
+                        ligneChiffrage.getParentNode().removeChild(ligneChiffrage);
+                        testSuppression = true;
                     }
                 }
             }
-            
-            if(nbLigneChiffrage > 1 && ligneChiffrageASupprimer != null){
-                ligneChiffrageASupprimer.getParentNode().removeChild(ligneChiffrageASupprimer);
-                testSuppression = true;
-            } else if(nbLigneChiffrage <= 1) {
-                System.out.println("Il n'y a qu'une seule ligne");
-            }
-            
-
+         
             //On écrit par dessus l'ancien XML
             projetXMLDao.saveXMLContent(xml, uri);
             

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE projet SYSTEM "reglesProjet.dtd">
 <projet idProjet="1">
-    <nextId>5</nextId>
+    <nextId>4</nextId>
     <lot id="_1" intitule="">
         <titre1 id="_2" intitule="">
             <descriptif id="_3" idBD="04_ETA_03_01_001" type="ouvrage">
@@ -12,34 +12,9 @@
                 <courteDescription/>
                 <unite>m2</unite>
                 <ligneChiffrage idLigneChiffrage="1">
-                    <localisation>heeeey</localisation>
-                    <quantite>12.0</quantite>
-                    <prixUnitaire>17.0</prixUnitaire>
-                </ligneChiffrage>
-                <ligneChiffrage idLigneChiffrage="2">
-                    <localisation>loool</localisation>
-                    <quantite>231.0</quantite>
-                    <prixUnitaire>17.0</prixUnitaire>
-                </ligneChiffrage>
-                <ligneChiffrage idLigneChiffrage="3">
                     <localisation/>
                     <quantite>1.0</quantite>
                     <prixUnitaire>17.0</prixUnitaire>
-                </ligneChiffrage>
-            </descriptif>
-        <descriptif id="_4" idBD="04_ETA_01_11_001" type="ouvrage">
-                <nomDescriptif>Bac acier plein support d’étanchéité</nomDescriptif>
-                <description>
-                    <p>
-                        <normal>Bac acier support d’étanchéité fixé sur panne métallique selon DTU 43.3.</normal>
-                    </p>
-                </description>
-                <courteDescription/>
-                <unite>m²</unite>
-                <ligneChiffrage idLigneChiffrage="1">
-                    <localisation/>
-                    <quantite>501.0</quantite>
-                    <prixUnitaire>22.0</prixUnitaire>
                 </ligneChiffrage>
             </descriptif>
         </titre1>
