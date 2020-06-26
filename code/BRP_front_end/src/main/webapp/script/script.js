@@ -1153,8 +1153,9 @@ function CreerOnglet() {
 
   //on actualise le xml
   var newOnglet = $("#divTitreLot_" + numOnglet);
-  var premierTitre = $(".titre1");
-  modifierXML(newOnglet, premierTitre);
+  var premierTitre = $(".titre1").last();
+  modifierXML(newOnglet);
+  modifierXML(premierTitre);
 }
 
 function toRoman(num) {
@@ -1208,13 +1209,20 @@ function AjouterLigneChiffrage(element) {
   //Ajout évènement suppression ligne chiffrage
   AjoutEventSupprLigneChiffrage();
 
+  //on attache l'evt pour modifier le xml
+  attacheEventModifXML();
+
   //on actualise le XML
   modifierXML(divBarreInsertionLigneChiffrage);
 }
 
-function modifierXML(element, element2){
+enCours = false;
+function modifierXML(element){
 
-  if (typeof(element) != "undefined") {
+  if (typeof(element) != "undefined" && enCours == false) {
+
+    enCours = true;
+    console.log("debut "+jQuery.now());
     
     //on détermine l'idProjet
     var idProjet = $("#idProjetActuel").val();
@@ -1352,7 +1360,7 @@ function modifierXML(element, element2){
       dataType: "json",
     }).done(function (response) {
       // Fonction appelée en cas d'appel AJAX réussi
-      console.log("Response", response);
+      //console.log("Response", response);
       if(response.Error){
         alert("Un problème est survenu lors de la sauvegarde des données du projet. Rafraichir la page peut vous aider à l'identifier");
       }
@@ -1371,11 +1379,12 @@ function modifierXML(element, element2){
         }
       }
 
-      //on desynchronise l'appel
-      if (element2 != null) {
-        modifierXML(element2);
-      }
+      enCours = false;
+      console.log("Fin "+jQuery.now());
     });
+  }
+  else if(typeof(element) != "undefined" && enCours == true && $(element).attr("class").includes("titre1")){
+    setTimeout(function(){ modifierXML(element); }, 30);
   }
 }
 
@@ -1397,6 +1406,7 @@ function attacheEventModifXML(){
     modifierXML(this);
   });
   $('.ligneChiffrage').change(function(){
+
     modifierXML(this);
   });
   $('.divTitreLot').change(function(){

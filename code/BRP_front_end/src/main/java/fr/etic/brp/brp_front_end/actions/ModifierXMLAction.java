@@ -113,7 +113,6 @@ public class ModifierXMLAction extends Action {
                             testModification = service.ModifierQuantiteDescriptif(idProjet,idRefPlacement, id, quantite);
                     }
                     break;
-                    //retours de l'identifiant plus id=1 pour la premiere ligneChiffrage
             }
             request.setAttribute("ErrorState", false);
             request.setAttribute("idInsere", idInsere);     //a faire pour balise
