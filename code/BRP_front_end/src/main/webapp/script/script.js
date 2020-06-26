@@ -959,7 +959,7 @@ function NumerotationArbo(idOnglet) {
     ) {
       if ($(this).parent().hasClass("descriptif")) {
         if ($(this).parent().hasClass("titre1")) {
-          var numeroTitre = $(this).children(":first").children(":first"); //On récupère le span du chiffre romain
+          var numeroTitre = $(this).children().eq(0).children(":first"); //On récupère le span du chiffre romain
           numTitre1++;
           numeroTitre.html(toRoman(numTitre1) + ".");
           numTitre2 = 0;
@@ -967,25 +967,25 @@ function NumerotationArbo(idOnglet) {
           numTitre4 = 0;
           numTitre5 = 0;
         } else if ($(this).parent().hasClass("titre2")) {
-          var numeroTitre = $(this).children(":first").children(":first"); //On récupère le span du chiffre romain
+          var numeroTitre = $(this).children().eq(0).children(":first"); //On récupère le span du chiffre romain
           numTitre2++;
           numeroTitre.html(toRoman(numTitre1) + "." + numTitre2);
           numTitre3 = 0;
           numTitre4 = 0;
           numTitre5 = 0;
         } else if ($(this).parent().hasClass("titre3")) {
-          var numeroTitre = $(this).children(":first").children(":first"); //On récupère le span du chiffre romain
+          var numeroTitre = $(this).children().eq(0).children(":first"); //On récupère le span du chiffre romain
           numTitre3++;
           numeroTitre.html(numTitre2 + "." + numTitre3);
           numTitre4 = 0;
           numTitre5 = 0;
         } else if ($(this).parent().hasClass("titre4")) {
-          var numeroTitre = $(this).children(":first").children(":first"); //On récupère le span du chiffre romain
+          var numeroTitre = $(this).children().eq(0).children(":first"); //On récupère le span du chiffre romain
           numTitre4++;
           numeroTitre.html(numTitre2 + "." + numTitre3 + "." + numTitre4);
           numTitre5 = 0;
         } else if ($(this).parent().hasClass("titre5")) {
-          var numeroTitre = $(this).children(":first").children(":first"); //On récupère le span du chiffre romain
+          var numeroTitre = $(this).children().eq(0).children(":first"); //On récupère le span du chiffre romain
           numTitre5++;
           numeroTitre.html(
             numTitre2 + "." + numTitre3 + "." + numTitre4 + "." + numTitre5
@@ -993,7 +993,7 @@ function NumerotationArbo(idOnglet) {
         }
       } else {
         if ($(this).hasClass("titre1")) {
-          var numeroTitre = $(this).children(":first").children(":first"); //On récupère le span du chiffre romain
+          var numeroTitre = $(this).children().eq(1).children(":first"); //On récupère le span du chiffre romain
           numTitre1++;
           numeroTitre.html(toRoman(numTitre1) + ".");
           numTitre2 = 0;
@@ -1001,25 +1001,25 @@ function NumerotationArbo(idOnglet) {
           numTitre4 = 0;
           numTitre5 = 0;
         } else if ($(this).hasClass("titre2")) {
-          var numeroTitre = $(this).children(":first").children(":first"); //On récupère le span du chiffre romain
+          var numeroTitre = $(this).children().eq(1).children(":first"); //On récupère le span du chiffre romain
           numTitre2++;
           numeroTitre.html(toRoman(numTitre1) + "." + numTitre2);
           numTitre3 = 0;
           numTitre4 = 0;
           numTitre5 = 0;
         } else if ($(this).hasClass("titre3")) {
-          var numeroTitre = $(this).children(":first").children(":first"); //On récupère le span du chiffre romain
+          var numeroTitre = $(this).children().eq(1).children(":first"); //On récupère le span du chiffre romain
           numTitre3++;
           numeroTitre.html(numTitre2 + "." + numTitre3);
           numTitre4 = 0;
           numTitre5 = 0;
         } else if ($(this).hasClass("titre4")) {
-          var numeroTitre = $(this).children(":first").children(":first"); //On récupère le span du chiffre romain
+          var numeroTitre = $(this).children().eq(1).children(":first"); //On récupère le span du chiffre romain
           numTitre4++;
           numeroTitre.html(numTitre2 + "." + numTitre3 + "." + numTitre4);
           numTitre5 = 0;
         } else if ($(this).hasClass("titre5")) {
-          var numeroTitre = $(this).children(":first").children(":first"); //On récupère le span du chiffre romain
+          var numeroTitre = $(this).children().eq(1).children(":first"); //On récupère le span du chiffre romain
           numTitre5++;
           numeroTitre.html(
             numTitre2 + "." + numTitre3 + "." + numTitre4 + "." + numTitre5
