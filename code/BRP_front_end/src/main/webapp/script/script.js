@@ -16,15 +16,10 @@ $(document).ready(function () {
     dataType: "json",
   }).done(function (response) {
     // Fonction appelée en cas d'appel AJAX réussi
-<<<<<<< HEAD
+
     //console.log("Response", response);
     if(!response.ErrorState) {
       if(response.isAdmin) {
-=======
-    console.log("Response", response);
-    if (!response.ErrorState) {
-      if (response.isAdmin) {
->>>>>>> 63f3ace1ca290bc125abdb7cdd5ae73d711d49cc
         //Si admin alors on affiche le bouton de création de compte Opérateur
         $(".creationCompte").show();
       }
@@ -41,13 +36,10 @@ $(document).ready(function () {
     dataType: "json",
   }).done(function (response) {
     // Fonction appelée en cas d'appel AJAX réussi
-<<<<<<< HEAD
+
     //console.log("Response", response);
     if(!response.ErrorState) {
-=======
-    console.log("Response", response);
-    if (!response.ErrorState) {
->>>>>>> 63f3ace1ca290bc125abdb7cdd5ae73d711d49cc
+
       $.each(response.listeCoeffRaccordement, function (i, coeffRaccordement) {
         $("#coeffRaccordement").append(
           $("<option>", {
@@ -324,13 +316,10 @@ function ouvrirProjet(idProjet) {
     dataType: "json",
   }).done(function (response) {
     // Fonction appelée en cas d'appel AJAX réussi
-<<<<<<< HEAD
+
     //console.log("Response", response);
     if(!response.ErrorState) {
-=======
-    console.log("Response", response);
-    if (!response.ErrorState) {
->>>>>>> 63f3ace1ca290bc125abdb7cdd5ae73d711d49cc
+
       var xslDocumentUrl = "stylesheet/ouvrirProjet.xsl";
       var xmlDocumentUrl = "XMLfiles/" + idProjet + ".xml";
 
@@ -425,7 +414,6 @@ function modifierInfosProjet() {
     idCaractDim = "";
   }
 
-<<<<<<< HEAD
     //on envoie à l'ajax
     $.ajax({
       url: "./ActionServlet",
@@ -448,44 +436,17 @@ function modifierInfosProjet() {
       },
       dataType: "json",
     })
-        .done(function (response) {
+    .done(function (response) {
           // Fonction appelée en cas d'appel AJAX réussi
           //console.log("Response", response);
-=======
-  //on envoie à l'ajax
-  $.ajax({
-    url: "./ActionServlet",
-    method: "POST",
-    data: {
-      todo: "editerInfosProjet",
-      idProjet: idProjet,
-      nomProjet: nomProjet,
-      refBRP: refBRP,
-      typeMarche: typeMarche,
-      typeConstruction: typeConstruction,
-      typeLot: typeLot,
-      typeSite: typeSite,
-      datePrixref: datePrixref,
-      coeffAdapt: coeffAdapt,
-      idCoeffRaccordement: idCoeffRaccordement,
-      idCategorieConstruction: idCategorieConstruction,
-      idSousCategorieConstruction: idSousCategorieConstruction,
-      idCaractDim: idCaractDim,
-    },
-    dataType: "json",
-  }).done(function (response) {
-    // Fonction appelée en cas d'appel AJAX réussi
-    console.log("Response", response);
->>>>>>> 63f3ace1ca290bc125abdb7cdd5ae73d711d49cc
-
-    if (response) {
-      if (response["Error"]) {
-        alert(
-          "Une erreur est survenue lors de la sauvegarde des informations du projet (informations de la colonne de gauche)"
-        );
+      if (response) {
+        if (response["Error"]) {
+          alert(
+            "Une erreur est survenue lors de la sauvegarde des informations du projet (informations de la colonne de gauche)"
+          );
+        }
       }
-    }
-  });
+    });
 }
 
 function unset_select_descriptif() {
@@ -588,21 +549,11 @@ function show_catConstruction() {
       dataType: "json",
     }).done(function (response) {
       // Fonction appelée en cas d'appel AJAX réussi
-<<<<<<< HEAD
+
       // console.log("Response", response);
       if(!response.ErrorState) {
         $.each(response.listeSousCategorieConstruction, function (i, sousCategorieConstruction) {
           $('#sousCategorieConstruction').append($('<option>', { 
-=======
-      console.log("Response", response);
-      if (!response.ErrorState) {
-        $.each(response.listeSousCategorieConstruction, function (
-          i,
-          sousCategorieConstruction
-        ) {
-          $("#sousCategorieConstruction").append(
-            $("<option>", {
->>>>>>> 63f3ace1ca290bc125abdb7cdd5ae73d711d49cc
               value: i,
               text: sousCategorieConstruction.intitule,
               name: sousCategorieConstruction.code,
@@ -739,13 +690,9 @@ function GenererLivrable() {
     dataType: "json",
   }).done(function (response) {
     // Fonction appelée en cas d'appel AJAX réussi
-<<<<<<< HEAD
+
     // console.log("Response", response);
     if(!response.ErrorState) {
-=======
-    console.log("Response", response);
-    if (!response.ErrorState) {
->>>>>>> 63f3ace1ca290bc125abdb7cdd5ae73d711d49cc
       //Si l'export à réussi on prévient l'opérateur
       alert("La génération du livrable a réussie");
     } else {
@@ -770,17 +717,6 @@ function addEventsDescriptifs() {
   });
 }
 
-<<<<<<< HEAD
-=======
-function AjoutEventSupprLigneChiffrage() {
-  $(".descriptif > .ligneChiffrage").first().children().last().html("");
-  $(".suppressionLigneChiffrage").click(function () {
-    $(this).parent().remove();
-  });
-}
-
-//Propose d'insérer le futur titre ou descptif selon les styles (titre1, titre2, ...) possibles
->>>>>>> 63f3ace1ca290bc125abdb7cdd5ae73d711d49cc
 function AjouterElement(element) {
   //Si un descriptif a été sélectionné alors on l'insère directement dans l'arborescence
   if ($(".selectDescriptif").length) {
@@ -788,46 +724,7 @@ function AjouterElement(element) {
     if (
       $(element).next().children(":first").children(":first").html() != "I."
     ) {
-<<<<<<< HEAD
-      //On créer le div du descriptif avec le style correspondant à sa place dans l'arbo
-      var divInsertionDescriptif = document.createElement("div");
 
-      var titreAuDessus = $(element).prev();
-      if (!titreAuDessus.hasClass("descriptif")) {
-        if (titreAuDessus.hasClass("titre1")) {
-          divInsertionDescriptif.className = "descriptif titre2";
-        } else if (titreAuDessus.hasClass("titre2")) {
-          divInsertionDescriptif.className = "descriptif titre3";
-        } else if (titreAuDessus.hasClass("titre3")) {
-          divInsertionDescriptif.className = "descriptif titre4";
-        } else if (titreAuDessus.hasClass("titre4")) {
-          divInsertionDescriptif.className = "descriptif titre5";
-        }
-      } else {
-        var classDescriptifAuDessus = titreAuDessus.attr("class");
-        divInsertionDescriptif.className = classDescriptifAuDessus;
-      }
-
-      //Appel AJAX pour récupérer les infos du descriptif
-      var idDescriptif = $(".selectDescriptif").children(":first").val();
-      var unite, description, nomDescriptif;
-
-      $.ajax({
-        url: "./ActionServlet",
-        method: "GET",
-        data: {
-          todo: "recupererDescriptif",
-          idDescriptif: idDescriptif
-        },
-        dataType: "json",
-      }).done(function (response) {
-        // Fonction appelée en cas d'appel AJAX réussi
-        // console.log("Response", response);
-        if (!response.ErrorState) {
-          //Récupérer la description (et l'unité si pas générique)
-          if(response.typeDescriptif !== "Generique") {
-            unite = response.unite;
-=======
       var styleDescriptif = null; //On cherche le style qui est juste au dessus de l'endroit où on veut insérer : on propose ensuite tous les choix du style en question juqu'à titre1
       var prev = $(element).prev();
       while (styleDescriptif == null) {
@@ -848,7 +745,6 @@ function AjouterElement(element) {
             )
               styleDescriptif = "titre1";
             else styleDescriptif = "titre2";
->>>>>>> 63f3ace1ca290bc125abdb7cdd5ae73d711d49cc
           }
         } else if (prev.hasClass("titre3")) {
           //Si le descriptif est un générique ou un ouvrage, on empêche de pouvoir le mettre sous un autre descriptif
@@ -1329,16 +1225,8 @@ function CreerOnglet() {
   }
 
   var idOnglet = "lot_" + numOnglet;
-
-<<<<<<< HEAD
   var divNouvelOnglet = $("<div class='lot' id='" + idOnglet + "'><input type='hidden' id='idXML' value='_0'/><div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div><div class='input-group titre1'><input type='hidden' id='idXML' value='_0'/><div class='input-group-prepend'><span class='input-group-text'>I.</span></div><input type='text' class='form-control' placeholder='Titre 1'/></div><div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div><div class='finLot'></div></div>");
-=======
-  var divNouvelOnglet = $(
-    "<div class='lot' id='" +
-      idOnglet +
-      "'><input type='hidden' id='idXML' value='_0'/><div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div><div class='input-group titre1'><input type='hidden' id='idXML' value='_0'/><div class='input-group-prepend'><span class='input-group-text'>I.</span></div><input type='text' class='form-control' placeholder='Titre 1'/><div class='deleteXML'><i class=\"fas fa-times-circle\"></i></div></div><div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div><div class='finLot'></div></div>"
-  );
->>>>>>> 63f3ace1ca290bc125abdb7cdd5ae73d711d49cc
+
   $(divNouvelOnglet).insertBefore($("#ongletsLot"));
 
   //Création de deux barres d'insertion d'un titre1 et d'une fin de lot dans ce nouvel onglet
@@ -1352,15 +1240,7 @@ function CreerOnglet() {
   $(divBoutonOnglet).insertBefore($(".ongletLot").last());
 
   //Création d'un nouveau input de titre lot
-<<<<<<< HEAD
   $("<div class='divTitreLot' id='divTitreLot_" + numOnglet + "'><input type='text' class='titreLot' placeholder='Titre Lot' /><div class='deleteXMLlot'><i class=\"fas fa-times-circle\"></i></div></div>").insertBefore($(".lot").first());
-=======
-  $(
-    "<div class='divTitreLot' id='divTitreLot_" +
-      numOnglet +
-      "'><input type='text' class='titreLot' placeholder='Titre Lot' /></div>"
-  ).insertBefore($(".lot").first());
->>>>>>> 63f3ace1ca290bc125abdb7cdd5ae73d711d49cc
 
   //Ajout de l'hover sur toutes les barres d'insertions titre
   addEventsDescriptifs();
@@ -1447,13 +1327,9 @@ enCours = false;
 function modifierXML(element) {
   if (typeof element != "undefined" && enCours == false) {
     enCours = true;
-<<<<<<< HEAD
+
     // console.log("debut "+jQuery.now());
     
-=======
-    console.log("debut " + jQuery.now());
-
->>>>>>> 63f3ace1ca290bc125abdb7cdd5ae73d711d49cc
     //on détermine l'idProjet
     var idProjet = $("#idProjetActuel").val();
     classElement = $(element).attr("class");
@@ -1541,16 +1417,14 @@ function modifierXML(element) {
       };
     }
     // idDescriptif: $(element).children('.idDescriptif').val(),
-<<<<<<< HEAD
+
     else if(classElement.includes("ligneChiffrage")){
       var quantite = $(element).find(".quantite").val();
       if (quantite == "") {
         quantite = "1.0";
         $(element).find(".quantite").val("1.0");
       }
-=======
-    else if (classElement.includes("ligneChiffrage")) {
->>>>>>> 63f3ace1ca290bc125abdb7cdd5ae73d711d49cc
+
       data = {
         todo: "modifierXML",
         idProjet: idProjet,
@@ -1559,11 +1433,8 @@ function modifierXML(element) {
         idRefPlacement: idRefPlacement,
         placement: "",
         localisation: $(element).find(".localisation").val(),
-<<<<<<< HEAD
         quantite: quantite
-=======
-        quantite: $(element).find(".quantite").val(),
->>>>>>> 63f3ace1ca290bc125abdb7cdd5ae73d711d49cc
+
       };
     } else {
       if (titreType == "lot") {
@@ -1619,11 +1490,9 @@ function modifierXML(element) {
       }
 
       enCours = false;
-<<<<<<< HEAD
+
       //console.log("Fin "+jQuery.now());
-=======
-      console.log("Fin " + jQuery.now());
->>>>>>> 63f3ace1ca290bc125abdb7cdd5ae73d711d49cc
+
     });
   } else if (
     typeof element != "undefined" &&
@@ -1636,7 +1505,6 @@ function modifierXML(element) {
   }
 }
 
-<<<<<<< HEAD
 supprimerXMLEnCours = false;
 function supprimerXML(croix, type){
 
@@ -1733,13 +1601,24 @@ function supprimerXML(croix, type){
   }
 }
 
+function addSelectedClassXML(elementPuce){
+    $(elementPuce).parent().parent().addClass('selectDescriptifXML');
+}
+
+function survolDeplacerDescriptif(elementPuce, sens){
+  if (sens == "enter") {
+    $(elementPuce).parent().parent().css("background-color", "rgba(70, 55, 0, 0.05)");
+  }
+  else{
+    if (!$(elementPuce).parent().parent().attr("class").includes('selectDescriptifXML')) {
+      $(elementPuce).parent().parent().css("background-color", "white");
+    }
+  }
+}
+
 function attacheEventModifXML(){
 
   $('.titre1').change(function(){
-=======
-function attacheEventModifXML() {
-  $(".titre1").change(function () {
->>>>>>> 63f3ace1ca290bc125abdb7cdd5ae73d711d49cc
     modifierXML(this);
   });
   $(".titre2").change(function () {
@@ -1768,5 +1647,14 @@ function attacheEventModifXML() {
   });
   $('.suppressionLigneChiffrage').click(function(){
     supprimerXML(this, "ligneChiffrage");
+  });
+  $('.descriptif > .input-group > .input-group-prepend').click(function(){
+    addSelectedClassXML(this);
+  });
+  $('.descriptif > .input-group > .input-group-prepend').mouseenter(function(){
+    survolDeplacerDescriptif(this, "enter");
+  });
+  $('.descriptif > .input-group > .input-group-prepend').mouseleave(function(){
+    survolDeplacerDescriptif(this, "leave");
   });
 }

@@ -225,8 +225,14 @@
           </div>
         </div>
         <div class="menuGestion">
-          <div class="importButton">Gestion bibliothèque</div>
-          <div class="exportButton" onclick="GenererLivrable();">Générer livrable</div>
+          <label class="importButton">
+            <input type="file" accept=".csv, .docx" />
+            <span>Gestion bibliothèque</span>
+          </label>
+          <label class="exportButton">
+            <input type="file" webkitdirectory onchange="GenererLivrable()" />
+            <span>Générer livrable</span>
+          </label>
         </div>
       </div>
       <div class="container" onchange="modifierXML()">
