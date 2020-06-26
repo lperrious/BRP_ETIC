@@ -32,6 +32,7 @@ import fr.etic.brp.brp_back_end.metier.modele.Prestation;
 import fr.etic.brp.brp_back_end.metier.modele.Projet;
 import fr.etic.brp.brp_back_end.metier.modele.SousCategorieConstruction;
 import fr.etic.brp.brp_back_end.metier.modele.SousFamille;
+import static java.lang.Long.parseLong;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.List;
@@ -791,6 +792,26 @@ public class Service {
         return total;
     }
     
+    public String GetIdInsere(Long idProjet){
+        String idInsere = null;
+        JpaUtil.creerContextePersistance();
+        DomUtil.init();
+        try{
+            String uri = rootXMLFiles+idProjet+".xml";
+            Document xml = projetXMLDao.ObtenirDocument(uri);
+            Node nextIdBalise = xml.getElementsByTagName("nextId").item(0);
+            Long idInserelong = parseLong(nextIdBalise.getTextContent())-1L;
+            idInsere = "_"+idInserelong.toString();
+        }
+        catch(Exception e){
+            idInsere = null;
+        }finally{
+            JpaUtil.fermerContextePersistance();
+            DomUtil.destroy();
+        }      
+        return idInsere;
+    }
+    
     public Boolean AjouterLot(Long idProjet, String placement, String idRefPlacement) {
         JpaUtil.creerContextePersistance();
         DomUtil.init();
@@ -1158,7 +1179,7 @@ public class Service {
         return resultat;
     }
     
-    public Boolean AjouterLigneChiffrage(Long idProjet, String idDescriptif){
+    public Boolean AjouterLigneChiffrage(Long idProjet, String idXMLDescriptif){
         JpaUtil.creerContextePersistance();
         DomUtil.init();
         Boolean resultat = false;
@@ -1184,7 +1205,7 @@ public class Service {
             //on parcours les descriptifs
             for (int i = 0; i<rootNodes.getLength(); i++) {
                 Element descriptif = (Element) rootNodes.item(i);
-                if(descriptif.getAttribute("idBD").equals(idDescriptif)){
+                if(descriptif.getAttribute("id").equals(idXMLDescriptif)){
                     
                     //on compte les lignes chiffrages qu'il y a 
                     NodeList ligneChiffrageNodes = descriptif.getElementsByTagName("ligneChiffrage");
@@ -1194,11 +1215,11 @@ public class Service {
                     //on va chercher l'idDescriptif du parent
                     List<BasePrixRef> listeBasePrixRef = null;
                     if(descriptif.getAttribute("type").equals("ouvrage")){
-                        Ouvrage ouvrage = (Ouvrage) descriptifDao.ChercherParId(idDescriptif); 
+                        Ouvrage ouvrage = (Ouvrage) descriptifDao.ChercherParId(descriptif.getAttribute("idBD")); 
                         listeBasePrixRef = ouvrage.getListeBasePrixRefOuvrage(); 
                     }
                     else{
-                        Prestation descriptifBD = prestationDao.ChercherParId(idDescriptif);
+                        Prestation descriptifBD = prestationDao.ChercherParId(descriptif.getAttribute("idBD"));
                         listeBasePrixRef = descriptifBD.getListeBasePrixRefPrestation(); 
                     }       
                     
@@ -1357,6 +1378,43 @@ public class Service {
                         //On modifie la balise description
                         Element baliseDescription = (Element) listeEnfantsDescriptif.item(j);
                         baliseDescription.setTextContent(newDescription);
+                        testModif = true;
+                    }
+                }
+            }
+
+            //On écrit par dessus l'ancien XML
+            projetXMLDao.saveXMLContent(xml, uri);
+            
+            if(testModif){
+                resultat = true; //Si on est arrivé jusque là alors pas d'erreur
+            }
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service ModifierDescriptionDescriptif(Long idProjet, String idDescriptif, String newDescription)", ex);
+        } finally {
+            DomUtil.destroy();
+        }
+        return resultat;
+    }
+    
+    public Boolean ModifierNomDescriptif(Long idProjet, String idDescriptif, String newNom){
+        DomUtil.init();
+        Boolean testModif = false;
+        Boolean resultat = false;
+        
+        try {
+            //Obtention du document
+            String uri = rootXMLFiles+idProjet+".xml";
+            Document xml = projetXMLDao.ObtenirDocument(uri);
+            
+            Element baliseDescriptif = (Element) xml.getElementById(idDescriptif);
+            if(baliseDescriptif != null){
+                NodeList listeEnfantsDescriptif = baliseDescriptif.getChildNodes();
+                for(int j = 0; j < listeEnfantsDescriptif.getLength(); j++){
+                    if(listeEnfantsDescriptif.item(j).getNodeName().equals("nomDescriptif")){
+                        //On modifie la balise description
+                        Element baliseNom = (Element) listeEnfantsDescriptif.item(j);
+                        baliseNom.setTextContent(newNom);
                         testModif = true;
                     }
                 }

@@ -227,14 +227,13 @@
         <div class="menuGestion">
           <div class="importButton">Gestion bibliothèque</div>
           <div class="exportButton" onclick="GenererLivrable();">Générer livrable</div>
-          <div class="creationCompte" onclick="location.href='Inscription.html';">Nouveau Compte</div>
         </div>
       </div>
-      <div class="container">
-		<div class="divTitreLot" id="divTitreLot_0">
-          <input type="text" class="titreLot" placeholder="Titre Lot" />
-        </div>
-        <div class="lot" id="lot_0">
+      <div class="container" onchange="modifierXML()">
+		    <div class="presentationRight">
+          <div class="textPresentationRight">
+            Ce projet est vide. Pour créer un lot, appuyez sur le bouton + ci-dessous. 
+          </div>  
         </div>
         <div id="ongletsLot">
           <div class="ongletLot" onclick="CreerOnglet();">+</div>
