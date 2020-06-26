@@ -8,6 +8,7 @@ import fr.etic.brp.brp_front_end.actions.ConnexionAction;
 import fr.etic.brp.brp_front_end.actions.CreationProjetAction;
 import fr.etic.brp.brp_front_end.actions.DupliquerProjetAction;
 import fr.etic.brp.brp_front_end.actions.EditerInfosProjetAction;
+import fr.etic.brp.brp_front_end.actions.EnregistrerUriProjetExportAction;
 import fr.etic.brp.brp_front_end.actions.GenererLivrableAction;
 import fr.etic.brp.brp_front_end.actions.InscriptionAction;
 import fr.etic.brp.brp_front_end.actions.ListerRaccordementCatConstAction;
@@ -15,6 +16,7 @@ import fr.etic.brp.brp_front_end.actions.ListerSousCatConstCaractDimAction;
 import fr.etic.brp.brp_front_end.actions.ModifierXMLAction;
 import fr.etic.brp.brp_front_end.actions.OuvrirProjetAction;
 import fr.etic.brp.brp_front_end.actions.RecupererDescriptifAction;
+import fr.etic.brp.brp_front_end.actions.RecupererUriProjetExportAction;
 import fr.etic.brp.brp_front_end.actions.TestConnexionAction;
 import fr.etic.brp.brp_front_end.serialisations.AffichageAdminSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.ArboDescriptifsSerialisation;
@@ -22,6 +24,7 @@ import fr.etic.brp.brp_front_end.serialisations.ConnexionSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.CreationProjetSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.DupliquerProjetSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.EditerInfosProjetSerialisation;
+import fr.etic.brp.brp_front_end.serialisations.EnregistrerUriProjetExportSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.GenererLivrableSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.InscriptionSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.ListerRaccordementCatConstSerialisation;
@@ -29,6 +32,7 @@ import fr.etic.brp.brp_front_end.serialisations.ListerSousCatConstCaractDimSeria
 import fr.etic.brp.brp_front_end.serialisations.ModifierXMLSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.OuvrirProjetSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.RecupererDescriptifSerialisation;
+import fr.etic.brp.brp_front_end.serialisations.RecupererUriProjetExportSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.Serialisation;
 import fr.etic.brp.brp_front_end.serialisations.TestConnexionSerialisation;
 import java.io.IOException;
@@ -146,6 +150,16 @@ public class ActionServlet extends HttpServlet {
             case "genererLivrable" : {
                 action = new GenererLivrableAction();
                 serialisation = new GenererLivrableSerialisation();
+                break;
+            }
+            case "enregistrerUriProjetExport" : {
+                action = new EnregistrerUriProjetExportAction();
+                serialisation = new EnregistrerUriProjetExportSerialisation();
+                break;
+            }
+            case "recupererUriProjetExport" : {
+                action = new RecupererUriProjetExportAction();
+                serialisation = new RecupererUriProjetExportSerialisation();
                 break;
             }
         }

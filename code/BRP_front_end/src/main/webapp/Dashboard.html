@@ -34,7 +34,9 @@
     <div id="container">
       <div class="container">
         <div id="nomProjet" onclick="display_manage_project()">
-          <div class="nomProjet">UnNomDeProjetSuperMegaLoooooooooooooooooooooooooooooooooooog</div>
+          <div class="nomProjet">
+            UnNomDeProjetSuperMegaLoooooooooooooooooooooooooooooooooooog
+          </div>
           <div class="nomProjet"><i class="fas fa-chevron-down"></i></div>
         </div>
         <div id="manageProjet">
@@ -44,7 +46,9 @@
               <input type="hidden" class="idProjet" value="1" />
               <div class="textLineProjet">
                 <div class="iconProjet"><i class="far fa-file-alt"></i></div>
-                <div class="propositionNomProjet">UnNomDeProjetSuperMegaLoooooooooooooooooooooooooooooooooooog</div>
+                <div class="propositionNomProjet">
+                  UnNomDeProjetSuperMegaLoooooooooooooooooooooooooooooooooooog
+                </div>
               </div>
               <select class="actionProjet">
                 <option value="ouvrir">Ouvrir</option>
@@ -99,7 +103,7 @@
           </select>
         </div>
         <div id="infosProjet" onchange="modifierInfosProjet()">
-       	  <input type="hidden" id="idProjetActuel" value="1">
+          <input type="hidden" id="idProjetActuel" value="1" />
           <div class="infoProjet infoField">
             <div class="titleInfo">Nom du projet</div>
             <input type="text" class="nomProjetUpdate" />
@@ -226,14 +230,17 @@
         </div>
         <div class="menuGestion">
           <div class="importButton">Gestion bibliothèque</div>
-          <div class="exportButton" onclick="GenererLivrable();">Générer livrable</div>
+          <div class="exportButton" onclick="GenererLivrable();">
+            Générer livrable
+          </div>
         </div>
       </div>
       <div class="container" onchange="modifierXML()">
-		    <div class="presentationRight">
+        <div class="presentationRight">
           <div class="textPresentationRight">
-            Ce projet est vide. Pour créer un lot, appuyez sur le bouton + ci-dessous. 
-          </div>  
+            Ce projet est vide. Pour créer un lot, appuyez sur le bouton +
+            ci-dessous.
+          </div>
         </div>
         <div id="ongletsLot">
           <div class="ongletLot" onclick="CreerOnglet();">+</div>
