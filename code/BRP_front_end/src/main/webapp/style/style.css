@@ -750,3 +750,24 @@ select {
   background-color: var(--cta_hover);
   border-radius: 3px;
 }
+
+.divInsertionStyleDescriptif {
+  width: 400px;
+  border-radius: 3px;
+  background-color: var(--cta);
+  color: var(--text_soft);
+  display: flex;
+  flex-direction: column;
+  margin-left: 15px;
+}
+
+.sousDivInsertionStyleDescriptif {
+  padding: 3px;
+  padding-left: 15px;
+  cursor: pointer;
+}
+
+.sousDivInsertionStyleDescriptif:hover {
+  background-color: var(--cta_hover);
+  border-radius: 3px;
+}

@@ -35,13 +35,13 @@ public class RecupererDescriptifSerialisation extends Serialisation {
             container.addProperty("descriptionDescriptif", descriptif.getDescription());
             container.addProperty("courteDescriptionDescriptif", descriptif.getCourteDescription());
             if(descriptif instanceof Ouvrage) {
-                container.addProperty("typeDescriptif", "Ouvrage");
+                container.addProperty("typeDescriptif", "ouvrage");
                 container.addProperty("unite", ((Ouvrage)descriptif).getUnite());
             } else if (descriptif instanceof Prestation){
-                container.addProperty("typeDescriptif", "Prestation");
+                container.addProperty("typeDescriptif", "prestation");
                 container.addProperty("unite", ((Prestation)descriptif).getUnite());
             } else {
-                container.addProperty("typeDescriptif", "Generique");
+                container.addProperty("typeDescriptif", "generique");
             }
         }
         

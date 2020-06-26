@@ -160,6 +160,7 @@
 		  <xsl:when test="contains(name(..),'1')">
 		    <div class="descriptif titre2">
                 <input type="hidden" class="idDescriptif" value="{@idBD}"/>
+                <input type="hidden" class="typeDescriptif" value="{@type}"/>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1"></span>
@@ -184,6 +185,7 @@
 		  <xsl:when test="contains(name(..),'2')">
 		    <div class="descriptif titre3">
                 <input type="hidden" class="idDescriptif" value="{@idBD}"/>
+                <input type="hidden" class="typeDescriptif" value="{@type}"/>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1"></span>
@@ -208,6 +210,7 @@
           <xsl:when test="contains(name(..),'3')">
 		    <div class="descriptif titre4">
                 <input type="hidden" class="idDescriptif" value="{@idBD}"/>
+                <input type="hidden" class="typeDescriptif" value="{@type}"/>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1"></span>
@@ -232,6 +235,7 @@
           <xsl:when test="contains(name(..),'4')">
 		    <div class="descriptif titre5">
                 <input type="hidden" class="idDescriptif" value="{@idBD}"/>
+                <input type="hidden" class="typeDescriptif" value="{@type}"/>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1"></span>

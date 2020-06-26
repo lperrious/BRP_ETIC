@@ -72,8 +72,9 @@ public class ArboDescriptifsSerialisation extends Serialisation {
                                 JsonObject containerDescriptif = new JsonObject();
                                 if(descriptif instanceof Generique)
                                     containerDescriptif.addProperty("type", "generique");
-                                else if(descriptif instanceof Ouvrage)
+                                else if(descriptif instanceof Ouvrage) {
                                     containerDescriptif.addProperty("type", "ouvrage");
+                                }
                                 else if(descriptif instanceof Prestation)
                                     containerDescriptif.addProperty("type", "prestation");
                                 containerDescriptif.addProperty("id", descriptif.getIdDescriptif());
