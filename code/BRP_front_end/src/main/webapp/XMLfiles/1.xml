@@ -27,7 +27,7 @@
                     <prixUnitaire>17.0</prixUnitaire>
                 </ligneChiffrage>
             </descriptif>
-        <descriptif id="_4" idBD="04_ETA_01_11_001" type="ouvrage">
+            <descriptif id="_4" idBD="04_ETA_01_11_001" type="ouvrage">
                 <nomDescriptif>Bac acier plein support d’étanchéité</nomDescriptif>
                 <description>
                     <p>

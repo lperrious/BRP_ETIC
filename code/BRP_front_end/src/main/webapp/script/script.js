@@ -671,10 +671,10 @@ function GenererLivrable() {
   //! Feature à rajouter : demander l'uri et l'enregistrer dans le XML de chaque projet
   //! Feature à rajouter : demander le choix de template
   var idProjet = $("#idProjetActuel").val();
-  var uriExport =
-    "../../../../code/BRP_front_end/src/main/webapp/XMLfiles/" +
+  var uriXML =
+    "../../../../../../../../Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/webapp/XMLfiles/" +
     idProjet +
-    ".xml";
+    ".xml"; //Fonctionne sur l'installation de Louis
   var choixTemplate = 1;
 
   $.ajax({
@@ -684,7 +684,7 @@ function GenererLivrable() {
       todo: "genererLivrable",
       idProjet: idProjet,
       choixTemplate: choixTemplate,
-      uriExport: uriExport,
+      uriXML: uriXML,
     },
     dataType: "json",
   }).done(function (response) {
@@ -692,8 +692,10 @@ function GenererLivrable() {
     console.log("Response", response);
     if (!response.ErrorState) {
       //Si l'export à réussi on prévient l'opérateur
+      alert("La génération du livrable a réussie");
     } else {
       //On previent l'opérateur que l'export a échoué
+      alert("Erreur lors de la génération du livrable");
     }
   });
 }
