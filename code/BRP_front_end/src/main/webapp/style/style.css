@@ -604,13 +604,19 @@ select {
   width: 25px;
 }
 
-.deleteXML{
+.deleteXML, .deleteXMLlot{
   opacity: 0;
   color: var(--border);
   width: 25px;
 }
 
-.suppressionLigneChiffrage:hover, .deleteXML:hover {
+.deleteXMLlot{
+  position: absolute;
+  top: 20px;
+  right: 15px;
+}
+
+.suppressionLigneChiffrage:hover, .deleteXML:hover, .deleteXMLlot:hover {
   opacity: 1;
   cursor: pointer;
 }
