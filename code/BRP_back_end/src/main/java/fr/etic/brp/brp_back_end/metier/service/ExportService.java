@@ -20,6 +20,10 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import java.util.Map;
 import java.util.TreeMap;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathFactory;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CreationHelper;
@@ -78,7 +82,7 @@ public class ExportService {
         return map.get(l) + toRoman(number-l);
     }
     
-    public Boolean ExporterProjet(Long idProjet, int choixTemplate, String uriExport) {
+    public Boolean ExporterProjet(Long idProjet, int choixTemplate, String uriXML) {
         DomUtil.init();
         Boolean resultat = false;
         
@@ -93,8 +97,7 @@ public class ExportService {
 
         try {
             //Obtention du document XML
-            //!String uri = rootXMLFiles + idProjet + ".xml";
-            Document xml = projetXMLDao.ObtenirDocument(uriExport);
+            Document xml = projetXMLDao.ObtenirDocument(uriXML);
             
             //On insère les infos projets dans le XML
             JpaUtil.creerContextePersistance();
@@ -166,10 +169,10 @@ public class ExportService {
             root.insertBefore(baliseCaractDim, baliseLotInfosProjet);
             
             //On écrit par dessus l'ancien XML
-            projetXMLDao.saveXMLContent(xml, uriExport);
+            projetXMLDao.saveXMLContent(xml, uriXML);
             
             //On créer le dossier d'export du Projet
-            Boolean succesCreationDossier = (new File("../export_files/Exports/"+ projet.getNomProjet() + "_" + projet.getIdProjet())).mkdirs();
+            Boolean succesCreationDossier = (new File("../../../../../../../../Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/webapp/export_files/Exports/"+ projet.getNomProjet() + "_" + projet.getIdProjet())).mkdirs();
             if (!succesCreationDossier) {
                 throw new Exception();
             }
@@ -184,7 +187,7 @@ public class ExportService {
                 switch(choixTemplate) {
                     case 1:
                         template = template1Immutable;
-                        word = new XWPFDocument(new FileInputStream("../export_files/TemplatesWord/Template1/Template1_CCTP.docx"));
+                        word = new XWPFDocument(new FileInputStream("../../../../../../../../Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/webapp/export_files/TemplatesWord/Template1/Template1_CCTP.docx"));
                         break;
                     default :
                         throw new Exception(); //Template non reconnue
@@ -281,7 +284,7 @@ public class ExportService {
                     }
                 }
                 //On nomme la CCTP
-                String outputCCTP = "../export_files/Exports/" + projet.getNomProjet() + "_" + projet.getIdProjet() + "/" + projet.getNomProjet() + "_LOT_" + h + "_" + baliseLot.getAttribute("intitule") + ".docx"; //Surement à changer lors de l'installation client
+                String outputCCTP = "../../../../../../../../Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/webapp/export_files/Exports/" + projet.getNomProjet() + "_" + projet.getIdProjet() + "/" + projet.getNomProjet() + "_LOT_" + h + "_" + baliseLot.getAttribute("intitule") + ".docx"; //Surement à changer lors de l'installation client
                 //On écrit en sortie le document WORD
                 FileOutputStream out = new FileOutputStream(outputCCTP);
                 word.write(out);
@@ -291,7 +294,7 @@ public class ExportService {
             
             //TRAITEMENT EXCEL
             //Création du document EXCEL
-            Workbook excel = new XSSFWorkbook(new FileInputStream("../export_files/TemplatesExcel/Template1/Template1_DPGF.xlsx"));
+            Workbook excel = new XSSFWorkbook(new FileInputStream("../../../../../../../../Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/webapp/export_files/TemplatesExcel/Template1/Template1_DPGF.xlsx"));
             CreationHelper createHelper = excel.getCreationHelper(); //Permet de créer le document "plus simplement"
             
             //Pour chaque lot
@@ -633,32 +636,64 @@ public class ExportService {
             //FIN //NB : (PAS après "Fait à" inclus)
             
             //On nomme la DPGF
-            String outputDPGF = "../export_files/Exports/" + projet.getNomProjet() + "_" + projet.getIdProjet() + "/" + projet.getNomProjet() + "_DPGF.xlsx"; //Surement à changer lors de l'installation client
+            String outputDPGF = "../../../../../../../../Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/webapp/export_files/Exports/" + projet.getNomProjet() + "_" + projet.getIdProjet() + "/" + projet.getNomProjet() + "_DPGF.xlsx"; //Surement à changer lors de l'installation client
 
             //On écrit en sortie le document EXCEL
             OutputStream fileOut = new FileOutputStream(outputDPGF);
             excel.write(fileOut);
             
-            //On supprime les infos projets dans le XML
-            baliseNomprojet.getParentNode().removeChild(baliseNomprojet);
-            baliseTypeConstruction.getParentNode().removeChild(baliseTypeConstruction);
-            baliseTypeMarche.getParentNode().removeChild(baliseTypeMarche);
-            baliseTypeConstruction.getParentNode().removeChild(baliseTypeConstruction);
-            baliseTypeLot.getParentNode().removeChild(baliseTypeLot);
-            baliseSite.getParentNode().removeChild(baliseSite);
-            baliseDatePrixRef.getParentNode().removeChild(baliseDatePrixRef);
-            baliseCoeffAdapt.getParentNode().removeChild(baliseCoeffAdapt);
-            baliseCoeffRaccordement.getParentNode().removeChild(baliseCoeffRaccordement);
-            baliseCategorieConstruction.getParentNode().removeChild(baliseCategorieConstruction);
-            baliseSousCategorieConstruction.getParentNode().removeChild(baliseSousCategorieConstruction);
-            baliseCaractDim.getParentNode().removeChild(baliseCaractDim);
-            
             resultat = true; //Si on est arrivé jusque là alors pas d'erreur
             
         } catch (Exception ex) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service ExporterProjet(Long idProjet, int choixTemplate)", ex);
-            //RM le dossier crée ?
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service ExporterProjet(Long idProjet, int choixTemplate, String uriXML)", ex);
+            //RM le dossier crée
         } finally {
+            try {
+                //On supprime les infos projets dans le XML 
+                XPathFactory xpf = XPathFactory.newInstance();
+                XPath xpath = xpf.newXPath();
+                Document xml = projetXMLDao.ObtenirDocument(uriXML);
+                
+                XPathExpression expression = xpath.compile("//nomProjet");
+                Node nodeToDelete = (Node) expression.evaluate(xml, XPathConstants.NODE);
+                nodeToDelete.getParentNode().removeChild(nodeToDelete);
+                expression = xpath.compile("//typeMarche");
+                nodeToDelete = (Node) expression.evaluate(xml, XPathConstants.NODE);
+                nodeToDelete.getParentNode().removeChild(nodeToDelete);
+                expression = xpath.compile("//typeConstruction");
+                nodeToDelete = (Node) expression.evaluate(xml, XPathConstants.NODE);
+                nodeToDelete.getParentNode().removeChild(nodeToDelete);
+                expression = xpath.compile("//typeLot");
+                nodeToDelete = (Node) expression.evaluate(xml, XPathConstants.NODE);
+                nodeToDelete.getParentNode().removeChild(nodeToDelete);
+                expression = xpath.compile("//site");
+                nodeToDelete = (Node) expression.evaluate(xml, XPathConstants.NODE);
+                nodeToDelete.getParentNode().removeChild(nodeToDelete);
+                expression = xpath.compile("//datePrixRef");
+                nodeToDelete = (Node) expression.evaluate(xml, XPathConstants.NODE);
+                nodeToDelete.getParentNode().removeChild(nodeToDelete);
+                expression = xpath.compile("//coeffAdapt");
+                nodeToDelete = (Node) expression.evaluate(xml, XPathConstants.NODE);
+                nodeToDelete.getParentNode().removeChild(nodeToDelete);
+                expression = xpath.compile("//coeffRaccordement");
+                nodeToDelete = (Node) expression.evaluate(xml, XPathConstants.NODE);
+                nodeToDelete.getParentNode().removeChild(nodeToDelete);
+                expression = xpath.compile("//categorieConstruction");
+                nodeToDelete = (Node) expression.evaluate(xml, XPathConstants.NODE);
+                nodeToDelete.getParentNode().removeChild(nodeToDelete);
+                expression = xpath.compile("//sousCategorieConstruction");
+                nodeToDelete = (Node) expression.evaluate(xml, XPathConstants.NODE);
+                nodeToDelete.getParentNode().removeChild(nodeToDelete);
+                expression = xpath.compile("//caractDim");
+                nodeToDelete = (Node) expression.evaluate(xml, XPathConstants.NODE);
+                nodeToDelete.getParentNode().removeChild(nodeToDelete);
+
+                //Ecriture du XML
+                projetXMLDao.saveXMLContent(xml, uriXML);
+                
+            } catch (Exception ex) {
+                Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service ExporterProjet(Long idProjet, int choixTemplate, String uriXML)", ex);
+            }
             DomUtil.destroy();
         }
         return resultat;

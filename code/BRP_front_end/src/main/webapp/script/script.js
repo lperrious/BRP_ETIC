@@ -6,20 +6,25 @@ var testChoixPresent = false;
 
 /************** Appels au chargement de la page ******************/
 $(document).ready(function () {
-
   //Affichage Admin ou opérateur classique
   $.ajax({
     url: "./ActionServlet",
     method: "GET",
     data: {
-      todo: "affichageAdmin"
+      todo: "affichageAdmin",
     },
     dataType: "json",
   }).done(function (response) {
     // Fonction appelée en cas d'appel AJAX réussi
+<<<<<<< HEAD
     //console.log("Response", response);
     if(!response.ErrorState) {
       if(response.isAdmin) {
+=======
+    console.log("Response", response);
+    if (!response.ErrorState) {
+      if (response.isAdmin) {
+>>>>>>> 63f3ace1ca290bc125abdb7cdd5ae73d711d49cc
         //Si admin alors on affiche le bouton de création de compte Opérateur
         $(".creationCompte").show();
       }
@@ -31,26 +36,42 @@ $(document).ready(function () {
     url: "./ActionServlet",
     method: "GET",
     data: {
-      todo: "listerRaccordementCatConst"
+      todo: "listerRaccordementCatConst",
     },
     dataType: "json",
   }).done(function (response) {
     // Fonction appelée en cas d'appel AJAX réussi
+<<<<<<< HEAD
     //console.log("Response", response);
     if(!response.ErrorState) {
+=======
+    console.log("Response", response);
+    if (!response.ErrorState) {
+>>>>>>> 63f3ace1ca290bc125abdb7cdd5ae73d711d49cc
       $.each(response.listeCoeffRaccordement, function (i, coeffRaccordement) {
-        $('#coeffRaccordement').append($('<option>', { 
+        $("#coeffRaccordement").append(
+          $("<option>", {
             value: i,
-            text : coeffRaccordement.localisation + " - " + coeffRaccordement.valeur,
-            name: coeffRaccordement.localisation
-        }));
+            text:
+              coeffRaccordement.localisation + " - " + coeffRaccordement.valeur,
+            name: coeffRaccordement.localisation,
+          })
+        );
       });
-      $.each(response.listeCategorieConstruction, function (i, categorieConstruction) {
-        $('#categorieConstruction').append($('<option>', { 
+      $.each(response.listeCategorieConstruction, function (
+        i,
+        categorieConstruction
+      ) {
+        $("#categorieConstruction").append(
+          $("<option>", {
             value: i,
-            text: categorieConstruction.code + " - " + categorieConstruction.intitule,
-            name: categorieConstruction.code
-        }));
+            text:
+              categorieConstruction.code +
+              " - " +
+              categorieConstruction.intitule,
+            name: categorieConstruction.code,
+          })
+        );
       });
     }
   });
@@ -73,28 +94,36 @@ $(document).ready(function () {
           const chapitre = response.arborescence[i];
           $("#arboBDD").append(
             "<div class='lineBDD lineChapitre'><span class='iconBDD'><i class='fas fa-caret-right arrow'></i></span><div class='intitule'>" +
-              chapitre.idChapitre + " - " + chapitre.intituleChapitre +
+              chapitre.idChapitre +
+              " - " +
+              chapitre.intituleChapitre +
               "</div></div>"
           );
           for (let j = 0; j < chapitre.categories.length; j++) {
             const categorie = chapitre.categories[j];
             $("#arboBDD").append(
               "<div class='lineBDD lineCategorie'><span class='iconBDD'><i class='fas fa-caret-right arrow'></i></span><div class='intitule'>" +
-                categorie.idCategorie.substr(3, 4) + " - " + categorie.intituleCategorie +
+                categorie.idCategorie.substr(3, 4) +
+                " - " +
+                categorie.intituleCategorie +
                 "</div></div>"
             );
             for (let k = 0; k < categorie.familles.length; k++) {
               const famille = categorie.familles[k];
               $("#arboBDD").append(
                 "<div class='lineBDD lineFamille'><span class='iconBDD'><i class='fas fa-caret-right arrow'></i></span><div class='intitule'>" +
-                  famille.idFamille.substr(7, 3) + " - " + famille.intituleFamille +
+                  famille.idFamille.substr(7, 3) +
+                  " - " +
+                  famille.intituleFamille +
                   "</div></div>"
               );
               for (let l = 0; l < famille.sousFamilles.length; l++) {
                 const sousFamille = famille.sousFamilles[l];
                 $("#arboBDD").append(
                   "<div class='lineBDD lineSousFamille'><span class='iconBDD'><i class='fas fa-caret-right arrow'></i></span><div class='intitule'>" +
-                    sousFamille.idSousFamille.substr(10, 13) + " - " + sousFamille.intituleSousFamille +
+                    sousFamille.idSousFamille.substr(10, 13) +
+                    " - " +
+                    sousFamille.intituleSousFamille +
                     "</div></div>"
                 );
                 for (let m = 0; m < sousFamille.descriptifs.length; m++) {
@@ -104,7 +133,9 @@ $(document).ready(function () {
                       "<div class='lineBDD lineDescriptif generique'><input type='hidden' class='idDescriptif' value='" +
                         descriptif.id +
                         "'/><span class='iconBDD'>-</span><div class='intitule'>" +
-                        descriptif.id.substr(13, 17) + " - " + descriptif.nom +
+                        descriptif.id.substr(13, 17) +
+                        " - " +
+                        descriptif.nom +
                         "</div></div>"
                     );
                   } else if (descriptif.type == "ouvrage") {
@@ -112,17 +143,23 @@ $(document).ready(function () {
                       "<div class='lineBDD lineDescriptif ouvrage'><input type='hidden' class='idDescriptif' value='" +
                         descriptif.id +
                         "'/><span class='iconBDD'>-</span><div class='intitule'>" +
-                        descriptif.id.substr(13, 17) + " - " + descriptif.nom +
+                        descriptif.id.substr(13, 17) +
+                        " - " +
+                        descriptif.nom +
                         "</div></div>"
                     );
-                  } else if (descriptif.type == "prestation") {
-                    $("#arboBDD").append(
-                      "<div class='lineBDD lineDescriptif prestation'><input type='hidden' class='idDescriptif' value='" +
-                        descriptif.id +
-                        "'/><span class='iconBDD'>-</span><div class='intitule'>" +
-                        descriptif.id.substr(17, 21) + " - " + descriptif.nom +
-                        "</div></div>"
-                    );
+                    for (n = 0; n < descriptif.prestations.length; n++) {
+                      const prestation = descriptif.prestations[n];
+                      $("#arboBDD").append(
+                        "<div class='lineBDD lineDescriptif prestation'><input type='hidden' class='idDescriptif' value='" +
+                          prestation.id +
+                          "'/><span class='iconBDD'>-</span><div class='intitule'>" +
+                          prestation.id.substr(17, 21) +
+                          " - " +
+                          prestation.nom +
+                          "</div></div>"
+                      );
+                    }
                   }
                 }
               }
@@ -209,10 +246,11 @@ function createProject() {
     popUpNomProjet(false);
 
     if (response) {
-      if (response['Error']) {
-        alert("Une erreur est survenue, impossible de créer un nouveau projet)");
-      }
-      else{
+      if (response["Error"]) {
+        alert(
+          "Une erreur est survenue, impossible de créer un nouveau projet)"
+        );
+      } else {
         ouvrirProjet(response["idProjet"]);
       }
     }
@@ -247,10 +285,9 @@ function dupliquerProjet(idProjet) {
     popUpNomProjet(false);
 
     if (response) {
-      if (response['Error']) {
+      if (response["Error"]) {
         alert("Une erreur est survenue, impossible de duppliquer le projet)");
-      }
-      else{
+      } else {
         ouvrirProjet(response["newIdProjet"]);
       }
     }
@@ -277,19 +314,23 @@ function chargerHttpXML(xmlDocumentUrl) {
 }
 
 function ouvrirProjet(idProjet) {
-
   $.ajax({
     url: "./ActionServlet",
     method: "GET",
     data: {
       todo: "ouvrirProjet",
-      idProjet: idProjet
+      idProjet: idProjet,
     },
     dataType: "json",
   }).done(function (response) {
     // Fonction appelée en cas d'appel AJAX réussi
+<<<<<<< HEAD
     //console.log("Response", response);
     if(!response.ErrorState) {
+=======
+    console.log("Response", response);
+    if (!response.ErrorState) {
+>>>>>>> 63f3ace1ca290bc125abdb7cdd5ae73d711d49cc
       var xslDocumentUrl = "stylesheet/ouvrirProjet.xsl";
       var xmlDocumentUrl = "XMLfiles/" + idProjet + ".xml";
 
@@ -314,19 +355,32 @@ function ouvrirProjet(idProjet) {
       $(".container").last().html(elementAInserer.childNodes);
 
       //On spécifie l'id du projet acutellement ouvert dans la partie infos projet
-      $('#idProjetActuel').val(idProjet);
+      $("#idProjetActuel").val(idProjet);
 
       //On ajoute les infos projet dans la partie correspondante
-      $('#nomProjet').children(':first').html(response.nomProjet);
-      $('.nomProjetUpdate').val(response.nomProjet);
-      if(response.refBRP != null) $('.refBRP').val(response.refBRP);
-      if(response.typeMarche != null) $("input[value='" + response.typeMarche + "']").prop("checked",true);
-      if(response.typeConstruction != null) $("input[value='" + response.typeConstruction + "']").prop("checked",true);
-      if(response.typeLot != null) $("input[value='" + response.typeLot + "']").prop("checked",true);
-      if(response.site != null) $("input[value='" + response.site + "']").prop("checked",true);
-      if(response.anneeRef != null) $('.datePrixref').val(response.anneeRef);
-      if(response.coeffAdapt != null) $('.coeffAdapt').val(response.coeffAdapt);
-      if(response.localisationCoeffRaccordement != null) $('#coeffRaccordement').val(response.localisationCoeffRaccordement + "-" + response.valeurCoeffRaccordement);
+      $("#nomProjet").children(":first").html(response.nomProjet);
+      $(".nomProjetUpdate").val(response.nomProjet);
+      if (response.refBRP != null) $(".refBRP").val(response.refBRP);
+      if (response.typeMarche != null)
+        $("input[value='" + response.typeMarche + "']").prop("checked", true);
+      if (response.typeConstruction != null)
+        $("input[value='" + response.typeConstruction + "']").prop(
+          "checked",
+          true
+        );
+      if (response.typeLot != null)
+        $("input[value='" + response.typeLot + "']").prop("checked", true);
+      if (response.site != null)
+        $("input[value='" + response.site + "']").prop("checked", true);
+      if (response.anneeRef != null) $(".datePrixref").val(response.anneeRef);
+      if (response.coeffAdapt != null)
+        $(".coeffAdapt").val(response.coeffAdapt);
+      if (response.localisationCoeffRaccordement != null)
+        $("#coeffRaccordement").val(
+          response.localisationCoeffRaccordement +
+            "-" +
+            response.valeurCoeffRaccordement
+        );
 
       //Ajout de l'hover sur toutes les barres d'insertions titre
       addEventsDescriptifs();
@@ -345,33 +399,33 @@ function ouvrirProjet(idProjet) {
   });
 }
 
-function modifierInfosProjet(){
+function modifierInfosProjet() {
+  //on va chercher les infos du projet
+  var idProjet = $("#idProjetActuel").val();
+  var nomProjet = $(".nomProjetUpdate").val();
+  var refBRP = $(".refBRP").val();
+  var typeMarche = $('input[name="typeMarche"]:checked').val();
+  var typeConstruction = $('input[name="typeConstruction"]:checked').val();
+  var typeLot = $('input[name="typeLot"]:checked').val();
+  var typeSite = $('input[name="typeSite"]:checked').val();
+  var datePrixref = $(".datePrixref").val();
+  var coeffAdapt = $(".coeffAdapt").val();
+  var idCoeffRaccordement = $("#coeffRaccordement").val();
+  var idCategorieConstruction = $("#categorieConstruction").val();
+  var idSousCategorieConstruction = $("#sousCategorieConstruction").val();
+  var idCaractDim = $("#caractDim").val();
 
-    //on va chercher les infos du projet
-    var idProjet = $('#idProjetActuel').val();
-    var nomProjet = $('.nomProjetUpdate').val();
-    var refBRP = $('.refBRP').val();
-    var typeMarche = $('input[name="typeMarche"]:checked').val();
-    var typeConstruction = $('input[name="typeConstruction"]:checked').val();
-    var typeLot = $('input[name="typeLot"]:checked').val();
-    var typeSite = $('input[name="typeSite"]:checked').val();
-    var datePrixref = $('.datePrixref').val();
-    var coeffAdapt = $('.coeffAdapt').val();
-    var idCoeffRaccordement = $('#coeffRaccordement').val();
-    var idCategorieConstruction = $('#categorieConstruction').val(); 
-    var idSousCategorieConstruction = $('#sousCategorieConstruction').val(); 
-    var idCaractDim = $('#caractDim').val();  
+  //on formate les données
+  if (typeof typeMarche === "undefined") typeMarche = "";
+  if (typeof typeConstruction === "undefined") typeConstruction = "";
+  if (typeof typeLot === "undefined") typeLot = "";
+  if (typeof typeSite === "undefined") typeSite = "";
+  if (idCategorieConstruction == "") {
+    idSousCategorieConstruction = "";
+    idCaractDim = "";
+  }
 
-    //on formate les données
-    if (typeof typeMarche === "undefined") typeMarche = "";
-    if (typeof typeConstruction === "undefined") typeConstruction = ""; 
-    if (typeof typeLot === "undefined") typeLot = ""; 
-    if (typeof typeSite === "undefined") typeSite = ""; 
-    if (idCategorieConstruction == "") {
-        idSousCategorieConstruction = "";
-        idCaractDim = "";
-    }
-
+<<<<<<< HEAD
     //on envoie à l'ajax
     $.ajax({
       url: "./ActionServlet",
@@ -397,14 +451,41 @@ function modifierInfosProjet(){
         .done(function (response) {
           // Fonction appelée en cas d'appel AJAX réussi
           //console.log("Response", response);
+=======
+  //on envoie à l'ajax
+  $.ajax({
+    url: "./ActionServlet",
+    method: "POST",
+    data: {
+      todo: "editerInfosProjet",
+      idProjet: idProjet,
+      nomProjet: nomProjet,
+      refBRP: refBRP,
+      typeMarche: typeMarche,
+      typeConstruction: typeConstruction,
+      typeLot: typeLot,
+      typeSite: typeSite,
+      datePrixref: datePrixref,
+      coeffAdapt: coeffAdapt,
+      idCoeffRaccordement: idCoeffRaccordement,
+      idCategorieConstruction: idCategorieConstruction,
+      idSousCategorieConstruction: idSousCategorieConstruction,
+      idCaractDim: idCaractDim,
+    },
+    dataType: "json",
+  }).done(function (response) {
+    // Fonction appelée en cas d'appel AJAX réussi
+    console.log("Response", response);
+>>>>>>> 63f3ace1ca290bc125abdb7cdd5ae73d711d49cc
 
-          if (response) {
-            if (response['Error']) {
-              alert("Une erreur est survenue lors de la sauvegarde des informations du projet (informations de la colonne de gauche)");
-            }
-          }
-          
-    });
+    if (response) {
+      if (response["Error"]) {
+        alert(
+          "Une erreur est survenue lors de la sauvegarde des informations du projet (informations de la colonne de gauche)"
+        );
+      }
+    }
+  });
 }
 
 function unset_select_descriptif() {
@@ -494,25 +575,39 @@ function show_catConstruction() {
     $(".lineSousCatConstruction").css("display", "flex");
     $(".lineCaractDim").css("display", "flex");
     //On va chercher les sousCategorieConstruction et CaractDim en lien avec la CatConstruction sélectionnée
-    var idCategorieConstruction = $("#categorieConstruction").find('option:selected').attr("name");
+    var idCategorieConstruction = $("#categorieConstruction")
+      .find("option:selected")
+      .attr("name");
     $.ajax({
       url: "./ActionServlet",
       method: "GET",
       data: {
         todo: "listerSousCatConstCaractDim",
-        idCategorieConstruction: idCategorieConstruction
+        idCategorieConstruction: idCategorieConstruction,
       },
       dataType: "json",
     }).done(function (response) {
       // Fonction appelée en cas d'appel AJAX réussi
+<<<<<<< HEAD
       // console.log("Response", response);
       if(!response.ErrorState) {
         $.each(response.listeSousCategorieConstruction, function (i, sousCategorieConstruction) {
           $('#sousCategorieConstruction').append($('<option>', { 
+=======
+      console.log("Response", response);
+      if (!response.ErrorState) {
+        $.each(response.listeSousCategorieConstruction, function (
+          i,
+          sousCategorieConstruction
+        ) {
+          $("#sousCategorieConstruction").append(
+            $("<option>", {
+>>>>>>> 63f3ace1ca290bc125abdb7cdd5ae73d711d49cc
               value: i,
-              text : sousCategorieConstruction.intitule,
-              name: sousCategorieConstruction.code
-          }));
+              text: sousCategorieConstruction.intitule,
+              name: sousCategorieConstruction.code,
+            })
+          );
         });
         /*$.each(response.listeCaractDim, function (i, caractDim) { //! Régler Caract Dim plus tard
           $('#sousCategorieConstruction').append($('<option>', { 
@@ -625,8 +720,11 @@ function display_manage_project() {
 function GenererLivrable() {
   //! Feature à rajouter : demander l'uri et l'enregistrer dans le XML de chaque projet
   //! Feature à rajouter : demander le choix de template
-  var idProjet = $('#idProjetActuel').val();
-  var uriExport = "../../../../code/BRP_front_end/src/main/webapp/XMLfiles/" + idProjet + ".xml";
+  var idProjet = $("#idProjetActuel").val();
+  var uriXML =
+    "../../../../../../../../Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/webapp/XMLfiles/" +
+    idProjet +
+    ".xml"; //Fonctionne sur l'installation de Louis
   var choixTemplate = 1;
 
   $.ajax({
@@ -636,17 +734,24 @@ function GenererLivrable() {
       todo: "genererLivrable",
       idProjet: idProjet,
       choixTemplate: choixTemplate,
-      uriExport: uriExport
+      uriXML: uriXML,
     },
     dataType: "json",
   }).done(function (response) {
     // Fonction appelée en cas d'appel AJAX réussi
+<<<<<<< HEAD
     // console.log("Response", response);
     if(!response.ErrorState) {
+=======
+    console.log("Response", response);
+    if (!response.ErrorState) {
+>>>>>>> 63f3ace1ca290bc125abdb7cdd5ae73d711d49cc
       //Si l'export à réussi on prévient l'opérateur
+      alert("La génération du livrable a réussie");
     } else {
       //On previent l'opérateur que l'export a échoué
-    } 
+      alert("Erreur lors de la génération du livrable");
+    }
   });
 }
 
@@ -665,17 +770,25 @@ function addEventsDescriptifs() {
   });
 }
 
+<<<<<<< HEAD
+=======
+function AjoutEventSupprLigneChiffrage() {
+  $(".descriptif > .ligneChiffrage").first().children().last().html("");
+  $(".suppressionLigneChiffrage").click(function () {
+    $(this).parent().remove();
+  });
+}
+
+//Propose d'insérer le futur titre ou descptif selon les styles (titre1, titre2, ...) possibles
+>>>>>>> 63f3ace1ca290bc125abdb7cdd5ae73d711d49cc
 function AjouterElement(element) {
   //Si un descriptif a été sélectionné alors on l'insère directement dans l'arborescence
   if ($(".selectDescriptif").length) {
     //On n'autorise pas un descriptif à se mettre avant un titre1
     if (
-      $(element)
-        .next()
-        .children(":first")
-        .children(":first")
-        .html() != "I."
+      $(element).next().children(":first").children(":first").html() != "I."
     ) {
+<<<<<<< HEAD
       //On créer le div du descriptif avec le style correspondant à sa place dans l'arbo
       var divInsertionDescriptif = document.createElement("div");
 
@@ -714,56 +827,98 @@ function AjouterElement(element) {
           //Récupérer la description (et l'unité si pas générique)
           if(response.typeDescriptif !== "Generique") {
             unite = response.unite;
-          }
-          descriptionDescriptif = response.descriptionDescriptif;
-          nomDescriptif = response.nomDescriptif;
-
-          if (!$(".selectDescriptif").hasClass("generique")) {
-
-            $(divInsertionDescriptif).html("<input type='hidden' id='idXML' value='_0'/><input type='hidden' class='idDescriptif' value='"+ idDescriptif +"'/><div class='input-group'><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control nomDescriptif' placeholder='Ouvrage/Prestation' value='" + nomDescriptif + "'/><div class='deleteXML'><i class=\"fas fa-times-circle\"></i></div></div><div class='input-group description'><textarea class='form-control' placeholder='Description' value='" + descriptionDescriptif + "'></textarea></div><div class='ligneChiffrage'><input type='hidden' id='idLigneChiffrage' value='1'/><input type='text' class='form-control localisation' placeholder='Localisation'/><input type='text' class='form-control quantite' placeholder='Quantité' value='1.0'/><div class='input-group-prepend'><span class='input-group-text unite'>" + unite + "</span></div><div style='width: 25px;'></div></div>");
-            //! Rajouter la description stylisée en AJAX
-    
-            $(divInsertionDescriptif).insertBefore($(element));
-    
-            //On insère une barre d'insertion au dessus du nouveau descriptif
-            var divBarreInsertion = document.createElement("div");
-            $(divBarreInsertion).html("<div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div>");
-            $(divBarreInsertion).insertBefore($(divInsertionDescriptif));
-    
-            //On ajoute une barre d'insertion ligneChiffrage à la fin de l'ouvrage/prestation
-            //var divBarreInsertionLigneChiffrage = document.createElement("div");
-            divBarreInsertionLigneChiffrage = $("<div class='barreInsertionLigneChiffrage' onclick='AjouterLigneChiffrage(this);'><div class='panBarreInsertionLigneChiffrage'></div><div class='panBarreInsertionLigneChiffrage'></div></div>");
-            $(divInsertionDescriptif).append($(divBarreInsertionLigneChiffrage));
-    
-            //Appel de la fonction de numérotation de l'arborescence
-            var idLot = $(divInsertionDescriptif).parent().attr("id");
-            NumerotationArbo(idLot);
+=======
+      var styleDescriptif = null; //On cherche le style qui est juste au dessus de l'endroit où on veut insérer : on propose ensuite tous les choix du style en question juqu'à titre1
+      var prev = $(element).prev();
+      while (styleDescriptif == null) {
+        if (prev.hasClass("titre1")) {
+          styleDescriptif = "titre1";
+        } else if (prev.hasClass("titre2")) {
+          //Si le descriptif est un générique ou un ouvrage, on empêche de pouvoir le mettre sous un autre descriptif
+          if (
+            $(".selectDescriptif").first().hasClass("ouvrage") ||
+            $(".selectDescriptif").first().hasClass("generique")
+          ) {
+            if (prev.hasClass("descriptif")) styleDescriptif = "titre1";
+            else styleDescriptif = "titre2";
           } else {
-            //On insère le générique
-            $(divInsertionDescriptif).html("<input type='hidden' id='idXML' value='_0'/><input type='hidden' class='idDescriptif' value='"+ idDescriptif +"'/><div class='input-group'><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control nomDescriptif' placeholder='Générique' value='" + nomDescriptif + "'/><div class='deleteXML'><i class=\"fas fa-times-circle\"></i></div></div><div class='input-group description'><textarea class='form-control' placeholder='Description' value='" + descriptionDescriptif + "'></textarea></div>");
-            $(divInsertionDescriptif).insertBefore($(element));
-            //! Rajouter la description stylisée en AJAX
-    
-            //On insère une barre d'insertion au dessus du nouveau descriptif
-            var divBarreInsertion = document.createElement("div");
-            $(divBarreInsertion).html("<div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div>");
-            $(divBarreInsertion).insertBefore($(divInsertionDescriptif));
-    
-            //Ajout de l'hover sur toutes les barres d'insertions titre
-            addEventsDescriptifs();
-    
-            //Appel de la fonction de numérotation de l'arborescence
-            var idLot = $(divInsertionDescriptif).parent().attr("id");
-            NumerotationArbo(idLot);
+            if (
+              prev.hasClass("descriptif") &&
+              !prev.children().eq(2).val() == "ouvrage"
+            )
+              styleDescriptif = "titre1";
+            else styleDescriptif = "titre2";
+>>>>>>> 63f3ace1ca290bc125abdb7cdd5ae73d711d49cc
           }
-
-          //on attache l'evt pour modifier le xml
-          attacheEventModifXML();
-
-          //on actualise le xml
-          modifierXML(divInsertionDescriptif);
+        } else if (prev.hasClass("titre3")) {
+          //Si le descriptif est un générique ou un ouvrage, on empêche de pouvoir le mettre sous un autre descriptif
+          if (
+            $(".selectDescriptif").first().hasClass("ouvrage") ||
+            $(".selectDescriptif").first().hasClass("generique")
+          ) {
+            if (prev.hasClass("descriptif")) styleDescriptif = "titre2";
+            else styleDescriptif = "titre3";
+          } else {
+            if (
+              prev.hasClass("descriptif") &&
+              !prev.children().eq(2).val() == "ouvrage"
+            )
+              styleDescriptif = "titre2";
+            else styleDescriptif = "titre3";
+          }
+        } else if (prev.hasClass("titre4")) {
+          //Si le descriptif est un générique ou un ouvrage, on empêche de pouvoir le mettre sous un autre descriptif
+          if (
+            $(".selectDescriptif").first().hasClass("ouvrage") ||
+            $(".selectDescriptif").first().hasClass("generique")
+          ) {
+            if (prev.hasClass("descriptif")) styleDescriptif = "titre3";
+            else styleDescriptif = "titre4";
+          } else {
+            if (
+              prev.hasClass("descriptif") &&
+              !prev.children().eq(2).val() == "ouvrage"
+            )
+              styleDescriptif = "titre3";
+            else styleDescriptif = "titre4";
+          }
         }
+        prev = $(prev).prev();
+      }
+
+      //On affiche un panneau demandant la position à laquelle l'utilisateur veut afficher le descriptif parmis les choix possibles
+      var divInsertionStyleDescriptif = document.createElement("div");
+      divInsertionStyleDescriptif.className = "divInsertionStyleDescriptif";
+
+      if (styleDescriptif == "titre1") {
+        var sousDivInsertionStyleDescriptif = $(
+          "<div class='sousDivInsertionStyleDescriptif'>Titre 2</div>"
+        );
+        $(divInsertionStyleDescriptif).append(sousDivInsertionStyleDescriptif);
+      } else if (styleDescriptif == "titre2") {
+        var sousDivInsertionStyleDescriptif = $(
+          "<div class='sousDivInsertionStyleDescriptif'>Titre 2</div><div class='sousDivInsertionStyleDescriptif'>Titre 3</div>"
+        );
+        $(divInsertionStyleDescriptif).append(sousDivInsertionStyleDescriptif);
+      } else if (styleDescriptif == "titre3") {
+        var sousDivInsertionStyleDescriptif = $(
+          "<div class='sousDivInsertionStyleDescriptif'>Titre 2</div><div class='sousDivInsertionStyleDescriptif'>Titre 3</div><div class='sousDivInsertionStyleDescriptif'>Titre 4</div>"
+        );
+        $(divInsertionStyleDescriptif).append(sousDivInsertionStyleDescriptif);
+      } else if (styleDescriptif == "titre4") {
+        var sousDivInsertionStyleDescriptif = $(
+          "<div class='sousDivInsertionStyleDescriptif'>Titre 2</div><div class='sousDivInsertionStyleDescriptif'>Titre 3</div><div class='sousDivInsertionStyleDescriptif'>Titre 4</div>"
+        );
+        $(divInsertionStyleDescriptif).append(sousDivInsertionStyleDescriptif);
+      }
+
+      $(divInsertionStyleDescriptif).insertBefore($(element));
+
+      $(".sousDivInsertionStyleDescriptif").click(function () {
+        AjouterDescriptif(this);
       });
+
+      testChoixPresent = true;
     }
   } else {
     //Sinon on propose d'insérer un titre du même niveau d'arboresence que le titre d'au-dessus ou de celui d'en-dessous sous réserve d'existence
@@ -777,11 +932,14 @@ function AjouterElement(element) {
       if (prev.hasClass("titre1")) {
         type1 = "titre1";
       } else if (prev.hasClass("titre2")) {
-        type1 = "titre2";
+        if (prev.hasClass("descriptif")) type1 = "titre1";
+        else type1 = "titre2";
       } else if (prev.hasClass("titre3")) {
-        type1 = "titre3";
+        if (prev.hasClass("descriptif")) type1 = "titre2";
+        else type1 = "titre3";
       } else if (prev.hasClass("titre4")) {
-        type1 = "titre4";
+        if (prev.hasClass("descriptif")) type1 = "titre3";
+        else type1 = "titre4";
       }
     }
     if (next !== null && next.attr("class") !== "finLot") {
@@ -800,7 +958,7 @@ function AjouterElement(element) {
     //Ou quand il n'y a rien en dessous pour proposer un titre plus bas dans l'arbo
     if (type1 == type2) type2 = null;
     else if (type1 == "titre1" && type2 == null) type2 = "titre2";
-    else if (type1 == "titre2" && type2 == null) { 
+    else if (type1 == "titre2" && type2 == null) {
       type2 = "titre3";
       type3 = "titre1";
     } else if (type1 == "titre3" && type2 == null) {
@@ -913,11 +1071,19 @@ function SuppressionChoixInsertionTitre() {
 function AjouterTitre(evt) {
   var titleClassName = evt.innerHTML.replace(" ", "").toLowerCase();
   //On ajoute le titre avec le bon style
-  var divNewTitle = $("<div class='input-group " + titleClassName + "'><input type='hidden' id='idXML' value='_0'/><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control' placeholder='" + evt.innerHTML + "'/><div class='deleteXML'><i class=\"fas fa-times-circle\"></i></div></div>");
+  var divNewTitle = $(
+    "<div class='input-group " +
+      titleClassName +
+      "'><input type='hidden' id='idXML' value='_0'/><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control' placeholder='" +
+      evt.innerHTML +
+      "'/><div class='deleteXML'><i class=\"fas fa-times-circle\"></i></div></div>"
+  );
   $(divNewTitle).insertBefore($(evt).parent());
 
   //On insère une barre d'insertion au-dessus du nouveau titre
-  $("<div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div>").insertBefore($(divNewTitle));
+  $(
+    "<div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div>"
+  ).insertBefore($(divNewTitle));
 
   //Ajout de l'hover sur toutes les barres d'insertions titre
   addEventsDescriptifs();
@@ -934,6 +1100,118 @@ function AjouterTitre(evt) {
 
   //on actualise le xml
   modifierXML(divNewTitle);
+}
+
+function AjouterDescriptif(element) {
+  //On créer le div du descriptif avec le style correspondant à sa place dans l'arbo
+  var divInsertionDescriptif = document.createElement("div");
+  divInsertionDescriptif.className =
+    "descriptif " + element.innerHTML.replace(" ", "").toLowerCase();
+
+  //Appel AJAX pour récupérer les infos du descriptif
+  var idDescriptif = $(".selectDescriptif").children(":first").val();
+  var unite, descriptionDescriptif, nomDescriptif, typeDescriptif;
+
+  $.ajax({
+    url: "./ActionServlet",
+    method: "GET",
+    data: {
+      todo: "recupererDescriptif",
+      idDescriptif: idDescriptif,
+    },
+    dataType: "json",
+  }).done(function (response) {
+    // Fonction appelée en cas d'appel AJAX réussi
+    console.log("Response", response);
+    if (!response.ErrorState) {
+      //Récupérer la description (et l'unité si pas générique)
+      if (response.typeDescriptif !== "Generique") {
+        unite = response.unite;
+      }
+      descriptionDescriptif = response.descriptionDescriptif;
+      nomDescriptif = response.nomDescriptif;
+      typeDescriptif = response.typeDescriptif;
+
+      if (!$(".selectDescriptif").hasClass("generique")) {
+        $(divInsertionDescriptif).html(
+          "<input type='hidden' id='idXML' value='_0'/><input type='hidden' class='idDescriptif' value='" +
+            idDescriptif +
+            "'/><input type='hidden' class='typeDescriptif' value='" +
+            typeDescriptif +
+            "'/><div class='input-group'><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control nomDescriptif' placeholder='Ouvrage/Prestation' value='" +
+            nomDescriptif +
+            "'/><div class='deleteXML'><i class=\"fas fa-times-circle\"></i></div></div><div class='input-group description'><textarea class='form-control' placeholder='Description' value='" +
+            descriptionDescriptif +
+            "'></textarea></div><div class='ligneChiffrage'><input type='hidden' id='idLigneChiffrage' value='1'/><input type='text' class='form-control localisation' placeholder='Localisation'/><input type='text' class='form-control quantite' placeholder='Quantité' value='1.0'/><div class='input-group-prepend'><span class='input-group-text unite'>" +
+            unite +
+            "</span></div><div style='width: 25px;'></div></div>"
+        );
+        //! Rajouter la description stylisée en AJAX
+
+        $(divInsertionDescriptif).insertBefore($(element).parent());
+
+        //On insère une barre d'insertion au dessus du nouveau descriptif
+        divBarreInsertion = $(
+          "<div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div>"
+        );
+        divBarreInsertion.insertBefore($(divInsertionDescriptif));
+
+        //On ajoute une barre d'insertion ligneChiffrage à la fin de l'ouvrage/prestation
+        //var divBarreInsertionLigneChiffrage = document.createElement("div");
+        divBarreInsertionLigneChiffrage = $(
+          "<div class='barreInsertionLigneChiffrage' onclick='AjouterLigneChiffrage(this);'><div class='panBarreInsertionLigneChiffrage'></div><div class='panBarreInsertionLigneChiffrage'></div></div>"
+        );
+        $(divInsertionDescriptif).append($(divBarreInsertionLigneChiffrage));
+
+        //On supprime le panneau de choix des styles de desciptif
+        $(".divInsertionStyleDescriptif").remove();
+
+        //Ajout de l'hover sur toutes les barres d'insertions titre
+        addEventsDescriptifs();
+
+        //Appel de la fonction de numérotation de l'arborescence
+        var idLot = $(divInsertionDescriptif).parent().attr("id");
+        NumerotationArbo(idLot);
+      } else {
+        //On insère le générique
+        $(divInsertionDescriptif).html(
+          "<input type='hidden' id='idXML' value='_0'/><input type='hidden' class='idDescriptif' value='" +
+            idDescriptif +
+            "'/><input type='hidden' class='typeDescriptif' value='" +
+            typeDescriptif +
+            "'/><div class='input-group'><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control nomDescriptif' placeholder='Générique' value='" +
+            nomDescriptif +
+            "'/><div class='deleteXML'><i class=\"fas fa-times-circle\"></i></div></div><div class='input-group description'><textarea class='form-control' placeholder='Description' value='" +
+            descriptionDescriptif +
+            "'></textarea></div>"
+        );
+        $(divInsertionDescriptif).insertBefore($(element).parent());
+        //! Rajouter la description stylisée en AJAX
+
+        //On insère une barre d'insertion au dessus du nouveau descriptif
+        divBarreInsertion = $(
+          "<div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div>"
+        );
+        divBarreInsertion.insertBefore($(divInsertionDescriptif));
+
+        //On supprime le panneau de choix des styles de desciptif
+        $(".divInsertionStyleDescriptif").remove();
+
+        //Ajout de l'hover sur toutes les barres d'insertions titre
+        addEventsDescriptifs();
+
+        //Appel de la fonction de numérotation de l'arborescence
+        var idLot = $(divInsertionDescriptif).parent().attr("id");
+        NumerotationArbo(idLot);
+      }
+
+      //on attache l'evt pour modifier le xml
+      attacheEventModifXML();
+
+      //on actualise le xml
+      modifierXML(divInsertionDescriptif);
+    }
+  });
 }
 
 function NumerotationArbo(idOnglet) {
@@ -1045,22 +1323,44 @@ function AfficherTitreLot(divTitreLotAfficher) {
 function CreerOnglet() {
   //Création du div contenant tout le lot (on l'affiche par défaut)
   var numOnglet = Number($("#ongletsLot").children().last().prev().html()) + 1;
-  if(isNaN(numOnglet)){
-    $('.presentationRight').hide();
+  if (isNaN(numOnglet)) {
+    $(".presentationRight").hide();
     numOnglet = 0;
   }
 
   var idOnglet = "lot_" + numOnglet;
 
+<<<<<<< HEAD
   var divNouvelOnglet = $("<div class='lot' id='" + idOnglet + "'><input type='hidden' id='idXML' value='_0'/><div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div><div class='input-group titre1'><input type='hidden' id='idXML' value='_0'/><div class='input-group-prepend'><span class='input-group-text'>I.</span></div><input type='text' class='form-control' placeholder='Titre 1'/></div><div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div><div class='finLot'></div></div>");
+=======
+  var divNouvelOnglet = $(
+    "<div class='lot' id='" +
+      idOnglet +
+      "'><input type='hidden' id='idXML' value='_0'/><div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div><div class='input-group titre1'><input type='hidden' id='idXML' value='_0'/><div class='input-group-prepend'><span class='input-group-text'>I.</span></div><input type='text' class='form-control' placeholder='Titre 1'/><div class='deleteXML'><i class=\"fas fa-times-circle\"></i></div></div><div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div><div class='finLot'></div></div>"
+  );
+>>>>>>> 63f3ace1ca290bc125abdb7cdd5ae73d711d49cc
   $(divNouvelOnglet).insertBefore($("#ongletsLot"));
 
   //Création de deux barres d'insertion d'un titre1 et d'une fin de lot dans ce nouvel onglet
-  var divBoutonOnglet = $("<div class='ongletLot' onclick='AfficherOnglet($(\"#" + idOnglet + "\"));'>"+ numOnglet + "</div>");
+  var divBoutonOnglet = $(
+    "<div class='ongletLot' onclick='AfficherOnglet($(\"#" +
+      idOnglet +
+      "\"));'>" +
+      numOnglet +
+      "</div>"
+  );
   $(divBoutonOnglet).insertBefore($(".ongletLot").last());
 
   //Création d'un nouveau input de titre lot
+<<<<<<< HEAD
   $("<div class='divTitreLot' id='divTitreLot_" + numOnglet + "'><input type='text' class='titreLot' placeholder='Titre Lot' /><div class='deleteXMLlot'><i class=\"fas fa-times-circle\"></i></div></div>").insertBefore($(".lot").first());
+=======
+  $(
+    "<div class='divTitreLot' id='divTitreLot_" +
+      numOnglet +
+      "'><input type='text' class='titreLot' placeholder='Titre Lot' /></div>"
+  ).insertBefore($(".lot").first());
+>>>>>>> 63f3ace1ca290bc125abdb7cdd5ae73d711d49cc
 
   //Ajout de l'hover sur toutes les barres d'insertions titre
   addEventsDescriptifs();
@@ -1128,7 +1428,11 @@ function toRoman(num) {
 function AjouterLigneChiffrage(element) {
   //Création d'une nouvelle ligneChiffrage au dessus de la barre d'insertion ligneChiffrage
   var unite = $(element).prev().children(":eq(3)").children(":first").html(); //On va chercher l'unité dans la ligneChiffrage d'au dessus
-  var divBarreInsertionLigneChiffrage = $("<div class='ligneChiffrage'><input type='hidden' id='idLigneChiffrage' value='0'/><input type='text' class='form-control localisation' placeholder='Localisation'/><input type='text' class='form-control quantite' placeholder='Quantité' value='1.0'/><div class='input-group-prepend'><span class='input-group-text unite'>" + unite + "</span></div><div class='suppressionLigneChiffrage'><i class='fas fa-times-circle'</div>");
+  var divBarreInsertionLigneChiffrage = $(
+    "<div class='ligneChiffrage'><input type='hidden' id='idLigneChiffrage' value='0'/><input type='text' class='form-control localisation' placeholder='Localisation'/><input type='text' class='form-control quantite' placeholder='Quantité' value='1.0'/><div class='input-group-prepend'><span class='input-group-text unite'>" +
+      unite +
+      "</span></div><div class='suppressionLigneChiffrage'><i class='fas fa-times-circle'</div>"
+  );
 
   $(divBarreInsertionLigneChiffrage).insertBefore($(element));
 
@@ -1140,53 +1444,48 @@ function AjouterLigneChiffrage(element) {
 }
 
 enCours = false;
-function modifierXML(element){
-
-  if (typeof(element) != "undefined" && enCours == false) {
-
+function modifierXML(element) {
+  if (typeof element != "undefined" && enCours == false) {
     enCours = true;
+<<<<<<< HEAD
     // console.log("debut "+jQuery.now());
     
+=======
+    console.log("debut " + jQuery.now());
+
+>>>>>>> 63f3ace1ca290bc125abdb7cdd5ae73d711d49cc
     //on détermine l'idProjet
     var idProjet = $("#idProjetActuel").val();
     classElement = $(element).attr("class");
 
-    //si ce n'est pas une ligne chiffrage, on détermine sa position 
+    //si ce n'est pas une ligne chiffrage, on détermine sa position
     //et le parent/consecutif associé
     var idRefPlacement = null;
     var placement = null;
     var rangElement = null;
     var rangNextElement = null;
     var titreType = null;
-    if (!classElement.includes("ligneChiffrage") && !classElement.includes("divTitreLot")) {
-
+    if (
+      !classElement.includes("ligneChiffrage") &&
+      !classElement.includes("divTitreLot")
+    ) {
       //on détermine le rang de l'élément
-      if (classElement.includes("titre1")) 
-        rangElement = 1;
-      if (classElement.includes("titre2")) 
-        rangElement = 2;
-      if (classElement.includes("titre3")) 
-        rangElement = 3;
-      if (classElement.includes("titre4")) 
-        rangElement = 4;
-      if (classElement.includes("titre5")) 
-        rangElement = 5;
+      if (classElement.includes("titre1")) rangElement = 1;
+      if (classElement.includes("titre2")) rangElement = 2;
+      if (classElement.includes("titre3")) rangElement = 3;
+      if (classElement.includes("titre4")) rangElement = 4;
+      if (classElement.includes("titre5")) rangElement = 5;
 
-      titreType = 'titre'+rangElement;
+      titreType = "titre" + rangElement;
 
       //on va chercher la class de l'élément suivant:
       var classNextElement = $(element).next().next().attr("class");
 
-      if (classNextElement.includes("titre1")) 
-        rangNextElement = 1;
-      if (classNextElement.includes("titre2")) 
-        rangNextElement = 2;
-      if (classNextElement.includes("titre3")) 
-        rangNextElement = 3;
-      if (classNextElement.includes("titre4")) 
-        rangNextElement = 4;
-      if (classNextElement.includes("titre5")) 
-        rangNextElement = 5;
+      if (classNextElement.includes("titre1")) rangNextElement = 1;
+      if (classNextElement.includes("titre2")) rangNextElement = 2;
+      if (classNextElement.includes("titre3")) rangNextElement = 3;
+      if (classNextElement.includes("titre4")) rangNextElement = 4;
+      if (classNextElement.includes("titre5")) rangNextElement = 5;
 
       if (rangElement > rangNextElement || rangNextElement == null) {
         placement = "APPEND";
@@ -1196,30 +1495,31 @@ function modifierXML(element){
           idRefPlacement = $(element).parent().children("#idXML").val();
         }
         //sinon c'est le dernier titre de rang n-1
-        else{
-          idRefPlacement = $(element).prevAll('.titre'+(rangElement-1)).first().children("#idXML").val();
+        else {
+          idRefPlacement = $(element)
+            .prevAll(".titre" + (rangElement - 1))
+            .first()
+            .children("#idXML")
+            .val();
         }
-      }
-      else{
+      } else {
         placement = "BEFORE";
         //on va chercher l'id de l'élément d'après
         idRefPlacement = $(element).next().next().children("#idXML").val();
       }
-      
-    }
-    else if(classElement.includes("ligneChiffrage")){
+    } else if (classElement.includes("ligneChiffrage")) {
       //c'est une ligneChiffrage, on va chercher l'ID du parent
       idRefPlacement = $(element).parent().children("#idXML").val();
-    }
-    else{
-      titreType = 'lot';
+    } else {
+      titreType = "lot";
       //il y'a un element après
-      if($(element).next().attr("class").includes("divTitreLot")){
+      if ($(element).next().attr("class").includes("divTitreLot")) {
         placement = "BEFORE";
         var idNext = $(element).next().attr("id").substr(12);
-        idRefPlacement = $("#lot_"+idNext).children("#idXML").val();
-      }
-      else{
+        idRefPlacement = $("#lot_" + idNext)
+          .children("#idXML")
+          .val();
+      } else {
         placement = "APPEND";
         idRefPlacement = "_0";
       }
@@ -1227,54 +1527,62 @@ function modifierXML(element){
 
     //on détermine l'objet que l'on traite et on obtient ses informations
     var data = Array();
-    if (classElement.includes("descriptif")){
+    if (classElement.includes("descriptif")) {
       data = {
         todo: "modifierXML",
-        idProjet:idProjet,
+        idProjet: idProjet,
         type: "descriptif",
-        id: $(element).children('#idXML').val(),
+        id: $(element).children("#idXML").val(),
         idRefPlacement: idRefPlacement,
-        placement: placement, 
-        idDescriptif: $(element).children('.idDescriptif').val(),
-        nomDescriptif: $(element).find('.nomDescriptif').val(),
-        description: $(element).find('textarea').val()
+        placement: placement,
+        idDescriptif: $(element).children(".idDescriptif").val(),
+        nomDescriptif: $(element).find(".nomDescriptif").val(),
+        description: $(element).find("textarea").val(),
       };
     }
     // idDescriptif: $(element).children('.idDescriptif').val(),
+<<<<<<< HEAD
     else if(classElement.includes("ligneChiffrage")){
       var quantite = $(element).find(".quantite").val();
       if (quantite == "") {
         quantite = "1.0";
         $(element).find(".quantite").val("1.0");
       }
+=======
+    else if (classElement.includes("ligneChiffrage")) {
+>>>>>>> 63f3ace1ca290bc125abdb7cdd5ae73d711d49cc
       data = {
         todo: "modifierXML",
-        idProjet:idProjet,
+        idProjet: idProjet,
         type: "ligneChiffrage",
-        id: $(element).children('#idLigneChiffrage').val(),
+        id: $(element).children("#idLigneChiffrage").val(),
         idRefPlacement: idRefPlacement,
-        placement: "", 
+        placement: "",
         localisation: $(element).find(".localisation").val(),
+<<<<<<< HEAD
         quantite: quantite
+=======
+        quantite: $(element).find(".quantite").val(),
+>>>>>>> 63f3ace1ca290bc125abdb7cdd5ae73d711d49cc
       };
-    }
-    else{
-      if(titreType == "lot"){
+    } else {
+      if (titreType == "lot") {
         var idDiv = $(element).attr("id").substr(12);
-        var id = $("#lot_"+idDiv).children("#idXML").val();
-      }
-      else{
-        var id = $(element).children('#idXML').val();
+        var id = $("#lot_" + idDiv)
+          .children("#idXML")
+          .val();
+      } else {
+        var id = $(element).children("#idXML").val();
       }
       data = {
         todo: "modifierXML",
-        idProjet:idProjet,
-        titreType:titreType,
+        idProjet: idProjet,
+        titreType: titreType,
         type: "titre",
         id: id,
         idRefPlacement: idRefPlacement,
         placement: placement,
-        intitule: $(element).children('input').last().val()
+        intitule: $(element).children("input").last().val(),
       };
     }
 
@@ -1289,33 +1597,46 @@ function modifierXML(element){
     }).done(function (response) {
       // Fonction appelée en cas d'appel AJAX réussi
       //console.log("Response", response);
-      if(response.Error){
-        alert("Un problème est survenu lors de la sauvegarde des données du projet. Rafraichir la page peut vous aider à l'identifier");
-      }
-      else{
-        if (response['idInsere'] != "" && response['idInsere'] != null) {
+      if (response.Error) {
+        alert(
+          "Un problème est survenu lors de la sauvegarde des données du projet. Rafraichir la page peut vous aider à l'identifier"
+        );
+      } else {
+        if (response["idInsere"] != "" && response["idInsere"] != null) {
           if (titreType == "lot") {
-            $("#lot_"+$(element).attr("id").substr(12)).children("#idXML").val(response['idInsere']);
-          }
-          else{
+            $("#lot_" + $(element).attr("id").substr(12))
+              .children("#idXML")
+              .val(response["idInsere"]);
+          } else {
             // si c'est un id de ligne chiffrage, il ne s'incremente pas tout seul
-            if (response['idInsere'] == "_0")
-              $(element).children("#idLigneChiffrage").val($(element).parent().children('.ligneChiffrage').length);
-            else
-              $(element).children("#idXML").val(response['idInsere']);
+            if (response["idInsere"] == "_0")
+              $(element)
+                .children("#idLigneChiffrage")
+                .val($(element).parent().children(".ligneChiffrage").length);
+            else $(element).children("#idXML").val(response["idInsere"]);
           }
         }
       }
 
       enCours = false;
+<<<<<<< HEAD
       //console.log("Fin "+jQuery.now());
+=======
+      console.log("Fin " + jQuery.now());
+>>>>>>> 63f3ace1ca290bc125abdb7cdd5ae73d711d49cc
     });
-  }
-  else if(typeof(element) != "undefined" && enCours == true && $(element).attr("class").includes("titre1")){
-    setTimeout(function(){ modifierXML(element); }, 30);
+  } else if (
+    typeof element != "undefined" &&
+    enCours == true &&
+    $(element).attr("class").includes("titre1")
+  ) {
+    setTimeout(function () {
+      modifierXML(element);
+    }, 30);
   }
 }
 
+<<<<<<< HEAD
 supprimerXMLEnCours = false;
 function supprimerXML(croix, type){
 
@@ -1415,25 +1736,28 @@ function supprimerXML(croix, type){
 function attacheEventModifXML(){
 
   $('.titre1').change(function(){
+=======
+function attacheEventModifXML() {
+  $(".titre1").change(function () {
+>>>>>>> 63f3ace1ca290bc125abdb7cdd5ae73d711d49cc
     modifierXML(this);
   });
-  $('.titre2').change(function(){
+  $(".titre2").change(function () {
     modifierXML(this);
   });
-  $('.titre3').change(function(){
+  $(".titre3").change(function () {
     modifierXML(this);
   });
-  $('.titre4').change(function(){
+  $(".titre4").change(function () {
     modifierXML(this);
   });
-  $('.titre5').change(function(){
+  $(".titre5").change(function () {
     modifierXML(this);
   });
-  $('.ligneChiffrage').change(function(){
-
+  $(".ligneChiffrage").change(function () {
     modifierXML(this);
   });
-  $('.divTitreLot').change(function(){
+  $(".divTitreLot").change(function () {
     modifierXML(this);
   });
   $('.deleteXML').click(function(){
@@ -1446,32 +1770,3 @@ function attacheEventModifXML(){
     supprimerXML(this, "ligneChiffrage");
   });
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

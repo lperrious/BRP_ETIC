@@ -15,14 +15,14 @@ public class GenererLivrableAction extends Action {
         //Récupération des paramètres de le requête
         Long idProjet = Long.parseLong(request.getParameter("idProjet"));
         int choixTemplate = Integer.parseInt(request.getParameter("choixTemplate"));
-        String uriExport = request.getParameter("uriExport");
+        String uriXML = request.getParameter("uriXML");
         
         ExportService exportService = new ExportService();
         
         //Appel du service d'export
         Boolean resultat = null;
         try {
-            resultat = exportService.ExporterProjet(idProjet, choixTemplate, uriExport);
+            resultat = exportService.ExporterProjet(idProjet, choixTemplate, uriXML);
         } catch (Exception ex) {
             request.setAttribute("ErrorState", true);
         }

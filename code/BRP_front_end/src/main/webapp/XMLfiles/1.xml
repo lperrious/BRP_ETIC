@@ -1,22 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE projet SYSTEM "reglesProjet.dtd">
 <projet idProjet="1">
-    <nextId>4</nextId>
-    <lot id="_1" intitule="">
-        <titre1 id="_2" intitule="">
-            <descriptif id="_3" idBD="04_ETA_03_01_001" type="ouvrage">
-                <nomDescriptif>Membrane d’étanchéité TPO</nomDescriptif>
-                <description>
-                    <p/>
-                </description>
-                <courteDescription/>
-                <unite>m2</unite>
-                <ligneChiffrage idLigneChiffrage="1">
-                    <localisation/>
-                    <quantite>1.0</quantite>
-                    <prixUnitaire>17.0</prixUnitaire>
-                </ligneChiffrage>
-            </descriptif>
-        </titre1>
-    </lot>
+    <nextId>1</nextId>
+    
 </projet>
