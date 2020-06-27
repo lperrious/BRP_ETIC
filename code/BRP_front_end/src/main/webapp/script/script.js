@@ -728,11 +728,11 @@ function AjouterElement(element) {
   //Si un descriptif a été sélectionné alors on l'insère directement dans l'arborescence
   if ($(".selectDescriptif").length || $(".selectDescriptifXML").length) {
     deplacementDescriptif = true;
-    
+
     var descriptifClass = null;
     if ($(".selectDescriptif").length) {
       descriptifClass = ".selectDescriptif";
-    }else{
+    } else {
       descriptifClass = ".selectDescriptifXML";
     }
     //On n'autorise pas un descriptif à se mettre avant un titre1
@@ -830,8 +830,7 @@ function AjouterElement(element) {
 
       testChoixPresent = true;
     }
-  }
-  else {
+  } else {
     //Sinon on propose d'insérer un titre du même niveau d'arboresence que le titre d'au-dessus ou de celui d'en-dessous sous réserve d'existence
     var type1 = null;
     var type2 = null;
@@ -867,8 +866,8 @@ function AjouterElement(element) {
 
     //Permet de gérer les cas ou on va proposer deux fois le même type de titre
     //Ou quand il n'y a rien en dessous pour proposer un titre plus bas dans l'arbo
-    if (type1 == type2) type2 = null;
-    else if (type1 == "titre1" && type2 == null) type2 = "titre2";
+    /*if (type1 == type2) type2 = null;
+    if (type1 == "titre1" && type2 == null) type2 = "titre2";
     else if (type1 == "titre2" && type2 == null) {
       type2 = "titre3";
       type3 = "titre1";
@@ -880,6 +879,32 @@ function AjouterElement(element) {
       type2 = "titre3";
       type3 = "titre2";
       type4 = "titre1";
+    }*/
+
+    if (type1.localeCompare(type2) == -1) {
+      //Si on descend alors on ne peut que rester au niveau de type2 (sinon on casse la chaine père-fils)
+      type1 = null;
+    } else if (type1.localeCompare(type2) == 0) {
+      //Si on est entre deux titres de même niveau on peut soit rester au même niveau soit descendre
+      if (type1 == "titre1") type2 = "titre2";
+      else if (type1 == "titre2") type2 = "titre3";
+      else if (type1 == "titre3") type2 = "titre4";
+      else type2 = null;
+    } else if (type2 == null) {
+      //alors type2 est la fin du div donc on propose des choix allant de type1 à en dessous dans l'arbo
+      if (type1 == "titre1") type2 = "titre2";
+      else if (type1 == "titre2") {
+        type2 = "titre3";
+        type3 = "titre1";
+      } else if (type1 == "titre3") {
+        type2 = "titre4";
+        type3 = "titre2";
+        type4 = "titre1";
+      } else {
+        type2 = "titre3";
+        type3 = "titre2";
+        type4 = "titre1";
+      }
     }
 
     //On affiche un panneau demandant quel type de titre il veut afficher parmis les choix dispo
@@ -1024,19 +1049,21 @@ function AjouterTitre(evt) {
 }
 
 function AjouterDescriptif(element) {
-
   //code par quentin
   if ($(".selectDescriptifXML").length) {
-
     elementADeplacer = $(".selectDescriptifXML");
     var elementNextLine = $(element).parent().next().next();
     var elementBeforeLine = $(element).parent().prev();
 
-    if (!(elementADeplacer[0] == elementNextLine[0] || elementADeplacer[0] == elementBeforeLine[0])) {
-
+    if (
+      !(
+        elementADeplacer[0] == elementNextLine[0] ||
+        elementADeplacer[0] == elementBeforeLine[0]
+      )
+    ) {
       elementAfter = $(element).parent().next().next();
       var classElement = element.innerHTML.replace(" ", "").toLowerCase();
-      var classNextElement = $(element).parent().next().next().attr('class');
+      var classNextElement = $(element).parent().next().next().attr("class");
       var rangElement = null;
       var rangNextElement = null;
 
@@ -1056,15 +1083,17 @@ function AjouterDescriptif(element) {
       var data = Array();
 
       if (rangElement > rangNextElement || rangNextElement == null) {
-
-        var classParent = "."+classElement.substr(0, classElement.length-1)+(classElement.substr(-1)-1);
+        var classParent =
+          "." +
+          classElement.substr(0, classElement.length - 1) +
+          (classElement.substr(-1) - 1);
 
         data = {
           todo: "deplacerDescriptif",
           idProjet: $("#idProjetActuel").val(),
           idDescriptif: $(".selectDescriptifXML").children("#idXML").val(),
           placement: "APPEND",
-          idRef: $(element).parent().prev(classParent).children("#idXML").val()
+          idRef: $(element).parent().prev(classParent).children("#idXML").val(),
         };
         parent = $(element).parent().prev(classParent);
       } else {
@@ -1073,7 +1102,7 @@ function AjouterDescriptif(element) {
           idProjet: $("#idProjetActuel").val(),
           idDescriptif: $(".selectDescriptifXML").children("#idXML").val(),
           placement: "BEFORE",
-          idRef: $(element).parent().next().next().children("#idXML").val()
+          idRef: $(element).parent().next().next().children("#idXML").val(),
         };
       }
 
@@ -1098,8 +1127,9 @@ function AjouterDescriptif(element) {
           elementADeplacer.insertBefore(elementAfter);
           elementADeplacer.removeClass("titre1 titre2 titre3 titre4 titre5");
           elementADeplacer.addClass(classElement);
-          
-          var divBarreInsertion = "<div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div>";
+
+          var divBarreInsertion =
+            "<div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div>";
           $(divBarreInsertion).insertAfter(elementADeplacer);
 
           //On supprime le panneau de choix des styles de desciptif
@@ -1119,24 +1149,24 @@ function AjouterDescriptif(element) {
     }
   }
   //code par louis
-  else{
-
+  else {
     var typeDescriptif = null;
     //on determine le type qui va etre insere
     if ($(".selectDescriptif").attr("class").includes("ouvrage")) {
       typeDescriptif = "ouvrage";
-    }
-    else if($(".selectDescriptif").attr("class").includes("generique")){
+    } else if ($(".selectDescriptif").attr("class").includes("generique")) {
       typeDescriptif = "generique";
-    }
-    else{
+    } else {
       typeDescriptif = "prestation";
     }
 
     //On créer le div du descriptif avec le style correspondant à sa place dans l'arbo
     var divInsertionDescriptif = document.createElement("div");
     divInsertionDescriptif.className =
-      "descriptif " + element.innerHTML.replace(" ", "").toLowerCase()+" "+typeDescriptif;
+      "descriptif " +
+      element.innerHTML.replace(" ", "").toLowerCase() +
+      " " +
+      typeDescriptif;
 
     //Appel AJAX pour récupérer les infos du descriptif
     var idDescriptif = $(".selectDescriptif").children(":first").val();
