@@ -11,6 +11,7 @@ import fr.etic.brp.brp_front_end.actions.DupliquerProjetAction;
 import fr.etic.brp.brp_front_end.actions.EditerInfosProjetAction;
 import fr.etic.brp.brp_front_end.actions.EnregistrerUriProjetExportAction;
 import fr.etic.brp.brp_front_end.actions.GenererLivrableAction;
+import fr.etic.brp.brp_front_end.actions.ImportAction;
 import fr.etic.brp.brp_front_end.actions.InscriptionAction;
 import fr.etic.brp.brp_front_end.actions.ListerRaccordementCatConstAction;
 import fr.etic.brp.brp_front_end.actions.ListerSousCatConstCaractDimAction;
@@ -29,6 +30,7 @@ import fr.etic.brp.brp_front_end.serialisations.DupliquerProjetSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.EditerInfosProjetSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.EnregistrerUriProjetExportSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.GenererLivrableSerialisation;
+import fr.etic.brp.brp_front_end.serialisations.ImportSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.InscriptionSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.ListerRaccordementCatConstSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.ListerSousCatConstCaractDimSerialisation;
@@ -154,6 +156,11 @@ public class ActionServlet extends HttpServlet {
             case "deplacerDescriptif" : {
                 action = new DeplacerDescriptifAction();
                 serialisation = new DeplacerDescriptifSerialisation();
+                break;
+            }
+            case "import" : {
+                action = new ImportAction();
+                serialisation = new ImportSerialisation();
                 break;
             }
             case "affichageAdmin" : {

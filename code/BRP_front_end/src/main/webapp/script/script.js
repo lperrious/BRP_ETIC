@@ -23,9 +23,10 @@ $(document).ready(function () {
         //Si admin alors on affiche le bouton de création de compte Opérateur
         $(".creationCompte").show();
       }
-    } else {
-      window.location.href = "index.html";
-    }
+    } 
+    // else {
+    //   window.location.href = "index.html";
+    // }
   });
 
   //Lister coeff raccordements et cat construction dans infos projet
@@ -284,6 +285,35 @@ function dupliquerProjet(idProjet) {
         ouvrirProjet(response["newIdProjet"]);
       }
     }
+  });
+}
+
+function importFile(){
+  var name = $('#importFileInput').val().substr(12);
+  var operation = null;
+  if (name.includes(".docx")) {
+    operation = "ModifBaseDescriptif";
+  }
+  if (name.includes(".csv")) {
+    operation = "ModifBasePrixRef";
+  }
+
+  $.ajax({
+    url: "./ActionServlet",
+    method: "POST",
+    data: {
+      todo: "import",
+      name: name,
+      operation: operation,
+    },
+    dataType: "json",
+  }).done(function (response) {
+    // if (response["Error"]) {
+    //   alert("Un problème est survenu lors de l'import");
+    // } else {
+    //   alert("Import réalisé avec succès");
+    // }
+    console.log(response);
   });
 }
 

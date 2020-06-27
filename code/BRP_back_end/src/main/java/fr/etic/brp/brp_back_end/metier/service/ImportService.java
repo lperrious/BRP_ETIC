@@ -229,16 +229,16 @@ public class ImportService {
                                         System.out.println(docListe.get(i).get(1));
                                         categorie = new Categorie(idActuel, docListe.get(i).get(1));
                                         categorieDao.Creer(categorie);  
+                                        //on va chercher le chapitre parent pour update listeCategorie
+                                        Chapitre chapitreParent = chapitreDao.ChercherParId(idActuel.substring(0, idActuel.lastIndexOf('_'))); //on prend idActuel et on retire le dernier _ et ce qu'il y a derrière
+                                        List<Categorie> listeCategorie = chapitreParent.getListCategorie();
+                                        listeCategorie.add(categorie);
+                                        chapitreParent.setListCategorie(listeCategorie);
+                                        chapitreDao.Update(chapitreParent);
                                     } else {   //on modifie l'initule de la categorie
                                         categorie.setIntituleCategorie(docListe.get(i).get(1));
                                         categorieDao.Update(categorie);
                                     } 
-                                    //on va chercher le chapitre parent pour update listeCategorie
-                                    Chapitre chapitreParent = chapitreDao.ChercherParId(idActuel.substring(0, idActuel.lastIndexOf('_'))); //on prend idActuel et on retire le dernier _ et ce qu'il y a derrière
-                                    List<Categorie> listeCategorie = chapitreParent.getListCategorie();
-                                    listeCategorie.add(categorie);
-                                    chapitreParent.setListCategorie(listeCategorie);
-                                    chapitreDao.Update(chapitreParent);
                                     JpaUtil.validerTransaction();
                                     break;  
 
@@ -249,17 +249,17 @@ public class ImportService {
                                     if(famille == null){   //on crée la famille
                                         famille = new Famille(idActuel, docListe.get(i).get(1));
                                         familleDao.Creer(famille);
+                                        //on va chercher la categorie parent pour update listeFamille
+                                        Categorie categorieParent = categorieDao.ChercherParId(idActuel.substring(0, idActuel.lastIndexOf('_'))); //on prend idActuel et on retire le dernier _ et ce qu'il y a derrière
+                                        List<Famille> listeFamille = categorieParent.getListeFamille();
+                                        listeFamille.add(famille);
+                                        categorieParent.setListeFamille(listeFamille);
+                                        categorieDao.Update(categorieParent);
                                     }
                                     else{   //on modifie l'intitule de la famille
                                         famille.setIntituleFamille(docListe.get(i).get(1));
                                         familleDao.Update(famille);
                                     } 
-                                    //on va chercher la categorie parent pour update listeFamille
-                                    Categorie categorieParent = categorieDao.ChercherParId(idActuel.substring(0, idActuel.lastIndexOf('_'))); //on prend idActuel et on retire le dernier _ et ce qu'il y a derrière
-                                    List<Famille> listeFamille = categorieParent.getListeFamille();
-                                    listeFamille.add(famille);
-                                    categorieParent.setListeFamille(listeFamille);
-                                    categorieDao.Update(categorieParent);
                                     JpaUtil.validerTransaction();
                                     break; 
                                 case 3:             //on importe une sousFamille en BD
@@ -269,17 +269,17 @@ public class ImportService {
                                     if(sousFamille == null){   //on crée la sousFamille
                                         sousFamille = new SousFamille(idActuel, docListe.get(i).get(1));
                                         sousFamilleDao.Creer(sousFamille);
+                                        //on va chercher la famille parent pour update listeSousFamille
+                                        Famille familleParent = familleDao.ChercherParId(idActuel.substring(0, idActuel.lastIndexOf('_'))); //on prend idActuel et on retire le dernier _ et ce qu'il y a derrière
+                                        List<SousFamille> listeSousFamille = familleParent.getListSousFamille();
+                                        listeSousFamille.add(sousFamille);
+                                        familleParent.setListSousFamille(listeSousFamille);
+                                        familleDao.Update(familleParent);
                                     }
                                     else{   //on modifie l'intitule de la sousFamille
                                         sousFamille.setIntituleSousFamille(docListe.get(i).get(1));
                                         sousFamilleDao.Update(sousFamille);
                                     } 
-                                    //on va chercher la famille parent pour update listeSousFamille
-                                    Famille familleParent = familleDao.ChercherParId(idActuel.substring(0, idActuel.lastIndexOf('_'))); //on prend idActuel et on retire le dernier _ et ce qu'il y a derrière
-                                    List<SousFamille> listeSousFamille = familleParent.getListSousFamille();
-                                    listeSousFamille.add(sousFamille);
-                                    familleParent.setListSousFamille(listeSousFamille);
-                                    familleDao.Update(familleParent);
                                     JpaUtil.validerTransaction();
                                     break;
                             }
@@ -297,6 +297,12 @@ public class ImportService {
                                     if(ouvrage == null){   //on crée le chapitre
                                         ouvrage = new Ouvrage(idActuel, docListe.get(i).get(3), docListe.get(i).get(4), docListe.get(i).get(5), docListe.get(i).get(6));
                                         descriptifDao.Creer(ouvrage);
+                                        //on va chercher la sousFamille parent pour update listeDescriptif
+                                        SousFamille sousFamilleParent = sousFamilleDao.ChercherParId(idActuel.substring(0, idActuel.lastIndexOf('_'))); //on prend idActuel et on retire le dernier _ et ce qu'il y a derrière
+                                        List<Descriptif> listeDescriptif = sousFamilleParent.getListDescriptif();
+                                        listeDescriptif.add(ouvrage);
+                                        sousFamilleParent.setListDescriptif(listeDescriptif);
+                                        sousFamilleDao.Update(sousFamilleParent);
                                     }
                                     else{   //on modifie le titre du chapitre
                                         ouvrage.setNomDescriptif(docListe.get(i).get(3));
@@ -304,12 +310,6 @@ public class ImportService {
                                         ouvrage.setCourteDescription(docListe.get(i).get(5));
                                         descriptifDao.Update(ouvrage);
                                     } 
-                                    //on va chercher la sousFamille parent pour update listeDescriptif
-                                    SousFamille sousFamilleParent = sousFamilleDao.ChercherParId(idActuel.substring(0, idActuel.lastIndexOf('_'))); //on prend idActuel et on retire le dernier _ et ce qu'il y a derrière
-                                    List<Descriptif> listeDescriptif = sousFamilleParent.getListDescriptif();
-                                    listeDescriptif.add(ouvrage);
-                                    sousFamilleParent.setListDescriptif(listeDescriptif);
-                                    sousFamilleDao.Update(sousFamilleParent);
                                     JpaUtil.validerTransaction();
                                     break;
                                 case "GENERIQUE":
@@ -319,6 +319,12 @@ public class ImportService {
                                     if(generique == null){   //on crée le chapitre
                                         generique = new Generique(idActuel, docListe.get(i).get(3), docListe.get(i).get(4), docListe.get(i).get(5));
                                         descriptifDao.Creer(generique);
+                                        //on va chercher la sousFamille parent pour update listeDescriptif
+                                        SousFamille sousFamilleParent2 = sousFamilleDao.ChercherParId(idActuel.substring(0, idActuel.lastIndexOf('_'))); //on prend idActuel et on retire le dernier _ et ce qu'il y a derrière
+                                        List<Descriptif> listeDescriptif2 = sousFamilleParent2.getListDescriptif();
+                                        listeDescriptif2.add(generique);
+                                        sousFamilleParent2.setListDescriptif(listeDescriptif2);
+                                        sousFamilleDao.Update(sousFamilleParent2);
                                     }
                                     else{   //on modifie le titre du chapitre
                                         generique.setNomDescriptif(docListe.get(i).get(3));
@@ -326,12 +332,6 @@ public class ImportService {
                                         generique.setCourteDescription(docListe.get(i).get(5));
                                         descriptifDao.Update(generique);
                                     } 
-                                    //on va chercher la sousFamille parent pour update listeDescriptif
-                                    SousFamille sousFamilleParent2 = sousFamilleDao.ChercherParId(idActuel.substring(0, idActuel.lastIndexOf('_'))); //on prend idActuel et on retire le dernier _ et ce qu'il y a derrière
-                                    List<Descriptif> listeDescriptif2 = sousFamilleParent2.getListDescriptif();
-                                    listeDescriptif2.add(generique);
-                                    sousFamilleParent2.setListDescriptif(listeDescriptif2);
-                                    sousFamilleDao.Update(sousFamilleParent2);
                                     JpaUtil.validerTransaction();
                                     break;  
                                 case "PRESTATION": 
@@ -341,6 +341,13 @@ public class ImportService {
                                     if(prestation == null){   //on crée la prestation
                                         prestation = new Prestation(idActuel, docListe.get(i).get(3), docListe.get(i).get(4), docListe.get(i).get(5), docListe.get(i).get(6));
                                         prestationDao.Creer(prestation);
+                                        //on va chercher l'ouvrage  parent pour update listeprestation
+                                        Ouvrage ouvrageParent = (Ouvrage) descriptifDao.ChercherParId(idActuel.substring(0, idActuel.lastIndexOf('_'))); //on prend idActuel et on retire le dernier _ et ce qu'il y a derrière
+                                        //System.out.println(idActuel + " : " + ouvrageParent);
+                                        List<Prestation> listePrestation = ouvrageParent.getListePrestation();
+                                        listePrestation.add(prestation);
+                                        ouvrageParent.setListePrestation(listePrestation);
+                                        descriptifDao.Update(ouvrageParent);
                                     }
                                     else{   //on modifie le titre de la prestation
                                         prestation.setNomDescriptif(docListe.get(i).get(3));
@@ -348,13 +355,6 @@ public class ImportService {
                                         prestation.setCourteDescription(docListe.get(i).get(5));
                                         prestationDao.Update(prestation);
                                     } 
-                                    //on va chercher l'ouvrage  parent pour update listeprestation
-                                    Ouvrage ouvrageParent = (Ouvrage) descriptifDao.ChercherParId(idActuel.substring(0, idActuel.lastIndexOf('_'))); //on prend idActuel et on retire le dernier _ et ce qu'il y a derrière
-                                    //System.out.println(idActuel + " : " + ouvrageParent);
-                                    List<Prestation> listePrestation = ouvrageParent.getListePrestation();
-                                    listePrestation.add(prestation);
-                                    ouvrageParent.setListePrestation(listePrestation);
-                                    descriptifDao.Update(ouvrageParent);
                                     JpaUtil.validerTransaction();
                                     break;
                             }
