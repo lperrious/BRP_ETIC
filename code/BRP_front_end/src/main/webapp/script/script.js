@@ -19,11 +19,11 @@ $(document).ready(function () {
     // Fonction appelée en cas d'appel AJAX réussi
 
     //console.log("Response", response);
-    if(!response.ErrorState) {
-      if(response.isAdmin) {
+    if (!response.ErrorState) {
+      if (response.isAdmin) {
         //Si admin alors on affiche le bouton de création de compte Opérateur
         $(".creationCompte").show();
-      } 
+      }
       // else {
       //   window.location.href = "index.html";
       // }
@@ -40,10 +40,8 @@ $(document).ready(function () {
     dataType: "json",
   }).done(function (response) {
     // Fonction appelée en cas d'appel AJAX réussi
-
     //console.log("Response", response);
-    if(!response.ErrorState) {
-
+    if (!response.ErrorState) {
       $.each(response.listeCoeffRaccordement, function (i, coeffRaccordement) {
         $("#coeffRaccordement").append(
           $("<option>", {
@@ -321,10 +319,7 @@ function ouvrirProjet(idProjet) {
     dataType: "json",
   }).done(function (response) {
     // Fonction appelée en cas d'appel AJAX réussi
-
-    //console.log("Response", response);
-    if(!response.ErrorState) {
-
+    if (!response.ErrorState) {
       var xslDocumentUrl = "stylesheet/ouvrirProjet.xsl";
       var xmlDocumentUrl = "XMLfiles/" + idProjet + ".xml";
 
@@ -419,39 +414,38 @@ function modifierInfosProjet() {
     idCaractDim = "";
   }
 
-    //on envoie à l'ajax
-    $.ajax({
-      url: "./ActionServlet",
-      method: "POST",
-      data: {
-        todo: "editerInfosProjet",
-        idProjet:idProjet,
-        nomProjet:nomProjet,
-        refBRP:refBRP,
-        typeMarche : typeMarche,
-        typeConstruction : typeConstruction,
-        typeLot : typeLot,
-        typeSite : typeSite,
-        datePrixref : datePrixref,
-        coeffAdapt : coeffAdapt,
-        idCoeffRaccordement : idCoeffRaccordement,
-        idCategorieConstruction : idCategorieConstruction,
-        idSousCategorieConstruction : idSousCategorieConstruction,
-        idCaractDim : idCaractDim,
-      },
-      dataType: "json",
-    })
-    .done(function (response) {
-          // Fonction appelée en cas d'appel AJAX réussi
-          //console.log("Response", response);
-      if (response) {
-        if (response["Error"]) {
-          alert(
-            "Une erreur est survenue lors de la sauvegarde des informations du projet (informations de la colonne de gauche)"
-          );
-        }
+  //on envoie à l'ajax
+  $.ajax({
+    url: "./ActionServlet",
+    method: "POST",
+    data: {
+      todo: "editerInfosProjet",
+      idProjet: idProjet,
+      nomProjet: nomProjet,
+      refBRP: refBRP,
+      typeMarche: typeMarche,
+      typeConstruction: typeConstruction,
+      typeLot: typeLot,
+      typeSite: typeSite,
+      datePrixref: datePrixref,
+      coeffAdapt: coeffAdapt,
+      idCoeffRaccordement: idCoeffRaccordement,
+      idCategorieConstruction: idCategorieConstruction,
+      idSousCategorieConstruction: idSousCategorieConstruction,
+      idCaractDim: idCaractDim,
+    },
+    dataType: "json",
+  }).done(function (response) {
+    // Fonction appelée en cas d'appel AJAX réussi
+    //console.log("Response", response);
+    if (response) {
+      if (response["Error"]) {
+        alert(
+          "Une erreur est survenue lors de la sauvegarde des informations du projet (informations de la colonne de gauche)"
+        );
       }
-    });
+    }
+  });
 }
 
 function unset_select_descriptif() {
@@ -554,11 +548,14 @@ function show_catConstruction() {
       dataType: "json",
     }).done(function (response) {
       // Fonction appelée en cas d'appel AJAX réussi
-
-      // console.log("Response", response);
-      if(!response.ErrorState) {
-        $.each(response.listeSousCategorieConstruction, function (i, sousCategorieConstruction) {
-          $('#sousCategorieConstruction').append($('<option>', { 
+      console.log("Response", response);
+      if (!response.ErrorState) {
+        $.each(response.listeSousCategorieConstruction, function (
+          i,
+          sousCategorieConstruction
+        ) {
+          $("#sousCategorieConstruction").append(
+            $("<option>", {
               value: i,
               text: sousCategorieConstruction.intitule,
               name: sousCategorieConstruction.code,
@@ -696,9 +693,8 @@ function GenererLivrable() {
     dataType: "json",
   }).done(function (response) {
     // Fonction appelée en cas d'appel AJAX réussi
-
-    // console.log("Response", response);
-    if(!response.ErrorState) {
+    console.log("Response", response);
+    if (!response.ErrorState) {
       //Si l'export à réussi on prévient l'opérateur
       alert("La génération du livrable a réussie");
     } else {
@@ -727,6 +723,14 @@ function addEventsDescriptifs() {
   });
 }
 
+function AjoutEventSupprLigneChiffrage() {
+  $(".descriptif > .ligneChiffrage").first().children().last().html("");
+  $(".suppressionLigneChiffrage").click(function () {
+    $(this).parent().remove();
+  });
+}
+
+//Propose d'insérer le futur titre ou descptif selon les styles (titre1, titre2, ...) possibles
 function AjouterElement(element) {
   //Si un descriptif a été sélectionné alors on l'insère directement dans l'arborescence
   if ($(".selectDescriptif").length) {
@@ -734,7 +738,6 @@ function AjouterElement(element) {
     if (
       $(element).next().children(":first").children(":first").html() != "I."
     ) {
-
       var styleDescriptif = null; //On cherche le style qui est juste au dessus de l'endroit où on veut insérer : on propose ensuite tous les choix du style en question juqu'à titre1
       var prev = $(element).prev();
       while (styleDescriptif == null) {
@@ -974,13 +977,12 @@ function SuppressionChoixInsertionTitre() {
   testChoixPresent = false;
 }
 
-function removeSelectDescriptifXML(){
+function removeSelectDescriptifXML() {
   if (!deplacementDescriptif) {
     //on peut supprimer l'évènement
-    $('.selectDescriptifXML').css('background-color', "white");
-    $('.selectDescriptifXML').removeClass('selectDescriptifXML');
-  }
-  else{
+    $(".selectDescriptifXML").css("background-color", "white");
+    $(".selectDescriptifXML").removeClass("selectDescriptifXML");
+  } else {
     deplacementDescriptif = false;
   }
 }
@@ -1223,7 +1225,7 @@ function AfficherOnglet(lotAfficher) {
   var numBouton = lotAfficher.attr("id").slice(-1); //On récupère le numéro de l'onglet qui doit être mis en couleur plus foncée
   $(".ongletLot").css("background-color", "#3a88c5");
   if (numBouton != "+") {
-      $(".ongletLot:contains('"+(Number(numBouton))+"')").css(
+    $(".ongletLot:contains('" + Number(numBouton) + "')").css(
       "background-color",
       "#0070c9"
     );
@@ -1246,8 +1248,12 @@ function CreerOnglet() {
   }
 
   var idOnglet = "lot_" + numOnglet;
-  var divNouvelOnglet = $("<div class='lot' id='" + idOnglet + "'><input type='hidden' id='idXML' value='_0'/><div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div><div class='input-group titre1'><input type='hidden' id='idXML' value='_0'/><div class='input-group-prepend'><span class='input-group-text'>I.</span></div><input type='text' class='form-control' placeholder='Titre 1'/></div><div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div><div class='finLot'></div></div>");
 
+  var divNouvelOnglet = $(
+    "<div class='lot' id='" +
+      idOnglet +
+      "'><input type='hidden' id='idXML' value='_0'/><div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div><div class='input-group titre1'><input type='hidden' id='idXML' value='_0'/><div class='input-group-prepend'><span class='input-group-text'>I.</span></div><input type='text' class='form-control' placeholder='Titre 1'/><div class='deleteXML'><i class=\"fas fa-times-circle\"></i></div></div><div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div><div class='finLot'></div></div>"
+  );
   $(divNouvelOnglet).insertBefore($("#ongletsLot"));
 
   //Création de deux barres d'insertion d'un titre1 et d'une fin de lot dans ce nouvel onglet
@@ -1261,7 +1267,11 @@ function CreerOnglet() {
   $(divBoutonOnglet).insertBefore($(".ongletLot").last());
 
   //Création d'un nouveau input de titre lot
-  $("<div class='divTitreLot' id='divTitreLot_" + numOnglet + "'><input type='text' class='titreLot' placeholder='Titre Lot' /><div class='deleteXMLlot'><i class=\"fas fa-times-circle\"></i></div></div>").insertBefore($(".lot").first());
+  $(
+    "<div class='divTitreLot' id='divTitreLot_" +
+      numOnglet +
+      "'><input type='text' class='titreLot' placeholder='Titre Lot' /></div>"
+  ).insertBefore($(".lot").first());
 
   //Ajout de l'hover sur toutes les barres d'insertions titre
   addEventsDescriptifs();
@@ -1348,9 +1358,8 @@ enCours = false;
 function modifierXML(element) {
   if (typeof element != "undefined" && enCours == false) {
     enCours = true;
+    console.log("debut " + jQuery.now());
 
-    // console.log("debut "+jQuery.now());
-    
     //on détermine l'idProjet
     var idProjet = $("#idProjetActuel").val();
     classElement = $(element).attr("class");
@@ -1438,14 +1447,13 @@ function modifierXML(element) {
       };
     }
     // idDescriptif: $(element).children('.idDescriptif').val(),
-
-    else if(classElement.includes("ligneChiffrage")){
+    /*else if(classElement.includes("ligneChiffrage")){
       var quantite = $(element).find(".quantite").val();
       if (quantite == "") {
         quantite = "1.0";
         $(element).find(".quantite").val("1.0");
-      }
-
+      }*/
+    else if (classElement.includes("ligneChiffrage")) {
       data = {
         todo: "modifierXML",
         idProjet: idProjet,
@@ -1454,8 +1462,7 @@ function modifierXML(element) {
         idRefPlacement: idRefPlacement,
         placement: "",
         localisation: $(element).find(".localisation").val(),
-        quantite: quantite
-
+        quantite: $(element).find(".quantite").val(),
       };
     } else {
       if (titreType == "lot") {
@@ -1511,9 +1518,7 @@ function modifierXML(element) {
       }
 
       enCours = false;
-
-      //console.log("Fin "+jQuery.now());
-
+      console.log("Fin " + jQuery.now());
     });
   } else if (
     typeof element != "undefined" &&
@@ -1527,10 +1532,8 @@ function modifierXML(element) {
 }
 
 supprimerXMLEnCours = false;
-function supprimerXML(croix, type){
-
+function supprimerXML(croix, type) {
   if (supprimerXMLEnCours == false) {
-
     supprimerXMLEnCours = true;
     var data = Array();
 
@@ -1539,44 +1542,45 @@ function supprimerXML(croix, type){
     titreLotdelete = null;
     if (type == "ligneChiffrage") {
       data = {
-          todo: "supprimerXML",
-          type:type,
-          idProjet: $("#idProjetActuel").val(),
-          idXML: $(croix).parent().children("#idLigneChiffrage").val(),
-          idDescriptifXML: $(croix).parent().parent().children("#idXML").val()
-        };
-        parent = $(croix).parent();
-    }
-    else if(type == "lot"){
-        data = {
-          todo: "supprimerXML",
-          type:"balise",
-          idProjet: $("#idProjetActuel").val(),
-          idXML: $("#lot_"+$(croix).parent().attr("id").substr(12)).children("#idXML").val()
-        };
-        lotDelete = $("#lot_"+$(croix).parent().attr("id").substr(12));
-        titreLotdelete = $(croix).parent();
-        ongletLotDelete = $(".ongletLot:contains('"+$(croix).parent().attr("id").substr(12)+"')");
-    }
-    else{
-
+        todo: "supprimerXML",
+        type: type,
+        idProjet: $("#idProjetActuel").val(),
+        idXML: $(croix).parent().children("#idLigneChiffrage").val(),
+        idDescriptifXML: $(croix).parent().parent().children("#idXML").val(),
+      };
+      parent = $(croix).parent();
+    } else if (type == "lot") {
+      data = {
+        todo: "supprimerXML",
+        type: "balise",
+        idProjet: $("#idProjetActuel").val(),
+        idXML: $("#lot_" + $(croix).parent().attr("id").substr(12))
+          .children("#idXML")
+          .val(),
+      };
+      lotDelete = $("#lot_" + $(croix).parent().attr("id").substr(12));
+      titreLotdelete = $(croix).parent();
+      ongletLotDelete = $(
+        ".ongletLot:contains('" + $(croix).parent().attr("id").substr(12) + "')"
+      );
+    } else {
       //si c'est un descriptif, son idXML est deux étages au dessus
-      if($(croix).parents('.descriptif').length){
+      if ($(croix).parents(".descriptif").length) {
         var idXML = $(croix).parent().parent().children("#idXML").val();
         parent = $(croix).parent().parent();
       }
       //sinon il n'est qu'à un étage au dessus
-      else{
+      else {
         var idXML = $(croix).parent().children("#idXML").val();
         parent = $(croix).parent();
       }
 
       data = {
-          todo: "supprimerXML",
-          type:type,
-          idProjet: $("#idProjetActuel").val(),
-          idXML: idXML
-        };
+        todo: "supprimerXML",
+        type: type,
+        idProjet: $("#idProjetActuel").val(),
+        idXML: idXML,
+      };
     }
 
     console.log(data);
@@ -1590,28 +1594,26 @@ function supprimerXML(croix, type){
     }).done(function (response) {
       // Fonction appelée en cas d'appel AJAX réussi
       console.log("Response", response);
-      if(response.Error){
-        alert("Un problème est survenu lors de la suppression. Rafraichir la page peut vous aider à l'identifier");
-      }
-      else{
+      if (response.Error) {
+        alert(
+          "Un problème est survenu lors de la suppression. Rafraichir la page peut vous aider à l'identifier"
+        );
+      } else {
         if (type != "ligneChiffrage" && lotDelete == null) {
-          $(parent).next('.barreInsertion').remove();
+          $(parent).next(".barreInsertion").remove();
           $(parent).remove();
-        }
-        else if(lotDelete != null){
+        } else if (lotDelete != null) {
           $(lotDelete).remove();
           $(titreLotdelete).remove();
           $(ongletLotDelete).remove();
 
-          var nbLots = $('.lot').length;
+          var nbLots = $(".lot").length;
           if (nbLots == 0) {
-            $('.presentationRight').show();
+            $(".presentationRight").show();
+          } else {
+            AfficherOnglet($(".lot").first());
           }
-          else{
-            AfficherOnglet($('.lot').first());
-          }
-        }
-        else{
+        } else {
           $(parent).remove();
         }
         parent = null;
@@ -1622,25 +1624,32 @@ function supprimerXML(croix, type){
   }
 }
 
-function addSelectedClassXML(elementPuce){
+function addSelectedClassXML(elementPuce) {
   deplacementDescriptif = true;
-  $(elementPuce).parent().parent().addClass('selectDescriptifXML');
+  $(elementPuce).parent().parent().addClass("selectDescriptifXML");
 }
 
-function survolDeplacerDescriptif(elementPuce, sens){
+function survolDeplacerDescriptif(elementPuce, sens) {
   if (sens == "enter") {
-    $(elementPuce).parent().parent().css("background-color", "rgba(70, 55, 0, 0.05)");
-  }
-  else{
-    if (!$(elementPuce).parent().parent().attr("class").includes('selectDescriptifXML')) {
+    $(elementPuce)
+      .parent()
+      .parent()
+      .css("background-color", "rgba(70, 55, 0, 0.05)");
+  } else {
+    if (
+      !$(elementPuce)
+        .parent()
+        .parent()
+        .attr("class")
+        .includes("selectDescriptifXML")
+    ) {
       $(elementPuce).parent().parent().css("background-color", "white");
     }
   }
 }
 
-function attacheEventModifXML(){
-
-  $('.titre1').change(function(){
+function attacheEventModifXML() {
+  $(".titre1").change(function () {
     modifierXML(this);
   });
   $(".titre2").change(function () {
@@ -1661,22 +1670,26 @@ function attacheEventModifXML(){
   $(".divTitreLot").change(function () {
     modifierXML(this);
   });
-  $('.deleteXML').click(function(){
+  $(".deleteXML").click(function () {
     supprimerXML(this, "balise");
   });
-  $('.deleteXMLlot').click(function(){
+  $(".deleteXMLlot").click(function () {
     supprimerXML(this, "lot");
   });
-  $('.suppressionLigneChiffrage').click(function(){
+  $(".suppressionLigneChiffrage").click(function () {
     supprimerXML(this, "ligneChiffrage");
   });
-  $('.descriptif > .input-group > .input-group-prepend').click(function(){
+  $(".descriptif > .input-group > .input-group-prepend").click(function () {
     addSelectedClassXML(this);
   });
-  $('.descriptif > .input-group > .input-group-prepend').mouseenter(function(){
-    survolDeplacerDescriptif(this, "enter");
-  });
-  $('.descriptif > .input-group > .input-group-prepend').mouseleave(function(){
-    survolDeplacerDescriptif(this, "leave");
-  });
+  $(".descriptif > .input-group > .input-group-prepend").mouseenter(
+    function () {
+      survolDeplacerDescriptif(this, "enter");
+    }
+  );
+  $(".descriptif > .input-group > .input-group-prepend").mouseleave(
+    function () {
+      survolDeplacerDescriptif(this, "leave");
+    }
+  );
 }
