@@ -17,16 +17,14 @@ $(document).ready(function () {
     dataType: "json",
   }).done(function (response) {
     // Fonction appelée en cas d'appel AJAX réussi
-
     //console.log("Response", response);
     if (!response.ErrorState) {
       if (response.isAdmin) {
         //Si admin alors on affiche le bouton de création de compte Opérateur
         $(".creationCompte").show();
       }
-      // else {
-      //   window.location.href = "index.html";
-      // }
+    } else {
+      window.location.href = "index.html";
     }
   });
 
@@ -676,10 +674,7 @@ function GenererLivrable() {
     "../../../../../../../../Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/webapp/XMLfiles/" +
     idProjet +
     ".xml"; //Fonctionne sur l'installation de Louis
-  var choixTemplate = 1; //Le choix des templates sera à implémenter plus tard dans le front
-
-  //Demander l'uri et l'enregistrer dans le XML du projet
-  EnregistrerUriExport(idProjet);
+  var choixTemplate = 1;
 
   $.ajax({
     url: "./ActionServlet",
@@ -702,10 +697,6 @@ function GenererLivrable() {
       alert("Erreur lors de la génération du livrable");
     }
   });
-}
-
-function EnregistrerUriExport(idProjet) {
-  //Enregistrer l'URI dans le XML (Appel Ajax)
 }
 
 /****************** Fonctions (partie droite) *********************/

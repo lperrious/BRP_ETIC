@@ -24,6 +24,7 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathFactory;
+import org.apache.commons.io.FileUtils;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CreationHelper;
@@ -94,6 +95,10 @@ public class ExportService {
         template1.put("titre5", "Titre5");
         Map<String, String> template1Immutable = Collections.unmodifiableMap(template1);
         //Coder ici les différentes templates de style WORD suivant le modèle ci-dessus
+        
+        //Utile quand on veut RM le dossier si erreur
+        String nomProjet = null;
+        Boolean dossierCree = false;
 
         try {
             //Obtention du document XML
@@ -172,10 +177,12 @@ public class ExportService {
             projetXMLDao.saveXMLContent(xml, uriXML);
             
             //On créer le dossier d'export du Projet
-            Boolean succesCreationDossier = (new File("../../../../../../../../Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/webapp/export_files/Exports/"+ projet.getNomProjet() + "_" + projet.getIdProjet())).mkdirs();
+            nomProjet = projet.getNomProjet();
+            Boolean succesCreationDossier = (new File("../../../../../../../../Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/webapp/export_files/Exports/"+ nomProjet + "_" + idProjet)).mkdirs();
             if (!succesCreationDossier) {
                 throw new Exception();
             }
+            dossierCree = true;
             
             //TRAITEMENT WORD
             //Pour chaque lot
@@ -302,9 +309,9 @@ public class ExportService {
                 //S'il existe un ouvrage/prestation dans le lot
                 Element lotBalise = (Element)listeLot.item(i);
                 if(ContientOuvrageOuPrestation(lotBalise)) {
-                    //On créer un nouveau lot (format nom : LOT_01_intitule)
+                    //On créer un nouveau lot (format nom : LOT_1_intitule)
                     Sheet sheet = excel.createSheet("Lot_"+ (i+1) + "_" + lotBalise.getAttribute("intitule"));
-                    //On créer l'en-tête lot (ligne grise) --> Si possible y mettre en 'mode survol'
+                    //On créer l'en-tête lot (ligne grise)
                     Row enTeteLotLigneGrise = sheet.createRow(0);
                     CellStyle styleEnTeteLotLigneGrise = excel.createCellStyle();
                     styleEnTeteLotLigneGrise.setAlignment(HorizontalAlignment.CENTER);
@@ -342,9 +349,9 @@ public class ExportService {
                         styleCellTitre1.setAlignment(HorizontalAlignment.LEFT);
                         styleCellTitre1.setFont(fontEnTeteTitre1LigneBleue);
                         styleCellTitre1 = createBorderedStyle(styleCellTitre1);
-                        Element titre1Balise = (Element)listeTitre1.item(i);
+                        Element titre1Balise = (Element)listeTitre1.item(j);
                         enTeteTitre1LigneBleue.createCell(0).setCellStyle(styleCellTitre1);
-                        enTeteTitre1LigneBleue.getCell(0).setCellValue(createHelper.createRichTextString(toRoman(j+1)));
+                        enTeteTitre1LigneBleue.getCell(0).setCellValue(createHelper.createRichTextString(toRoman(j+1)));                        
                         enTeteTitre1LigneBleue.createCell(1).setCellValue(createHelper.createRichTextString(titre1Balise.getAttribute("intitule")));
                         enTeteTitre1LigneBleue.getCell(1).setCellStyle(styleCellTitre1);
                         enTeteTitre1LigneBleue.createCell(2).setCellStyle(styleCellTitre1);
@@ -469,7 +476,7 @@ public class ExportService {
                         sheet.createRow(sheet.getLastRowNum()+1);
                     }
                     //Créer 2 lignes vides
-                    for(i = 0; i < 1; i++)
+                    for(int q = 0; q < 1; q++)
                        sheet.createRow(sheet.getLastRowNum()+1);
                     //Créer RECAPITULATIF [n°LOT]
                     Row ligneRecapEnTete = sheet.createRow(sheet.getLastRowNum()+1);
@@ -646,7 +653,15 @@ public class ExportService {
             
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service ExporterProjet(Long idProjet, int choixTemplate, String uriXML)", ex);
+            resultat = false;
             //RM le dossier crée
+            if(dossierCree) {
+                try {
+                    FileUtils.deleteDirectory(new File("../../../../../../../../Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/webapp/export_files/Exports/" + nomProjet + "_" + idProjet));
+                } catch (Exception e) {
+                    Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service ExporterProjet(Long idProjet, int choixTemplate, String uriXML). Vous devez supprimer à la main le dossier d'export crée", e);
+                }
+            }
         } finally {
             try {
                 //On supprime les infos projets dans le XML 
@@ -727,7 +742,7 @@ public class ExportService {
     }
     
     public Workbook RecapTitre(Workbook excel, int nbSheet, Element titreBalise, CellStyle cellStyle, CreationHelper createHelper) {
-        Sheet sheet = excel.getSheetAt(nbSheet);
+        Sheet sheet = excel.getSheetAt(nbSheet-1);
         
         Row ligneRecap = sheet.createRow(sheet.getLastRowNum()+1);
         CellStyle styleTemporaire = excel.createCellStyle(); //Permet de ne modifier l'alignement que pour le récap
@@ -770,7 +785,7 @@ public class ExportService {
         styleBorderLRBold.setFont(bold11);
         CellStyle styleBorderLR = createBorderedStyleLR(excel.createCellStyle());
         //On créer la ligne du descriptif
-        Sheet sheet = excel.getSheetAt(nbSheet);
+        Sheet sheet = excel.getSheetAt(nbSheet-1);
         Row ligneDescriptif = sheet.createRow(sheet.getLastRowNum()+1);
         ligneDescriptif.createCell(0).setCellStyle(styleBorderLRBold);
         ligneDescriptif.createCell(1).setCellStyle(styleBorderLRBold);

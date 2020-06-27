@@ -1,4 +1,4 @@
-<!ELEMENT projet (uriExport?, nextId?, nomProjet?, typeMarche?, typeConstruction?, typeLot?, site?, datePrixRef?, coeffAdapt?, coeffRaccordement?, categorieConstruction?,  sousCategorieConstruction?, caractDim?, lot*)>
+<!ELEMENT projet (nextId?, uriExport?, nomProjet?, typeMarche?, typeConstruction?, typeLot?, site?, datePrixRef?, coeffAdapt?, coeffRaccordement?, categorieConstruction?,  sousCategorieConstruction?, caractDim?, lot*)>
 <!ELEMENT uriExport (#PCDATA)>
 <!ELEMENT nextId (#PCDATA)>
 <!ELEMENT lot (titre1*)>

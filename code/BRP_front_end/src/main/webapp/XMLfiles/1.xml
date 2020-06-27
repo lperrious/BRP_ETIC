@@ -2,50 +2,50 @@
 <!DOCTYPE projet SYSTEM "reglesProjet.dtd">
 <projet idProjet="1">
     <nextId>90</nextId>
-    <lot id="_74" intitule="">
-        <titre1 id="_75" intitule=""/>
-        <titre1 id="_76" intitule="">
+    <lot id="_74" intitule="test">
+        <titre1 id="_75" intitule="test" />
+        <titre1 id="_76" intitule="test">
             <descriptif id="_77" idBD="04_ETA_03_01_001" type="ouvrage">
                 <nomDescriptif>Membrane d’étanchéité TPO</nomDescriptif>
                 <description>
-                    <p/>
+                    <p />
                 </description>
-                <courteDescription/>
+                <courteDescription />
                 <unite>m2</unite>
                 <ligneChiffrage idLigneChiffrage="1">
-                    <localisation/>
+                    <localisation />
                     <quantite>1.0</quantite>
                     <prixUnitaire>17.0</prixUnitaire>
                 </ligneChiffrage>
             </descriptif>
         </titre1>
     </lot>
-    <lot id="_78" intitule="">
-        <titre1 id="_79" intitule="">
+    <lot id="_78" intitule="test">
+        <titre1 id="_79" intitule="test">
             <descriptif id="_80" idBD="04_ETA_03_01_001" type="ouvrage">
                 <nomDescriptif>Membrane d’étanchéité TPO</nomDescriptif>
                 <description>
-                    <p/>
+                    <p />
                 </description>
-                <courteDescription/>
+                <courteDescription />
                 <unite>m2</unite>
                 <ligneChiffrage idLigneChiffrage="1">
-                    <localisation/>
+                    <localisation />
                     <quantite>1.0</quantite>
                     <prixUnitaire>17.0</prixUnitaire>
                 </ligneChiffrage>
             </descriptif>
         </titre1>
     </lot>
-    <lot id="_81" intitule="">
-        <titre1 id="_82" intitule="">
+    <lot id="_81" intitule="test">
+        <titre1 id="_82" intitule="test">
             <descriptif id="_83" idBD="04_ETA_03_01_001_020" type="prestation">
                 <nomDescriptif>Membrane d’étanchéité TPO 1.8mm fixé méca</nomDescriptif>
                 <description>
                     <p>
                         <normal>Mise en œuvre d’une membrane d’étanchéité TPO fixée mécaniquement selon DTA ou ETN en cours de validité.</normal>
                     </p>
-                    <p/>
+                    <p />
                     <p>
                         <normal>Les caractéristiques de la membrane sont les suivantes :</normal>
                     </p>
@@ -68,46 +68,46 @@
                     <p>
                         <highlightYellow>Le complexe support + isolant + revêtement d’étanchéité devra bénéficier d’un classement Broof T3</highlightYellow>
                     </p>
-                    <p/>
+                    <p />
                 </description>
-                <courteDescription/>
+                <courteDescription />
                 <unite>m²</unite>
                 <ligneChiffrage idLigneChiffrage="1">
-                    <localisation/>
+                    <localisation />
                     <quantite>1.0</quantite>
                     <prixUnitaire>19.0</prixUnitaire>
                 </ligneChiffrage>
             </descriptif>
         </titre1>
     </lot>
-    <lot id="_84" intitule="">
-        <titre1 id="_85" intitule="">
+    <lot id="_84" intitule="test">
+        <titre1 id="_85" intitule="test">
             <descriptif id="_86" idBD="04_ETA_03_01_001" type="ouvrage">
                 <nomDescriptif>Membrane d’étanchéité TPO</nomDescriptif>
                 <description>
-                    <p/>
+                    <p />
                 </description>
-                <courteDescription/>
+                <courteDescription />
                 <unite>m2</unite>
                 <ligneChiffrage idLigneChiffrage="1">
-                    <localisation/>
+                    <localisation />
                     <quantite>1.0</quantite>
                     <prixUnitaire>17.0</prixUnitaire>
                 </ligneChiffrage>
             </descriptif>
         </titre1>
     </lot>
-    <lot id="_87" intitule="">
-        <titre1 id="_88" intitule="">
+    <lot id="_87" intitule="test">
+        <titre1 id="_88" intitule="test">
             <descriptif id="_89" idBD="04_ETA_03_01_001" type="ouvrage">
                 <nomDescriptif>Membrane d’étanchéité TPO</nomDescriptif>
                 <description>
-                    <p/>
+                    <p />
                 </description>
-                <courteDescription/>
+                <courteDescription />
                 <unite>m2</unite>
                 <ligneChiffrage idLigneChiffrage="1">
-                    <localisation/>
+                    <localisation />
                     <quantite>1.0</quantite>
                     <prixUnitaire>17.0</prixUnitaire>
                 </ligneChiffrage>

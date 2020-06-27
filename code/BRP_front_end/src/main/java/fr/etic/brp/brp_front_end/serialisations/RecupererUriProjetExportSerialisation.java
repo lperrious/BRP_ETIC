@@ -22,7 +22,7 @@ public class RecupererUriProjetExportSerialisation extends Serialisation {
         //Lecture des attributs de la requête (stockés par l'action)
         boolean ErrorState = (boolean)request.getAttribute("ErrorState");
         
-        container.addProperty("Error", ErrorState);
+        container.addProperty("ErrorState", ErrorState);
         
         if(ErrorState != true) {
             String uriExport = (String)request.getAttribute("uriExport");
