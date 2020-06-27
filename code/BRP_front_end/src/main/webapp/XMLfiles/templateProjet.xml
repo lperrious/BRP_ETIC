@@ -1,32 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-
 <!DOCTYPE projet SYSTEM "reglesProjet.dtd">
-
 <projet idProjet="1">
-
     <nextId>11</nextId>
-
-    <!-- A insérer juste avant l'export -->
-    <nomProjet>Projet 1</nomProjet>
-    <typeMarche>Marche public</typeMarche>
-    <typeConstruction>Renovation</typeConstruction>
-    <typeLot>Lot séparé</typeLot>
-    <site>Libre</site>
-    <datePrixRef>2019</datePrixRef>
-    <coeffAdapt>1.0</coeffAdapt>
-    <!-- A insérer juste avant l'export -->
-
     <lot id="_12" intitule="LOT1">
         <titre1 id="_1" intitule="Nom titre 1">
             <titre2 id="_2" intitule="Nom titre 2">
                 <titre3 id="_3" intitule="Nom titre 3">
-                    <titre4 id="_4" intitule="Nom titre 4"></titre4>
+                    <titre4 id="_4" intitule="Nom titre 4"/>
                 </titre3>
             </titre2>
         </titre1>
         <titre1 id="_5" intitule="Nom titre 1">
             <!-- Balise Générique  -->
-            <descriptif type="generique" id="_6" idBD="02_AAA_01_01_01">
+            <descriptif id="_6" idBD="02_AAA_01_01_01" type="generique">
                 <nomDescriptif>Sécurité</nomDescriptif>
                 <description>
                     Une
@@ -41,7 +27,7 @@
             </descriptif>
             <titre2 id="_7" intitule="Nom titre 2">
                 <!-- Balise Ouvrage  -->
-                <descriptif type="ouvrage" id="_8" idBD="02_AAA_01_01_02">
+                <descriptif id="_8" idBD="02_AAA_01_01_02" type="ouvrage">
                     <nomDescriptif>Étanchéité bitume monocouche</nomDescriptif>
                     <description>
                         Une
@@ -60,7 +46,7 @@
                         <prixUnitaire>200</prixUnitaire>
                     </ligneChiffrage>
                 </descriptif>
-                <descriptif type="prestation" id="_9" idBD="02_AAA_01_01_02_01">
+                <descriptif id="_9" idBD="02_AAA_01_01_02_01" type="prestation">
                     <nomDescriptif>Depose du complexe d'etancheite</nomDescriptif>
                     <description>
                         Une
@@ -80,14 +66,14 @@
                     </ligneChiffrage>
                 </descriptif>
                 <titre3 id="_10" intitule="Nom titre 3">
-                    <titre4 id="_11" intitule="Nom titre 4"></titre4>
+                    <titre4 id="_11" intitule="Nom titre 4"/>
                 </titre3>
             </titre2>
         </titre1>
     </lot>
     <lot id="_20" intitule="testLot">
         <titre1 id="_21" intitule="test1">
-            <titre2 id="_222" intitule="test2"></titre2>
+            <titre2 id="_222" intitule="test2"/>
         </titre1>
     </lot>
 </projet>
