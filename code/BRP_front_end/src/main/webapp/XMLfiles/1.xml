@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE projet SYSTEM "reglesProjet.dtd">
 <projet idProjet="1">
+<<<<<<< HEAD
+    <nextId>6</nextId>
+    <lot id="_1" intitule="">
+        <titre1 id="_2" intitule="">
+            <titre2 id="_3" intitule="">
+                <titre2 id="_5" intitule=""/>
+                <titre3 id="_4" intitule=""/>
+            </titre2>
+=======
     <nextId>90</nextId>
     <lot id="_74" intitule="test">
         <titre1 id="_75" intitule="test" />
@@ -112,6 +121,7 @@
                     <prixUnitaire>17.0</prixUnitaire>
                 </ligneChiffrage>
             </descriptif>
+>>>>>>> b75dd0bfa33989914820d0fa891d5c72bc55bbeb
         </titre1>
     </lot>
 </projet>

@@ -455,6 +455,8 @@ function unset_select_descriptif() {
 
 function select_descriptif(element) {
   $(".selectDescriptif").removeClass("selectDescriptif");
+  $(".selectDescriptifXML").css("background-color", "white");
+  $(".selectDescriptifXML").removeClass("selectDescriptifXML");
   $(element).addClass("selectDescriptif");
   test_select_descriptif = true;
   //alert($(element).children(".idDescriptif").val());	//affiche l'idDescriptif selectionné
@@ -724,7 +726,15 @@ function AjoutEventSupprLigneChiffrage() {
 //Propose d'insérer le futur titre ou descptif selon les styles (titre1, titre2, ...) possibles
 function AjouterElement(element) {
   //Si un descriptif a été sélectionné alors on l'insère directement dans l'arborescence
-  if ($(".selectDescriptif").length) {
+  if ($(".selectDescriptif").length || $(".selectDescriptifXML").length) {
+    deplacementDescriptif = true;
+    
+    var descriptifClass = null;
+    if ($(".selectDescriptif").length) {
+      descriptifClass = ".selectDescriptif";
+    }else{
+      descriptifClass = ".selectDescriptifXML";
+    }
     //On n'autorise pas un descriptif à se mettre avant un titre1
     if (
       $(element).next().children(":first").children(":first").html() != "I."
@@ -737,8 +747,8 @@ function AjouterElement(element) {
         } else if (prev.hasClass("titre2")) {
           //Si le descriptif est un générique ou un ouvrage, on empêche de pouvoir le mettre sous un autre descriptif
           if (
-            $(".selectDescriptif").first().hasClass("ouvrage") ||
-            $(".selectDescriptif").first().hasClass("generique")
+            $(descriptifClass).first().hasClass("ouvrage") ||
+            $(descriptifClass).first().hasClass("generique")
           ) {
             if (prev.hasClass("descriptif")) styleDescriptif = "titre1";
             else styleDescriptif = "titre2";
@@ -753,8 +763,8 @@ function AjouterElement(element) {
         } else if (prev.hasClass("titre3")) {
           //Si le descriptif est un générique ou un ouvrage, on empêche de pouvoir le mettre sous un autre descriptif
           if (
-            $(".selectDescriptif").first().hasClass("ouvrage") ||
-            $(".selectDescriptif").first().hasClass("generique")
+            $(descriptifClass).first().hasClass("ouvrage") ||
+            $(descriptifClass).first().hasClass("generique")
           ) {
             if (prev.hasClass("descriptif")) styleDescriptif = "titre2";
             else styleDescriptif = "titre3";
@@ -769,8 +779,8 @@ function AjouterElement(element) {
         } else if (prev.hasClass("titre4")) {
           //Si le descriptif est un générique ou un ouvrage, on empêche de pouvoir le mettre sous un autre descriptif
           if (
-            $(".selectDescriptif").first().hasClass("ouvrage") ||
-            $(".selectDescriptif").first().hasClass("generique")
+            $(descriptifClass).first().hasClass("ouvrage") ||
+            $(descriptifClass).first().hasClass("generique")
           ) {
             if (prev.hasClass("descriptif")) styleDescriptif = "titre3";
             else styleDescriptif = "titre4";
@@ -820,7 +830,8 @@ function AjouterElement(element) {
 
       testChoixPresent = true;
     }
-  } else {
+  }
+  else {
     //Sinon on propose d'insérer un titre du même niveau d'arboresence que le titre d'au-dessus ou de celui d'en-dessous sous réserve d'existence
     var type1 = null;
     var type2 = null;
@@ -1013,115 +1024,225 @@ function AjouterTitre(evt) {
 }
 
 function AjouterDescriptif(element) {
-  //On créer le div du descriptif avec le style correspondant à sa place dans l'arbo
-  var divInsertionDescriptif = document.createElement("div");
-  divInsertionDescriptif.className =
-    "descriptif " + element.innerHTML.replace(" ", "").toLowerCase();
 
-  //Appel AJAX pour récupérer les infos du descriptif
-  var idDescriptif = $(".selectDescriptif").children(":first").val();
-  var unite, descriptionDescriptif, nomDescriptif, typeDescriptif;
+  //code par quentin
+  if ($(".selectDescriptifXML").length) {
 
-  $.ajax({
-    url: "./ActionServlet",
-    method: "GET",
-    data: {
-      todo: "recupererDescriptif",
-      idDescriptif: idDescriptif,
-    },
-    dataType: "json",
-  }).done(function (response) {
-    // Fonction appelée en cas d'appel AJAX réussi
-    console.log("Response", response);
-    if (!response.ErrorState) {
-      //Récupérer la description (et l'unité si pas générique)
-      if (response.typeDescriptif !== "Generique") {
-        unite = response.unite;
-      }
-      descriptionDescriptif = response.descriptionDescriptif;
-      nomDescriptif = response.nomDescriptif;
-      typeDescriptif = response.typeDescriptif;
+    elementADeplacer = $(".selectDescriptifXML");
+    var elementNextLine = $(element).parent().next().next();
+    var elementBeforeLine = $(element).parent().prev();
 
-      if (!$(".selectDescriptif").hasClass("generique")) {
-        $(divInsertionDescriptif).html(
-          "<input type='hidden' id='idXML' value='_0'/><input type='hidden' class='idDescriptif' value='" +
-            idDescriptif +
-            "'/><input type='hidden' class='typeDescriptif' value='" +
-            typeDescriptif +
-            "'/><div class='input-group'><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control nomDescriptif' placeholder='Ouvrage/Prestation' value='" +
-            nomDescriptif +
-            "'/><div class='deleteXML'><i class=\"fas fa-times-circle\"></i></div></div><div class='input-group description'><textarea class='form-control' placeholder='Description' value='" +
-            descriptionDescriptif +
-            "'></textarea></div><div class='ligneChiffrage'><input type='hidden' id='idLigneChiffrage' value='1'/><input type='text' class='form-control localisation' placeholder='Localisation'/><input type='text' class='form-control quantite' placeholder='Quantité' value='1.0'/><div class='input-group-prepend'><span class='input-group-text unite'>" +
-            unite +
-            "</span></div><div style='width: 25px;'></div></div>"
-        );
-        //! Rajouter la description stylisée en AJAX
+    if (!(elementADeplacer[0] == elementNextLine[0] || elementADeplacer[0] == elementBeforeLine[0])) {
 
-        $(divInsertionDescriptif).insertBefore($(element).parent());
+      elementAfter = $(element).parent().next().next();
+      var classElement = element.innerHTML.replace(" ", "").toLowerCase();
+      var classNextElement = $(element).parent().next().next().attr('class');
+      var rangElement = null;
+      var rangNextElement = null;
 
-        //On insère une barre d'insertion au dessus du nouveau descriptif
-        divBarreInsertion = $(
-          "<div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div>"
-        );
-        divBarreInsertion.insertBefore($(divInsertionDescriptif));
+      //on détermine le rang de l'élément (a revoir)
+      if (classElement.includes("titre1")) rangElement = 1;
+      if (classElement.includes("titre2")) rangElement = 2;
+      if (classElement.includes("titre3")) rangElement = 3;
+      if (classElement.includes("titre4")) rangElement = 4;
+      if (classElement.includes("titre5")) rangElement = 5;
 
-        //On ajoute une barre d'insertion ligneChiffrage à la fin de l'ouvrage/prestation
-        //var divBarreInsertionLigneChiffrage = document.createElement("div");
-        divBarreInsertionLigneChiffrage = $(
-          "<div class='barreInsertionLigneChiffrage' onclick='AjouterLigneChiffrage(this);'><div class='panBarreInsertionLigneChiffrage'></div><div class='panBarreInsertionLigneChiffrage'></div></div>"
-        );
-        $(divInsertionDescriptif).append($(divBarreInsertionLigneChiffrage));
+      if (classNextElement.includes("titre1")) rangNextElement = 1;
+      if (classNextElement.includes("titre2")) rangNextElement = 2;
+      if (classNextElement.includes("titre3")) rangNextElement = 3;
+      if (classNextElement.includes("titre4")) rangNextElement = 4;
+      if (classNextElement.includes("titre5")) rangNextElement = 5;
 
-        //On supprime le panneau de choix des styles de desciptif
-        $(".divInsertionStyleDescriptif").remove();
+      var data = Array();
 
-        //Ajout de l'hover sur toutes les barres d'insertions titre
-        addEventsDescriptifs();
+      if (rangElement > rangNextElement || rangNextElement == null) {
 
-        //Appel de la fonction de numérotation de l'arborescence
-        var idLot = $(divInsertionDescriptif).parent().attr("id");
-        NumerotationArbo(idLot);
+        var classParent = "."+classElement.substr(0, classElement.length-1)+(classElement.substr(-1)-1);
+
+        data = {
+          todo: "deplacerDescriptif",
+          idProjet: $("#idProjetActuel").val(),
+          idDescriptif: $(".selectDescriptifXML").children("#idXML").val(),
+          placement: "APPEND",
+          idRef: $(element).parent().prev(classParent).children("#idXML").val()
+        };
+        parent = $(element).parent().prev(classParent);
       } else {
-        //On insère le générique
-        $(divInsertionDescriptif).html(
-          "<input type='hidden' id='idXML' value='_0'/><input type='hidden' class='idDescriptif' value='" +
-            idDescriptif +
-            "'/><input type='hidden' class='typeDescriptif' value='" +
-            typeDescriptif +
-            "'/><div class='input-group'><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control nomDescriptif' placeholder='Générique' value='" +
-            nomDescriptif +
-            "'/><div class='deleteXML'><i class=\"fas fa-times-circle\"></i></div></div><div class='input-group description'><textarea class='form-control' placeholder='Description' value='" +
-            descriptionDescriptif +
-            "'></textarea></div>"
-        );
-        $(divInsertionDescriptif).insertBefore($(element).parent());
-        //! Rajouter la description stylisée en AJAX
-
-        //On insère une barre d'insertion au dessus du nouveau descriptif
-        divBarreInsertion = $(
-          "<div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div>"
-        );
-        divBarreInsertion.insertBefore($(divInsertionDescriptif));
-
-        //On supprime le panneau de choix des styles de desciptif
-        $(".divInsertionStyleDescriptif").remove();
-
-        //Ajout de l'hover sur toutes les barres d'insertions titre
-        addEventsDescriptifs();
-
-        //Appel de la fonction de numérotation de l'arborescence
-        var idLot = $(divInsertionDescriptif).parent().attr("id");
-        NumerotationArbo(idLot);
+        data = {
+          todo: "deplacerDescriptif",
+          idProjet: $("#idProjetActuel").val(),
+          idDescriptif: $(".selectDescriptifXML").children("#idXML").val(),
+          placement: "BEFORE",
+          idRef: $(element).parent().next().next().children("#idXML").val()
+        };
       }
 
-      //on attache l'evt pour modifier le xml
-      attacheEventModifXML();
+      console.log(data);
 
-      //on actualise le xml
-      modifierXML(divInsertionDescriptif);
+      $.ajax({
+        url: "./ActionServlet",
+        method: "POST",
+        data: data,
+        dataType: "json",
+      }).done(function (response) {
+        // Fonction appelée en cas d'appel AJAX réussi
+        //console.log("Response", response);
+        if (response.Error) {
+          alert(
+            "Un problème est survenu lors du deplacement d'un descriptif. Rafraichir la page peut vous aider à l'identifier"
+          );
+        } else {
+          elementADeplacer.next().remove();
+
+          //on va chercher le lot et on l'insere à la fin
+          elementADeplacer.insertBefore(elementAfter);
+          elementADeplacer.removeClass("titre1 titre2 titre3 titre4 titre5");
+          elementADeplacer.addClass(classElement);
+          
+          var divBarreInsertion = "<div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div>";
+          $(divBarreInsertion).insertAfter(elementADeplacer);
+
+          //On supprime le panneau de choix des styles de desciptif
+          $(".divInsertionStyleDescriptif").remove();
+
+          //Ajout de l'hover sur toutes les barres d'insertions titre
+          addEventsDescriptifs();
+
+          //Appel de la fonction de numérotation de l'arborescence
+          var idLot = $(divInsertionDescriptif).parent().attr("id");
+          NumerotationArbo(idLot);
+
+          //on attache l'evt pour modifier le xml
+          attacheEventModifXML();
+        }
+      });
     }
-  });
+  }
+  //code par louis
+  else{
+
+    var typeDescriptif = null;
+    //on determine le type qui va etre insere
+    if ($(".selectDescriptif").attr("class").includes("ouvrage")) {
+      typeDescriptif = "ouvrage";
+    }
+    else if($(".selectDescriptif").attr("class").includes("generique")){
+      typeDescriptif = "generique";
+    }
+    else{
+      typeDescriptif = "prestation";
+    }
+
+    //On créer le div du descriptif avec le style correspondant à sa place dans l'arbo
+    var divInsertionDescriptif = document.createElement("div");
+    divInsertionDescriptif.className =
+      "descriptif " + element.innerHTML.replace(" ", "").toLowerCase()+" "+typeDescriptif;
+
+    //Appel AJAX pour récupérer les infos du descriptif
+    var idDescriptif = $(".selectDescriptif").children(":first").val();
+    var unite, descriptionDescriptif, nomDescriptif, typeDescriptif;
+
+    $.ajax({
+      url: "./ActionServlet",
+      method: "GET",
+      data: {
+        todo: "recupererDescriptif",
+        idDescriptif: idDescriptif,
+      },
+      dataType: "json",
+    }).done(function (response) {
+      // Fonction appelée en cas d'appel AJAX réussi
+      console.log("Response", response);
+      if (!response.ErrorState) {
+        //Récupérer la description (et l'unité si pas générique)
+        if (response.typeDescriptif !== "Generique") {
+          unite = response.unite;
+        }
+        descriptionDescriptif = response.descriptionDescriptif;
+        nomDescriptif = response.nomDescriptif;
+        typeDescriptif = response.typeDescriptif;
+
+        if (!$(".selectDescriptif").hasClass("generique")) {
+          $(divInsertionDescriptif).html(
+            "<input type='hidden' id='idXML' value='_0'/><input type='hidden' class='idDescriptif' value='" +
+              idDescriptif +
+              "'/><input type='hidden' class='typeDescriptif' value='" +
+              typeDescriptif +
+              "'/><div class='input-group'><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control nomDescriptif' placeholder='Ouvrage/Prestation' value='" +
+              nomDescriptif +
+              "'/><div class='deleteXML'><i class=\"fas fa-times-circle\"></i></div></div><div class='input-group description'><textarea class='form-control' placeholder='Description' value='" +
+              descriptionDescriptif +
+              "'></textarea></div><div class='ligneChiffrage'><input type='hidden' id='idLigneChiffrage' value='1'/><input type='text' class='form-control localisation' placeholder='Localisation'/><input type='text' class='form-control quantite' placeholder='Quantité' value='1.0'/><div class='input-group-prepend'><span class='input-group-text unite'>" +
+              unite +
+              "</span></div><div style='width: 25px;'></div></div>"
+          );
+          //! Rajouter la description stylisée en AJAX
+
+          $(divInsertionDescriptif).insertBefore($(element).parent());
+
+          //On insère une barre d'insertion au dessus du nouveau descriptif
+          divBarreInsertion = $(
+            "<div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div>"
+          );
+          divBarreInsertion.insertBefore($(divInsertionDescriptif));
+
+          //On ajoute une barre d'insertion ligneChiffrage à la fin de l'ouvrage/prestation
+          //var divBarreInsertionLigneChiffrage = document.createElement("div");
+          divBarreInsertionLigneChiffrage = $(
+            "<div class='barreInsertionLigneChiffrage' onclick='AjouterLigneChiffrage(this);'><div class='panBarreInsertionLigneChiffrage'></div><div class='panBarreInsertionLigneChiffrage'></div></div>"
+          );
+          $(divInsertionDescriptif).append($(divBarreInsertionLigneChiffrage));
+
+          //On supprime le panneau de choix des styles de desciptif
+          $(".divInsertionStyleDescriptif").remove();
+
+          //Ajout de l'hover sur toutes les barres d'insertions titre
+          addEventsDescriptifs();
+
+          //Appel de la fonction de numérotation de l'arborescence
+          var idLot = $(divInsertionDescriptif).parent().attr("id");
+          NumerotationArbo(idLot);
+        } else {
+          //On insère le générique
+          $(divInsertionDescriptif).html(
+            "<input type='hidden' id='idXML' value='_0'/><input type='hidden' class='idDescriptif' value='" +
+              idDescriptif +
+              "'/><input type='hidden' class='typeDescriptif' value='" +
+              typeDescriptif +
+              "'/><div class='input-group'><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control nomDescriptif' placeholder='Générique' value='" +
+              nomDescriptif +
+              "'/><div class='deleteXML'><i class=\"fas fa-times-circle\"></i></div></div><div class='input-group description'><textarea class='form-control' placeholder='Description' value='" +
+              descriptionDescriptif +
+              "'></textarea></div>"
+          );
+          $(divInsertionDescriptif).insertBefore($(element).parent());
+          //! Rajouter la description stylisée en AJAX
+
+          //On insère une barre d'insertion au dessus du nouveau descriptif
+          divBarreInsertion = $(
+            "<div class='barreInsertion' onclick='AjouterElement(this);'><div class='panBarreInsertion'></div><div class='panBarreInsertion'></div></div>"
+          );
+          divBarreInsertion.insertBefore($(divInsertionDescriptif));
+
+          //On supprime le panneau de choix des styles de desciptif
+          $(".divInsertionStyleDescriptif").remove();
+
+          //Ajout de l'hover sur toutes les barres d'insertions titre
+          addEventsDescriptifs();
+
+          //Appel de la fonction de numérotation de l'arborescence
+          var idLot = $(divInsertionDescriptif).parent().attr("id");
+          NumerotationArbo(idLot);
+        }
+
+        //on attache l'evt pour modifier le xml
+        attacheEventModifXML();
+
+        //on actualise le xml
+        modifierXML(divInsertionDescriptif);
+      }
+    });
+  }
 }
 
 function NumerotationArbo(idOnglet) {
@@ -1349,7 +1470,7 @@ enCours = false;
 function modifierXML(element) {
   if (typeof element != "undefined" && enCours == false) {
     enCours = true;
-    console.log("debut " + jQuery.now());
+    //console.log("debut " + jQuery.now());
 
     //on détermine l'idProjet
     var idProjet = $("#idProjetActuel").val();
@@ -1509,7 +1630,7 @@ function modifierXML(element) {
       }
 
       enCours = false;
-      console.log("Fin " + jQuery.now());
+      //console.log("Fin " + jQuery.now());
     });
   } else if (
     typeof element != "undefined" &&
@@ -1616,8 +1737,12 @@ function supprimerXML(croix, type) {
 }
 
 function addSelectedClassXML(elementPuce) {
+  $(".selectDescriptifXML").css("background-color", "white");
+  $(".selectDescriptifXML").removeClass("selectDescriptifXML");
   deplacementDescriptif = true;
   $(elementPuce).parent().parent().addClass("selectDescriptifXML");
+  $(".selectDescriptif").removeClass("selectDescriptif");
+  $(".selectDescriptifXML").css("background-color", "rgba(70, 55, 0, 0.05)");
 }
 
 function survolDeplacerDescriptif(elementPuce, sens) {
