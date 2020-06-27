@@ -2,6 +2,7 @@
 
 test_select_descriptif = false; //permet de ne pas supprimer la selection d'un element à peine faite
 test_manageProjet = false;
+deplacementDescriptif = false;
 var testChoixPresent = false;
 
 /************** Appels au chargement de la page ******************/
@@ -16,13 +17,16 @@ $(document).ready(function () {
     dataType: "json",
   }).done(function (response) {
     // Fonction appelée en cas d'appel AJAX réussi
+
+    //console.log("Response", response);
     if (!response.ErrorState) {
       if (response.isAdmin) {
         //Si admin alors on affiche le bouton de création de compte Opérateur
         $(".creationCompte").show();
-      } else {
-        window.location.href = "index.html";
       }
+      // else {
+      //   window.location.href = "index.html";
+      // }
     }
   });
 
@@ -36,6 +40,7 @@ $(document).ready(function () {
     dataType: "json",
   }).done(function (response) {
     // Fonction appelée en cas d'appel AJAX réussi
+    //console.log("Response", response);
     if (!response.ErrorState) {
       $.each(response.listeCoeffRaccordement, function (i, coeffRaccordement) {
         $("#coeffRaccordement").append(
@@ -182,6 +187,7 @@ $(document).ready(function () {
 
   $(".container").first().click(unset_select_descriptif);
   $(".container").last().click(SuppressionChoixInsertionTitre);
+  $(".container").last().click(removeSelectDescriptifXML);
   addEventsDescriptifs();
 
   //à ajouter une fois lorsque l'utilisateur cherche un projet
@@ -431,8 +437,7 @@ function modifierInfosProjet() {
     dataType: "json",
   }).done(function (response) {
     // Fonction appelée en cas d'appel AJAX réussi
-    console.log("Response", response);
-
+    //console.log("Response", response);
     if (response) {
       if (response["Error"]) {
         alert(
@@ -970,6 +975,16 @@ function AjouterElement(element) {
 function SuppressionChoixInsertionTitre() {
   if (!testChoixPresent) $(".divInsertionTitre").remove();
   testChoixPresent = false;
+}
+
+function removeSelectDescriptifXML() {
+  if (!deplacementDescriptif) {
+    //on peut supprimer l'évènement
+    $(".selectDescriptifXML").css("background-color", "white");
+    $(".selectDescriptifXML").removeClass("selectDescriptifXML");
+  } else {
+    deplacementDescriptif = false;
+  }
 }
 
 function AjouterTitre(evt) {
@@ -1609,6 +1624,30 @@ function supprimerXML(croix, type) {
   }
 }
 
+function addSelectedClassXML(elementPuce) {
+  deplacementDescriptif = true;
+  $(elementPuce).parent().parent().addClass("selectDescriptifXML");
+}
+
+function survolDeplacerDescriptif(elementPuce, sens) {
+  if (sens == "enter") {
+    $(elementPuce)
+      .parent()
+      .parent()
+      .css("background-color", "rgba(70, 55, 0, 0.05)");
+  } else {
+    if (
+      !$(elementPuce)
+        .parent()
+        .parent()
+        .attr("class")
+        .includes("selectDescriptifXML")
+    ) {
+      $(elementPuce).parent().parent().css("background-color", "white");
+    }
+  }
+}
+
 function attacheEventModifXML() {
   $(".titre1").change(function () {
     modifierXML(this);
@@ -1640,4 +1679,17 @@ function attacheEventModifXML() {
   $(".suppressionLigneChiffrage").click(function () {
     supprimerXML(this, "ligneChiffrage");
   });
+  $(".descriptif > .input-group > .input-group-prepend").click(function () {
+    addSelectedClassXML(this);
+  });
+  $(".descriptif > .input-group > .input-group-prepend").mouseenter(
+    function () {
+      survolDeplacerDescriptif(this, "enter");
+    }
+  );
+  $(".descriptif > .input-group > .input-group-prepend").mouseleave(
+    function () {
+      survolDeplacerDescriptif(this, "leave");
+    }
+  );
 }

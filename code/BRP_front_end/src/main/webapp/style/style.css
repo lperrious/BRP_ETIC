@@ -431,16 +431,27 @@ select {
   justify-content: space-around;
 }
 
-.importButton,
+/*.importButton,
 .exportButton,
 .creationCompte {
   background-color: var(--cta);
   color: var(--text_soft);
   padding: 8px;
-  width: 45%;
+  width: 15%;
   text-align: center;
   border-radius: 3px;
   font-size: 105%;
+  position: absolute;
+}
+
+.importButton{
+  bottom: 15px;
+  left: 5%;
+}
+
+.exportButton{
+  bottom: 15px;
+  left: 25%;
 }
 
 .importButton:hover,
@@ -448,16 +459,37 @@ select {
 .creationCompte:hover {
   background-color: var(--cta_hover);
   cursor: pointer;
+}*/
+
+label.importButton input[type="file"], label.exportButton input[type="file"] {
+    position:absolute;
+    top: -1000px;
 }
 
-.importButton {
-  margin-left: 5%;
-  margin-right: 2.5%;
+/***** Example custom styling *****/
+.importButton, .exportButton {
+    background-color: var(--cta);
+    color: var(--text_soft);
+    padding: 8px;
+    text-align: center;
+    border-radius: 3px;
+    font-size: 105%;
+    display: inline-block;
+    width: 42.5%;
 }
 
-.exportButton {
-  margin-right: 5%;
-  margin-left: 2.5%;
+.importButton:hover,
+.exportButton:hover {
+  background-color: var(--cta_hover);
+  cursor: pointer;
+}
+
+.importButton{
+  margin-left: 4%;
+}
+
+.exportButton{
+  margin-right: 4%;
 }
 
 .filtre {
@@ -504,7 +536,7 @@ select {
   display: none;
 }
 
-.selectDescriptif {
+.selectDescriptif, .selectDescriptifXML {
   background-color: var(--menu_bg_hover);
 }
 
@@ -574,6 +606,7 @@ select {
   padding-left: 0;
   padding-bottom: 0;
   padding-top: 0;
+  background-color: rgba(255,255,255,0);
 }
 
 .input-group {
@@ -582,10 +615,14 @@ select {
 }
 
 .input-group-text {
-  background-color: var(--background_1);
+  background-color: rgba(255,255,255,0);
   border: none;
   padding-left: 0;
   color: var(--text);
+}
+
+.input-group-prepend:hover{
+    cursor: pointer;
 }
 
 .ligneChiffrage {
