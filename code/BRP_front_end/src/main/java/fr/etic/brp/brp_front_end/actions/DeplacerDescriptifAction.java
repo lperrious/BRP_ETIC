@@ -9,32 +9,23 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author quentinmarc
  */
-public class SupprimerXMLAction extends Action {
+public class DeplacerDescriptifAction extends Action {
     
     @Override
     public void execute(HttpServletRequest request){ //Implémentation de la méthode Action.execute()
         
         //Récupération des paramètres de la requête
         Long idProjet = parseLong(request.getParameter("idProjet"));
-        String type = request.getParameter("type");
-        String idXML = request.getParameter("idXML");
-        String idDescriptifXML = null;
-        Boolean resultat = false;
-        if("ligneChiffrage".equals(type)){
-            idDescriptifXML = request.getParameter("idDescriptifXML");
-        }
-        
+        String idDescriptif = request.getParameter("idDescriptif");
+        String placement = request.getParameter("placement");
+        String idRef = request.getParameter("idRef");
+        Boolean resultat = null;
         //Instanciation de la classe de Service
         Service service = new Service();
         
         //Appel des services métiers (=méthodes de la classe Service)
         try{
-            if("ligneChiffrage".equals(type)){
-                resultat = service.SupprimerLigneChiffrage(idProjet, idDescriptifXML, idXML);
-            }
-            else{
-                resultat = service.SuppressionBalise(idProjet, idXML);
-            }
+            resultat = service.DeplacerDescriptif(idProjet, idDescriptif, placement, idRef);
             request.setAttribute("ErrorState", !resultat);
         }
         catch(Exception e) //Stockage de l'erreur dans l'attribut de la requete

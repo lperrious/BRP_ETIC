@@ -6,6 +6,7 @@ import fr.etic.brp.brp_front_end.actions.AffichageAdminAction;
 import fr.etic.brp.brp_front_end.actions.ArboDescriptifsAction;
 import fr.etic.brp.brp_front_end.actions.ConnexionAction;
 import fr.etic.brp.brp_front_end.actions.CreationProjetAction;
+import fr.etic.brp.brp_front_end.actions.DeplacerDescriptifAction;
 import fr.etic.brp.brp_front_end.actions.DupliquerProjetAction;
 import fr.etic.brp.brp_front_end.actions.EditerInfosProjetAction;
 import fr.etic.brp.brp_front_end.actions.EnregistrerUriProjetExportAction;
@@ -23,6 +24,7 @@ import fr.etic.brp.brp_front_end.serialisations.AffichageAdminSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.ArboDescriptifsSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.ConnexionSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.CreationProjetSerialisation;
+import fr.etic.brp.brp_front_end.serialisations.DeplacerDescriptifSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.DupliquerProjetSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.EditerInfosProjetSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.EnregistrerUriProjetExportSerialisation;
@@ -147,6 +149,11 @@ public class ActionServlet extends HttpServlet {
             case "supprimerXML" : {
                 action = new SupprimerXMLAction();
                 serialisation = new SupprimerXMLSerialisation();
+                break;
+            }
+            case "deplacerDescriptif" : {
+                action = new DeplacerDescriptifAction();
+                serialisation = new DeplacerDescriptifSerialisation();
                 break;
             }
             case "affichageAdmin" : {

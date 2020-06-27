@@ -1263,6 +1263,42 @@ public class Service {
         return resultat;
     }
     
+    public Boolean DeplacerDescriptif(Long idProjet, String idDescriptif, String placement, String idRef){
+        Boolean resultat = false;
+        DomUtil.init();
+        
+        try {
+            //Obtention du document
+            String uri = rootXMLFiles+idProjet+".xml";
+            Document xml = projetXMLDao.ObtenirDocument(uri);
+            
+            Element element = (Element) xml.getElementById(idDescriptif);
+            Element elementCopy = (Element) xml.getElementById(idDescriptif);
+            
+            element.getParentNode().removeChild(element);
+            
+            if(placement.equals("APPEND")) {
+                Node parent = xml.getElementById(idRef);
+                parent.appendChild(elementCopy);
+            } else {
+                Node elementAfter = xml.getElementById(idRef);
+                Node parent = elementAfter.getParentNode();
+                parent.insertBefore(elementCopy, elementAfter);
+            }
+            
+            //On écrit par dessus l'ancien XML
+            projetXMLDao.saveXMLContent(xml, uri);
+            
+            resultat = true; //Si on est arrivé jusque là alors pas d'erreur
+            
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service DeplacerDescriptif", ex);
+        } finally {
+            DomUtil.destroy();
+        }
+        return resultat;
+    }
+    
     public Boolean SuppressionBalise(Long idProjet, String idBalise) {
         
         Boolean resultat = false;

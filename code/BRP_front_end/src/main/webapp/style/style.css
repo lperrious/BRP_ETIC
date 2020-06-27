@@ -599,6 +599,10 @@ label.importButton input[type="file"], label.exportButton input[type="file"] {
   margin-top: 20px;
 }
 
+.finLot{
+  height: 200px;
+}
+
 .form-control {
   color: var(--text);
   border: none;
@@ -678,23 +682,23 @@ label.importButton input[type="file"], label.exportButton input[type="file"] {
 }
 
 .titre1 {
-  margin-left: 15px;
+  margin-left: 20px;
 }
 
 .titre2 {
-  margin-left: 30px;
+  margin-left: 40px;
 }
 
 .titre3 {
-  margin-left: 45px;
-}
-
-.titre4 {
   margin-left: 60px;
 }
 
+.titre4 {
+  margin-left: 80px;
+}
+
 .titre5 {
-  margin-left: 75px;
+  margin-left: 100px;
 }
 
 #ongletsLot {
