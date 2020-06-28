@@ -416,6 +416,8 @@ select {
   position: relative;
   top: -4px;
   left: 20px;
+  flex: 1;
+  margin-right: 40px;
 }
 
 .infoProjet > select {
@@ -534,8 +536,16 @@ label.exportButton input[type="file"] {
 }
 
 .lineDescriptif {
-  margin-left: 60px;
   display: none;
+}
+
+.ouvrage,
+.generique {
+  margin-left: 60px;
+}
+
+.prestation {
+  margin-left: 80px;
 }
 
 .selectDescriptif,
@@ -606,15 +616,15 @@ label.exportButton input[type="file"] {
   height: 200px;
 }
 
-/*.form-control {
+.form-control {
   color: var(--text);
   border: none;
   padding-right: 0;
   padding-left: 0;
   padding-bottom: 0;
   padding-top: 0;
-  background-color: rgba(255,255,255,0);
-}*/
+  background-color: rgba(255, 255, 255, 0);
+}
 
 .input-group {
   width: auto;

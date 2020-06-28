@@ -37,6 +37,7 @@ public class ListerRaccordementCatConstSerialisation extends Serialisation {
                 JsonObject containerCoeffRaccordement = new JsonObject();
                 containerCoeffRaccordement.addProperty("localisation", listeCoeffRaccordement.get(i).getLocalisation());
                 containerCoeffRaccordement.addProperty("valeur", listeCoeffRaccordement.get(i).getValeur());
+                containerCoeffRaccordement.addProperty("id", listeCoeffRaccordement.get(i).getIdCoeffRaccordement());
                 jaListeCoeffRaccordement.add(containerCoeffRaccordement);
             }
             JsonArray jaListeCategorieConstruction = new JsonArray();

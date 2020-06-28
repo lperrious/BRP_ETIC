@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE projet SYSTEM "reglesProjet.dtd">
 <projet idProjet="1">
+<<<<<<< HEAD
     <nextId>39</nextId>
     <lot id="_1" intitule="">
         <titre1 id="_2" intitule=""/>
@@ -328,5 +329,10 @@
                 <courteDescription/>
             </descriptif>
         </titre1>
+=======
+    <nextId>3</nextId>
+    <lot id="_1" intitule="heeeey">
+        <titre1 id="_2" intitule="dlkjndjb"/>
+>>>>>>> 0cce450d0a06fc26708f5f5bfbebd6070228881f
     </lot>
 </projet>
