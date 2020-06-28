@@ -243,14 +243,12 @@ function createProject() {
     //on ferme le popup
     popUpNomProjet(false);
 
-    if (response) {
-      if (response["Error"]) {
-        alert(
-          "Une erreur est survenue, impossible de créer un nouveau projet)"
-        );
-      } else {
-        ouvrirProjet(response["idProjet"]);
-      }
+    if (response["Error"]) {
+      alert(
+        "Une erreur est survenue, impossible de créer un nouveau projet"
+      );
+    } else {
+      ouvrirProjet(response["idProjet"]);
     }
   });
 }
@@ -492,6 +490,15 @@ function ouvrirProjet(idProjet) {
       for (let index = 0; index < $(".lot").length; index++) {
         NumerotationArbo("lot_" + index);
       }
+
+      //on attache l'evt pour modifier le xml
+      attacheEventModifXML();
+
+      //on actualise le xml
+      var newOnglet = $("#divTitreLot_0");
+      var premierTitre = $(".titre1").last();
+      modifierXML(newOnglet);
+      modifierXML(premierTitre);
     }
   });
 }
