@@ -4,6 +4,7 @@ import fr.etic.brp.brp_back_end.dao.JpaUtil;
 import fr.etic.brp.brp_front_end.actions.Action;
 import fr.etic.brp.brp_front_end.actions.AffichageAdminAction;
 import fr.etic.brp.brp_front_end.actions.ArboDescriptifsAction;
+import fr.etic.brp.brp_front_end.actions.ChercherProjetAction;
 import fr.etic.brp.brp_front_end.actions.ConnexionAction;
 import fr.etic.brp.brp_front_end.actions.CreationProjetAction;
 import fr.etic.brp.brp_front_end.actions.DeplacerDescriptifAction;
@@ -24,6 +25,7 @@ import fr.etic.brp.brp_front_end.actions.SupprimerXMLAction;
 import fr.etic.brp.brp_front_end.actions.TestConnexionAction;
 import fr.etic.brp.brp_front_end.serialisations.AffichageAdminSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.ArboDescriptifsSerialisation;
+import fr.etic.brp.brp_front_end.serialisations.ChercherProjetSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.ConnexionSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.CreationProjetSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.DeplacerDescriptifSerialisation;
@@ -143,6 +145,11 @@ public class ActionServlet extends HttpServlet {
             case "listerSousCatConstCaractDim" : {
                 action = new ListerSousCatConstCaractDimAction();
                 serialisation = new ListerSousCatConstCaractDimSerialisation();
+                break;
+            }
+            case "chercherProjet" : {
+                action = new ChercherProjetAction();
+                serialisation = new ChercherProjetSerialisation();
                 break;
             }
             case "modifierXML" : {

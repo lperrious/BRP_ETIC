@@ -34,6 +34,7 @@ import fr.etic.brp.brp_back_end.metier.modele.SousCategorieConstruction;
 import fr.etic.brp.brp_back_end.metier.modele.SousFamille;
 import static java.lang.Long.parseLong;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -81,6 +82,21 @@ public class Service {
             JpaUtil.fermerContextePersistance();
         }
         return resultat;
+    }
+    
+    public  List<Projet> listerProjet(){
+        List<Projet> listeProjets = null;
+        
+        JpaUtil.creerContextePersistance();
+        try {
+          listeProjets = projetDao.ListerProjets();
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service ChercherProjetParNom(String morceauNom)", ex);
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        
+        return listeProjets;
     }
     
     public List<Categorie> ListerCategories() {

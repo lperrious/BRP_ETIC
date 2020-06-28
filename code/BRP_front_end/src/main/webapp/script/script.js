@@ -4,6 +4,7 @@ test_select_descriptif = false; //permet de ne pas supprimer la selection d'un e
 test_manageProjet = false;
 deplacementDescriptif = false;
 var testChoixPresent = false;
+listeProjets = Array();
 
 /************** Appels au chargement de la page ******************/
 $(document).ready(function () {
@@ -193,6 +194,8 @@ $(document).ready(function () {
   $(".textLineProjet").click(function () {
     clicProjet($(this).parent());
   });
+
+  getProjets();
 });
 
 /****************** Fonctions (popup) *********************/
@@ -247,6 +250,44 @@ function createProject() {
       } else {
         ouvrirProjet(response["idProjet"]);
       }
+    }
+  });
+}
+
+function searchProjet(){
+  var morceauNom = $('#search_input').val();
+  $('#containerLineProjet').html('');
+  for (var i = 0; i < listeProjets.length; i++) {
+    //si le morceau du nom se trouve bien dans le nom du projet, on l'affiche
+    if(listeProjets[i]["nom"].includes(morceauNom)){
+      $('#containerLineProjet').append('<div class="lineProjet">\
+              <input type="hidden" class="idProjet" value="'+listeProjets[i]["id"]+'" />\
+              <div class="textLineProjet">\
+                <div class="iconProjet"><i class="far fa-file-alt"></i></div>\
+                <div class="propositionNomProjet">'+listeProjets[i]["nom"]+'</div>\
+              </div>\
+              <select class="actionProjet">\
+                <option value="ouvrir">Ouvrir</option>\
+                <option value="dupliquer">Dupliquer</option>\
+              </select>\
+            </div>');
+    }
+  }
+}
+
+function getProjets(){
+  $.ajax({
+    url: "./ActionServlet",
+    method: "POST",
+    data: {
+      todo: "chercherProjet",
+    },
+    dataType: "json",
+  }).done(function (response) {
+    // Fonction appelée en cas d'appel AJAX réussi
+    console.log("Response", response);
+    if (!response['Error']) {
+      listeProjets = response['listeProjets'];
     }
   });
 }
