@@ -69,7 +69,7 @@ public class Main {
 //        InitialiserChapitre();
 //        InitialiserDescriptif();
 //        InitialiserFamille();
-//        InitialiserOperateur();
+        InitialiserOperateur();
 //        InitialiserProjets();
 //        InitialiserSousFamille();
         
@@ -106,7 +106,7 @@ public class Main {
 //        testerAjouterTitre2();
 //        testerAjouterTitre3();
 //        testerAjouterTitre4();
-        testerAjouterDescriptif();
+//        testerAjouterDescriptif();
 //        testerAjouterLigneChiffrage();
 //        testerCoutSynthese();
 //        testerSuppressionBalise();
