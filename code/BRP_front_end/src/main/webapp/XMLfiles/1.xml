@@ -1,5 +1,332 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE projet SYSTEM "reglesProjet.dtd">
 <projet idProjet="1">
-    <nextId>1</nextId>
+    <nextId>39</nextId>
+    <lot id="_1" intitule="">
+        <titre1 id="_2" intitule=""/>
+    </lot>
+    <lot id="_3" intitule="">
+        <titre1 id="_4" intitule="">
+            <titre2 id="_5" intitule=""/>
+        <descriptif id="_6" idBD="04_ETA_01_11_001" type="ouvrage">
+                <nomDescriptif>Bac acier plein support d’étanchéité</nomDescriptif>
+                <description>
+                    <p>
+                        <normal>Bac acier support d’étanchéité fixé sur panne métallique selon DTU 43.3.</normal>
+                    </p>
+                </description>
+                <courteDescription/>
+                <unite>m²</unite>
+                <ligneChiffrage idLigneChiffrage="1">
+                    <localisation/>
+                    <quantite>1.0</quantite>
+                    <prixUnitaire>26.0</prixUnitaire>
+                </ligneChiffrage>
+            </descriptif>
+        </titre1>
+    </lot>
+    <lot id="_7" intitule="">
+        <titre1 id="_8" intitule="">
+            <descriptif id="_9" idBD="06_BAR_01_10_001" type="ouvrage">
+                <nomDescriptif>Isolation minérale des bardages</nomDescriptif>
+                <description>
+                    <p>
+                        <normal>Isolation minérale des bardages</normal>
+                    </p>
+                </description>
+                <courteDescription/>
+                <unite>m3</unite>
+                <ligneChiffrage idLigneChiffrage="1">
+                    <localisation/>
+                    <quantite>1.0</quantite>
+                    <prixUnitaire>120.0</prixUnitaire>
+                </ligneChiffrage>
+                <ligneChiffrage idLigneChiffrage="2">
+                    <localisation/>
+                    <quantite>1.0</quantite>
+                    <prixUnitaire>120.0</prixUnitaire>
+                </ligneChiffrage>
+            </descriptif>
+        <descriptif id="_10" idBD="06_BAR_01_10_001" type="ouvrage">
+                <nomDescriptif>Isolation minérale des bardages</nomDescriptif>
+                <description>
+                    <p>
+                        <normal>Isolation minérale des bardages</normal>
+                    </p>
+                </description>
+                <courteDescription/>
+                <unite>m3</unite>
+                <ligneChiffrage idLigneChiffrage="1">
+                    <localisation/>
+                    <quantite>1.0</quantite>
+                    <prixUnitaire>120.0</prixUnitaire>
+                </ligneChiffrage>
+            </descriptif>
+        </titre1>
+    </lot>
+    <lot id="_11" intitule="">
+        <titre1 id="_12" intitule="">
+            <descriptif id="_13" idBD="04_ETA_02_01_001" type="ouvrage">
+                <nomDescriptif>Isolation sous étanchéité laine de roche</nomDescriptif>
+                <description>
+                    <p/>
+                </description>
+                <courteDescription/>
+                <unite>m3</unite>
+                <ligneChiffrage idLigneChiffrage="1">
+                    <localisation/>
+                    <quantite>1.0</quantite>
+                    <prixUnitaire>120.0</prixUnitaire>
+                </ligneChiffrage>
+            </descriptif>
+        </titre1>
+    </lot>
+    <lot id="_14" intitule="">
+        <titre1 id="_15" intitule="">
+            <descriptif id="_16" idBD="04_ETA_01_11_001" type="ouvrage">
+                <nomDescriptif>Bac acier plein support d’étanchéité</nomDescriptif>
+                <description>
+                    <p>
+                        <normal>Bac acier support d’étanchéité fixé sur panne métallique selon DTU 43.3.</normal>
+                    </p>
+                </description>
+                <courteDescription/>
+                <unite>m²</unite>
+                <ligneChiffrage idLigneChiffrage="1">
+                    <localisation/>
+                    <quantite>1.0</quantite>
+                    <prixUnitaire>26.0</prixUnitaire>
+                </ligneChiffrage>
+            </descriptif>
+        <descriptif id="_17" idBD="04_ETA_01_11_001" type="ouvrage">
+                <nomDescriptif>Bac acier plein support d’étanchéité</nomDescriptif>
+                <description>
+                    <p>
+                        <normal>Bac acier support d’étanchéité fixé sur panne métallique selon DTU 43.3.</normal>
+                    </p>
+                </description>
+                <courteDescription/>
+                <unite>m²</unite>
+                <ligneChiffrage idLigneChiffrage="1">
+                    <localisation/>
+                    <quantite>1.0</quantite>
+                    <prixUnitaire>26.0</prixUnitaire>
+                </ligneChiffrage>
+            </descriptif>
+        </titre1>
+    </lot>
+    <lot id="_18" intitule="">
+        <titre1 id="_19" intitule="">
+            <descriptif id="_20" idBD="04_ETA_01_11_001" type="ouvrage">
+                <nomDescriptif>Bac acier plein support d’étanchéité</nomDescriptif>
+                <description>
+                    <p>
+                        <normal>Bac acier support d’étanchéité fixé sur panne métallique selon DTU 43.3.</normal>
+                    </p>
+                </description>
+                <courteDescription/>
+                <unite>m²</unite>
+                <ligneChiffrage idLigneChiffrage="1">
+                    <localisation/>
+                    <quantite>1.0</quantite>
+                    <prixUnitaire>26.0</prixUnitaire>
+                </ligneChiffrage>
+            </descriptif>
+        </titre1>
+    </lot>
+    <lot id="_21" intitule="">
+        <titre1 id="_22" intitule="">
+            <descriptif id="_23" idBD="04_ETA_01_11_001" type="ouvrage">
+                <nomDescriptif>Bac acier plein support d’étanchéité</nomDescriptif>
+                <description>
+                    <p>
+                        <normal>Bac acier support d’étanchéité fixé sur panne métallique selon DTU 43.3.</normal>
+                    </p>
+                </description>
+                <courteDescription/>
+                <unite>m²</unite>
+                <ligneChiffrage idLigneChiffrage="1">
+                    <localisation/>
+                    <quantite>1.0</quantite>
+                    <prixUnitaire>26.0</prixUnitaire>
+                </ligneChiffrage>
+            </descriptif>
+        </titre1>
+    </lot>
+    <lot id="_24" intitule="">
+        <titre1 id="_25" intitule="">
+            <descriptif id="_26" idBD="04_ETA_01_11_001" type="ouvrage">
+                <nomDescriptif>Bac acier plein support d’étanchéité</nomDescriptif>
+                <description>
+                    <p>
+                        <normal>Bac acier support d’étanchéité fixé sur panne métallique selon DTU 43.3.</normal>
+                    </p>
+                </description>
+                <courteDescription/>
+                <unite>m²</unite>
+                <ligneChiffrage idLigneChiffrage="1">
+                    <localisation/>
+                    <quantite>1.0</quantite>
+                    <prixUnitaire>26.0</prixUnitaire>
+                </ligneChiffrage>
+            </descriptif>
+        </titre1>
+    </lot>
+    <lot id="_27" intitule="">
+        <titre1 id="_28" intitule="">
+            <descriptif id="_29" idBD="04_ETA_01_11_001" type="ouvrage">
+                <nomDescriptif>Bac acier plein support d’étanchéité</nomDescriptif>
+                <description>
+                    <p>
+                        <normal>Bac acier support d’étanchéité fixé sur panne métallique selon DTU 43.3.</normal>
+                    </p>
+                </description>
+                <courteDescription/>
+                <unite>m²</unite>
+                <ligneChiffrage idLigneChiffrage="1">
+                    <localisation/>
+                    <quantite>1.0</quantite>
+                    <prixUnitaire>26.0</prixUnitaire>
+                </ligneChiffrage>
+            </descriptif>
+        </titre1>
+    </lot>
+    <lot id="_30" intitule="">
+        <titre1 id="_31" intitule="">
+            <descriptif id="_32" idBD="11_DAP_01_10_001" type="generique">
+                <nomDescriptif>Amiante</nomDescriptif>
+                <description>
+                    <p>
+                        <normal>Nous disposons d’un Repérage Amiante Avant Travaux datant du </normal>
+                        <highlightYellow>XXXXX.</highlightYellow>
+                        <normal> Celui-ci porte sur les matériaux et produits de la liste A1 de la norme NF-X46-020.</normal>
+                    </p>
+                    <p/>
+                    <p>
+                        <normal>Il a été </normal>
+                        <b>repéré des matériaux contenant de l’amiante</b>
+                        <normal> dans :</normal>
+                    </p>
+                    <li>
+                        <highlightYellow>XXXX</highlightYellow>
+                    </li>
+                    <li>
+                        <highlightYellow>XXXX</highlightYellow>
+                    </li>
+                    <p/>
+                    <p>
+                        <normal>En revanche, le programme de travaux du donneur d’ordre ne spécifie pas les travaux suivant :</normal>
+                    </p>
+                    <li>
+                        <highlightYellow>XXXX</highlightYellow>
+                    </li>
+                    <li>
+                        <highlightYellow>XXXX</highlightYellow>
+                    </li>
+                    <p/>
+                    <p>
+                        <normal>Il convient de demander au diagnostiqueur de mettre à jour son rapport (ou d’en établir un nouveau) en intégrant le programme de travaux complet.</normal>
+                    </p>
+                    <p/>
+                </description>
+                <courteDescription/>
+            </descriptif>
+        </titre1>
+    </lot>
+    <lot id="_33" intitule="">
+        <titre1 id="_34" intitule="">
+            <descriptif id="_35" idBD="11_DAP_10_10_001" type="generique">
+                <nomDescriptif>Plomb</nomDescriptif>
+                <description>
+                    <p>
+                        <normal>La réglementation thermique des bâtiments existants s’applique aux bâtiments résidentiels et tertiaires existants, à l’occasion de travaux de rénovation prévus par le maître d’ouvrage. Cette réglementation s’appuie sur l’arrêté du 13 juin 2008.</normal>
+                    </p>
+                    <p/>
+                    <p>
+                        <normal>L’objectif général est d’assurer une amélioration significative de la performance énergétique d’un bâtiment existant lorsqu’un maître d’ouvrage entreprend des travaux susceptibles d’apporter une telle amélioration.</normal>
+                    </p>
+                    <p/>
+                    <p>
+                        <normal>La réglementation thermique « globale » s'applique aux bâtiments résidentiels et tertiaires respectant simultanément les trois conditions suivantes : </normal>
+                    </p>
+                    <p/>
+                    <li>
+                        <normal>leur Surface Hors Œuvre Nette (SHON) est supérieure à 1000m² ;</normal>
+                    </li>
+                    <li>
+                        <normal>la date d'achèvement du bâtiment est postérieure au 1er janvier 1948.</normal>
+                    </li>
+                    <li>
+                        <normal>Et le coût des travaux de rénovation « thermique » décidés par le maître d'ouvrage est supérieur à 25% de la valeur hors foncier du bâtiment, ce qui correspond à 324,75 € HT /m² pour les logements et 275 € HT/m² pour locaux non résidentiels.</normal>
+                    </li>
+                    <p/>
+                    <p>
+                        <highlightMagenta>**** SCHEMA RT GLOBAL RT ELEMENTS ****</highlightMagenta>
+                    </p>
+                    <p/>
+                    <p>
+                        <normal>Les dispositions de l’arrêté du 13 juin 2008 s'appliquent donc lorsque sont entrepris des travaux de réhabilitation portant sur l'enveloppe, les installations de chauffage, de production d'eau chaude, de refroidissement, de ventilation, d'éclairage ou les équipements utilisant les énergies renouvelables d'un bâtiment, pour un coût total supérieur à 25 % de la valeur du bâtiment concerné.</normal>
+                    </p>
+                    <p/>
+                    <p>
+                        <normal>Au </normal>
+                        <highlightYellow>1er janvier 2020</highlightYellow>
+                        <normal>, le coût de construction pris en compte pour déterminer la valeur du bâtiment est de </normal>
+                        <highlightYellow>1 645</highlightYellow>
+                        <normal> euros HT/m².SHON.</normal>
+                    </p>
+                    <p/>
+                </description>
+                <courteDescription/>
+            </descriptif>
+        </titre1>
+    </lot>
+    <lot id="_36" intitule="">
+        <titre1 id="_37" intitule="">
+            <descriptif id="_38" idBD="11_DAP_10_10_001" type="generique">
+                <nomDescriptif>Plomb</nomDescriptif>
+                <description>
+                    <p>
+                        <normal>La réglementation thermique des bâtiments existants s’applique aux bâtiments résidentiels et tertiaires existants, à l’occasion de travaux de rénovation prévus par le maître d’ouvrage. Cette réglementation s’appuie sur l’arrêté du 13 juin 2008.</normal>
+                    </p>
+                    <p/>
+                    <p>
+                        <normal>L’objectif général est d’assurer une amélioration significative de la performance énergétique d’un bâtiment existant lorsqu’un maître d’ouvrage entreprend des travaux susceptibles d’apporter une telle amélioration.</normal>
+                    </p>
+                    <p/>
+                    <p>
+                        <normal>La réglementation thermique « globale » s'applique aux bâtiments résidentiels et tertiaires respectant simultanément les trois conditions suivantes : </normal>
+                    </p>
+                    <p/>
+                    <li>
+                        <normal>leur Surface Hors Œuvre Nette (SHON) est supérieure à 1000m² ;</normal>
+                    </li>
+                    <li>
+                        <normal>la date d'achèvement du bâtiment est postérieure au 1er janvier 1948.</normal>
+                    </li>
+                    <li>
+                        <normal>Et le coût des travaux de rénovation « thermique » décidés par le maître d'ouvrage est supérieur à 25% de la valeur hors foncier du bâtiment, ce qui correspond à 324,75 € HT /m² pour les logements et 275 € HT/m² pour locaux non résidentiels.</normal>
+                    </li>
+                    <p/>
+                    <p>
+                        <highlightMagenta>**** SCHEMA RT GLOBAL RT ELEMENTS ****</highlightMagenta>
+                    </p>
+                    <p/>
+                    <p>
+                        <normal>Les dispositions de l’arrêté du 13 juin 2008 s'appliquent donc lorsque sont entrepris des travaux de réhabilitation portant sur l'enveloppe, les installations de chauffage, de production d'eau chaude, de refroidissement, de ventilation, d'éclairage ou les équipements utilisant les énergies renouvelables d'un bâtiment, pour un coût total supérieur à 25 % de la valeur du bâtiment concerné.</normal>
+                    </p>
+                    <p/>
+                    <p>
+                        <normal>Au </normal>
+                        <highlightYellow>1er janvier 2020</highlightYellow>
+                        <normal>, le coût de construction pris en compte pour déterminer la valeur du bâtiment est de </normal>
+                        <highlightYellow>1 645</highlightYellow>
+                        <normal> euros HT/m².SHON.</normal>
+                    </p>
+                    <p/>
+                </description>
+                <courteDescription/>
+            </descriptif>
+        </titre1>
+    </lot>
 </projet>

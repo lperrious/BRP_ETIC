@@ -24,7 +24,7 @@ $(document).ready(function () {
         //Si admin alors on affiche le bouton de création de compte Opérateur
         $(".creationCompte").show();
       }
-    } 
+    }
     // else {
     //   window.location.href = "index.html";
     // }
@@ -254,28 +254,34 @@ function createProject() {
   });
 }
 
-function searchProjet(){
-  var morceauNom = $('#search_input').val();
-  $('#containerLineProjet').html('');
+function searchProjet() {
+  var morceauNom = $("#search_input").val();
+  $("#containerLineProjet").html("");
   for (var i = 0; i < listeProjets.length; i++) {
     //si le morceau du nom se trouve bien dans le nom du projet, on l'affiche
-    if(listeProjets[i]["nom"].includes(morceauNom)){
-      $('#containerLineProjet').append('<div class="lineProjet">\
-              <input type="hidden" class="idProjet" value="'+listeProjets[i]["id"]+'" />\
+    if (listeProjets[i]["nom"].includes(morceauNom)) {
+      $("#containerLineProjet").append(
+        '<div class="lineProjet">\
+              <input type="hidden" class="idProjet" value="' +
+          listeProjets[i]["id"] +
+          '" />\
               <div class="textLineProjet">\
                 <div class="iconProjet"><i class="far fa-file-alt"></i></div>\
-                <div class="propositionNomProjet">'+listeProjets[i]["nom"]+'</div>\
+                <div class="propositionNomProjet">' +
+          listeProjets[i]["nom"] +
+          '</div>\
               </div>\
               <select class="actionProjet">\
                 <option value="ouvrir">Ouvrir</option>\
                 <option value="dupliquer">Dupliquer</option>\
               </select>\
-            </div>');
+            </div>'
+      );
     }
   }
 }
 
-function getProjets(){
+function getProjets() {
   $.ajax({
     url: "./ActionServlet",
     method: "POST",
@@ -286,8 +292,8 @@ function getProjets(){
   }).done(function (response) {
     // Fonction appelée en cas d'appel AJAX réussi
     console.log("Response", response);
-    if (!response['Error']) {
-      listeProjets = response['listeProjets'];
+    if (!response["Error"]) {
+      listeProjets = response["listeProjets"];
     }
   });
 }
@@ -329,8 +335,8 @@ function dupliquerProjet(idProjet) {
   });
 }
 
-function importFile(){
-  var name = $('#importFileInput').val().substr(12);
+function importFile() {
+  var name = $("#importFileInput").val().substr(12);
   var operation = null;
   if (name.includes(".docx")) {
     operation = "ModifBaseDescriptif";
@@ -349,51 +355,63 @@ function importFile(){
     },
     dataType: "json",
   }).done(function (response) {
-
     //on demande l'accord à l'utilisateur
     if (response["Explication"].includes("/")) {
       gestionSupprComplexes(response["Explication"]);
     } else {
       alert(response["Explication"]);
     }
-
   });
 }
 
-function gestionSupprComplexes(listeObjets){
-
+function gestionSupprComplexes(listeObjets) {
   var objetAtraiter = null;
   var erreurOccured = false;
 
-  while(listeObjets != ""){
-    objetAtraiter = listeObjets.substr(0,listeObjets.indexOf(")")+1);
-    listeObjets = listeObjets.substr(listeObjets.indexOf(")")+1);
+  while (listeObjets != "") {
+    objetAtraiter = listeObjets.substr(0, listeObjets.indexOf(")") + 1);
+    listeObjets = listeObjets.substr(listeObjets.indexOf(")") + 1);
 
-    if(confirm("En supprimant l'objet "+objetAtraiter.substr(1, objetAtraiter.indexOf("/")-1)+", vous supprimerez "+objetAtraiter.substr(objetAtraiter.indexOf("/")+1, objetAtraiter.length-2-objetAtraiter.indexOf("/"))+" descriptifs")){
+    if (
+      confirm(
+        "En supprimant l'objet " +
+          objetAtraiter.substr(1, objetAtraiter.indexOf("/") - 1) +
+          ", vous supprimerez " +
+          objetAtraiter.substr(
+            objetAtraiter.indexOf("/") + 1,
+            objetAtraiter.length - 2 - objetAtraiter.indexOf("/")
+          ) +
+          " descriptifs"
+      )
+    ) {
       $.ajax({
         url: "./ActionServlet",
         method: "POST",
         data: {
           todo: "supprComplexe",
-          id: objetAtraiter.substr(1, objetAtraiter.indexOf("/")-1),
+          id: objetAtraiter.substr(1, objetAtraiter.indexOf("/") - 1),
         },
         dataType: "json",
       }).done(function (response) {
-
         if (response.Error) {
           alert(response["Explication"]);
           erreurOccured = true;
         }
         console.log(response);
       });
-    }
-    else{
-      alert("L'objet "+objetAtraiter.substr(1, objetAtraiter.indexOf("/")-1)+" n'a pas été supprimé");
+    } else {
+      alert(
+        "L'objet " +
+          objetAtraiter.substr(1, objetAtraiter.indexOf("/") - 1) +
+          " n'a pas été supprimé"
+      );
     }
   }
 
-  if(!erreurOccured){
-    alert("Import effectué avec succès. Vous trouverez l'Excel lié aux objets importés dans le dossier des imports");
+  if (!erreurOccured) {
+    alert(
+      "Import effectué avec succès. Vous trouverez l'Excel lié aux objets importés dans le dossier des imports"
+    );
   }
 }
 
@@ -1351,12 +1369,11 @@ function AjouterDescriptif(element) {
               typeDescriptif +
               "'/><div class='input-group'><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control nomDescriptif' placeholder='Générique' value='" +
               nomDescriptif +
-              "'/><div class='deleteXML'><i class=\"fas fa-times-circle\"></i></div></div><div class='input-group description'><textarea class='form-control' placeholder='Description' value='" +
+              "'/><div class='deleteXML'><i class=\"fas fa-times-circle\"></i></div></div><div class='input-group description'><textarea id='testTextArea' class='form-control' placeholder='Description' value='" +
               descriptionDescriptif +
               "'></textarea></div>"
           );
           $(divInsertionDescriptif).insertBefore($(element).parent());
-          //! Rajouter la description stylisée en AJAX
 
           //On insère une barre d'insertion au dessus du nouveau descriptif
           divBarreInsertion = $(
@@ -1370,6 +1387,10 @@ function AjouterDescriptif(element) {
           //Ajout de l'hover sur toutes les barres d'insertions titre
           addEventsDescriptifs();
 
+          /*area2 = new nicEditor({ fullPanel: true }).panelInstance(
+            "testTextArea"
+          ); //! et l'id de textarea au dessus*/
+
           //Appel de la fonction de numérotation de l'arborescence
           var idLot = $(divInsertionDescriptif).parent().attr("id");
           NumerotationArbo(idLot);
@@ -1380,6 +1401,9 @@ function AjouterDescriptif(element) {
 
         //on actualise le xml
         modifierXML(divInsertionDescriptif);
+
+        //!Transforme les textaereas en Rich Text Field
+        //bkLib.onDomLoaded(nicEditors.allTextAreas);
       }
     });
   }
