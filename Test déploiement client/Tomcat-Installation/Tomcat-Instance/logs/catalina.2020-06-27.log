@@ -1646,3 +1646,19 @@
 27-Jun-2020 19:38:16.659 INFOS [http-nio-8081-exec-257] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
 27-Jun-2020 19:38:16.664 INFOS [http-nio-8081-exec-257] org.apache.catalina.startup.HostConfig.deployDescriptor Deployment of configuration descriptor [/Users/quentinmarc/Documents/ETIC-git/Etude BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance/conf/Catalina/localhost/BRP_front_end.xml] has finished in [5 243] ms
 27-Jun-2020 19:38:16.671 INFOS [http-nio-8081-exec-258] org.apache.catalina.util.LifecycleBase.start The start() method was called on component [StandardEngine[Catalina].StandardHost[localhost].StandardContext[/BRP_front_end]] after start() had already been called. The second call will be ignored.
+27-Jun-2020 19:42:02.186 INFOS [main] org.apache.catalina.core.StandardServer.await A valid shutdown command was received via the shutdown port. Stopping the Server instance.
+27-Jun-2020 19:42:02.190 INFOS [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8081"]
+27-Jun-2020 19:42:02.243 INFOS [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["ajp-nio-8009"]
+27-Jun-2020 19:42:02.300 INFOS [main] org.apache.catalina.core.StandardService.stopInternal Arrêt du service [Catalina]
+27-Jun-2020 19:42:02.317 AVERTISSEMENT [localhost-startStop-2] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesJdbc The web application [BRP_front_end] registered the JDBC driver [com.mysql.cj.jdbc.Driver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+27-Jun-2020 19:42:02.318 AVERTISSEMENT [localhost-startStop-2] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesThreads The web application [BRP_front_end] appears to have started a thread named [mysql-cj-abandoned-connection-cleanup] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.lang.Object.wait(Native Method)
+ java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:143)
+ com.mysql.cj.jdbc.AbandonedConnectionCleanupThread.run(AbandonedConnectionCleanupThread.java:85)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+ java.lang.Thread.run(Thread.java:745)
+27-Jun-2020 19:42:02.329 INFOS [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8081"]
+27-Jun-2020 19:42:02.333 INFOS [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["ajp-nio-8009"]
+27-Jun-2020 19:42:02.335 INFOS [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8081"]
+27-Jun-2020 19:42:02.336 INFOS [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["ajp-nio-8009"]
