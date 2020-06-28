@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 public class ImportAction extends Action {
     
     protected String rootImportFiles = "../../../../code/BRP_front_end/src/main/webapp/import_files/";
-    protected ArrayList<String> returnListe = null;
     
     @Override
     public void execute(HttpServletRequest request){ //Implémentation de la méthode Action.execute()
@@ -21,6 +20,7 @@ public class ImportAction extends Action {
         String operation = request.getParameter("operation");
         String resultat = null;
         String msgSuppr = null;
+        ArrayList<String> returnListe = null;
         
         //Instanciation de la classe de Service
         ImportService service = new ImportService();

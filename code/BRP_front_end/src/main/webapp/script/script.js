@@ -353,6 +353,7 @@ function importFile(){
       gestionSupprComplexes(response["Explication"]);
     } else {
       alert(response["Explication"]);
+      window.location.href = window.location.href;
     }
 
   });
@@ -392,6 +393,7 @@ function gestionSupprComplexes(listeObjets){
 
   if(!erreurOccured){
     alert("Import effectué avec succès. Vous trouverez l'Excel lié aux objets importés dans le dossier des imports");
+    window.location.href = window.location.href;
   }
 }
 
@@ -1510,6 +1512,7 @@ function CreerOnglet() {
   var numOnglet = Number($("#ongletsLot").children().last().prev().html()) + 1;
   if (isNaN(numOnglet)) {
     $(".presentationRight").hide();
+    $('#ongletsLot').show();
     numOnglet = 0;
   }
 
@@ -1876,6 +1879,7 @@ function supprimerXML(croix, type) {
           var nbLots = $(".lot").length;
           if (nbLots == 0) {
             $(".presentationRight").show();
+            $('#ongletsLot').hide();
           } else {
             AfficherOnglet($(".lot").first());
           }
