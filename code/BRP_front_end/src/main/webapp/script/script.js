@@ -356,6 +356,7 @@ function importFile() {
       gestionSupprComplexes(response["Explication"]);
     } else {
       alert(response["Explication"]);
+      window.location.href = window.location.href;
     }
   });
 }
@@ -408,6 +409,7 @@ function gestionSupprComplexes(listeObjets) {
     alert(
       "Import effectué avec succès. Vous trouverez l'Excel lié aux objets importés dans le dossier des imports"
     );
+    window.location.href = window.location.href; //!
   }
 }
 
@@ -522,61 +524,64 @@ function ouvrirProjet(idProjet) {
 function modifierInfosProjet() {
   //on va chercher les infos du projet
   var idProjet = $("#idProjetActuel").val();
-  var nomProjet = $(".nomProjetUpdate").val();
-  var refBRP = $(".refBRP").val();
-  var typeMarche = $('input[name="typeMarche"]:checked').val();
-  var typeConstruction = $('input[name="typeConstruction"]:checked').val();
-  var typeLot = $('input[name="typeLot"]:checked').val();
-  var typeSite = $('input[name="typeSite"]:checked').val();
-  var datePrixref = $(".datePrixref").val();
-  var coeffAdapt = $(".coeffAdapt").val();
-  var idCoeffRaccordement = $("#coeffRaccordement").val();
-  var idCategorieConstruction = $("#categorieConstruction").val();
-  var idSousCategorieConstruction = $("#sousCategorieConstruction").val();
-  var idCaractDim = $("#caractDim").val();
 
-  //on formate les données
-  if (typeof typeMarche === "undefined") typeMarche = "";
-  if (typeof typeConstruction === "undefined") typeConstruction = "";
-  if (typeof typeLot === "undefined") typeLot = "";
-  if (typeof typeSite === "undefined") typeSite = "";
-  if (idCategorieConstruction == "") {
-    idSousCategorieConstruction = "";
-    idCaractDim = "";
-  }
+  if (idProjet != "") {
+    var nomProjet = $(".nomProjetUpdate").val();
+    var refBRP = $(".refBRP").val();
+    var typeMarche = $('input[name="typeMarche"]:checked').val();
+    var typeConstruction = $('input[name="typeConstruction"]:checked').val();
+    var typeLot = $('input[name="typeLot"]:checked').val();
+    var typeSite = $('input[name="typeSite"]:checked').val();
+    var datePrixref = $(".datePrixref").val();
+    var coeffAdapt = $(".coeffAdapt").val();
+    var idCoeffRaccordement = $("#coeffRaccordement").val();
+    var idCategorieConstruction = $("#categorieConstruction").val();
+    var idSousCategorieConstruction = $("#sousCategorieConstruction").val();
+    var idCaractDim = $("#caractDim").val();
 
-  //on envoie à l'ajax
-  $.ajax({
-    url: "./ActionServlet",
-    method: "POST",
-    data: {
-      todo: "editerInfosProjet",
-      idProjet: idProjet,
-      nomProjet: nomProjet,
-      refBRP: refBRP,
-      typeMarche: typeMarche,
-      typeConstruction: typeConstruction,
-      typeLot: typeLot,
-      typeSite: typeSite,
-      datePrixref: datePrixref,
-      coeffAdapt: coeffAdapt,
-      idCoeffRaccordement: idCoeffRaccordement,
-      idCategorieConstruction: idCategorieConstruction,
-      idSousCategorieConstruction: idSousCategorieConstruction,
-      idCaractDim: idCaractDim,
-    },
-    dataType: "json",
-  }).done(function (response) {
-    // Fonction appelée en cas d'appel AJAX réussi
-    //console.log("Response", response);
-    if (response) {
-      if (response["Error"]) {
-        alert(
-          "Une erreur est survenue lors de la sauvegarde des informations du projet (informations de la colonne de gauche)"
-        );
-      }
+    //on formate les données
+    if (typeof typeMarche === "undefined") typeMarche = "";
+    if (typeof typeConstruction === "undefined") typeConstruction = "";
+    if (typeof typeLot === "undefined") typeLot = "";
+    if (typeof typeSite === "undefined") typeSite = "";
+    if (idCategorieConstruction == "") {
+      idSousCategorieConstruction = "";
+      idCaractDim = "";
     }
-  });
+
+    //on envoie à l'ajax
+    $.ajax({
+      url: "./ActionServlet",
+      method: "POST",
+      data: {
+        todo: "editerInfosProjet",
+        idProjet: idProjet,
+        nomProjet: nomProjet,
+        refBRP: refBRP,
+        typeMarche: typeMarche,
+        typeConstruction: typeConstruction,
+        typeLot: typeLot,
+        typeSite: typeSite,
+        datePrixref: datePrixref,
+        coeffAdapt: coeffAdapt,
+        idCoeffRaccordement: idCoeffRaccordement,
+        idCategorieConstruction: idCategorieConstruction,
+        idSousCategorieConstruction: idSousCategorieConstruction,
+        idCaractDim: idCaractDim,
+      },
+      dataType: "json",
+    }).done(function (response) {
+      // Fonction appelée en cas d'appel AJAX réussi
+      //console.log("Response", response);
+      if (response) {
+        if (response["Error"]) {
+          alert(
+            "Une erreur est survenue lors de la sauvegarde des informations du projet (informations de la colonne de gauche)"
+          );
+        }
+      }
+    });
+  }
 }
 
 function unset_select_descriptif() {
@@ -1532,6 +1537,7 @@ function CreerOnglet() {
   var numOnglet = Number($("#ongletsLot").children().last().prev().html()) + 1;
   if (isNaN(numOnglet)) {
     $(".presentationRight").hide();
+    $("#ongletsLot").show();
     numOnglet = 0;
   }
 
@@ -1898,6 +1904,7 @@ function supprimerXML(croix, type) {
           var nbLots = $(".lot").length;
           if (nbLots == 0) {
             $(".presentationRight").show();
+            $("#ongletsLot").hide();
           } else {
             AfficherOnglet($(".lot").first());
           }

@@ -722,6 +722,7 @@ label.exportButton input[type="file"] {
   white-space: nowrap;
   max-width: 90%;
   margin: auto;
+  display: none;
 }
 
 .ongletLot {

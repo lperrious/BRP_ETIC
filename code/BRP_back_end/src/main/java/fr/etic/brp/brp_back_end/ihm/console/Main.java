@@ -76,7 +76,7 @@ public class Main {
     //----------tests-des-services-----------------
     
         testerModifBaseDescriptif();
-        testerModifBasePrixRef();
+//        testerModifBasePrixRef();
 //        testerListerBasePrixRefs();
 //        testerListerCaractDims();
 //        testerListerCategories();
