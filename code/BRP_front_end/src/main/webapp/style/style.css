@@ -416,6 +416,8 @@ select {
   position: relative;
   top: -4px;
   left: 20px;
+  flex: 1;
+  margin-right: 40px;
 }
 
 .infoProjet > select {
@@ -532,8 +534,15 @@ label.importButton input[type="file"], label.exportButton input[type="file"] {
 }
 
 .lineDescriptif {
-  margin-left: 60px;
   display: none;
+}
+
+.ouvrage, .generique{
+  margin-left: 60px;
+}
+
+.prestation{
+  margin-left: 80px;
 }
 
 .selectDescriptif, .selectDescriptifXML {

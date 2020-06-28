@@ -56,11 +56,16 @@ public class EditerInfosProjetAction extends Action {
         int nbErreur = 0;
         Boolean errorState = false;
         try{
-           Boolean testEditerNom = service.EditerNomProjet(idProjet, nomProjet);
-           if(!testEditerNom) nbErreur++;
            
-           Boolean testEditerRefBRP = service.EditerRefBRPProjet(idProjet, refBRP);
+           if(nomProjet != ""){
+               Boolean testEditerNom = service.EditerNomProjet(idProjet, nomProjet);
+               if(!testEditerNom) nbErreur++;
+           }
+           
+           if(refBRP != ""){
+               Boolean testEditerRefBRP = service.EditerRefBRPProjet(idProjet, refBRP);
            if(!testEditerRefBRP) nbErreur++;
+           }
            
            if(typeMarche != ""){
                Boolean testEditerTypeMarche = service.EditerInfoEnumProjet(idProjet, "TypeMarche", typeMarche);

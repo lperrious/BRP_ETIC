@@ -43,9 +43,10 @@ $(document).ready(function () {
     //console.log("Response", response);
     if (!response.ErrorState) {
       $.each(response.listeCoeffRaccordement, function (i, coeffRaccordement) {
+        //console.log(coeffRaccordement);
         $("#coeffRaccordement").append(
           $("<option>", {
-            value: i,
+            value: coeffRaccordement.id,
             text:
               coeffRaccordement.localisation + " - " + coeffRaccordement.valeur,
             name: coeffRaccordement.localisation,
@@ -58,7 +59,7 @@ $(document).ready(function () {
       ) {
         $("#categorieConstruction").append(
           $("<option>", {
-            value: i,
+            value: categorieConstruction.code,
             text:
               categorieConstruction.code +
               " - " +
@@ -260,8 +261,7 @@ function searchProjet(){
   for (var i = 0; i < listeProjets.length; i++) {
     //si le morceau du nom se trouve bien dans le nom du projet, on l'affiche
     if(listeProjets[i]["nom"].includes(morceauNom)){
-      $('#containerLineProjet').append('<div class="lineProjet">\
-              <input type="hidden" class="idProjet" value="'+listeProjets[i]["id"]+'" />\
+      $('#containerLineProjet').append('<div class="lineProjet" onclick="ouvrirProjet('+listeProjets[i]["id"]+')">\
               <div class="textLineProjet">\
                 <div class="iconProjet"><i class="far fa-file-alt"></i></div>\
                 <div class="propositionNomProjet">'+listeProjets[i]["nom"]+'</div>\
@@ -285,7 +285,7 @@ function getProjets(){
     dataType: "json",
   }).done(function (response) {
     // Fonction appelée en cas d'appel AJAX réussi
-    console.log("Response", response);
+    //console.log("Response", response);
     if (!response['Error']) {
       listeProjets = response['listeProjets'];
     }
@@ -384,7 +384,7 @@ function gestionSupprComplexes(listeObjets){
           alert(response["Explication"]);
           erreurOccured = true;
         }
-        console.log(response);
+        //console.log(response);
       });
     }
     else{
@@ -658,7 +658,7 @@ function show_catConstruction() {
       dataType: "json",
     }).done(function (response) {
       // Fonction appelée en cas d'appel AJAX réussi
-      console.log("Response", response);
+      //console.log("Response", response);
       if (!response.ErrorState) {
         $.each(response.listeSousCategorieConstruction, function (
           i,
@@ -666,9 +666,9 @@ function show_catConstruction() {
         ) {
           $("#sousCategorieConstruction").append(
             $("<option>", {
-              value: i,
+              value: sousCategorieConstruction.id,
               text: sousCategorieConstruction.intitule,
-              name: sousCategorieConstruction.code,
+              name: sousCategorieConstruction.id,
             })
           );
         });
@@ -717,9 +717,16 @@ function gestion_arbo_bdd(element) {
   var valFilter = $(".filtre").val();
   do {
     nextElement = $(oldElement).next();
-    classNextElement = $(nextElement).attr("class").substr(8);
+    classNextElement = $(nextElement).attr("class");
+    if (classNextElement !== undefined) {
+      classNextElement = classNextElement.substr(8);
+    }
+    else{
+      classNextElement = null;
+    }
     rangNextElement = ordre_arbo.get(classNextElement);
 
+    if (true) {}
     if (classNextElement && rangNextElement == null) rangNextElement = 5;
 
     //on descend dans l'arbo
@@ -800,7 +807,7 @@ function GenererLivrable() {
     dataType: "json",
   }).done(function (response) {
     // Fonction appelée en cas d'appel AJAX réussi
-    console.log("Response", response);
+    //console.log("Response", response);
     if (!response.ErrorState) {
       //Si l'export à réussi on prévient l'opérateur
       alert("La génération du livrable a réussie");
@@ -1216,7 +1223,7 @@ function AjouterDescriptif(element) {
         };
       }
 
-      console.log(data);
+      //console.log(data);
 
       $.ajax({
         url: "./ActionServlet",
@@ -1292,7 +1299,7 @@ function AjouterDescriptif(element) {
       dataType: "json",
     }).done(function (response) {
       // Fonction appelée en cas d'appel AJAX réussi
-      console.log("Response", response);
+      //console.log("Response", response);
       if (!response.ErrorState) {
         //Récupérer la description (et l'unité si pas générique)
         if (response.typeDescriptif !== "Generique") {
@@ -1835,7 +1842,7 @@ function supprimerXML(croix, type) {
       };
     }
 
-    console.log(data);
+    //console.log(data);
 
     //on a reunit toutes les infortmations, on fait l'appel AJAX
     $.ajax({
