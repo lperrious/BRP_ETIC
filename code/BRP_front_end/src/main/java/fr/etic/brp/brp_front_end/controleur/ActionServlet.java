@@ -19,6 +19,7 @@ import fr.etic.brp.brp_front_end.actions.ModifierXMLAction;
 import fr.etic.brp.brp_front_end.actions.OuvrirProjetAction;
 import fr.etic.brp.brp_front_end.actions.RecupererDescriptifAction;
 import fr.etic.brp.brp_front_end.actions.RecupererUriProjetExportAction;
+import fr.etic.brp.brp_front_end.actions.SupprComplexeAction;
 import fr.etic.brp.brp_front_end.actions.SupprimerXMLAction;
 import fr.etic.brp.brp_front_end.actions.TestConnexionAction;
 import fr.etic.brp.brp_front_end.serialisations.AffichageAdminSerialisation;
@@ -39,6 +40,7 @@ import fr.etic.brp.brp_front_end.serialisations.OuvrirProjetSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.RecupererDescriptifSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.RecupererUriProjetExportSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.Serialisation;
+import fr.etic.brp.brp_front_end.serialisations.SupprComplexeSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.SupprimerXMLSerialisation;
 import fr.etic.brp.brp_front_end.serialisations.TestConnexionSerialisation;
 import java.io.IOException;
@@ -151,6 +153,11 @@ public class ActionServlet extends HttpServlet {
             case "supprimerXML" : {
                 action = new SupprimerXMLAction();
                 serialisation = new SupprimerXMLSerialisation();
+                break;
+            }
+            case "supprComplexe" : {
+                action = new SupprComplexeAction();
+                serialisation = new SupprComplexeSerialisation();
                 break;
             }
             case "deplacerDescriptif" : {

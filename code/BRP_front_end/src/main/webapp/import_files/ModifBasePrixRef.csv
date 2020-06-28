@@ -1,5 +1,0 @@
-﻿Nom (aide operateur);Operation;Ouvrage/Prestation;nbPrixRef;indice BT;quantiteInf;quantiteSup;unite;prixUnitaire;anneeRef
-Etancheite bitume monocouche;AJOUT;02_AAA_01_01_02;3;0.98;11;100;m2;2;2019
-Depose du complexe d'etancheite;AJOUT;02_AAA_01_01_02_01;2;0.34;4;10;m3;5;2019
-Etancheite de jsp quoi;AJOUT;02_AAA_01_01_02;4;-;-;-;-;-;-
-Depose du complexe d'etancheite;SUPPR;02_AAA_01_01_02;3;;;;;;

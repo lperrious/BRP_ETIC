@@ -2216,7 +2216,7 @@ public static void Scenario3() {
         ImportService service = new ImportService();
         
         String uriWord = "../import_files/XX_Jeu_Test_BRP_v0.2.docx";
-        Boolean resultat = service.TransformationWordVersExcel(uriWord);
+        Boolean resultat = service.TransformationWordVersExcel(uriWord, uriWord);
         
         if(resultat)
             System.out.println("Transformation avec succès du document d'import de descriptif vers le document d'import de base de prix");

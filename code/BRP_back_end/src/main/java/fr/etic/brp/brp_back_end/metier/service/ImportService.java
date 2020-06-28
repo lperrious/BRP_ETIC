@@ -400,13 +400,13 @@ public class ImportService {
             msgStatement = "suppr ok";
         }
         else{
-            msgStatement = "En supprimant l'objet "+idDescriptif+", vous supprimerez un total de "+descriptifsSuppr.size()+" descriptifs";
+            msgStatement =  "("+idDescriptif+"/"+descriptifsSuppr.size()+")";
         }
         
         return msgStatement;
     }
     
-    //TODO
+    
     public String SupprObjet(String idSuppr){
         String msgStatement = "";
         
@@ -516,7 +516,7 @@ public class ImportService {
         return msgStatement;
     }
     
-    public Boolean TransformationWordVersExcel(String uriWord) {
+    public Boolean TransformationWordVersExcel(String uriWord, String rootImportFiles) {
         Boolean resultat = false;
         
         try {
@@ -583,7 +583,7 @@ public class ImportService {
             }
             
             //Sortie de l'EXCEL
-            OutputStream fileOut = new FileOutputStream("../import_files/BasePrixRefImport.xls");
+            OutputStream fileOut = new FileOutputStream(rootImportFiles+"BasePrixRefImport.xls");
             excel.write(fileOut);
             
             resultat = true;

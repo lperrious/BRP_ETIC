@@ -30,36 +30,71 @@ public class ImportAction extends Action {
         
         //Appel des services métiers (=méthodes de la classe Service)
         try{
-            if(operation == "ModifBasePrixRef"){
+            if(operation.equals("ModifBasePrixRef")){
                 resultat = service.ModifBasePrixRef(uri);
+                if(resultat.equals("Succès !")){
+                    request.setAttribute("ErrorState", false);
+                    resultat = "Import des prix réussi";
+                }
+                else{
+                    request.setAttribute("ErrorState", true);
+                }
+                
             }
             else{
                 returnListe = service.ModifBaseDescriptif(uri);
-                resultat = resultat = returnListe.get(0);
                 
                 //les ajouts se sont bien passés, on passe aux suppressions
-//                if(returnListe.get(0).equals("Succes")){
-//                    for(int i = 1; i < returnListe.size(); i++){
-//                        msgSuppr = service.CompterEnfants(returnListe.get(i));
-//                        //on envoie au comptage des enfants
-//                        if(msgSuppr.equals("suppr ok")){ //on supprime direct car pas d'enfant
-//                            System.out.println(service.SupprObjet(returnListe.get(i)));
-//                        }
-//                        else{ //on demande la permission au client
-//                            System.out.println(msgSuppr);
-//                            System.out.println(service.SupprObjet(returnListe.get(i)));
-//                        }
-//                    }
-//                }
-//                else{       //on affiche l'erreur
-//                    System.out.println(returnListe.get(0));
-//                }
+                if(returnListe.get(0).equals("Succes")){
+                    int i = 1;
+                    Boolean errorSuppr = false;
+                    while(!errorSuppr && i < returnListe.size()){
+                        
+                        if(service.CompterEnfants(returnListe.get(i)).equals("suppr ok")){
+                            msgSuppr = service.SupprObjet(returnListe.get(i));
+
+                            if(!msgSuppr.equals("Succes")){
+                                errorSuppr = true;
+                                request.setAttribute("ErrorState", true);
+                                resultat = msgSuppr;
+                            }
+                        }
+                        else{
+                            if(resultat == null){
+                                resultat = service.CompterEnfants(returnListe.get(i));
+                            }
+                            else{
+                                resultat += service.CompterEnfants(returnListe.get(i));
+                            }
+                        }
+                        
+                        i++;
+                    }
+                    
+                    if(!errorSuppr){
+
+                        if(service.TransformationWordVersExcel(uri, rootImportFiles)){
+                            request.setAttribute("ErrorState", false);
+                            if(resultat == null)
+                                resultat = "Import effectué avec succès. Vous trouverez l'Excel lié aux objets importés dans le dossier des imports";
+                        }
+                        else{
+                            request.setAttribute("ErrorState", true);
+                            resultat = "Import réalisé avec succès. Néanmoins, impossible de sortir l'Excel lié aux objets importés";
+                        }
+                    }
+                }
+                else{       //on affiche l'erreur
+                    request.setAttribute("ErrorState", true);
+                    resultat = returnListe.get(0);
+                }
             }
-            request.setAttribute("ErrorState", false);
+//            request.setAttribute("ErrorState", false);
         }
         catch(Exception e) //Stockage de l'erreur dans l'attribut de la requete
         {
             request.setAttribute("ErrorState", true);
+            resultat = "Une erreur système est survenue. Impossible d'accéder au service d'import";
         }
         
         request.setAttribute("Explication", resultat);

@@ -308,13 +308,52 @@ function importFile(){
     },
     dataType: "json",
   }).done(function (response) {
-    // if (response["Error"]) {
-    //   alert("Un problème est survenu lors de l'import");
-    // } else {
-    //   alert("Import réalisé avec succès");
-    // }
-    console.log(response);
+
+    //on demande l'accord à l'utilisateur
+    if (response["Explication"].includes("/")) {
+      gestionSupprComplexes(response["Explication"]);
+    } else {
+      alert(response["Explication"]);
+    }
+
   });
+}
+
+function gestionSupprComplexes(listeObjets){
+
+  var objetAtraiter = null;
+  var erreurOccured = false;
+
+  while(listeObjets != ""){
+    objetAtraiter = listeObjets.substr(0,listeObjets.indexOf(")")+1);
+    listeObjets = listeObjets.substr(listeObjets.indexOf(")")+1);
+
+    if(confirm("En supprimant l'objet "+objetAtraiter.substr(1, objetAtraiter.indexOf("/")-1)+", vous supprimerez "+objetAtraiter.substr(objetAtraiter.indexOf("/")+1, objetAtraiter.length-2-objetAtraiter.indexOf("/"))+" descriptifs")){
+      $.ajax({
+        url: "./ActionServlet",
+        method: "POST",
+        data: {
+          todo: "supprComplexe",
+          id: objetAtraiter.substr(1, objetAtraiter.indexOf("/")-1),
+        },
+        dataType: "json",
+      }).done(function (response) {
+
+        if (response.Error) {
+          alert(response["Explication"]);
+          erreurOccured = true;
+        }
+        console.log(response);
+      });
+    }
+    else{
+      alert("L'objet "+objetAtraiter.substr(1, objetAtraiter.indexOf("/")-1)+" n'a pas été supprimé");
+    }
+  }
+
+  if(!erreurOccured){
+    alert("Import effectué avec succès. Vous trouverez l'Excel lié aux objets importés dans le dossier des imports");
+  }
 }
 
 //charge le fichier XML se trouvant à l'URL relative donné dans le paramètre et le retourne
