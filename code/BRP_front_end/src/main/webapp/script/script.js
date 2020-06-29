@@ -848,6 +848,29 @@ function GenererLivrable() {
 
 /****************** Fonctions (partie droite) *********************/
 
+var barreStyle;
+function editerDescription(id){
+  $('.description'+id).hide();
+  $('.container'+id).show();
+
+  $('.save'+id).show();
+  barreStyle = new nicEditor({buttonList : ['bold','italic','underline', 'ul', 'forecolor', 'bgcolor']}).panelInstance(id);
+}
+
+function extractHTML(id){
+
+  $('.description'+id).show();
+  var htmlText = nicEditors.findEditor(id).getContent();
+  $('.description'+id).html(htmlText);
+
+  $('.container'+id).hide();
+  $('.save'+id).hide();
+
+  //appeler méthode modifierXML sur le descriptif concerné
+}
+
+
+
 function addEventsDescriptifs() {
   $(".barreInsertion").mouseenter(function () {
     var element = $(this).children(":first");

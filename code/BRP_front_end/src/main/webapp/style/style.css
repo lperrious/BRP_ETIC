@@ -835,3 +835,53 @@ label.exportButton input[type="file"] {
   background-color: var(--cta_hover);
   border-radius: 3px;
 }
+
+.saveTextarea {
+  background-color: var(--cta);
+  color: var(--text_soft);
+  padding: 3px;
+  margin-top: 0.5em;
+  width: 150px;
+  text-align: center;
+  border-radius: 3px;
+  font-size: 90%;
+  margin-left: auto;
+  display: none;
+}
+
+.saveTextarea:hover {
+  background-color: var(--cta_hover);
+  cursor: pointer;
+}
+
+.containerArea{
+  width: 100%;
+  display: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
