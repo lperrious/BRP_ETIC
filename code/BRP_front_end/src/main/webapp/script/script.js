@@ -201,6 +201,9 @@ $(document).ready(function () {
 
 /****************** Fonctions (popup) *********************/
 function popUpNomProjet(sens, idProjet) {
+  //On supprime les anciens events attachés aux boutons
+  $(".popupNomProjet > .buttons > .button").off("click");
+
   //on le montre
   if (sens) {
     $("#popUpWindow").css("display", "flex");
@@ -246,7 +249,11 @@ function createProject() {
     if (response["Error"]) {
       alert("Une erreur est survenue, impossible de créer un nouveau projet");
     } else {
-      ouvrirProjet(response["idProjet"]);
+      var delayInMilliseconds = 3000; //3 secondes
+
+      setTimeout(function () {
+        ouvrirProjet(response["idProjet"]); //code exécuté après 3 secondes : laisse le temps au serveur de créer le XML du projet
+      }, delayInMilliseconds);
     }
   });
 }
@@ -321,12 +328,10 @@ function dupliquerProjet(idProjet) {
     //on ferme le popup
     popUpNomProjet(false);
 
-    if (response) {
-      if (response["Error"]) {
-        alert("Une erreur est survenue, impossible de duppliquer le projet)");
-      } else {
-        ouvrirProjet(response["newIdProjet"]);
-      }
+    if (response["Error"]) {
+      alert("Une erreur est survenue, impossible de duppliquer le projet)");
+    } else {
+      ouvrirProjet(response["newIdProjet"]);
     }
   });
 }
@@ -1674,11 +1679,11 @@ function modifierXML(element) {
       if (classElement.includes("titre2")) rangElement = 2;
       if (classElement.includes("titre3")) rangElement = 3;
       if (classElement.includes("titre4")) rangElement = 4;
-      if (classElement.includes("titre5")) rangElement = 5;
+      if (classElement.includes("titre5")) rangElement = 5; //! jamais de titre5
 
       titreType = "titre" + rangElement;
 
-      //on va chercher la class de l'élément suivant:
+      //on va chercher la classe de l'élément suivant
       var classNextElement = $(element).next().next().attr("class");
 
       if (classNextElement.includes("titre1")) rangNextElement = 1;
@@ -1781,7 +1786,6 @@ function modifierXML(element) {
 
     //console.log(data);
 
-    //Ajax
     $.ajax({
       url: "./ActionServlet",
       method: "POST",

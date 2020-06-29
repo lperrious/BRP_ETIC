@@ -348,9 +348,7 @@ public class Service {
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service CreerProjet(nomProjet)", ex);
             //Supprimer le projet dans la BD si erreur XML
-            System.out.println("YES");
             try {
-                System.out.println("YES YES");
                 JpaUtil.ouvrirTransaction();
                 projetDao.Remove(newProjet);
                 JpaUtil.validerTransaction();

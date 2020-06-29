@@ -4,61 +4,62 @@
     <xsl:output method="html" />
 
     <xsl:template match="/">
-            <div>
-                <xsl:if test="count(//lot) = 0"> <!-- Si nouveau projet -->
-                    <div class="divTitreLot" id="divTitreLot_0">
-                        <input type="text" class="titreLot" placeholder="Titre Lot" />
+        <div>
+            <xsl:if test="count(//lot) = 0">
+                <!-- Si nouveau projet -->
+                <div class="divTitreLot" id="divTitreLot_0">
+                    <input type="text" class="titreLot" placeholder="Titre Lot" />
+                </div>
+                <div class="lot" id="lot_0">
+                    <input type="hidden" id="idXML" value="_0" />
+                    <div class="barreInsertion" onclick="AjouterElement(this);">
+                        <div class="panBarreInsertion"></div>
+                        <div class="panBarreInsertion"></div>
                     </div>
-                    <div class="lot" id="lot_0" >
-                        <input type="hidden" id="idXML" value="{@id}"/>
-                        <div class="barreInsertion" onclick="AjouterElement(this);">
-                            <div class="panBarreInsertion"></div>
-                            <div class="panBarreInsertion"></div>
+                    <div class="input-group titre1">
+                        <input type="hidden" id="idXML" value="_0" />
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"></span>
                         </div>
-                        <div class="input-group titre1">
-                            <input type="hidden" id="idXML" value="{@id}"/>
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"></span>
-                            </div>
-                            <input type="text" class="form-control" placeholder="Titre 1" />
+                        <input type="text" class="form-control" placeholder="Titre 1" />
+                    </div>
+                    <div class="barreInsertion" onclick="AjouterElement(this);">
+                        <div class="panBarreInsertion"></div>
+                        <div class="panBarreInsertion"></div>
+                    </div>
+                </div>
+                <div id="ongletsLot">
+                    <div class="ongletLot" onclick="AfficherOnglet($('#lot_0'));">0</div>
+                    <div class="ongletLot" onclick="CreerOnglet();">+</div>
+                </div>
+            </xsl:if>
+            <xsl:for-each select="//lot">
+                <xsl:variable name="i" select="position()" />
+                <div class="divTitreLot" id="divTitreLot_{$i - 1}">
+                    <input type="hidden" id="idXML" value="{@id}" />
+                    <input type="text" class="titreLot" placeholder="Titre Lot" />
+                </div>
+            </xsl:for-each>
+            <xsl:for-each select="//lot">
+                <xsl:variable name="i" select="position()" />
+                <div class="lot" id="lot_{$i - 1}">
+                    <input type="hidden" id="idXML" value="{@id}" />
+                    <xsl:apply-templates select="." />
+                    <div class="finLot"></div>
+                </div>
+            </xsl:for-each>
+            <xsl:if test="count(//lot) > 0">
+                <div id="ongletsLot">
+                    <xsl:for-each select="//lot">
+                        <xsl:variable name="i" select="position()" />
+                        <div class="ongletLot" onclick="AfficherOnglet($('#lot_{$i - 1}'));">
+                            <xsl:value-of select="$i - 1" />
                         </div>
-                        <div class="barreInsertion" onclick="AjouterElement(this);">
-                            <div class="panBarreInsertion"></div>
-                            <div class="panBarreInsertion"></div>
-                        </div>
-                    </div>
-                    <div id="ongletsLot">
-                        <div class="ongletLot" onclick="AfficherOnglet($('#lot_0'));">0</div>
-                        <div class="ongletLot" onclick="CreerOnglet();">+</div>
-                    </div>
-                </xsl:if>
-                <xsl:for-each select="//lot">
-                    <xsl:variable name="i" select="position()" />
-                    <div class="divTitreLot" id="divTitreLot_{$i - 1}">
-                        <input type="hidden" id="idXML" value="{@id}"/>
-                        <input type="text" class="titreLot" placeholder="Titre Lot" />
-                    </div>
-                </xsl:for-each>
-                <xsl:for-each select="//lot">
-                    <xsl:variable name="i" select="position()" />
-                    <div class="lot" id="lot_{$i - 1}">
-                        <input type="hidden" id="idXML" value="{@id}"/>
-                        <xsl:apply-templates select="." />
-                        <div class="finLot"></div>
-                    </div>
-                </xsl:for-each>
-                <xsl:if test="count(//lot) > 0">
-                    <div id="ongletsLot">
-                        <xsl:for-each select="//lot">
-                            <xsl:variable name="i" select="position()" />
-                            <div class="ongletLot" onclick="AfficherOnglet($('#lot_{$i - 1}'));">
-                                <xsl:value-of select="$i - 1"/>
-                            </div>
-                        </xsl:for-each>
-                        <div class="ongletLot" onclick="CreerOnglet();">+</div>
-                    </div>
-                </xsl:if>
-            </div>
+                    </xsl:for-each>
+                    <div class="ongletLot" onclick="CreerOnglet();">+</div>
+                </div>
+            </xsl:if>
+        </div>
     </xsl:template>
 
     <xsl:template match="lot">
@@ -72,7 +73,7 @@
     </xsl:template>
 
     <xsl:template match="titre1">
-        <input type="hidden" id="idXML" value="{@id}"/>
+        <input type="hidden" id="idXML" value="{@id}" />
         <div class="input-group titre1">
             <div class="input-group-prepend">
                 <span class="input-group-text"></span>
@@ -89,7 +90,7 @@
     </xsl:template>
 
     <xsl:template match="titre2">
-        <input type="hidden" id="idXML" value="{@id}"/>
+        <input type="hidden" id="idXML" value="{@id}" />
         <div class="input-group titre2">
             <div class="input-group-prepend">
                 <span class="input-group-text"></span>
@@ -106,7 +107,7 @@
     </xsl:template>
 
     <xsl:template match="titre3">
-        <input type="hidden" id="idXML" value="{@id}"/>
+        <input type="hidden" id="idXML" value="{@id}" />
         <div class="input-group titre3">
             <div class="input-group-prepend">
                 <span class="input-group-text"></span>
@@ -123,7 +124,7 @@
     </xsl:template>
 
     <xsl:template match="titre4">
-        <input type="hidden" id="idXML" value="{@id}"/>
+        <input type="hidden" id="idXML" value="{@id}" />
         <div class="input-group titre4">
             <div class="input-group-prepend">
                 <span class="input-group-text"></span>
@@ -155,114 +156,114 @@
     </xsl:template>-->
 
     <xsl:template match="descriptif">
-        <input type="hidden" id="idXML" value="{@id}"/>
+        <input type="hidden" id="idXML" value="{@id}" />
         <xsl:choose>
-		  <xsl:when test="contains(name(..),'1')">
-		    <div class="descriptif titre2">
-                <input type="hidden" class="idDescriptif" value="{@idBD}"/>
-                <input type="hidden" class="typeDescriptif" value="{@type}"/>
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1"></span>
+            <xsl:when test="contains(name(..),'1')">
+                <div class="descriptif titre2">
+                    <input type="hidden" class="idDescriptif" value="{@idBD}" />
+                    <input type="hidden" class="typeDescriptif" value="{@type}" />
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1"></span>
+                        </div>
+                        <xsl:if test="@type = 'generique'">
+                            <input type="text" class="form-control nomDescriptif" placeholder="Générique" />
+                        </xsl:if>
+                        <xsl:if test="@type = 'ouvrage' or @type = 'prestation'">
+                            <input type="text" class="form-control nomDescriptif" placeholder="Ouvrage/Prestation" />
+                        </xsl:if>
                     </div>
-                    <xsl:if test="@type = 'generique'">
-                        <input type="text" class="form-control nomDescriptif" placeholder="Générique" />
-                    </xsl:if>
-                    <xsl:if test="@type = 'ouvrage' or @type = 'prestation'">
-                        <input type="text" class="form-control nomDescriptif" placeholder="Ouvrage/Prestation" />
-                    </xsl:if>
-                </div>
-                <div class="input-group description">
-                    <textarea class="form-control" aria-label="With textarea" placeholder="Description"></textarea>
-                </div>
-                <xsl:if test="@type = 'ouvrage' or @type = 'prestation'">
-                    <xsl:for-each select="ligneChiffrage">
-                        <xsl:apply-templates select="."/>
-                    </xsl:for-each>
-                </xsl:if>
-            </div>
-		  </xsl:when>
-		  <xsl:when test="contains(name(..),'2')">
-		    <div class="descriptif titre3">
-                <input type="hidden" class="idDescriptif" value="{@idBD}"/>
-                <input type="hidden" class="typeDescriptif" value="{@type}"/>
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1"></span>
+                    <div class="input-group description">
+                        <textarea class="form-control" aria-label="With textarea" placeholder="Description"></textarea>
                     </div>
-                    <xsl:if test="@type = 'generique'">
-                        <input type="text" class="form-control nomDescriptif" placeholder="Générique" />
-                    </xsl:if>
                     <xsl:if test="@type = 'ouvrage' or @type = 'prestation'">
-                        <input type="text" class="form-control nomDescriptif" placeholder="Ouvrage/Prestation" />
+                        <xsl:for-each select="ligneChiffrage">
+                            <xsl:apply-templates select="." />
+                        </xsl:for-each>
                     </xsl:if>
                 </div>
-                <div class="input-group description">
-                    <textarea class="form-control" aria-label="With textarea" placeholder="Description"></textarea>
-                </div>
-                <xsl:if test="@type = 'ouvrage' or @type = 'prestation'">
-                    <xsl:for-each select="ligneChiffrage">
-                        <xsl:apply-templates select="."/>
-                    </xsl:for-each>
-                </xsl:if>
-            </div>
-          </xsl:when>
-          <xsl:when test="contains(name(..),'3')">
-		    <div class="descriptif titre4">
-                <input type="hidden" class="idDescriptif" value="{@idBD}"/>
-                <input type="hidden" class="typeDescriptif" value="{@type}"/>
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1"></span>
+            </xsl:when>
+            <xsl:when test="contains(name(..),'2')">
+                <div class="descriptif titre3">
+                    <input type="hidden" class="idDescriptif" value="{@idBD}" />
+                    <input type="hidden" class="typeDescriptif" value="{@type}" />
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1"></span>
+                        </div>
+                        <xsl:if test="@type = 'generique'">
+                            <input type="text" class="form-control nomDescriptif" placeholder="Générique" />
+                        </xsl:if>
+                        <xsl:if test="@type = 'ouvrage' or @type = 'prestation'">
+                            <input type="text" class="form-control nomDescriptif" placeholder="Ouvrage/Prestation" />
+                        </xsl:if>
                     </div>
-                    <xsl:if test="@type = 'generique'">
-                        <input type="text" class="form-control nomDescriptif" placeholder="Générique" />
-                    </xsl:if>
-                    <xsl:if test="@type = 'ouvrage' or @type = 'prestation'">
-                        <input type="text" class="form-control nomDescriptif" placeholder="Ouvrage/Prestation" />
-                    </xsl:if>
-                </div>
-                <div class="input-group description">
-                    <textarea class="form-control" placeholder="Description"></textarea>
-                </div>
-                <xsl:if test="@type = 'ouvrage' or @type = 'prestation'">
-                    <xsl:for-each select="ligneChiffrage">
-                        <xsl:apply-templates select="."/>
-                    </xsl:for-each>
-                </xsl:if>
-            </div>
-          </xsl:when>
-          <xsl:when test="contains(name(..),'4')">
-		    <div class="descriptif titre5">
-                <input type="hidden" class="idDescriptif" value="{@idBD}"/>
-                <input type="hidden" class="typeDescriptif" value="{@type}"/>
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1"></span>
+                    <div class="input-group description">
+                        <textarea class="form-control" aria-label="With textarea" placeholder="Description"></textarea>
                     </div>
-                    <xsl:if test="@type = 'generique'">
-                        <input type="text" class="form-control nomDescriptif" placeholder="Générique" />
-                    </xsl:if>
                     <xsl:if test="@type = 'ouvrage' or @type = 'prestation'">
-                        <input type="text" class="form-control nomDescriptif" placeholder="Ouvrage/Prestation" />
+                        <xsl:for-each select="ligneChiffrage">
+                            <xsl:apply-templates select="." />
+                        </xsl:for-each>
                     </xsl:if>
                 </div>
-                <div class="input-group description">
-                    <textarea class="form-control" aria-label="With textarea" placeholder="Description"></textarea>
+            </xsl:when>
+            <xsl:when test="contains(name(..),'3')">
+                <div class="descriptif titre4">
+                    <input type="hidden" class="idDescriptif" value="{@idBD}" />
+                    <input type="hidden" class="typeDescriptif" value="{@type}" />
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1"></span>
+                        </div>
+                        <xsl:if test="@type = 'generique'">
+                            <input type="text" class="form-control nomDescriptif" placeholder="Générique" />
+                        </xsl:if>
+                        <xsl:if test="@type = 'ouvrage' or @type = 'prestation'">
+                            <input type="text" class="form-control nomDescriptif" placeholder="Ouvrage/Prestation" />
+                        </xsl:if>
+                    </div>
+                    <div class="input-group description">
+                        <textarea class="form-control" placeholder="Description"></textarea>
+                    </div>
+                    <xsl:if test="@type = 'ouvrage' or @type = 'prestation'">
+                        <xsl:for-each select="ligneChiffrage">
+                            <xsl:apply-templates select="." />
+                        </xsl:for-each>
+                    </xsl:if>
                 </div>
-                <xsl:if test="@type = 'ouvrage' or @type = 'prestation'">
-                    <xsl:for-each select="ligneChiffrage">
-                        <xsl:apply-templates select="."/>
-                    </xsl:for-each>
-                </xsl:if>
-            </div>
-          </xsl:when>
+            </xsl:when>
+            <xsl:when test="contains(name(..),'4')">
+                <div class="descriptif titre5">
+                    <input type="hidden" class="idDescriptif" value="{@idBD}" />
+                    <input type="hidden" class="typeDescriptif" value="{@type}" />
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1"></span>
+                        </div>
+                        <xsl:if test="@type = 'generique'">
+                            <input type="text" class="form-control nomDescriptif" placeholder="Générique" />
+                        </xsl:if>
+                        <xsl:if test="@type = 'ouvrage' or @type = 'prestation'">
+                            <input type="text" class="form-control nomDescriptif" placeholder="Ouvrage/Prestation" />
+                        </xsl:if>
+                    </div>
+                    <div class="input-group description">
+                        <textarea class="form-control" aria-label="With textarea" placeholder="Description"></textarea>
+                    </div>
+                    <xsl:if test="@type = 'ouvrage' or @type = 'prestation'">
+                        <xsl:for-each select="ligneChiffrage">
+                            <xsl:apply-templates select="." />
+                        </xsl:for-each>
+                    </xsl:if>
+                </div>
+            </xsl:when>
         </xsl:choose>
     </xsl:template>
 
     <xsl:template match="ligneChiffrage">
         <div class="ligneChiffrage">
-            <input type="hidden" id="idLigneChiffrage" value="{@idLigneChiffrage}"/>
+            <input type="hidden" id="idLigneChiffrage" value="{@idLigneChiffrage}" />
             <input type="text" class="form-control localisation" placeholder="Localisation" />
             <input type="text" class="form-control quantite" placeholder="Quantité" />
             <div class="input-group-prepend">
