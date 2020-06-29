@@ -37,7 +37,10 @@
                 <xsl:variable name="i" select="position()" />
                 <div class="divTitreLot" id="divTitreLot_{$i - 1}">
                     <input type="hidden" id="idXML" value="{@id}" />
-                    <input type="text" class="titreLot" placeholder="Titre Lot" value="{intitule}" />
+                    <input type="text" class="titreLot" placeholder="Titre Lot" value="{@intitule}" />
+                    <div class='deleteXMLlot'>
+                        <i class='fas fa-times-circle'></i>
+                    </div>
                 </div>
             </xsl:for-each>
             <xsl:for-each select="//lot">
@@ -79,6 +82,9 @@
                 <span class="input-group-text"></span>
             </div>
             <input type="text" class="form-control" placeholder="Titre 1" value="{@intitule}" />
+            <div class='deleteXML'>
+                <i class='fas fa-times-circle'></i>
+            </div>
         </div>
         <div class="barreInsertion" onclick="AjouterElement(this);">
             <div class="panBarreInsertion"></div>
@@ -96,6 +102,9 @@
                 <span class="input-group-text"></span>
             </div>
             <input type="text" class="form-control" placeholder="Titre 2" value="{@intitule}" />
+            <div class='deleteXML'>
+                <i class='fas fa-times-circle'></i>
+            </div>
         </div>
         <div class="barreInsertion" onclick="AjouterElement(this);">
             <div class="panBarreInsertion"></div>
@@ -113,6 +122,9 @@
                 <span class="input-group-text"></span>
             </div>
             <input type="text" class="form-control" placeholder="Titre 3" value="{@intitule}" />
+            <div class='deleteXML'>
+                <i class='fas fa-times-circle'></i>
+            </div>
         </div>
         <div class="barreInsertion" onclick="AjouterElement(this);">
             <div class="panBarreInsertion"></div>
@@ -130,6 +142,9 @@
                 <span class="input-group-text"></span>
             </div>
             <input type="text" class="form-control" placeholder="Titre 4" value="{@intitule}" />
+            <div class='deleteXML'>
+                <i class='fas fa-times-circle'></i>
+            </div>
         </div>
         <div class="barreInsertion" onclick="AjouterElement(this);">
             <div class="panBarreInsertion"></div>
@@ -172,6 +187,9 @@
                         <xsl:if test="@type = 'ouvrage' or @type = 'prestation'">
                             <input type="text" class="form-control nomDescriptif" placeholder="Ouvrage/Prestation" value="{nomDescriptif}" />
                         </xsl:if>
+                        <div class='deleteXML'>
+                            <i class='fas fa-times-circle'></i>
+                        </div>
                     </div>
                     <div class="input-group description">
                         <textarea class="form-control" placeholder="Description">
@@ -200,6 +218,9 @@
                         <xsl:if test="@type = 'ouvrage' or @type = 'prestation'">
                             <input type="text" class="form-control nomDescriptif" placeholder="Ouvrage/Prestation" value="{nomDescriptif}" />
                         </xsl:if>
+                        <div class='deleteXML'>
+                            <i class='fas fa-times-circle'></i>
+                        </div>
                     </div>
                     <div class="input-group description">
                         <textarea class="form-control" aria-label="With textarea" placeholder="Description">
@@ -228,6 +249,9 @@
                         <xsl:if test="@type = 'ouvrage' or @type = 'prestation'">
                             <input type="text" class="form-control nomDescriptif" placeholder="Ouvrage/Prestation" value="{nomDescriptif}" />
                         </xsl:if>
+                        <div class='deleteXML'>
+                            <i class='fas fa-times-circle'></i>
+                        </div>
                     </div>
                     <div class="input-group description">
                         <textarea class="form-control" placeholder="Description">
@@ -256,6 +280,9 @@
                         <xsl:if test="@type = 'ouvrage' or @type = 'prestation'">
                             <input type="text" class="form-control nomDescriptif" placeholder="Ouvrage/Prestation" value="{nomDescriptif}" />
                         </xsl:if>
+                        <div class='deleteXML'>
+                            <i class='fas fa-times-circle'></i>
+                        </div>
                     </div>
                     <div class="input-group description">
                         <textarea class="form-control" aria-label="With textarea" placeholder="Description">
@@ -270,6 +297,10 @@
                 </div>
             </xsl:when>
         </xsl:choose>
+        <div class="barreInsertion" onclick="AjouterElement(this);">
+            <div class="panBarreInsertion"></div>
+            <div class="panBarreInsertion"></div>
+        </div>
     </xsl:template>
 
     <xsl:template match="ligneChiffrage">
@@ -283,7 +314,7 @@
                 </span>
             </div>
             <div class="suppressionLigneChiffrage">
-                <i class="fas fa-times"></i>
+                <i class="fas fa-times-circle"></i>
             </div>
         </div>
         <div class="barreInsertionLigneChiffrage" onclick="AjouterLigneChiffrage(this);">

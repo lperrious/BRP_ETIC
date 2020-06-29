@@ -191,11 +191,6 @@ $(document).ready(function () {
   $(".container").last().click(removeSelectDescriptifXML);
   addEventsDescriptifs();
 
-  //à ajouter une fois lorsque l'utilisateur cherche un projet
-  $(".textLineProjet").click(function () {
-    clicProjet($(this).parent());
-  });
-
   getProjets();
 });
 
@@ -265,9 +260,10 @@ function searchProjet() {
     //si le morceau du nom se trouve bien dans le nom du projet, on l'affiche
     if (listeProjets[i]["nom"].includes(morceauNom)) {
       $("#containerLineProjet").append(
-        '<div class="lineProjet" onclick="ouvrirProjet(' +
-          listeProjets[i]["id"] +
-          ')">\
+        '<div class="lineProjet">\
+        <input type="hidden" class="idProjet" value="' +
+          listeProjets[i].id +
+          '">\
               <div class="textLineProjet">\
                 <div class="iconProjet"><i class="far fa-file-alt"></i></div>\
                 <div class="propositionNomProjet">' +
@@ -282,6 +278,10 @@ function searchProjet() {
       );
     }
   }
+  //Attache l'event pour Ouvrir ou Dupliquer
+  $(".textLineProjet").click(function () {
+    clicProjet($(this).parent());
+  });
 }
 
 function getProjets() {
@@ -331,7 +331,11 @@ function dupliquerProjet(idProjet) {
     if (response["Error"]) {
       alert("Une erreur est survenue, impossible de duppliquer le projet)");
     } else {
-      ouvrirProjet(response["newIdProjet"]);
+      var delayInMilliseconds = 3000; //3 secondes
+
+      setTimeout(function () {
+        ouvrirProjet(response["newIdProjet"]); //code exécuté après 3 secondes : laisse le temps au serveur de créer le XML du projet
+      }, delayInMilliseconds);
     }
   });
 }
@@ -1016,37 +1020,24 @@ function AjouterElement(element) {
       }
     }
 
-    //Permet de gérer les cas ou on va proposer deux fois le même type de titre
-    //Ou quand il n'y a rien en dessous pour proposer un titre plus bas dans l'arbo
-    /*if (type1 == type2) type2 = null;
-    if (type1 == "titre1" && type2 == null) type2 = "titre2";
-    else if (type1 == "titre2" && type2 == null) {
-      type2 = "titre3";
-      type3 = "titre1";
-    } else if (type1 == "titre3" && type2 == null) {
-      type2 = "titre4";
-      type3 = "titre2";
-      type4 = "titre1";
-    } else if (type1 == "titre4" && type2 == null) {
-      type2 = "titre3";
-      type3 = "titre2";
-      type4 = "titre1";
-    }*/
-
-    if (type1.localeCompare(type2) == -1) {
+    if (type2 != null && type1.localeCompare(type2) == -1) {
       //Si on descend alors on ne peut que rester au niveau de type2 (sinon on casse la chaine père-fils)
       type1 = null;
-    } else if (type1.localeCompare(type2) == 0) {
+    } else if (type2 != null && type1.localeCompare(type2) == 0) {
       //Si on est entre deux titres de même niveau on peut soit rester au même niveau soit descendre
       if (type1 == "titre1") type2 = "titre2";
       else if (type1 == "titre2") type2 = "titre3";
       else if (type1 == "titre3") type2 = "titre4";
       else type2 = null;
     } else if (type2 != null && type1.localeCompare(type2) == 1) {
-      //Si on monte alors on propose tous les titres compris entre type1 et type2
+      //Si on monte alors on propose tous les titres compris entre type1 et type2 ainsi que le titre sous type1 (sauf si type1 == titre4)
       if (type1 == "titre3" && type2 == "titre1") {
-        type2 = "titre2";
-        type3 = "titre1";
+        type2 = "titre4";
+        type3 = "titre2";
+        type4 = "titre1";
+      } else if (type1 == "titre3" && type2 == "titre2") {
+        type2 = "titre4";
+        type3 = "titre2";
       } else if (type1 == "titre4" && type2 == "titre2") {
         type2 = "titre3";
         type3 = "titre2";
@@ -1917,6 +1908,35 @@ function supprimerXML(croix, type) {
         );
       } else {
         if (type != "ligneChiffrage" && lotDelete == null) {
+          //Nous devons enlever toute l'arbo en dessous de l'élément supprimé dans le HTML aussi
+          var styleArbo;
+          if ($(parent).hasClass("titre1")) styleArbo = "titre1";
+          else if ($(parent).hasClass("titre2")) styleArbo = "titre2";
+          else if ($(parent).hasClass("titre3")) styleArbo = "titre3";
+          else if ($(parent).hasClass("titre4")) styleArbo = "titre4";
+          if (styleArbo != "titre4") {
+            var nextElement = $(parent).next().next(); //on saute la barre d'insertion du parent pour récup l'élem suivant
+            do {
+              if (nextElement != undefined) {
+                var nextElementStyle;
+                if ($(nextElement).hasClass("titre1"))
+                  nextElementStyle = "titre1";
+                else if ($(nextElement).hasClass("titre2"))
+                  nextElementStyle = "titre2";
+                else if ($(nextElement).hasClass("titre3"))
+                  nextElementStyle = "titre3";
+                else if ($(nextElement).hasClass("titre4"))
+                  nextElementStyle = "titre4";
+                if (nextElementStyle.localeCompare(styleArbo) == 1) {
+                  //Si on descend dans l'arbo alors on suprime un fils
+                  var nextElementDelete = nextElement;
+                  nextElement = $(nextElementDelete).next().next();
+                  $(nextElementDelete).next(".barreInsertion").remove();
+                  $(nextElementDelete).remove();
+                }
+              } else break;
+            } while (nextElementStyle.localeCompare(styleArbo) == 1);
+          }
           $(parent).next(".barreInsertion").remove();
           $(parent).remove();
         } else if (lotDelete != null) {
