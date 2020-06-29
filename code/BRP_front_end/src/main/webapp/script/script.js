@@ -858,8 +858,49 @@ function editerDescription(id){
   $('.description'+id).hide();
   $('.container'+id).show();
 
+  //on monte la table de rosette qui nous permettra d'effectuer la traduction
+  var tableRosette = [
+    ['<normal>', ''],
+    ['</normal>', ''],
+    ['<bold_underline>', '<b><u>'],
+    ['</bold_underline>', '</b></u>'],
+    ['<bold_italic>', '<b><i>'],
+    ['</bold_italic>', '</b></i>'],
+    ['<bold_underline_italic>', '<b><u><i>'],
+    ['</bold_underline_italic>', '</b></u></i>'],
+    ['<colorred>', '<font color="#FF0000">'],
+    ['</colorred>', '</font>'],
+    ['<colororange>', '<font color="#E36C0A">'],
+    ['</colororange>', '</font>'],
+    ['<colorgreen>', '<font color="#00B050">'],
+    ['</colorgreen>', '</font>'],
+    ['<colorblue>', '<font color="#0070C0">'],
+    ['</colorblue>', '</font>'],
+    ['<highlightyellow>', '<span style="background-color: rgb(255, 255, 0);">'],
+    ['</highlightyellow>', '</span>'],
+    ['<highlightcyan>', '<span style="background-color: rgb(0, 255, 255);">'],
+    ['</highlightcyan>', '</span>'],
+    ['<highlightred>', '<span style="background-color: rgb(255, 0, 0);">'],
+    ['</highlightred>', '</span>'],
+    ['<highlightgreen>', '<span style="background-color: rgb(144, 238, 144);">'],
+    ['</highlightgreen>', '</span>'],
+    ['<highlightmagenta>', '<span style="background-color: rgb(255, 0, 255);">'],
+    ['</highlightmagenta>', '</span>'],
+    ['<highlightgrey>', '<span style="background-color: rgb(211, 211, 211);">'],
+    ['</highlightgrey>', '</span>'],
+  ];
+
+  var htmlText = $('.description'+id).html();
+
+  //on traduit le texte pour que nicEdit le comprenne
+  for (var i = 0; i < tableRosette.length; i++) {
+    htmlText = htmlText.replace(tableRosette[i][0], tableRosette[i][1]);
+  }
+
   $('.save'+id).show();
   barreStyle = new nicEditor({buttonList : ['bold','italic','underline', 'ul', 'forecolor', 'bgcolor']}).panelInstance(id);
+
+  nicEditors.findEditor(id).setContent(htmlText);
 }
 
 function extractHTML(id){
@@ -872,6 +913,7 @@ function extractHTML(id){
   $('.save'+id).hide();
 
   //appeler méthode modifierXML sur le descriptif concerné
+  alert(htmlText);
 }
 
 

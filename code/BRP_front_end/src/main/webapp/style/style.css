@@ -859,10 +859,78 @@ label.exportButton input[type="file"] {
   display: none;
 }
 
+.affichageTexteDescription{
+  margin: 15px;
+}
 
+/*GESTION DES STYLES (enrichissement texte)*/
+li{
+  margin-left: 30px;
+}
 
+p{
+  text-align: justify;
+}
 
+b{
+  font-weight: bold;
+}
 
+bold_underline{
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+bold_italic{
+  font-weight: bold;
+  font-style: italic;
+}
+
+bold_underline_italic{
+  font-weight: bold;
+  text-decoration: underline;
+  font-style: italic;
+}
+
+colorRed{
+  color: #FF0000;
+}
+
+colorOrange{
+  color: #E36C0A;
+}
+
+colorGreen{
+  color: #00B050;
+}
+
+colorBlue{
+  color: #0070C0;
+}
+
+highlightYellow{
+  background-color: #FFFF00;
+}
+
+highlightCyan{
+  background-color: #00FFFF;
+}
+
+highlightRed{
+  background-color: #FF0000;
+}
+
+highlightGreen{
+  background-color: #90EE90;
+}
+
+highlightMagenta{
+  background-color: #FF00FF;
+}
+
+highlightGrey{
+  background-color: #D3D3D3;
+}
 
 
 
