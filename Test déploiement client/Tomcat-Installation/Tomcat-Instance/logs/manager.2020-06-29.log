@@ -513,3 +513,5 @@
 29-Jun-2020 20:49:47.190 INFOS [http-nio-8081-exec-590] org.apache.catalina.core.ApplicationContext.log Manager: list: Listing contexts for virtual host 'localhost'
 29-Jun-2020 20:50:38.451 INFOS [http-nio-8081-exec-591] org.apache.catalina.core.ApplicationContext.log Manager: list: Listing contexts for virtual host 'localhost'
 29-Jun-2020 20:50:40.418 INFOS [http-nio-8081-exec-589] org.apache.catalina.core.ApplicationContext.log Manager: list: Listing contexts for virtual host 'localhost'
+29-Jun-2020 20:56:20.821 INFOS [http-nio-8081-exec-586] org.apache.catalina.core.ApplicationContext.log Manager: list: Listing contexts for virtual host 'localhost'
+29-Jun-2020 20:56:21.148 INFOS [http-nio-8081-exec-592] org.apache.catalina.core.ApplicationContext.log Manager: list: Listing contexts for virtual host 'localhost'
