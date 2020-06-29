@@ -517,11 +517,13 @@ function ouvrirProjet(idProjet) {
       //on attache l'evt pour modifier le xml
       attacheEventModifXML();
 
-      //on actualise le xml
-      var newOnglet = $("#divTitreLot_0");
-      var premierTitre = $(".titre1").last();
-      modifierXML(newOnglet); //!On donne les bons éléments ?
-      modifierXML(premierTitre);
+      //on actualise le xml seulement ssi existe un input avec idXML = _0
+      if ($("input[value~='_0']").length) {
+        var newOnglet = $("#divTitreLot_0");
+        var premierTitre = $(".titre1").last();
+        modifierXML(newOnglet);
+        modifierXML(premierTitre);
+      }
     }
   });
 }
@@ -1040,8 +1042,21 @@ function AjouterElement(element) {
       else if (type1 == "titre2") type2 = "titre3";
       else if (type1 == "titre3") type2 = "titre4";
       else type2 = null;
+    } else if (type2 != null && type1.localeCompare(type2) == 1) {
+      //Si on monte alors on propose tous les titres compris entre type1 et type2
+      if (type1 == "titre3" && type2 == "titre1") {
+        type2 = "titre2";
+        type3 = "titre1";
+      } else if (type1 == "titre4" && type2 == "titre2") {
+        type2 = "titre3";
+        type3 = "titre2";
+      } else if (type1 == "titre4" && type2 == "titre1") {
+        type2 = "titre3";
+        type3 = "titre2";
+        type4 = "titre1";
+      }
     } else if (type2 == null) {
-      //alors type2 est la fin du div donc on propose des choix allant de type1 à en dessous dans l'arbo
+      //alors type2 est la fin du div donc on propose des choix allant de de titre1 à en juste en-dessous de type1 dans l'arbo
       if (type1 == "titre1") type2 = "titre2";
       else if (type1 == "titre2") {
         type2 = "titre3";
@@ -1679,12 +1694,16 @@ function modifierXML(element) {
       if (classElement.includes("titre2")) rangElement = 2;
       if (classElement.includes("titre3")) rangElement = 3;
       if (classElement.includes("titre4")) rangElement = 4;
-      if (classElement.includes("titre5")) rangElement = 5; //! jamais de titre5
+      if (classElement.includes("titre5")) rangElement = 5;
 
       titreType = "titre" + rangElement;
 
       //on va chercher la classe de l'élément suivant
       var classNextElement = $(element).next().next().attr("class");
+      if (classNextElement == undefined) {
+        //Cas particulier si l'élement est le dernier de tous les titres du Lot
+        classNextElement = $(element).next().attr("class");
+      }
 
       if (classNextElement.includes("titre1")) rangNextElement = 1;
       if (classNextElement.includes("titre2")) rangNextElement = 2;
