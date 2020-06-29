@@ -1,10 +1,8 @@
 package fr.etic.brp.brp_front_end.actions;
 
-import fr.etic.brp.brp_back_end.metier.modele.Operateur;
 import fr.etic.brp.brp_back_end.metier.service.Service;
 import static java.lang.Double.parseDouble;
 import static java.lang.Long.parseLong;
-import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 
 /**
