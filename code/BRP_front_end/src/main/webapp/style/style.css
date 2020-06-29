@@ -31,7 +31,7 @@
   justify-content: space-around;
 }
 
-#button_create_account > button{
+#button_create_account > button {
   width: 200px;
   font-size: 120%;
 }
@@ -40,32 +40,32 @@
   margin: 0.5em auto 2.5em;
 }
 
-.btn-secondary{
+.btn-secondary {
   width: 140px;
 }
 
 /* Connexion */
-.titleLogin{
+.titleLogin {
   margin-bottom: 3em;
 }
 
-.titleLogin > h2{
+.titleLogin > h2 {
   font-size: 225%;
 }
 
-#clientbody{
+#clientbody {
   display: flex;
   flex-direction: column;
   height: 100vh;
 }
 
-#conteneur_connection{
+#conteneur_connection {
   width: 500px;
   margin: auto;
   text-align: center;
 }
 
-.fieldsLog{
+.fieldsLog {
   border: solid;
   border-width: 1px;
   border-color: var(--border);
@@ -80,11 +80,11 @@
   width: 80%;
 }
 
-.fieldsLog{
+.fieldsLog {
   margin-top: 0.25em;
 }
 
-#conteneur_button > button{
+#conteneur_button > button {
   width: 200px;
   background-color: var(--cta);
   color: var(--text_soft);
@@ -92,7 +92,7 @@
   margin-top: 1em;
 }
 
-#conteneur_button > button:hover{
+#conteneur_button > button:hover {
   cursor: pointer;
   background-color: var(--cta_hover);
 }
@@ -167,67 +167,67 @@ select {
 }
 
 /*      Popup           */
-#popUpWindow{
-    display: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    z-index: 1;
-    flex-direction: column;
+#popUpWindow {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 1;
+  flex-direction: column;
 }
 
-.popupNomProjet{
-    margin: auto;
-    background-color: var(--background_1);
-    width: 500px;
-    border: solid;
-    border-width: 1px;
-    padding: 40px 30px 40px;
+.popupNomProjet {
+  margin: auto;
+  background-color: var(--background_1);
+  width: 500px;
+  border: solid;
+  border-width: 1px;
+  padding: 40px 30px 40px;
 }
 
-.popupNomProjet > .buttons{
-    display: flex;
+.popupNomProjet > .buttons {
+  display: flex;
 }
 
-#nomProjetInput{
-    border: solid;
-    border-width: 1px;
-    border-color: var(--border);
-    padding: 5px;
-    padding-left: 10px;
-    font-size: 110%;
-    border-radius: 4px;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+#nomProjetInput {
+  border: solid;
+  border-width: 1px;
+  border-color: var(--border);
+  padding: 5px;
+  padding-left: 10px;
+  font-size: 110%;
+  border-radius: 4px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Helvetica Neue", "Fira Sans",
     Arial, Helvetica, sans-serif;
-    font-weight: 300;
-    margin-bottom: 1em;
-    width: 438px;
+  font-weight: 300;
+  margin-bottom: 1em;
+  width: 438px;
 }
 
-.button{
-    background-color: var(--cta);
-    color: var(--text_soft);
-    padding: 8px;
-    width: 47.5%;
-    text-align: center;
-    border-radius: 3px;
-    font-size: 105%;
+.button {
+  background-color: var(--cta);
+  color: var(--text_soft);
+  padding: 8px;
+  width: 47.5%;
+  text-align: center;
+  border-radius: 3px;
+  font-size: 105%;
 }
 
-.button:hover{
-    background-color: var(--cta_hover);
-    cursor: pointer;
+.button:hover {
+  background-color: var(--cta_hover);
+  cursor: pointer;
 }
 
-.popupNomProjet > .buttons > .button:nth-child(1){
-    margin-right: 2.5%;
+.popupNomProjet > .buttons > .button:nth-child(1) {
+  margin-right: 2.5%;
 }
 
-.popupNomProjet > .buttons > .button:nth-child(2){
-    margin-left: 2.5%;
+.popupNomProjet > .buttons > .button:nth-child(2) {
+  margin-left: 2.5%;
 }
 
 /*      Partie Gauche       */
@@ -334,10 +334,10 @@ select {
 }
 
 .nomProjet:nth-child(1) {
-    flex: 1;
-    overflow: auto;
-    height: 1.5em;
-    margin-right: 15px;
+  flex: 1;
+  overflow: auto;
+  height: 1.5em;
+  margin-right: 15px;
 }
 
 .nomProjet:nth-child(2) {
@@ -463,21 +463,23 @@ select {
   cursor: pointer;
 }*/
 
-label.importButton input[type="file"], label.exportButton input[type="file"] {
-    position:absolute;
-    top: -1000px;
+label.importButton input[type="file"],
+label.exportButton input[type="file"] {
+  position: absolute;
+  top: -1000px;
 }
 
 /***** Example custom styling *****/
-.importButton, .exportButton {
-    background-color: var(--cta);
-    color: var(--text_soft);
-    padding: 8px;
-    text-align: center;
-    border-radius: 3px;
-    font-size: 105%;
-    display: inline-block;
-    width: 42.5%;
+.importButton,
+.exportButton {
+  background-color: var(--cta);
+  color: var(--text_soft);
+  padding: 8px;
+  text-align: center;
+  border-radius: 3px;
+  font-size: 105%;
+  display: inline-block;
+  width: 42.5%;
 }
 
 .importButton:hover,
@@ -486,11 +488,11 @@ label.importButton input[type="file"], label.exportButton input[type="file"] {
   cursor: pointer;
 }
 
-.importButton{
+.importButton {
   margin-left: 4%;
 }
 
-.exportButton{
+.exportButton {
   margin-right: 4%;
 }
 
@@ -537,15 +539,17 @@ label.importButton input[type="file"], label.exportButton input[type="file"] {
   display: none;
 }
 
-.ouvrage, .generique{
+.ouvrage,
+.generique {
   margin-left: 60px;
 }
 
-.prestation{
+.prestation {
   margin-left: 80px;
 }
 
-.selectDescriptif, .selectDescriptifXML {
+.selectDescriptif,
+.selectDescriptifXML {
   background-color: var(--menu_bg_hover);
 }
 
@@ -564,11 +568,11 @@ label.importButton input[type="file"], label.exportButton input[type="file"] {
   padding-bottom: 15px;
 }
 
-.presentationRight{
+.presentationRight {
   flex: 1;
 }
 
-.textPresentationRight{
+.textPresentationRight {
   width: 500px;
   padding: 15px;
   font-size: 120%;
@@ -587,8 +591,8 @@ label.importButton input[type="file"], label.exportButton input[type="file"] {
   display: none;
 }
 
-.divTitreLot:nth-child(1){
-    display: block;
+.divTitreLot:nth-child(1) {
+  display: block;
 }
 
 .titreLot {
@@ -608,7 +612,7 @@ label.importButton input[type="file"], label.exportButton input[type="file"] {
   margin-top: 20px;
 }
 
-.finLot{
+.finLot {
   height: 200px;
 }
 
@@ -619,7 +623,7 @@ label.importButton input[type="file"], label.exportButton input[type="file"] {
   padding-left: 0;
   padding-bottom: 0;
   padding-top: 0;
-  background-color: rgba(255,255,255,0);
+  background-color: rgba(255, 255, 255, 0);
 }
 
 .input-group {
@@ -628,14 +632,14 @@ label.importButton input[type="file"], label.exportButton input[type="file"] {
 }
 
 .input-group-text {
-  background-color: rgba(255,255,255,0);
+  background-color: rgba(255, 255, 255, 0);
   border: none;
   padding-left: 0;
   color: var(--text);
 }
 
-.input-group-prepend:hover{
-    cursor: pointer;
+.input-group-prepend:hover {
+  cursor: pointer;
 }
 
 .ligneChiffrage {
@@ -654,19 +658,22 @@ label.importButton input[type="file"], label.exportButton input[type="file"] {
   width: 25px;
 }
 
-.deleteXML, .deleteXMLlot{
+.deleteXML,
+.deleteXMLlot {
   opacity: 0;
   color: var(--border);
   width: 25px;
 }
 
-.deleteXMLlot{
+.deleteXMLlot {
   position: absolute;
   top: 20px;
   right: 15px;
 }
 
-.suppressionLigneChiffrage:hover, .deleteXML:hover, .deleteXMLlot:hover {
+.suppressionLigneChiffrage:hover,
+.deleteXML:hover,
+.deleteXMLlot:hover {
   opacity: 1;
   cursor: pointer;
 }
@@ -680,14 +687,14 @@ label.importButton input[type="file"], label.exportButton input[type="file"] {
   padding-left: 15px;
 }
 
-.quantite{
+.quantite {
   text-align: right;
   padding-right: 15px;
   width: 20%;
 }
 
-.localisation{
-    width: 50%;
+.localisation {
+  width: 50%;
 }
 
 .titre1 {
@@ -729,12 +736,12 @@ label.importButton input[type="file"], label.exportButton input[type="file"] {
   font-size: 100%;
 }
 
-.ongletLot:first-child{
+.ongletLot:first-child {
   border-top-left-radius: 2px;
   border-bottom-left-radius: 2px;
 }
 
-.ongletLot:last-child{
+.ongletLot:last-child {
   border-top-right-radius: 2px;
   border-bottom-right-radius: 2px;
 }
