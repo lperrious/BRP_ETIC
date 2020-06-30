@@ -866,12 +866,14 @@ function editerDescription(id) {
   var tableRosette = [
     ["<normal>", ""],
     ["</normal>", ""],
+    ["<li>", "<ul><li>"],
+    ["</li>", "</li></ul>"],
     ["<bold_underline>", "<b><u>"],
-    ["</bold_underline>", "</b></u>"],
+    ["</bold_underline>", "</u></b>"],
     ["<bold_italic>", "<b><i>"],
-    ["</bold_italic>", "</b></i>"],
+    ["</bold_italic>", "</i></b>"],
     ["<bold_underline_italic>", "<b><u><i>"],
-    ["</bold_underline_italic>", "</b></u></i>"],
+    ["</bold_underline_italic>", "</i></u></b>"],
     ["<colorred>", '<font color="#FF0000">'],
     ["</colorred>", "</font>"],
     ["<colororange>", '<font color="#E36C0A">'],
@@ -904,7 +906,7 @@ function editerDescription(id) {
 
   //on traduit le texte pour que nicEdit le comprenne
   for (var i = 0; i < tableRosette.length; i++) {
-    htmlText = htmlText.replace(tableRosette[i][0], tableRosette[i][1]);
+    htmlText = htmlText.split(tableRosette[i][0]).join(tableRosette[i][1]);
   }
 
   $(".save" + id).show();
@@ -912,19 +914,318 @@ function editerDescription(id) {
     buttonList: ["bold", "italic", "underline", "ul", "forecolor", "bgcolor"],
   }).panelInstance(id);
 
+  //alert(htmlText);
   nicEditors.findEditor(id).setContent(htmlText);
+  $(".description" + id).html("");
 }
 
 function extractHTML(id) {
   $(".description" + id).show();
-  var htmlText = nicEditors.findEditor(id).getContent();
-  $(".description" + id).html(htmlText);
+  var textNicEdit = nicEditors.findEditor(id).getContent();
 
+  barreStyle.removeInstance(id);
   $(".container" + id).hide();
   $(".save" + id).hide();
 
+  //on stabilise le texte en enlevant les éléments perturbants
+  textNicEdit = textNicEdit.split("&nbsp;").join("");
+  textNicEdit = textNicEdit.split("<br>").join("");
+  textNicEdit = textNicEdit.split("<ul>").join("");
+  textNicEdit = textNicEdit.split("</ul>").join("");
+  textNicEdit = textNicEdit.split("<div>").join("<p>");
+  textNicEdit = textNicEdit.split("</div>").join("</p>");
+  textNicEdit = textNicEdit.replace(/ +(?= )/g, "");
+
+  //on boucle sur chaque paragraphe
+  var textNettoye = "",
+    textePara = "",
+    balisePara = "";
+  var test1 = 0,
+    test2 = 0,
+    test3 = 0;
+
+  while (textNicEdit != "" && test1 < 200) {
+    // alert(textNicEdit);
+
+    if (
+      (textNicEdit.indexOf("</p>") < textNicEdit.indexOf("</li>") &&
+        textNicEdit.indexOf("</p>") > 0) ||
+      textNicEdit.indexOf("</li>") == -1
+    ) {
+      textePara = textNicEdit.slice(0, textNicEdit.indexOf("</p>"));
+      textePara = textePara.replace("<p>", "");
+      textNicEdit = textNicEdit.slice(textNicEdit.indexOf("</p>") + 4);
+      balisePara = "<p>";
+    } else {
+      textePara = textNicEdit.slice(0, textNicEdit.indexOf("</li>"));
+      textePara = textePara.replace("<li>", "");
+      textNicEdit = textNicEdit.slice(textNicEdit.indexOf("</li>") + 5);
+      balisePara = "<li>";
+    }
+
+    test2 = 0;
+    while (
+      textePara != "" &&
+      textePara[0] != "<" &&
+      !textePara[0].match(/[a-z]/i) &&
+      test2 < 200
+    ) {
+      textePara = textePara.substr(1);
+      test2++;
+    }
+
+    //on a isolé l'intérieur utile de chaque paragraphe
+    if (textePara != "" && textePara.match(/[a-z]/i)) {
+      //alert(textePara);
+
+      //on traque les balises vides
+      var ouvranteBalise = "",
+        fermanteBalise = "",
+        texteBalise = "",
+        textParaNettoye = "";
+
+      test3 = 0;
+      while (textePara != "" && test3 < 200) {
+        //on monte la table de rosette qui nous permettra d'effectuer la partie classique de la traduction
+        var tableRosette2 = [
+          ["<bold_underline>", "<b><u>"],
+          ["</bold_underline>", "</u></b>"],
+          ["<bold_italic>", "<b><i>"],
+          ["</bold_italic>", "</i></b>"],
+          ["<bold_underline_italic>", "<b><u><i>"],
+          ["</bold_underline_italic>", "</i></u></b>"],
+        ];
+
+        for (var i = 0; i < tableRosette2.length; i++) {
+          textePara = textePara
+            .split(tableRosette2[i][1])
+            .join(tableRosette2[i][0]);
+        }
+
+        //on remet les balises <normal> et on en profite pour degager les balises vides
+        if (textePara[0] == "<") {
+          ouvranteBalise = textePara.substr(0, textePara.indexOf(">") + 1);
+          textePara = textePara.substr(textePara.indexOf(">") + 1);
+
+          texteBalise = textePara.substr(0, textePara.indexOf("<"));
+          textePara = textePara.substr(textePara.indexOf("<"));
+
+          fermanteBalise = textePara.substr(0, textePara.indexOf(">") + 1);
+          textePara = textePara.substr(textePara.indexOf(">") + 1);
+        } else {
+          ouvranteBalise = "<normal>";
+          fermanteBalise = "</normal>";
+
+          if (textePara.indexOf("<") != -1) {
+            texteBalise = textePara.substr(0, textePara.indexOf("<"));
+            textePara = textePara.substr(textePara.indexOf("<"));
+          } else {
+            texteBalise = textePara;
+            textePara = "";
+          }
+        }
+
+        if (texteBalise != "") {
+          var couleurSelectionnee = Array();
+          //on gère les écarts de couleur
+          //on gère un surlignage
+          if (ouvranteBalise.includes("rgb(")) {
+            couleurSelectionnee[0] = ouvranteBalise.slice(
+              ouvranteBalise.indexOf("(") + 1,
+              ouvranteBalise.indexOf(",")
+            );
+            couleurSelectionnee[1] = ouvranteBalise.slice(
+              ouvranteBalise.indexOf(",") + 2,
+              ouvranteBalise.lastIndexOf(",")
+            );
+            couleurSelectionnee[2] = ouvranteBalise.slice(
+              ouvranteBalise.lastIndexOf(",") + 2,
+              ouvranteBalise.indexOf(")")
+            );
+
+            //on liste les couleurs possibles
+            var min = 1000000;
+            var couleursPossibles = [
+              [
+                '<span style="background-color: rgb(255, 255, 0);">',
+                [255, 255, 0],
+              ],
+              [
+                '<span style="background-color: rgb(0, 255, 255);">',
+                [0, 255, 255],
+              ],
+              ['<span style="background-color: rgb(255, 0, 0);">', [255, 0, 0]],
+              [
+                '<span style="background-color: rgb(144, 238, 144);">',
+                [144, 238, 144],
+              ],
+              [
+                '<span style="background-color: rgb(255, 0, 255);">',
+                [255, 0, 255],
+              ],
+              [
+                '<span style="background-color: rgb(211, 211, 211);">',
+                [211, 211, 211],
+              ],
+              ["<normal>", [255, 255, 255]],
+            ];
+
+            //on trouve la distance minimale
+            var distance = null;
+            for (var i = 0; i < couleursPossibles.length; i++) {
+              distance = distanceColors(
+                couleurSelectionnee,
+                couleursPossibles[i][1]
+              );
+              if (distance < min) {
+                min = distance;
+                ouvranteBalise = couleursPossibles[i][0];
+              }
+            }
+          }
+
+          //on gère un text coloré
+          if (ouvranteBalise.includes("color=")) {
+            couleurSelectionnee[0] = ouvranteBalise.substr(
+              ouvranteBalise.indexOf("color=") + 8,
+              2
+            );
+            couleurSelectionnee[1] = ouvranteBalise.substr(
+              ouvranteBalise.indexOf("color=") + 10,
+              2
+            );
+            couleurSelectionnee[2] = ouvranteBalise.substr(
+              ouvranteBalise.indexOf("color=") + 12,
+              2
+            );
+
+            couleurSelectionnee[0] = hexToDec(couleurSelectionnee[0]);
+            couleurSelectionnee[1] = hexToDec(couleurSelectionnee[1]);
+            couleurSelectionnee[2] = hexToDec(couleurSelectionnee[2]);
+
+            //on liste les couleurs possibles
+            var min = 1000000;
+            var couleursPossibles = [
+              ['<font color="#FF0000">', [255, 0, 0]],
+              ['<font color="#E36C0A">', [227, 108, 10]],
+              ['<font color="#00B050">', [0, 176, 80]],
+              ['<font color="#0070C0">', [0, 112, 192]],
+              ["<normal>", [0, 0, 0]],
+            ];
+
+            //on trouve la distance minimale
+            var distance = null;
+            for (var i = 0; i < couleursPossibles.length; i++) {
+              distance = distanceColors(
+                couleurSelectionnee,
+                couleursPossibles[i][1]
+              );
+              if (distance < min) {
+                min = distance;
+                ouvranteBalise = couleursPossibles[i][0];
+              }
+            }
+          }
+
+          if (ouvranteBalise == "<normal>") fermanteBalise = "</normal>";
+
+          //on effectue la traduction de ces styles particuliers
+          var tableRosette1 = [
+            ["<colorRed>", '<font color="#FF0000">'],
+            ["</colorRed>", "</font>"],
+            ["<colorOrange>", '<font color="#E36C0A">'],
+            ["</colorOrange>", "</font>"],
+            ["<colorGreen>", '<font color="#00B050">'],
+            ["</colorGreen>", "</font>"],
+            ["<colorBlue>", '<font color="#0070C0">'],
+            ["</colorBlue>", "</font>"],
+            [
+              "<highlightYellow>",
+              '<span style="background-color: rgb(255, 255, 0);">',
+            ],
+            ["</highlightYellow>", "</span>"],
+            [
+              "<highlightCyan>",
+              '<span style="background-color: rgb(0, 255, 255);">',
+            ],
+            ["</highlightCyan>", "</span>"],
+            [
+              "<highlightRed>",
+              '<span style="background-color: rgb(255, 0, 0);">',
+            ],
+            ["</highlightRed>", "</span>"],
+            [
+              "<highlightGreen>",
+              '<span style="background-color: rgb(144, 238, 144);">',
+            ],
+            ["</highlightGreen>", "</span>"],
+            [
+              "<highlightMagenta>",
+              '<span style="background-color: rgb(255, 0, 255);">',
+            ],
+            ["</highlightMagenta>", "</span>"],
+            [
+              "<highlightGrey>",
+              '<span style="background-color: rgb(211, 211, 211);">',
+            ],
+            ["</highlightGrey>", "</span>"],
+          ];
+
+          for (var i = 0; i < tableRosette1.length; i++) {
+            if (ouvranteBalise == tableRosette1[i][1]) {
+              ouvranteBalise = tableRosette1[i][0];
+              fermanteBalise = tableRosette1[i + 1][0];
+            }
+          }
+
+          textParaNettoye += ouvranteBalise + texteBalise + fermanteBalise;
+          //alert(textParaNettoye);
+        }
+
+        test3++;
+      }
+
+      if (textParaNettoye != "") {
+        if (balisePara == "<p>") {
+          textNettoye += "<p>" + textParaNettoye + "</p>";
+        } else {
+          textNettoye += "<li>" + textParaNettoye + "</li>";
+        }
+      }
+    }
+
+    test1++;
+  }
+
+  if (test1 >= 199 || test2 >= 199 || test3 >= 199) {
+    alert(
+      "Une erreur est survenue dans la gestion des styles, le texte va être complètement nettoyé"
+    );
+    $(".description" + id).html(textNicEdit);
+    textNettoye =
+      "<p><normal>" + $(".description" + id).text() + "</normal></p>";
+  }
+
+  //tout a réussi on affiche le texte et on l'envoie au xml
+  alert(textNettoye);
+  $(".description" + id).html(textNettoye);
+
   //appeler méthode modifierXML sur le descriptif concerné
-  alert(htmlText);
+}
+
+//calcule la distance entre deux couleurs
+function distanceColors(color1, color2) {
+  var i,
+    d = 0;
+
+  for (i = 0; i < color1.length; i++) {
+    d += (color1[i] - color2[i]) * (color1[i] - color2[i]);
+  }
+  return Math.sqrt(d);
+}
+
+function hexToDec(hexString) {
+  return parseInt(hexString, 16);
 }
 
 function addEventsDescriptifs() {
