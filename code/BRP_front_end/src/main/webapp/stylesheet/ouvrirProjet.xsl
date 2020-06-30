@@ -192,9 +192,13 @@
                         </div>
                     </div>
                     <div class="input-group description">
-                        <textarea class="form-control" placeholder="Description">
+                        <div class='affichageTexteDescription descriptionarea{@id}'>
                             <xsl:value-of select="description" />
-                        </textarea>
+                        </div>
+                        <div class='containerArea containerarea{@id}'>
+                            <textarea style='width: 100%;' id='area{@id}'></textarea>
+                        </div>
+                        <div class='saveTextarea savearea{@id}'>Sauvegarder</div>
                     </div>
                     <xsl:if test="@type = 'ouvrage' or @type = 'prestation'">
                         <xsl:for-each select="ligneChiffrage">
@@ -223,9 +227,13 @@
                         </div>
                     </div>
                     <div class="input-group description">
-                        <textarea class="form-control" aria-label="With textarea" placeholder="Description">
+                        <div class='affichageTexteDescription descriptionarea{@id}'>
                             <xsl:value-of select="description" />
-                        </textarea>
+                        </div>
+                        <div class='containerArea containerarea{@id}'>
+                            <textarea style='width: 100%;' id='area{@id}'></textarea>
+                        </div>
+                        <div class='saveTextarea savearea{@id}'>Sauvegarder</div>
                     </div>
                     <xsl:if test="@type = 'ouvrage' or @type = 'prestation'">
                         <xsl:for-each select="ligneChiffrage">
@@ -254,9 +262,13 @@
                         </div>
                     </div>
                     <div class="input-group description">
-                        <textarea class="form-control" placeholder="Description">
+                        <div class='affichageTexteDescription descriptionarea{@id}'>
                             <xsl:value-of select="description" />
-                        </textarea>
+                        </div>
+                        <div class='containerArea containerarea{@id}'>
+                            <textarea style='width: 100%;' id='area{@id}'></textarea>
+                        </div>
+                        <div class='saveTextarea savearea{@id}'>Sauvegarder</div>
                     </div>
                     <xsl:if test="@type = 'ouvrage' or @type = 'prestation'">
                         <xsl:for-each select="ligneChiffrage">
@@ -285,9 +297,13 @@
                         </div>
                     </div>
                     <div class="input-group description">
-                        <textarea class="form-control" aria-label="With textarea" placeholder="Description">
+                        <div class='affichageTexteDescription descriptionarea{@id}'>
                             <xsl:value-of select="description" />
-                        </textarea>
+                        </div>
+                        <div class='containerArea containerarea{@id}'>
+                            <textarea style='width: 100%;' id='area{@id}'></textarea>
+                        </div>
+                        <div class='saveTextarea savearea{@id}'>Sauvegarder</div>
                     </div>
                     <xsl:if test="@type = 'ouvrage' or @type = 'prestation'">
                         <xsl:for-each select="ligneChiffrage">
