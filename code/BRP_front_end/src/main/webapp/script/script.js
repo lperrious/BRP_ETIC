@@ -1271,53 +1271,17 @@ function AjouterElement(element) {
         if (prev.hasClass("titre1")) {
           styleDescriptif = "titre1";
         } else if (prev.hasClass("titre2")) {
-          //Si le descriptif est un générique ou un ouvrage, on empêche de pouvoir le mettre sous un autre descriptif
-          if (
-            $(descriptifClass).first().hasClass("ouvrage") ||
-            $(descriptifClass).first().hasClass("generique")
-          ) {
-            if (prev.hasClass("descriptif")) styleDescriptif = "titre1";
-            else styleDescriptif = "titre2";
-          } else {
-            if (
-              prev.hasClass("descriptif") &&
-              !prev.children().eq(2).val() == "ouvrage"
-            )
-              styleDescriptif = "titre1";
-            else styleDescriptif = "titre2";
-          }
+          //On empêche de pouvoir le mettre sous un autre descriptif
+          if (prev.hasClass("descriptif")) styleDescriptif = "titre1";
+          else styleDescriptif = "titre2";
         } else if (prev.hasClass("titre3")) {
-          //Si le descriptif est un générique ou un ouvrage, on empêche de pouvoir le mettre sous un autre descriptif
-          if (
-            $(descriptifClass).first().hasClass("ouvrage") ||
-            $(descriptifClass).first().hasClass("generique")
-          ) {
-            if (prev.hasClass("descriptif")) styleDescriptif = "titre2";
-            else styleDescriptif = "titre3";
-          } else {
-            if (
-              prev.hasClass("descriptif") &&
-              !prev.children().eq(2).val() == "ouvrage"
-            )
-              styleDescriptif = "titre2";
-            else styleDescriptif = "titre3";
-          }
+          //On empêche de pouvoir le mettre sous un autre descriptif
+          if (prev.hasClass("descriptif")) styleDescriptif = "titre2";
+          else styleDescriptif = "titre3";
         } else if (prev.hasClass("titre4")) {
-          //Si le descriptif est un générique ou un ouvrage, on empêche de pouvoir le mettre sous un autre descriptif
-          if (
-            $(descriptifClass).first().hasClass("ouvrage") ||
-            $(descriptifClass).first().hasClass("generique")
-          ) {
-            if (prev.hasClass("descriptif")) styleDescriptif = "titre3";
-            else styleDescriptif = "titre4";
-          } else {
-            if (
-              prev.hasClass("descriptif") &&
-              !prev.children().eq(2).val() == "ouvrage"
-            )
-              styleDescriptif = "titre3";
-            else styleDescriptif = "titre4";
-          }
+          //On empêche de pouvoir le mettre sous un autre descriptif
+          if (prev.hasClass("descriptif")) styleDescriptif = "titre3";
+          else styleDescriptif = "titre4";
         }
         prev = $(prev).prev();
       }
@@ -1575,7 +1539,6 @@ function AjouterTitre(evt) {
 }
 
 function AjouterDescriptif(element) {
-  //code par quentin
   if ($(".selectDescriptifXML").length) {
     elementADeplacer = $(".selectDescriptifXML");
     var elementNextLine = $(element).parent().next().next();
@@ -1673,9 +1636,7 @@ function AjouterDescriptif(element) {
         }
       });
     }
-  }
-  //code par louis
-  else {
+  } else {
     var typeDescriptif = null;
     //on determine le type qui va etre insere
     if ($(".selectDescriptif").attr("class").includes("ouvrage")) {
