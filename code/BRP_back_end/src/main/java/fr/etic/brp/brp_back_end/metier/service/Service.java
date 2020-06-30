@@ -1071,9 +1071,8 @@ public class Service {
             Integer chevronStyle1 = null;
             Integer chevronStyle2 = null;
             
-            System.out.println(descriptionText);
-            
             while(descriptionText.length() > 0){
+                System.out.println("marqueur1");
                 //sélection du premier guillemet ouvrant et fermant
                 chevronBalise1 = descriptionText.indexOf("<");
                 chevronBalise2 = descriptionText.indexOf(">");
@@ -1087,7 +1086,9 @@ public class Service {
                 Element paraDescription = xml.createElement(balisePara); 
                 //on extrait le texte
                 textParagraphe = descriptionText.substring(0, fermanteBalise);
+                System.out.println("marqueur2");
                 while(textParagraphe.length() > 0){
+                    System.out.println("marqueur3");
                     //sélection du premier guillemet ouvrant et fermant
                     chevronStyle1 = textParagraphe.indexOf("<");
                     chevronStyle2 = textParagraphe.indexOf(">");
@@ -1102,6 +1103,7 @@ public class Service {
                     styleDescription.appendChild(xml.createTextNode(textParagraphe.substring(0, fermanteStyle)));
                     paraDescription.appendChild(styleDescription); 
                     textParagraphe = textParagraphe.substring(fermanteStyle+("</"+baliseStyle+">").length());
+                    System.out.println("marqueur4");
                 }
                 //on ajoute le paragraphe
                 baliseDescription.appendChild(paraDescription); 
