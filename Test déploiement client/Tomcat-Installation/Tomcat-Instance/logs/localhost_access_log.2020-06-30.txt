@@ -2810,3 +2810,12 @@
 0:0:0:0:0:0:0:1 - - [30/Jun/2020:14:54:02 +0200] "GET /BRP_front_end/XMLfiles/2.xml HTTP/1.1" 200 315
 0:0:0:0:0:0:0:1 - - [30/Jun/2020:14:54:16 +0200] "GET /BRP_front_end/ActionServlet?todo=recupererDescriptif&idDescriptif=04_ETA_01_11_001 HTTP/1.1" 200 349
 0:0:0:0:0:0:0:1 - - [30/Jun/2020:14:54:16 +0200] "POST /BRP_front_end/ActionServlet HTTP/1.1" 200 40
+127.0.0.1 - - [30/Jun/2020:14:56:33 +0200] "HEAD /netbeans-tomcat-status-test HTTP/1.1" 404 -
+127.0.0.1 - tomcat [30/Jun/2020:14:56:33 +0200] "GET /manager/text/ HTTP/1.1" 200 41
+127.0.0.1 - - [30/Jun/2020:14:56:33 +0200] "HEAD /netbeans-tomcat-status-test HTTP/1.1" 404 -
+127.0.0.1 - tomcat [30/Jun/2020:14:56:33 +0200] "GET /manager/text/ HTTP/1.1" 200 41
+127.0.0.1 - - [30/Jun/2020:14:56:33 +0200] "HEAD /netbeans-tomcat-status-test HTTP/1.1" 404 -
+127.0.0.1 - tomcat [30/Jun/2020:14:56:33 +0200] "GET /manager/text/ HTTP/1.1" 200 41
+127.0.0.1 - tomcat [30/Jun/2020:14:56:33 +0200] "GET /manager/text/list HTTP/1.1" 200 665
+127.0.0.1 - - [30/Jun/2020:14:56:33 +0200] "HEAD /netbeans-tomcat-status-test HTTP/1.1" 404 -
+127.0.0.1 - tomcat [30/Jun/2020:14:56:33 +0200] "GET /manager/text/ HTTP/1.1" 200 41
