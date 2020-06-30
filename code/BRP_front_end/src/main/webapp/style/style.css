@@ -612,6 +612,10 @@ label.exportButton input[type="file"] {
   cursor: pointer;
 }
 
+.unite:hover {
+  cursor: initial;
+}
+
 .ligneChiffrage {
   display: flex;
   justify-content: space-between;
