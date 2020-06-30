@@ -373,8 +373,8 @@ public class ExportService {
                             if(listeEnfantsTitre1.item(k).getNodeName().equals("descriptif")) {
                                 Element descriptifBalise = (Element)listeEnfantsTitre1.item(k);
                                 if(descriptifBalise.getAttribute("type").equals("ouvrage") || descriptifBalise.getAttribute("type").equals("prestation")) {
-                                    excel = DPFGDescriptif(excel, i+1, descriptifBalise, createHelper, j, nbLigneEffectiveTitre2, -1, -1);
                                     nbLigneEffectiveTitre2++;
+                                    excel = DPGFDescriptif(excel, i+1, descriptifBalise, createHelper, j, nbLigneEffectiveTitre2, -1, -1);
                                 }
                             //Sinon si titre2
                             } else if(listeEnfantsTitre1.item(k).getNodeName().equals("titre2")) {
@@ -416,7 +416,7 @@ public class ExportService {
                                         nbLigneEffectiveTitre3++;
                                         Element descriptifBalise = (Element)listeEnfantsTitre2.item(l);
                                         if(descriptifBalise.getAttribute("type").equals("ouvrage") || descriptifBalise.getAttribute("type").equals("prestation")) {
-                                            excel = DPFGDescriptif(excel, i+1, descriptifBalise, createHelper, j, nbLigneEffectiveTitre2, nbLigneEffectiveTitre3, -1); 
+                                            excel = DPGFDescriptif(excel, i+1, descriptifBalise, createHelper, j, nbLigneEffectiveTitre2, nbLigneEffectiveTitre3, -1); 
                                         }
                                     //Sinon si titre3
                                     } else if(listeEnfantsTitre2.item(l).getNodeName().equals("titre3")) {
@@ -449,7 +449,7 @@ public class ExportService {
                                                 nbLigneEffectiveTitre4++;
                                                 Element descriptifBalise = (Element)listeEnfantsTitre3.item(m);
                                                 if(descriptifBalise.getAttribute("type").equals("ouvrage") || descriptifBalise.getAttribute("type").equals("prestation")) {
-                                                    excel = DPFGDescriptif(excel, i+1, descriptifBalise, createHelper, j, nbLigneEffectiveTitre2, nbLigneEffectiveTitre3, nbLigneEffectiveTitre4);
+                                                    excel = DPGFDescriptif(excel, i+1, descriptifBalise, createHelper, j, nbLigneEffectiveTitre2, nbLigneEffectiveTitre3, nbLigneEffectiveTitre4);
                                                 }
                                             }
                                         }
@@ -548,34 +548,45 @@ public class ExportService {
                         ligneEnTeteRecapTitre2.createCell(6).setCellValue(createHelper.createRichTextString("PRIX TOTAL"));
                         ligneEnTeteRecapTitre2.getCell(6).setCellStyle(styleEnTeteRecaptitre2);
                         //Pour chaque enfants titre2
-                        NodeList enfantsTitre2 = titre1Balise.getElementsByTagName("titre2");
+                        NodeList enfantsTitre2 = titre1Balise.getChildNodes();
+                        int nbTitre2Effectif = 0; //Sinon p compte aussi les \n
                         for(int p = 0; p < enfantsTitre2.getLength(); p++) {
-                            //Tuple correspondant au sous-total titre2
-                            Row ligneSousTotalTitre2 = sheet.createRow(sheet.getLastRowNum()+1);
-                            CellStyle styleSousTotalTitre2 = excel.createCellStyle();
-                            Font fontSousTotalTitre2 = excel.createFont();
-                            styleSousTotalTitre2.setFont(fontEnTeteRecap);
-                            fontSousTotalTitre2.setFontHeightInPoints((short)9);
-                            styleSousTotalTitre2.setFont(fontSousTotalTitre2);
-                            styleSousTotalTitre2 = createBorderedStyle(styleSousTotalTitre2);
-                            Element titre2Balise = (Element)enfantsTitre2.item(p);
-                            ligneSousTotalTitre2.createCell(1).setCellValue(createHelper.createRichTextString(titre2Balise.getAttribute("intitule")));
-                            ligneSousTotalTitre2.getCell(1).setCellStyle(styleSousTotalTitre2);
-                            ligneSousTotalTitre2.createCell(2).setCellStyle(styleSousTotalTitre2);
-                            ligneSousTotalTitre2.createCell(3).setCellStyle(styleSousTotalTitre2);
-                            ligneSousTotalTitre2.createCell(4).setCellStyle(styleSousTotalTitre2);
-                            ligneSousTotalTitre2.createCell(5).setCellStyle(styleSousTotalTitre2);
-                            sheet.addMergedRegion(new CellRangeAddress(
-                                sheet.getLastRowNum(), //first row (0-based)
-                                sheet.getLastRowNum(), //last row  (0-based)
-                                1, //first column (0-based)
-                                5  //last column  (0-based)
-                            ));
-                            styleSousTotalTitre2.setAlignment(HorizontalAlignment.CENTER);
-                            ligneSousTotalTitre2.createCell(0).setCellValue(createHelper.createRichTextString(toRoman(n+1) + "." + (p+1)));
-                            ligneSousTotalTitre2.getCell(0).setCellStyle(styleSousTotalTitre2);
-                            ligneSousTotalTitre2.createCell(6).setCellValue(createHelper.createRichTextString(CalculSousTotal(titre2Balise).toString()));
-                            ligneSousTotalTitre2.getCell(6).setCellStyle(styleSousTotalTitre2);
+                            if(enfantsTitre2.item(p).getNodeName().equals("titre2") || (enfantsTitre2.item(p).getNodeName().equals("descriptif"))) {
+                                Element titre2Balise = (Element)enfantsTitre2.item(p);
+                                if(enfantsTitre2.item(p).getNodeName().equals("titre2") || (enfantsTitre2.item(p).getNodeName().equals("descriptif") && !titre2Balise.getAttribute("type").equals("generique"))) {
+                                    nbTitre2Effectif++;
+                                    //Tuple correspondant au sous-total titre2
+                                    Row ligneSousTotalTitre2 = sheet.createRow(sheet.getLastRowNum()+1);
+                                    CellStyle styleSousTotalTitre2 = excel.createCellStyle();
+                                    Font fontSousTotalTitre2 = excel.createFont();
+                                    styleSousTotalTitre2.setFont(fontEnTeteRecap);
+                                    fontSousTotalTitre2.setFontHeightInPoints((short)9);
+                                    styleSousTotalTitre2.setFont(fontSousTotalTitre2);
+                                    styleSousTotalTitre2 = createBorderedStyle(styleSousTotalTitre2);
+                                    if(titre2Balise.hasAttribute("intitule"))
+                                        ligneSousTotalTitre2.createCell(1).setCellValue(createHelper.createRichTextString(titre2Balise.getAttribute("intitule")));
+                                    else {
+                                        Element nomDescriptifBalise = (Element) titre2Balise.getChildNodes().item(0);
+                                        ligneSousTotalTitre2.createCell(1).setCellValue(createHelper.createRichTextString(nomDescriptifBalise.getTextContent()));
+                                    }
+                                    ligneSousTotalTitre2.getCell(1).setCellStyle(styleSousTotalTitre2);
+                                    ligneSousTotalTitre2.createCell(2).setCellStyle(styleSousTotalTitre2);
+                                    ligneSousTotalTitre2.createCell(3).setCellStyle(styleSousTotalTitre2);
+                                    ligneSousTotalTitre2.createCell(4).setCellStyle(styleSousTotalTitre2);
+                                    ligneSousTotalTitre2.createCell(5).setCellStyle(styleSousTotalTitre2);
+                                    sheet.addMergedRegion(new CellRangeAddress(
+                                        sheet.getLastRowNum(), //first row (0-based)
+                                        sheet.getLastRowNum(), //last row  (0-based)
+                                        1, //first column (0-based)
+                                        5  //last column  (0-based)
+                                    ));
+                                    styleSousTotalTitre2.setAlignment(HorizontalAlignment.CENTER);
+                                    ligneSousTotalTitre2.createCell(0).setCellValue(createHelper.createRichTextString(toRoman(n+1) + "." + (nbTitre2Effectif)));
+                                    ligneSousTotalTitre2.getCell(0).setCellStyle(styleSousTotalTitre2);
+                                    ligneSousTotalTitre2.createCell(6).setCellValue(createHelper.createRichTextString(CalculSousTotal(titre2Balise).toString()));
+                                    ligneSousTotalTitre2.getCell(6).setCellStyle(styleSousTotalTitre2);
+                                }
+                            }
                         }
                         //Créer ligne MONTANT TOTAL H.T [intitulé Titre1]
                         Row ligneMontantTotalHT = sheet.createRow(sheet.getLastRowNum()+1);
@@ -742,7 +753,7 @@ public class ExportService {
     }
     
     public Workbook RecapTitre(Workbook excel, int nbSheet, Element titreBalise, CellStyle cellStyle, CreationHelper createHelper) {
-        Sheet sheet = excel.getSheetAt(nbSheet-1);
+        Sheet sheet = excel.getSheetAt(nbSheet);
         
         Row ligneRecap = sheet.createRow(sheet.getLastRowNum()+1);
         CellStyle styleTemporaire = excel.createCellStyle(); //Permet de ne modifier l'alignement que pour le récap
@@ -776,7 +787,7 @@ public class ExportService {
             //Pour chaque ligneChiffrage
                 //On créer un tuple (n°, localisation, unite, quantité, prixUnitaire, montant HT)
     //FIN
-    public Workbook DPFGDescriptif(Workbook excel, int nbSheet, Element descriptif, CreationHelper createHelper, int nbTitre1, int nbTitre2, int nbTitre3, int nbTitre4) {
+    public Workbook DPGFDescriptif(Workbook excel, int nbSheet, Element descriptif, CreationHelper createHelper, int nbTitre1, int nbTitre2, int nbTitre3, int nbTitre4) {
         //On créer le tuple (n°, nom, courte description)
         //On créer les styles
         CellStyle styleBorderLRBold = createBorderedStyleLR(excel.createCellStyle());
@@ -785,7 +796,7 @@ public class ExportService {
         styleBorderLRBold.setFont(bold11);
         CellStyle styleBorderLR = createBorderedStyleLR(excel.createCellStyle());
         //On créer la ligne du descriptif
-        Sheet sheet = excel.getSheetAt(nbSheet-1);
+        Sheet sheet = excel.getSheetAt(nbSheet);
         Row ligneDescriptif = sheet.createRow(sheet.getLastRowNum()+1);
         ligneDescriptif.createCell(0).setCellStyle(styleBorderLRBold);
         ligneDescriptif.createCell(1).setCellStyle(styleBorderLRBold);
