@@ -902,63 +902,86 @@ function editerDescription(id){
 
   //on traduit le texte pour que nicEdit le comprenne
   for (var i = 0; i < tableRosette.length; i++) {
-    htmlText = htmlText.replace(tableRosette[i][0], tableRosette[i][1]);
+    htmlText = htmlText.split(tableRosette[i][0]).join(tableRosette[i][1]);
   }
 
   $('.save'+id).show();
   barreStyle = new nicEditor({buttonList : ['bold','italic','underline', 'ul', 'forecolor', 'bgcolor']}).panelInstance(id);
 
+  //alert(htmlText);
   nicEditors.findEditor(id).setContent(htmlText);
+  $('.description'+id).html('');
 }
 
 function extractHTML(id){
 
   $('.description'+id).show();
   var textNicEdit = nicEditors.findEditor(id).getContent();
-  $('.description'+id).html(textNicEdit);
 
+  barreStyle.removeInstance(id);
   $('.container'+id).hide();
   $('.save'+id).hide();
 
   //on stabilise le texte en enlevant les éléments perturbants
-  textNicEdit = textNicEdit.replace("&nbsp;", "");
-  textNicEdit = textNicEdit.replace("<br>", "");
-  textNicEdit = textNicEdit.replace("<div>", "<p>");
-  textNicEdit = textNicEdit.replace("</div>", "</p>");
+  textNicEdit = textNicEdit.split("&nbsp;").join('');
+  textNicEdit = textNicEdit.split("<br>").join('');
+  textNicEdit = textNicEdit.split("<ul>").join('');
+  textNicEdit = textNicEdit.split("</ul>").join('');
+  textNicEdit = textNicEdit.split("<div>").join('<p>');
+  textNicEdit = textNicEdit.split("</div>").join('</p>');
   textNicEdit = textNicEdit.replace(/ +(?= )/g,'');
-
-  alert(textNicEdit);
 
   //on boucle sur chaque paragraphe
   var textNettoye = "", textePara = "", balisePara = "";
+  var test1 = 0, test2 = 0, test3 = 0;
 
-  while(textNicEdit != ""){
+  while(textNicEdit != "" && test1 < 200){
 
-    if (textNicEdit.indexOf("</p>") < textNicEdit.indexOf("</li></ul>")) {
+    // alert(textNicEdit);
+
+    if ((textNicEdit.indexOf("</p>") < textNicEdit.indexOf("</li>") && textNicEdit.indexOf("</p>") > 0) || textNicEdit.indexOf("</li>") == -1 ) {
       textePara = textNicEdit.slice(0, textNicEdit.indexOf("</p>"));
       textePara = textePara.replace("<p>", "");
       textNicEdit = textNicEdit.slice(textNicEdit.indexOf("</p>")+4);
       balisePara = "<p>";
     }
     else{
-      textePara = textNicEdit.slice(0, textNicEdit.indexOf("</li></ul>"));
-      textePara = textePara.replace("<ul><li>", "");
-      textNicEdit = textNicEdit.slice(textNicEdit.indexOf("</li></ul>")+10);
-      balisePara = "<ul><li>";
+      textePara = textNicEdit.slice(0, textNicEdit.indexOf("</li>"));
+      textePara = textePara.replace("<li>", "");
+      textNicEdit = textNicEdit.slice(textNicEdit.indexOf("</li>")+5);
+      balisePara = "<li>";
     }
     
-
-    while(textePara != "" && textePara[0] != "<" && !textePara[0].match(/[a-z]/i)) {
+    test2 = 0;
+    while(textePara != "" && textePara[0] != "<" && !textePara[0].match(/[a-z]/i) && test2 < 200) {
       textePara = textePara.substr(1);
+      test2++;
     }
 
     //on a isolé l'intérieur utile de chaque paragraphe
     if(textePara != "" && textePara.match(/[a-z]/i)) {
 
+      //alert(textePara);
+
       //on traque les balises vides
       var ouvranteBalise = "", fermanteBalise = "", texteBalise = "", textParaNettoye = "";
 
-      while(textePara != ""){
+      test3 = 0;
+      while(textePara != "" && test3 < 200){
+
+        //on monte la table de rosette qui nous permettra d'effectuer la partie classique de la traduction
+        var tableRosette2 = [
+          ['<bold_underline>', '<b><u>'],
+          ['</bold_underline>', '</u></b>'],
+          ['<bold_italic>', '<b><i>'],
+          ['</bold_italic>', '</i></b>'],
+          ['<bold_underline_italic>', '<b><u><i>'],
+          ['</bold_underline_italic>', '</i></u></b>']
+        ];
+
+        for (var i = 0; i < tableRosette2.length; i++) {
+          textePara = textePara.split(tableRosette2[i][1]).join(tableRosette2[i][0]);
+        }
 
         //on remet les balises <normal> et on en profite pour degager les balises vides
         if (textePara[0] == "<") {
@@ -1052,7 +1075,6 @@ function extractHTML(id){
 
           if (ouvranteBalise == "<normal>") 
             fermanteBalise = "</normal>"; 
-          console.log(ouvranteBalise);
 
           //on effectue la traduction de ces styles particuliers
           var tableRosette1 = [
@@ -1087,7 +1109,10 @@ function extractHTML(id){
 
 
           textParaNettoye += ouvranteBalise+texteBalise+fermanteBalise;
+          //alert(textParaNettoye);
         }
+
+        test3++;
       }
 
       if (textParaNettoye != "") {
@@ -1095,29 +1120,24 @@ function extractHTML(id){
           textNettoye += "<p>"+textParaNettoye+"</p>";
         }
         else{
-          textNettoye += "<ul><li>"+textParaNettoye+"</li></ul>";
+          textNettoye += "<li>"+textParaNettoye+"</li>";
         } 
       }
     }
+
+    test1++;
   }
 
-  //on monte la table de rosette qui nous permettra d'effectuer la partie classique de la traduction
-  var tableRosette2 = [
-    ['<li>', '<ul><li>'],
-    ['</li>', '</li></ul>'],
-    ['<bold_underline>', '<b><u>'],
-    ['</bold_underline>', '</u></b>'],
-    ['<bold_italic>', '<b><i>'],
-    ['</bold_italic>', '</i></b>'],
-    ['<bold_underline_italic>', '<b><u><i>'],
-    ['</bold_underline_italic>', '</i></u></b>']
-  ];
-
-  for (var i = 0; i < tableRosette2.length; i++) {
-    textNettoye = textNettoye.replace(tableRosette2[i][1], tableRosette2[i][0]);
+  if (test1 >= 199 || test2 >= 199 || test3 >= 199) {
+    alert("Une erreur est survenue dans la gestion des styles, le texte va être complètement nettoyé");
+    $('.description'+id).html(textNicEdit);
+    textNettoye = "<p><normal>"+$('.description'+id).text()+"</normal></p>";
   }
 
+  //tout a réussi on affiche le texte et on l'envoie au xml
   alert(textNettoye);
+  $('.description'+id).html(textNettoye);
+  
 
   //appeler méthode modifierXML sur le descriptif concerné
   
