@@ -494,7 +494,8 @@ function ouvrirProjet(idProjet) {
         $("input[value='" + response.typeLot + "']").prop("checked", true);
       if (response.site != null)
         $("input[value='" + response.site + "']").prop("checked", true);
-      if (response.anneeRef != null) $(".datePrixref").val(response.anneeRef);
+      if (response.anneeRef != null)
+        $(".datePrixref").val(response.anneeRef.substr(24, 4)); //On affiche seulement l'année
       if (response.coeffAdapt != null)
         $(".coeffAdapt").val(response.coeffAdapt);
       if (response.localisationCoeffRaccordement != null)
@@ -1944,7 +1945,11 @@ function CreerOnglet() {
   $(
     "<div class='divTitreLot' id='divTitreLot_" +
       numOnglet +
-      "'><input type='text' class='titreLot' placeholder='Titre Lot' /></div>"
+      "'><input type='text' class='titreLot' placeholder='Titre Lot' />\
+        <div class='deleteXMLlot'>\
+          <i class='fas fa-times-circle'></i>\
+        </div>\
+      </div>"
   ).insertBefore($(".lot").first());
 
   //Ajout de l'hover sur toutes les barres d'insertions titre
