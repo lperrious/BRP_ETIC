@@ -128,3 +128,217 @@
 
 30-Jun-2020 11:23:29.084 INFOS [http-nio-8081-exec-29] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
 30-Jun-2020 11:23:29.088 INFOS [http-nio-8081-exec-29] org.apache.catalina.core.StandardContext.reload Le rechargement de ce contexte est terminé
+30-Jun-2020 11:26:10.221 AVERTISSEMENT [http-nio-8081-exec-25] fr.etic.brp.brp_back_end.dao.ProjetXMLDao.saveXMLContent Exception lors de l'appel de la méthode Update
+ javax.xml.transform.TransformerException: java.io.FileNotFoundException: ../../../../../../../../Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/webapp/XMLfiles/1.xml (No such file or directory)
+	at com.sun.org.apache.xalan.internal.xsltc.trax.TransformerImpl.getOutputHandler(TransformerImpl.java:521)
+	at com.sun.org.apache.xalan.internal.xsltc.trax.TransformerImpl.transform(TransformerImpl.java:336)
+	at fr.etic.brp.brp_back_end.dao.ProjetXMLDao.saveXMLContent(ProjetXMLDao.java:60)
+	at fr.etic.brp.brp_back_end.metier.service.Service.CreerProjet(Service.java:346)
+	at fr.etic.brp.brp_front_end.actions.CreationProjetAction.execute(CreationProjetAction.java:24)
+	at fr.etic.brp.brp_front_end.controleur.ActionServlet.processRequest(ActionServlet.java:203)
+	at fr.etic.brp.brp_front_end.controleur.ActionServlet.doPost(ActionServlet.java:236)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:661)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:742)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:198)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:496)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:140)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)
+	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:650)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:87)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:803)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:790)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1459)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.io.FileNotFoundException: ../../../../../../../../Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/webapp/XMLfiles/1.xml (No such file or directory)
+	at java.io.FileOutputStream.open0(Native Method)
+	at java.io.FileOutputStream.open(FileOutputStream.java:270)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:213)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:162)
+	at com.sun.org.apache.xalan.internal.xsltc.trax.TransformerImpl.getOutputHandler(TransformerImpl.java:506)
+	... 30 more
+---------
+java.io.FileNotFoundException: ../../../../../../../../Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/webapp/XMLfiles/1.xml (No such file or directory)
+	at java.io.FileOutputStream.open0(Native Method)
+	at java.io.FileOutputStream.open(FileOutputStream.java:270)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:213)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:162)
+	at com.sun.org.apache.xalan.internal.xsltc.trax.TransformerImpl.getOutputHandler(TransformerImpl.java:506)
+	at com.sun.org.apache.xalan.internal.xsltc.trax.TransformerImpl.transform(TransformerImpl.java:336)
+	at fr.etic.brp.brp_back_end.dao.ProjetXMLDao.saveXMLContent(ProjetXMLDao.java:60)
+	at fr.etic.brp.brp_back_end.metier.service.Service.CreerProjet(Service.java:346)
+	at fr.etic.brp.brp_front_end.actions.CreationProjetAction.execute(CreationProjetAction.java:24)
+	at fr.etic.brp.brp_front_end.controleur.ActionServlet.processRequest(ActionServlet.java:203)
+	at fr.etic.brp.brp_front_end.controleur.ActionServlet.doPost(ActionServlet.java:236)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:661)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:742)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:198)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:496)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:140)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)
+	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:650)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:87)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:803)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:790)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1459)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:745)
+
+30-Jun-2020 11:27:53.040 INFOS [http-nio-8081-exec-39] org.apache.catalina.core.StandardContext.reload Le rechargement du contexte [/BRP_front_end] a démarré
+30-Jun-2020 11:27:53.048 AVERTISSEMENT [http-nio-8081-exec-39] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesJdbc The web application [BRP_front_end] registered the JDBC driver [com.mysql.cj.jdbc.Driver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+30-Jun-2020 11:27:53.048 AVERTISSEMENT [http-nio-8081-exec-39] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesThreads The web application [BRP_front_end] appears to have started a thread named [mysql-cj-abandoned-connection-cleanup] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.lang.Object.wait(Native Method)
+ java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:143)
+ com.mysql.cj.jdbc.AbandonedConnectionCleanupThread.run(AbandonedConnectionCleanupThread.java:85)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+ java.lang.Thread.run(Thread.java:745)
+30-Jun-2020 11:27:53.612 INFOS [mysql-cj-abandoned-connection-cleanup] org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading Illegal access: this web application instance has been stopped already. Could not load []. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+ java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load []. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading(WebappClassLoaderBase.java:1311)
+	at org.apache.catalina.loader.WebappClassLoaderBase.getResource(WebappClassLoaderBase.java:986)
+	at com.mysql.cj.jdbc.AbandonedConnectionCleanupThread.checkThreadContextClassLoader(AbandonedConnectionCleanupThread.java:117)
+	at com.mysql.cj.jdbc.AbandonedConnectionCleanupThread.run(AbandonedConnectionCleanupThread.java:84)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+30-Jun-2020 11:27:57.587 INFOS [http-nio-8081-exec-39] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+30-Jun-2020 11:27:57.595 INFOS [http-nio-8081-exec-39] org.apache.catalina.core.StandardContext.reload Le rechargement de ce contexte est terminé
+30-Jun-2020 11:29:04.571 INFOS [http-nio-8081-exec-36] org.apache.catalina.core.StandardContext.reload Le rechargement du contexte [/BRP_front_end] a démarré
+30-Jun-2020 11:29:09.459 INFOS [http-nio-8081-exec-36] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+30-Jun-2020 11:29:09.474 INFOS [96] org.apache.catalina.core.StandardContext.reload Le rechargement de ce contexte est terminé
+30-Jun-2020 11:29:18.979 INFOS [http-nio-8081-exec-44] org.apache.catalina.core.StandardContext.reload Le rechargement du contexte [/BRP_front_end] a démarré
+30-Jun-2020 11:29:21.038 INFOS [http-nio-8081-exec-44] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+30-Jun-2020 11:29:21.043 INFOS [http-nio-8081-exec-44] org.apache.catalina.core.StandardContext.reload Le rechargement de ce contexte est terminé
+30-Jun-2020 11:29:58.468 INFOS [http-nio-8081-exec-31] org.apache.catalina.core.StandardContext.reload Le rechargement du contexte [/BRP_front_end] a démarré
+30-Jun-2020 11:30:02.044 INFOS [http-nio-8081-exec-31] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+30-Jun-2020 11:30:02.047 INFOS [http-nio-8081-exec-31] org.apache.catalina.core.StandardContext.reload Le rechargement de ce contexte est terminé
+30-Jun-2020 11:30:02.423 INFOS [http-nio-8081-exec-34] org.apache.catalina.core.StandardContext.reload Le rechargement du contexte [/BRP_front_end] a démarré
+30-Jun-2020 11:30:06.517 INFOS [http-nio-8081-exec-34] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+30-Jun-2020 11:30:06.521 INFOS [http-nio-8081-exec-34] org.apache.catalina.core.StandardContext.reload Le rechargement de ce contexte est terminé
+30-Jun-2020 11:30:06.899 INFOS [http-nio-8081-exec-46] org.apache.catalina.core.StandardContext.reload Le rechargement du contexte [/BRP_front_end] a démarré
+30-Jun-2020 11:30:09.692 INFOS [http-nio-8081-exec-46] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+30-Jun-2020 11:30:09.701 INFOS [http-nio-8081-exec-46] org.apache.catalina.core.StandardContext.reload Le rechargement de ce contexte est terminé
+30-Jun-2020 11:30:50.421 INFOS [http-nio-8081-exec-50] org.apache.catalina.core.StandardContext.reload Le rechargement du contexte [/BRP_front_end] a démarré
+30-Jun-2020 11:30:53.656 INFOS [http-nio-8081-exec-50] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+30-Jun-2020 11:30:53.659 INFOS [http-nio-8081-exec-50] org.apache.catalina.core.StandardContext.reload Le rechargement de ce contexte est terminé
+30-Jun-2020 11:32:40.641 INFOS [http-nio-8081-exec-55] org.apache.catalina.startup.HostConfig.undeploy Repli (undeploy) de l'application web ayant pour chemin de contexte [/BRP_front_end]
+30-Jun-2020 11:32:56.372 INFOS [http-nio-8081-exec-48] org.apache.catalina.startup.HostConfig.deployDescriptor Déploiement du descripteur de configuration [/Users/quentinmarc/Documents/ETIC-git/Etude BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance/conf/Catalina/localhost/BRP_front_end.xml]
+30-Jun-2020 11:32:59.253 INFOS [http-nio-8081-exec-48] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+30-Jun-2020 11:32:59.261 INFOS [http-nio-8081-exec-48] org.apache.catalina.startup.HostConfig.deployDescriptor Deployment of configuration descriptor [/Users/quentinmarc/Documents/ETIC-git/Etude BRP/Test déploiement client/Tomcat-Installation/Tomcat-Instance/conf/Catalina/localhost/BRP_front_end.xml] has finished in [2 887] ms
+30-Jun-2020 11:32:59.290 INFOS [http-nio-8081-exec-55] org.apache.catalina.util.LifecycleBase.start The start() method was called on component [StandardEngine[Catalina].StandardHost[localhost].StandardContext[/BRP_front_end]] after start() had already been called. The second call will be ignored.
+30-Jun-2020 12:17:23.146 AVERTISSEMENT [http-nio-8081-exec-58] fr.etic.brp.brp_back_end.metier.service.Service.AjouterDescriptif Exception lors de l'appel au Service AjouterDescriptif(Long idProjet, String placement, String idRefPlacement, String idDescriptif)
+ java.lang.NullPointerException
+	at fr.etic.brp.brp_back_end.metier.service.Service.AjouterDescriptif(Service.java:1175)
+	at fr.etic.brp.brp_front_end.actions.ModifierXMLAction.execute(ModifierXMLAction.java:89)
+	at fr.etic.brp.brp_front_end.controleur.ActionServlet.processRequest(ActionServlet.java:203)
+	at fr.etic.brp.brp_front_end.controleur.ActionServlet.doPost(ActionServlet.java:236)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:661)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:742)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:198)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:496)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:140)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)
+	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:650)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:87)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:803)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:790)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1459)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:745)
+
+30-Jun-2020 12:17:52.108 AVERTISSEMENT [http-nio-8081-exec-60] fr.etic.brp.brp_back_end.metier.service.Service.AjouterDescriptif Exception lors de l'appel au Service AjouterDescriptif(Long idProjet, String placement, String idRefPlacement, String idDescriptif)
+ java.lang.ArrayIndexOutOfBoundsException: -1
+	at java.util.Vector.elementData(Vector.java:734)
+	at java.util.Vector.get(Vector.java:750)
+	at org.eclipse.persistence.indirection.IndirectList.get(IndirectList.java:410)
+	at fr.etic.brp.brp_back_end.metier.service.Service.AjouterDescriptif(Service.java:1156)
+	at fr.etic.brp.brp_front_end.actions.ModifierXMLAction.execute(ModifierXMLAction.java:89)
+	at fr.etic.brp.brp_front_end.controleur.ActionServlet.processRequest(ActionServlet.java:203)
+	at fr.etic.brp.brp_front_end.controleur.ActionServlet.doPost(ActionServlet.java:236)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:661)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:742)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:198)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:496)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:140)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)
+	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:650)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:87)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:803)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:790)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1459)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:745)
+
+30-Jun-2020 13:59:40.389 AVERTISSEMENT [http-nio-8081-exec-58] fr.etic.brp.brp_back_end.metier.service.Service.AjouterDescriptif Exception lors de l'appel au Service AjouterDescriptif(Long idProjet, String placement, String idRefPlacement, String idDescriptif)
+ java.lang.ArrayIndexOutOfBoundsException
+
+30-Jun-2020 14:03:43.626 AVERTISSEMENT [http-nio-8081-exec-59] fr.etic.brp.brp_back_end.metier.service.Service.AjouterDescriptif Exception lors de l'appel au Service AjouterDescriptif(Long idProjet, String placement, String idRefPlacement, String idDescriptif)
+ java.lang.ArrayIndexOutOfBoundsException
+
+30-Jun-2020 14:04:21.484 AVERTISSEMENT [http-nio-8081-exec-62] fr.etic.brp.brp_back_end.metier.service.Service.AjouterDescriptif Exception lors de l'appel au Service AjouterDescriptif(Long idProjet, String placement, String idRefPlacement, String idDescriptif)
+ java.lang.ArrayIndexOutOfBoundsException
+
+30-Jun-2020 14:08:47.197 AVERTISSEMENT [http-nio-8081-exec-65] fr.etic.brp.brp_back_end.metier.service.Service.AjouterDescriptif Exception lors de l'appel au Service AjouterDescriptif(Long idProjet, String placement, String idRefPlacement, String idDescriptif)
+ java.lang.ArrayIndexOutOfBoundsException
+
+30-Jun-2020 14:10:26.873 AVERTISSEMENT [http-nio-8081-exec-66] fr.etic.brp.brp_back_end.metier.service.Service.AjouterDescriptif Exception lors de l'appel au Service AjouterDescriptif(Long idProjet, String placement, String idRefPlacement, String idDescriptif)
+ java.lang.ArrayIndexOutOfBoundsException
+
+30-Jun-2020 14:12:33.291 AVERTISSEMENT [http-nio-8081-exec-58] fr.etic.brp.brp_back_end.metier.service.Service.AjouterDescriptif Exception lors de l'appel au Service AjouterDescriptif(Long idProjet, String placement, String idRefPlacement, String idDescriptif)
+ java.lang.ArrayIndexOutOfBoundsException
+
+30-Jun-2020 14:13:18.100 AVERTISSEMENT [http-nio-8081-exec-61] fr.etic.brp.brp_back_end.metier.service.Service.AjouterDescriptif Exception lors de l'appel au Service AjouterDescriptif(Long idProjet, String placement, String idRefPlacement, String idDescriptif)
+ java.lang.ArrayIndexOutOfBoundsException
+
+30-Jun-2020 14:14:35.683 AVERTISSEMENT [http-nio-8081-exec-61] fr.etic.brp.brp_back_end.metier.service.Service.AjouterDescriptif Exception lors de l'appel au Service AjouterDescriptif(Long idProjet, String placement, String idRefPlacement, String idDescriptif)
+ java.lang.ArrayIndexOutOfBoundsException
+
+30-Jun-2020 14:16:36.468 AVERTISSEMENT [http-nio-8081-exec-64] fr.etic.brp.brp_back_end.metier.service.Service.AjouterDescriptif Exception lors de l'appel au Service AjouterDescriptif(Long idProjet, String placement, String idRefPlacement, String idDescriptif)
+ java.lang.ArrayIndexOutOfBoundsException
+

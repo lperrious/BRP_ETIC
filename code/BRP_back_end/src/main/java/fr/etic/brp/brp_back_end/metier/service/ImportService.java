@@ -55,8 +55,11 @@ public class ImportService {
     protected PrestationDao prestationDao = new PrestationDao();
     protected BasePrixRefDao basePrixRefDao = new BasePrixRefDao();
     
-    public ArrayList<String> ModifBaseDescriptif(String uriWord){
+    protected String rootImportFiles = "../../../../code/BRP_front_end/src/main/webapp/import_files/";
+    
+    public ArrayList<String> ModifBaseDescriptif(String nameWord){
         
+        String uriWord = rootImportFiles+nameWord;
         String idActuel = null;
         Boolean erreur = false;
         int countUnderscore = 0;
@@ -516,8 +519,9 @@ public class ImportService {
         return msgStatement;
     }
     
-    public Boolean TransformationWordVersExcel(String uriWord, String rootImportFiles) {
+    public Boolean TransformationWordVersExcel(String nameWord) {
         Boolean resultat = false;
+        String uriWord = rootImportFiles+nameWord;
         
         try {
             //Import du WORD
@@ -595,7 +599,7 @@ public class ImportService {
     }
     
     //! Non testé depuis la modif du champ unité
-    public String ModifBasePrixRef(String uriExcel){
+    public String ModifBasePrixRef(String nameExcel){
         //Importer le CSV
         //Parser le document cas par cas (ajout OU suppr) en sautant la premiere ligne
         //Si suppr alors on delete dans la BD
@@ -608,6 +612,7 @@ public class ImportService {
         
         String rapport = null;
         BufferedReader fileReader = null;
+        String uriExcel = rootImportFiles+nameExcel;
          
         //Delimiter used in CSV file
         final String DELIMITER = ";";

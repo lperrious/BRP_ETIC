@@ -10,13 +10,11 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class ImportAction extends Action {
     
-    protected String rootImportFiles = "../../../../code/BRP_front_end/src/main/webapp/import_files/";
-    
     @Override
     public void execute(HttpServletRequest request){ //Implémentation de la méthode Action.execute()
         
         //Récupération des paramètres de la requête
-        String uri = rootImportFiles+request.getParameter("name");
+        String name = request.getParameter("name");
         String operation = request.getParameter("operation");
         String resultat = null;
         String msgSuppr = null;
@@ -28,7 +26,7 @@ public class ImportAction extends Action {
         //Appel des services métiers (=méthodes de la classe Service)
         try{
             if(operation.equals("ModifBasePrixRef")){
-                resultat = service.ModifBasePrixRef(uri);
+                resultat = service.ModifBasePrixRef(name);
                 if(resultat.equals("Succès !")){
                     request.setAttribute("ErrorState", false);
                     resultat = "Import des prix réussi";
@@ -39,7 +37,7 @@ public class ImportAction extends Action {
                 
             }
             else{
-                returnListe = service.ModifBaseDescriptif(uri);
+                returnListe = service.ModifBaseDescriptif(name);
                 
                 //les ajouts se sont bien passés, on passe aux suppressions
                 if(returnListe.get(0).equals("Succes")){
@@ -70,7 +68,7 @@ public class ImportAction extends Action {
                     
                     if(!errorSuppr){
 
-                        if(service.TransformationWordVersExcel(uri, rootImportFiles)){
+                        if(service.TransformationWordVersExcel(name)){
                             request.setAttribute("ErrorState", false);
                             if(resultat == null)
                                 resultat = "Import effectué avec succès. Vous trouverez l'Excel lié aux objets importés dans le dossier des imports";

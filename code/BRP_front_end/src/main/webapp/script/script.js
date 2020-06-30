@@ -1208,10 +1208,10 @@ function extractHTML(id) {
   }
 
   //tout a réussi on affiche le texte et on l'envoie au xml
-  alert(textNettoye);
   $(".description" + id).html(textNettoye);
 
   //appeler méthode modifierXML sur le descriptif concerné
+  modifierXML($(".description" + id).parent().parent());
 }
 
 //calcule la distance entre deux couleurs
@@ -1726,9 +1726,13 @@ function AjouterDescriptif(element) {
               typeDescriptif +
               "'/><div class='input-group'><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control nomDescriptif' placeholder='Ouvrage/Prestation' value='" +
               nomDescriptif +
-              "'/><div class='deleteXML'><i class=\"fas fa-times-circle\"></i></div></div><div class='input-group description'><textarea class='form-control' placeholder='Description' value='" +
-              descriptionDescriptif +
-              "'></textarea></div><div class='ligneChiffrage'><input type='hidden' id='idLigneChiffrage' value='1'/><input type='text' class='form-control localisation' placeholder='Localisation'/><input type='text' class='form-control quantite' placeholder='Quantité' value='1.0'/><div class='input-group-prepend'><span class='input-group-text unite'>" +
+              "'/><div class='deleteXML'><i class=\"fas fa-times-circle\"></i></div></div><div class='input-group description'>\
+              <div class='affichageTexteDescription descriptionarea_0' >"+descriptionDescriptif+"</div>\
+              <div class='containerArea containerarea_0'>\
+                <textarea style='width: 100%;' id='area_0'></textarea>\
+              </div>\
+              <div class='saveTextarea savearea_0' >Sauvegarder</div></div>\
+              </div><div class='ligneChiffrage'><input type='hidden' id='idLigneChiffrage' value='1'/><input type='text' class='form-control localisation' placeholder='Localisation'/><input type='text' class='form-control quantite' placeholder='Quantité' value='1.0'/><div class='input-group-prepend'><span class='input-group-text unite'>" +
               unite +
               "</span></div><div style='width: 25px;'></div></div>"
           );
@@ -1767,9 +1771,12 @@ function AjouterDescriptif(element) {
               typeDescriptif +
               "'/><div class='input-group'><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control nomDescriptif' placeholder='Générique' value='" +
               nomDescriptif +
-              "'/><div class='deleteXML'><i class=\"fas fa-times-circle\"></i></div></div><div class='input-group description'><textarea id='testTextArea' class='form-control' placeholder='Description' value='" +
-              descriptionDescriptif +
-              "'></textarea></div>"
+              "'/><div class='deleteXML'><i class=\"fas fa-times-circle\"></i></div></div><div class='input-group description'>\
+              <div class='affichageTexteDescription descriptionarea_0' >"+descriptionDescriptif+"</div>\
+              <div class='containerArea containerarea_0'>\
+                <textarea style='width: 100%;' id='area_0'></textarea>\
+              </div>\
+              <div class='saveTextarea savearea_0' >Sauvegarder</div></div>"
           );
           $(divInsertionDescriptif).insertBefore($(element).parent());
 
@@ -1799,9 +1806,6 @@ function AjouterDescriptif(element) {
 
         //on actualise le xml
         modifierXML(divInsertionDescriptif);
-
-        //!Transforme les textaereas en Rich Text Field
-        //bkLib.onDomLoaded(nicEditors.allTextAreas);
       }
     });
   }
@@ -2126,16 +2130,9 @@ function modifierXML(element) {
         placement: placement,
         idDescriptif: $(element).children(".idDescriptif").val(),
         nomDescriptif: $(element).find(".nomDescriptif").val(),
-        description: $(element).find("textarea").val(),
+        description: $(element).find(".affichageTexteDescription").html(),
       };
     }
-    // idDescriptif: $(element).children('.idDescriptif').val(),
-    /*else if(classElement.includes("ligneChiffrage")){
-      var quantite = $(element).find(".quantite").val();
-      if (quantite == "") {
-        quantite = "1.0";
-        $(element).find(".quantite").val("1.0");
-      }*/
     else if (classElement.includes("ligneChiffrage")) {
       data = {
         todo: "modifierXML",
@@ -2194,7 +2191,30 @@ function modifierXML(element) {
               $(element)
                 .children("#idLigneChiffrage")
                 .val($(element).parent().children(".ligneChiffrage").length);
-            else $(element).children("#idXML").val(response["idInsere"]);
+            else {
+              $(element).children("#idXML").val(response["idInsere"]);
+
+              //si c'est un descriptif on attribue le même ID à ses composants qui gèrent le textarea
+              if(classElement.includes("descriptif")){
+                $('.descriptionarea_0').addClass('descriptionarea'+response["idInsere"]);
+                $('.containerarea_0').addClass('containerarea'+response["idInsere"]);
+                $('.savearea_0').addClass('savearea'+response["idInsere"]);
+
+                $('.descriptionarea_0').removeClass('descriptionarea_0');
+                $('.containerarea_0').removeClass('containerarea_0');
+                $('.savearea_0').removeClass('savearea_0');
+
+                $('#area_0').attr("id","area"+response["idInsere"]);
+
+                //on attache les évènements correspondants
+                $('.descriptionarea'+response["idInsere"]).click(function(){
+                  editerDescription("area"+response["idInsere"]);
+                });
+                $('.savearea'+response["idInsere"]).click(function(){
+                  extractHTML("area"+response["idInsere"]);
+                });
+              }
+            }
           }
         }
       }
