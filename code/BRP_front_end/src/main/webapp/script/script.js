@@ -519,8 +519,23 @@ function ouvrirProjet(idProjet) {
         NumerotationArbo("lot_" + index);
       }
 
+      //on attache les évènements correspondants au NicEdit
+      $(".descriptif").each(function () {
+        var idXML = $(this).children("#idXML").val();
+
+        $(".descriptionarea" + idXML).click(function () {
+          editerDescription("area" + idXML);
+        });
+        $(".savearea" + idXML).click(function () {
+          extractHTML("area" + idXML);
+        });
+      });
+
       //on attache l'evt pour modifier le xml
       attacheEventModifXML();
+
+      //On affiche le + pour rajouter des onglets
+      $(".ongletsLot").children().last().css("display", "block");
 
       //on actualise le xml seulement ssi existe un input avec idXML = _0
       if ($("input[value~='_0']").length) {
@@ -1211,7 +1226,11 @@ function extractHTML(id) {
   $(".description" + id).html(textNettoye);
 
   //appeler méthode modifierXML sur le descriptif concerné
-  modifierXML($(".description" + id).parent().parent());
+  modifierXML(
+    $(".description" + id)
+      .parent()
+      .parent()
+  );
 }
 
 //calcule la distance entre deux couleurs
@@ -1688,7 +1707,9 @@ function AjouterDescriptif(element) {
               "'/><div class='input-group'><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control nomDescriptif' placeholder='Ouvrage/Prestation' value='" +
               nomDescriptif +
               "'/><div class='deleteXML'><i class=\"fas fa-times-circle\"></i></div></div><div class='input-group description'>\
-              <div class='affichageTexteDescription descriptionarea_0' >"+descriptionDescriptif+"</div>\
+              <div class='affichageTexteDescription descriptionarea_0' >" +
+              descriptionDescriptif +
+              "</div>\
               <div class='containerArea containerarea_0'>\
                 <textarea style='width: 100%;' id='area_0'></textarea>\
               </div>\
@@ -1697,7 +1718,6 @@ function AjouterDescriptif(element) {
               unite +
               "</span></div><div style='width: 25px;'></div></div>"
           );
-          //! Rajouter la description stylisée en AJAX
 
           $(divInsertionDescriptif).insertBefore($(element).parent());
 
@@ -1733,7 +1753,9 @@ function AjouterDescriptif(element) {
               "'/><div class='input-group'><div class='input-group-prepend'><span class='input-group-text' id='basic-addon1'></span></div><input type='text' class='form-control nomDescriptif' placeholder='Générique' value='" +
               nomDescriptif +
               "'/><div class='deleteXML'><i class=\"fas fa-times-circle\"></i></div></div><div class='input-group description'>\
-              <div class='affichageTexteDescription descriptionarea_0' >"+descriptionDescriptif+"</div>\
+              <div class='affichageTexteDescription descriptionarea_0' >" +
+              descriptionDescriptif +
+              "</div>\
               <div class='containerArea containerarea_0'>\
                 <textarea style='width: 100%;' id='area_0'></textarea>\
               </div>\
@@ -1752,10 +1774,6 @@ function AjouterDescriptif(element) {
 
           //Ajout de l'hover sur toutes les barres d'insertions titre
           addEventsDescriptifs();
-
-          /*area2 = new nicEditor({ fullPanel: true }).panelInstance(
-            "testTextArea"
-          ); //! et l'id de textarea au dessus et style form-control*/
 
           //Appel de la fonction de numérotation de l'arborescence
           var idLot = $(divInsertionDescriptif).parent().attr("id");
@@ -2093,8 +2111,7 @@ function modifierXML(element) {
         nomDescriptif: $(element).find(".nomDescriptif").val(),
         description: $(element).find(".affichageTexteDescription").html(),
       };
-    }
-    else if (classElement.includes("ligneChiffrage")) {
+    } else if (classElement.includes("ligneChiffrage")) {
       data = {
         todo: "modifierXML",
         idProjet: idProjet,
@@ -2156,23 +2173,27 @@ function modifierXML(element) {
               $(element).children("#idXML").val(response["idInsere"]);
 
               //si c'est un descriptif on attribue le même ID à ses composants qui gèrent le textarea
-              if(classElement.includes("descriptif")){
-                $('.descriptionarea_0').addClass('descriptionarea'+response["idInsere"]);
-                $('.containerarea_0').addClass('containerarea'+response["idInsere"]);
-                $('.savearea_0').addClass('savearea'+response["idInsere"]);
+              if (classElement.includes("descriptif")) {
+                $(".descriptionarea_0").addClass(
+                  "descriptionarea" + response["idInsere"]
+                );
+                $(".containerarea_0").addClass(
+                  "containerarea" + response["idInsere"]
+                );
+                $(".savearea_0").addClass("savearea" + response["idInsere"]);
 
-                $('.descriptionarea_0').removeClass('descriptionarea_0');
-                $('.containerarea_0').removeClass('containerarea_0');
-                $('.savearea_0').removeClass('savearea_0');
+                $(".descriptionarea_0").removeClass("descriptionarea_0");
+                $(".containerarea_0").removeClass("containerarea_0");
+                $(".savearea_0").removeClass("savearea_0");
 
-                $('#area_0').attr("id","area"+response["idInsere"]);
+                $("#area_0").attr("id", "area" + response["idInsere"]);
 
                 //on attache les évènements correspondants
-                $('.descriptionarea'+response["idInsere"]).click(function(){
-                  editerDescription("area"+response["idInsere"]);
+                $(".descriptionarea" + response["idInsere"]).click(function () {
+                  editerDescription("area" + response["idInsere"]);
                 });
-                $('.savearea'+response["idInsere"]).click(function(){
-                  extractHTML("area"+response["idInsere"]);
+                $(".savearea" + response["idInsere"]).click(function () {
+                  extractHTML("area" + response["idInsere"]);
                 });
               }
             }
