@@ -25,9 +25,9 @@ $(document).ready(function () {
         $(".creationCompte").show();
       }
     }
-    // else {
-    //   window.location.href = "index.html";
-    // }
+    else {
+      window.location.href = "index.html";
+    }
   });
 
   //Lister coeff raccordements et cat construction dans infos projet
@@ -2078,6 +2078,8 @@ function modifierXML(element) {
         idRefPlacement = "_0";
       }
     }
+
+    //alert($(element).find(".affichageTexteDescription").html());
 
     //on détermine l'objet que l'on traite et on obtient ses informations
     var data = Array();

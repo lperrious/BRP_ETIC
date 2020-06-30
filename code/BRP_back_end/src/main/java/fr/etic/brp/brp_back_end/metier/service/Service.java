@@ -1416,7 +1416,53 @@ public class Service {
                     if(listeEnfantsDescriptif.item(j).getNodeName().equals("description")){
                         //On modifie la balise description
                         Element baliseDescription = (Element) listeEnfantsDescriptif.item(j);
-                        baliseDescription.setTextContent(newDescription);
+                        baliseDescription.setTextContent("");
+                        
+                        String balisePara = "";
+                        String baliseStyle = "";
+                        String textParagraphe = "";
+                        Integer chevronBalise1 = null;
+                        Integer chevronBalise2 = null;
+                        Integer fermanteBalise = null;
+                        Integer fermanteStyle = null;
+                        Integer chevronStyle1 = null;
+                        Integer chevronStyle2 = null;
+
+                        while(newDescription.length() > 0){
+                            //sélection du premier guillemet ouvrant et fermant
+                            chevronBalise1 = newDescription.indexOf("<");
+                            chevronBalise2 = newDescription.indexOf(">");
+                            //ce qu'il y a entre c'est la première balise (p ou li)
+                            balisePara = newDescription.substring(chevronBalise1+1,chevronBalise2-chevronBalise1);
+                            //on retire la balise ouvrante du texte
+                            newDescription = newDescription.substring(chevronBalise2+1);
+                            //on cherche la position de la balise fermante
+                            fermanteBalise = newDescription.indexOf("</"+balisePara+">");
+                            //on créer la balise paragraphe
+                            Element paraDescription = xml.createElement(balisePara); 
+                            //on extrait le texte
+                            textParagraphe = newDescription.substring(0, fermanteBalise);
+                            while(textParagraphe.length() > 0){
+                                //sélection du premier guillemet ouvrant et fermant
+                                chevronStyle1 = textParagraphe.indexOf("<");
+                                chevronStyle2 = textParagraphe.indexOf(">");
+                                //ce qu'il y a entre c'est la première balise (p ou li)
+                                baliseStyle = textParagraphe.substring(chevronStyle1+1,chevronStyle2-chevronBalise1);
+                                //on retire la balise ouvrante du texte
+                                textParagraphe = textParagraphe.substring(chevronStyle2+1);
+                                //on cherche la position de la balise fermante
+                                fermanteStyle = textParagraphe.indexOf("</"+baliseStyle+">");
+                                //on crée la balise paragraphe
+                                Element styleDescription = xml.createElement(baliseStyle); 
+                                styleDescription.appendChild(xml.createTextNode(textParagraphe.substring(0, fermanteStyle)));
+                                paraDescription.appendChild(styleDescription); 
+                                textParagraphe = textParagraphe.substring(fermanteStyle+("</"+baliseStyle+">").length());
+                            }
+                            //on ajoute le paragraphe
+                            baliseDescription.appendChild(paraDescription); 
+                            //on actualise le texte 
+                            newDescription = newDescription.substring(fermanteBalise+("</"+balisePara+">").length());
+                        }
                         testModif = true;
                     }
                 }
