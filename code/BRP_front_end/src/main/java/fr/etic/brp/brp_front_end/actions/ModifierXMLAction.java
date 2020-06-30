@@ -42,7 +42,9 @@ public class ModifierXMLAction extends Action {
                 break;
             case "ligneChiffrage":
                 localisation = request.getParameter("localisation");
-                quantite = parseDouble(request.getParameter("quantite"));
+                if(!request.getParameter("quantite").equals(""))
+                    quantite = parseDouble(request.getParameter("quantite"));
+                else quantite = 0.0;
                 break;
         }
         

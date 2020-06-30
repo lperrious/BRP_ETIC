@@ -306,21 +306,28 @@
     <xsl:template match="ligneChiffrage">
         <div class="ligneChiffrage">
             <input type="hidden" id="idLigneChiffrage" value="{@idLigneChiffrage}" />
-            <input type="text" class="form-control localisation" placeholder="Localisation" />
-            <input type="text" class="form-control quantite" placeholder="Quantité" />
+            <input type="text" class="form-control localisation" placeholder="Localisation" value="{localisation}" />
+            <input type="text" class="form-control quantite" placeholder="Quantité" value="{quantite}" />
             <div class="input-group-prepend">
                 <span class="input-group-text unite">
                     <xsl:value-of select="../unite" />
                 </span>
             </div>
-            <div class="suppressionLigneChiffrage">
-                <i class="fas fa-times-circle"></i>
+            <xsl:if test="not(@idLigneChiffrage = 1)">
+                <div class="suppressionLigneChiffrage">
+                    <i class="fas fa-times-circle"></i>
+                </div>
+            </xsl:if>
+            <xsl:if test="@idLigneChiffrage = 1">
+                <div style="width: 25px;"></div>
+            </xsl:if>
+        </div>
+        <xsl:if test="count(preceding-sibling::ligneChiffrage)+1 = count(../ligneChiffrage)">
+            <div class="barreInsertionLigneChiffrage" onclick="AjouterLigneChiffrage(this);">
+                <div class="panBarreInsertionLigneChiffrage"></div>
+                <div class="panBarreInsertionLigneChiffrage"></div>
             </div>
-        </div>
-        <div class="barreInsertionLigneChiffrage" onclick="AjouterLigneChiffrage(this);">
-            <div class="panBarreInsertionLigneChiffrage"></div>
-            <div class="panBarreInsertionLigneChiffrage"></div>
-        </div>
+        </xsl:if>
     </xsl:template>
 
 </xsl:stylesheet>

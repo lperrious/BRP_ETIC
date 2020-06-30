@@ -584,12 +584,10 @@ function modifierInfosProjet() {
     }).done(function (response) {
       // Fonction appelée en cas d'appel AJAX réussi
       //console.log("Response", response);
-      if (response) {
-        if (response["Error"]) {
-          alert(
-            "Une erreur est survenue lors de la sauvegarde des informations du projet (informations de la colonne de gauche)"
-          );
-        }
+      if (response["Error"]) {
+        alert(
+          "Une erreur est survenue lors de la sauvegarde des informations du projet (informations de la colonne de gauche)"
+        );
       }
     });
   }
@@ -860,69 +858,74 @@ function GenererLivrable() {
 /****************** Fonctions (partie droite) *********************/
 
 var barreStyle;
-function editerDescription(id){
-  $('.description'+id).hide();
-  $('.container'+id).show();
+function editerDescription(id) {
+  $(".description" + id).hide();
+  $(".container" + id).show();
 
   //on monte la table de rosette qui nous permettra d'effectuer la traduction
   var tableRosette = [
-    ['<normal>', ''],
-    ['</normal>', ''],
-    ['<bold_underline>', '<b><u>'],
-    ['</bold_underline>', '</b></u>'],
-    ['<bold_italic>', '<b><i>'],
-    ['</bold_italic>', '</b></i>'],
-    ['<bold_underline_italic>', '<b><u><i>'],
-    ['</bold_underline_italic>', '</b></u></i>'],
-    ['<colorred>', '<font color="#FF0000">'],
-    ['</colorred>', '</font>'],
-    ['<colororange>', '<font color="#E36C0A">'],
-    ['</colororange>', '</font>'],
-    ['<colorgreen>', '<font color="#00B050">'],
-    ['</colorgreen>', '</font>'],
-    ['<colorblue>', '<font color="#0070C0">'],
-    ['</colorblue>', '</font>'],
-    ['<highlightyellow>', '<span style="background-color: rgb(255, 255, 0);">'],
-    ['</highlightyellow>', '</span>'],
-    ['<highlightcyan>', '<span style="background-color: rgb(0, 255, 255);">'],
-    ['</highlightcyan>', '</span>'],
-    ['<highlightred>', '<span style="background-color: rgb(255, 0, 0);">'],
-    ['</highlightred>', '</span>'],
-    ['<highlightgreen>', '<span style="background-color: rgb(144, 238, 144);">'],
-    ['</highlightgreen>', '</span>'],
-    ['<highlightmagenta>', '<span style="background-color: rgb(255, 0, 255);">'],
-    ['</highlightmagenta>', '</span>'],
-    ['<highlightgrey>', '<span style="background-color: rgb(211, 211, 211);">'],
-    ['</highlightgrey>', '</span>'],
+    ["<normal>", ""],
+    ["</normal>", ""],
+    ["<bold_underline>", "<b><u>"],
+    ["</bold_underline>", "</b></u>"],
+    ["<bold_italic>", "<b><i>"],
+    ["</bold_italic>", "</b></i>"],
+    ["<bold_underline_italic>", "<b><u><i>"],
+    ["</bold_underline_italic>", "</b></u></i>"],
+    ["<colorred>", '<font color="#FF0000">'],
+    ["</colorred>", "</font>"],
+    ["<colororange>", '<font color="#E36C0A">'],
+    ["</colororange>", "</font>"],
+    ["<colorgreen>", '<font color="#00B050">'],
+    ["</colorgreen>", "</font>"],
+    ["<colorblue>", '<font color="#0070C0">'],
+    ["</colorblue>", "</font>"],
+    ["<highlightyellow>", '<span style="background-color: rgb(255, 255, 0);">'],
+    ["</highlightyellow>", "</span>"],
+    ["<highlightcyan>", '<span style="background-color: rgb(0, 255, 255);">'],
+    ["</highlightcyan>", "</span>"],
+    ["<highlightred>", '<span style="background-color: rgb(255, 0, 0);">'],
+    ["</highlightred>", "</span>"],
+    [
+      "<highlightgreen>",
+      '<span style="background-color: rgb(144, 238, 144);">',
+    ],
+    ["</highlightgreen>", "</span>"],
+    [
+      "<highlightmagenta>",
+      '<span style="background-color: rgb(255, 0, 255);">',
+    ],
+    ["</highlightmagenta>", "</span>"],
+    ["<highlightgrey>", '<span style="background-color: rgb(211, 211, 211);">'],
+    ["</highlightgrey>", "</span>"],
   ];
 
-  var htmlText = $('.description'+id).html();
+  var htmlText = $(".description" + id).html();
 
   //on traduit le texte pour que nicEdit le comprenne
   for (var i = 0; i < tableRosette.length; i++) {
     htmlText = htmlText.replace(tableRosette[i][0], tableRosette[i][1]);
   }
 
-  $('.save'+id).show();
-  barreStyle = new nicEditor({buttonList : ['bold','italic','underline', 'ul', 'forecolor', 'bgcolor']}).panelInstance(id);
+  $(".save" + id).show();
+  barreStyle = new nicEditor({
+    buttonList: ["bold", "italic", "underline", "ul", "forecolor", "bgcolor"],
+  }).panelInstance(id);
 
   nicEditors.findEditor(id).setContent(htmlText);
 }
 
-function extractHTML(id){
-
-  $('.description'+id).show();
+function extractHTML(id) {
+  $(".description" + id).show();
   var htmlText = nicEditors.findEditor(id).getContent();
-  $('.description'+id).html(htmlText);
+  $(".description" + id).html(htmlText);
 
-  $('.container'+id).hide();
-  $('.save'+id).hide();
+  $(".container" + id).hide();
+  $(".save" + id).hide();
 
   //appeler méthode modifierXML sur le descriptif concerné
   alert(htmlText);
 }
-
-
 
 function addEventsDescriptifs() {
   $(".barreInsertion").mouseenter(function () {

@@ -1,19 +1,12 @@
 
 package fr.etic.brp.brp_front_end.actions;
 
-import fr.etic.brp.brp_back_end.dao.CoeffRaccordementDao;
-import fr.etic.brp.brp_back_end.metier.modele.CaractDim;
-import fr.etic.brp.brp_back_end.metier.modele.CategorieConstruction;
-import fr.etic.brp.brp_back_end.metier.modele.CoeffRaccordement;
-import fr.etic.brp.brp_back_end.metier.modele.SousCategorieConstruction;
 import fr.etic.brp.brp_back_end.metier.service.Service;
-import static java.lang.Double.parseDouble;
 import static java.lang.Float.parseFloat;
 import static java.lang.Long.parseLong;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -37,8 +30,8 @@ public class EditerInfosProjetAction extends Action {
         String typeSite = request.getParameter("typeSite");
         String coeffAdaptString = request.getParameter("coeffAdapt");
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        String datePrixrefString = request.getParameter("datePrixref")+"-01 -02";
-        Date datePrixref = null;
+        String datePrixrefString = request.getParameter("datePrixref")+"-01-02";
+        Date datePrixref;
         try {
             datePrixref = format.parse(datePrixrefString);
         } catch (ParseException ex) {
@@ -56,61 +49,60 @@ public class EditerInfosProjetAction extends Action {
         int nbErreur = 0;
         Boolean errorState = false;
         try{
-           
-           if(nomProjet != ""){
+           if(!nomProjet.equals("")){
                Boolean testEditerNom = service.EditerNomProjet(idProjet, nomProjet);
                if(!testEditerNom) nbErreur++;
            }
            
-           if(refBRP != ""){
+           if(!refBRP.equals("")){
                Boolean testEditerRefBRP = service.EditerRefBRPProjet(idProjet, refBRP);
            if(!testEditerRefBRP) nbErreur++;
            }
            
-           if(typeMarche != ""){
+           if(!typeMarche.equals("")){
                Boolean testEditerTypeMarche = service.EditerInfoEnumProjet(idProjet, "TypeMarche", typeMarche);
                if(!testEditerTypeMarche) nbErreur++;
            }
            
-           if(typeConstruction != ""){
+           if(!typeConstruction.equals("")){
                Boolean testEditerTypeConstruction = service.EditerInfoEnumProjet(idProjet, "TypeConstruction", typeConstruction);
                if(!testEditerTypeConstruction) nbErreur++;
            }
            
-           if(typeLot != ""){
+           if(!typeLot.equals("")){
                Boolean testEditerTypeLot = service.EditerInfoEnumProjet(idProjet, "TypeLot", typeLot);
                if(!testEditerTypeLot) nbErreur++;
            }
            
-           if(typeSite != ""){
+           if(!typeSite.equals("")){
                Boolean testEditerTypeSite = service.EditerInfoEnumProjet(idProjet, "Site", typeSite);
                if(!testEditerTypeSite) nbErreur++;
            }
            
-           if(coeffAdaptString != ""){
+           if(!coeffAdaptString.equals("")){
                Float coeffAdapt = parseFloat(coeffAdaptString);
                Boolean testEditerCoeffAdaptProjet = service.EditerCoeffAdaptProjet(idProjet, coeffAdapt);
                if(!testEditerCoeffAdaptProjet) nbErreur++;
            }
            
-           if(datePrixrefString != ""){
+           if(!datePrixrefString.equals("")){
                Boolean testEditerDateProjet = service.EditerDateProjet(idProjet, datePrixref);
                if(!testEditerDateProjet) nbErreur++;
            }
 
-            if(idCoeffRaccordementString != ""){
+            if(!idCoeffRaccordementString.equals("")){
                 Long idCoeffRaccordement = parseLong(idCoeffRaccordementString);
                Boolean testEditerCoeffRaccordementProjet = service.EditerCoeffRaccordementProjet(idProjet, idCoeffRaccordement);
                if(!testEditerCoeffRaccordementProjet) nbErreur++;
             }
 
-           if(idCategorieConstructionString != ""){
+           if(!idCategorieConstructionString.equals("")){
                Boolean testEditerCategorieConstructionProjet = service.EditerCategorieConstructionProjet(idProjet, idCategorieConstructionString);
                if(!testEditerCategorieConstructionProjet) nbErreur++;
            }   
            
            //Editer sousCategorieConstruction
-           if(idSousCategorieConstructionString != ""){
+           if(!idSousCategorieConstructionString.equals("")){
                long idSousCategorieConstruction = parseLong(idSousCategorieConstructionString);
                Boolean testEditerSousCategorieConstructionProjet = service.EditerSousCategorieConstructionProjet(idProjet, idSousCategorieConstruction);
                if(!testEditerSousCategorieConstructionProjet) nbErreur++;
@@ -118,7 +110,7 @@ public class EditerInfosProjetAction extends Action {
 
            //Editer CaractDim       -- A GERER 
            
-        }catch(Exception ex){
+        } catch(Exception ex) {
             errorState = true;
         }
         
