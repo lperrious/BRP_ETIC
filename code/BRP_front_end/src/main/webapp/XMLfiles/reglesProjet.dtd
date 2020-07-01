@@ -36,23 +36,23 @@
 <!ELEMENT li ANY>
 <!ELEMENT normal (#PCDATA)>
 <!ELEMENT u (#PCDATA)>
-<!ELEMENT underlineDash (#PCDATA)>
+<!ELEMENT underlinedash (#PCDATA)>
 <!ELEMENT i (#PCDATA)>
 <!ELEMENT italic_underline (#PCDATA)>
 <!ELEMENT b (#PCDATA)>
 <!ELEMENT bold_underline (#PCDATA)>
 <!ELEMENT bold_italic (#PCDATA)>
 <!ELEMENT bold_underline_italic (#PCDATA)>
-<!ELEMENT colorRed (#PCDATA)>
-<!ELEMENT colorOrange (#PCDATA)>
-<!ELEMENT colorGreen (#PCDATA)>
-<!ELEMENT colorBlue (#PCDATA)>
-<!ELEMENT highlightYellow (#PCDATA)>
-<!ELEMENT highlightCyan (#PCDATA)>
-<!ELEMENT highlightRed (#PCDATA)>
-<!ELEMENT highlightGreen (#PCDATA)>
-<!ELEMENT highlightMagenta (#PCDATA)>
-<!ELEMENT highlightGrey (#PCDATA)>
+<!ELEMENT colorred (#PCDATA)>
+<!ELEMENT colororange (#PCDATA)>
+<!ELEMENT colorgreen (#PCDATA)>
+<!ELEMENT colorblue (#PCDATA)>
+<!ELEMENT highlightyellow (#PCDATA)>
+<!ELEMENT highlightcyan (#PCDATA)>
+<!ELEMENT highlightred (#PCDATA)>
+<!ELEMENT highlightgreen (#PCDATA)>
+<!ELEMENT highlightmagenta (#PCDATA)>
+<!ELEMENT highlightgrey (#PCDATA)>
 <!ATTLIST projet idProjet CDATA #REQUIRED>
 <!ATTLIST lot id ID #REQUIRED>
 <!ATTLIST titre1 id ID #REQUIRED>

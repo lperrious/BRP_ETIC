@@ -835,6 +835,8 @@ label.exportButton input[type="file"] {
 
 .affichageTexteDescription {
   margin: 15px;
+  width: 100%;
+  min-height: 1em;
 }
 
 /*GESTION DES STYLES (enrichissement texte)*/
@@ -848,6 +850,10 @@ p {
 
 b {
   font-weight: bold;
+}
+
+underlinedash {
+  text-decoration: underline;
 }
 
 bold_underline {
@@ -866,42 +872,42 @@ bold_underline_italic {
   font-style: italic;
 }
 
-colorRed {
+colorred {
   color: #ff0000;
 }
 
-colorOrange {
+colororange {
   color: #e36c0a;
 }
 
-colorGreen {
+colorgreen {
   color: #00b050;
 }
 
-colorBlue {
+colorblue {
   color: #0070c0;
 }
 
-highlightYellow {
+highlightyellow {
   background-color: #ffff00;
 }
 
-highlightCyan {
+highlightcyan {
   background-color: #00ffff;
 }
 
-highlightRed {
+highlightred {
   background-color: #ff0000;
 }
 
-highlightGreen {
+highlightgreen {
   background-color: #90ee90;
 }
 
-highlightMagenta {
+highlightmagenta {
   background-color: #ff00ff;
 }
 
-highlightGrey {
+highlightgrey {
   background-color: #d3d3d3;
 }

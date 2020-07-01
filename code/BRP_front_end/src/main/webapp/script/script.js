@@ -24,8 +24,7 @@ $(document).ready(function () {
         //Si admin alors on affiche le bouton de création de compte Opérateur
         $(".creationCompte").show();
       }
-    }
-    else {
+    } else {
       window.location.href = "index.html";
     }
   });
@@ -244,7 +243,7 @@ function createProject() {
     if (response["Error"]) {
       alert("Une erreur est survenue, impossible de créer un nouveau projet");
     } else {
-      var delayInMilliseconds = 3000; //3 secondes
+      var delayInMilliseconds = 3000; //3000 ms
 
       setTimeout(function () {
         ouvrirProjet(response["idProjet"]); //code exécuté après 3 secondes : laisse le temps au serveur de créer le XML du projet
@@ -884,6 +883,8 @@ function editerDescription(id) {
     ["</normal>", ""],
     ["<li>", "<ul><li>"],
     ["</li>", "</li></ul>"],
+    ["<underlinedash>", "<u>"],
+    ["</underlinedash>", "</u>"],
     ["<bold_underline>", "<b><u>"],
     ["</bold_underline>", "</u></b>"],
     ["<bold_italic>", "<b><i>"],
@@ -930,9 +931,11 @@ function editerDescription(id) {
     buttonList: ["bold", "italic", "underline", "ul", "forecolor", "bgcolor"],
   }).panelInstance(id);
 
-  //alert(htmlText);
   nicEditors.findEditor(id).setContent(htmlText);
   $(".description" + id).html("");
+
+  /*console.log($(".nicEdit-pane"));
+  $(".nicEdit-pane").parent().css("top", "300px");*/ //! bug position couleur
 }
 
 function extractHTML(id) {
@@ -1147,44 +1150,44 @@ function extractHTML(id) {
 
           //on effectue la traduction de ces styles particuliers
           var tableRosette1 = [
-            ["<colorRed>", '<font color="#FF0000">'],
-            ["</colorRed>", "</font>"],
-            ["<colorOrange>", '<font color="#E36C0A">'],
-            ["</colorOrange>", "</font>"],
-            ["<colorGreen>", '<font color="#00B050">'],
-            ["</colorGreen>", "</font>"],
-            ["<colorBlue>", '<font color="#0070C0">'],
-            ["</colorBlue>", "</font>"],
+            ["<colorred>", '<font color="#FF0000">'],
+            ["</colorred>", "</font>"],
+            ["<colororange>", '<font color="#E36C0A">'],
+            ["</colororange>", "</font>"],
+            ["<colorgreen>", '<font color="#00B050">'],
+            ["</colorgreen>", "</font>"],
+            ["<colorblue>", '<font color="#0070C0">'],
+            ["</colorblue>", "</font>"],
             [
-              "<highlightYellow>",
+              "<highlightyellow>",
               '<span style="background-color: rgb(255, 255, 0);">',
             ],
-            ["</highlightYellow>", "</span>"],
+            ["</highlightyellow>", "</span>"],
             [
-              "<highlightCyan>",
+              "<highlightcyan>",
               '<span style="background-color: rgb(0, 255, 255);">',
             ],
-            ["</highlightCyan>", "</span>"],
+            ["</highlightcyan>", "</span>"],
             [
-              "<highlightRed>",
+              "<highlightred>",
               '<span style="background-color: rgb(255, 0, 0);">',
             ],
-            ["</highlightRed>", "</span>"],
+            ["</highlightred>", "</span>"],
             [
-              "<highlightGreen>",
+              "<highlightgreen>",
               '<span style="background-color: rgb(144, 238, 144);">',
             ],
-            ["</highlightGreen>", "</span>"],
+            ["</highlightgreen>", "</span>"],
             [
-              "<highlightMagenta>",
+              "<highlightmagenta>",
               '<span style="background-color: rgb(255, 0, 255);">',
             ],
-            ["</highlightMagenta>", "</span>"],
+            ["</highlightmagenta>", "</span>"],
             [
-              "<highlightGrey>",
+              "<highlightgrey>",
               '<span style="background-color: rgb(211, 211, 211);">',
             ],
-            ["</highlightGrey>", "</span>"],
+            ["</highlightgrey>", "</span>"],
           ];
 
           for (var i = 0; i < tableRosette1.length; i++) {

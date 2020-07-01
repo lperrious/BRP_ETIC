@@ -55,7 +55,8 @@ public class ImportService {
     protected PrestationDao prestationDao = new PrestationDao();
     protected BasePrixRefDao basePrixRefDao = new BasePrixRefDao();
     
-    protected String rootImportFiles = "../../../../code/BRP_front_end/src/main/webapp/import_files/";
+    //protected String rootImportFiles = "../../../../code/BRP_front_end/src/main/webapp/import_files/";
+    protected String rootImportFiles = "../../../../../../../../Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/webapp/import_files/";
     
     public ArrayList<String> ModifBaseDescriptif(String nameWord){
         
@@ -109,7 +110,7 @@ public class ImportService {
                                             if(!run.isBold() && run.getUnderline().toString().equals("SINGLE") && !run.isItalic())
                                                 testingRunStyle = "u";
                                             if(!run.isBold() && run.getUnderline().toString().equals("DASH") && !run.isItalic())
-                                                testingRunStyle = "underlineDash";
+                                                testingRunStyle = "underlinedash";
                                             if(!run.isBold() && run.getUnderline().toString().equals("NONE") && run.isItalic())
                                                 testingRunStyle = "i";
                                             if(!run.isBold() && run.getUnderline().toString().equals("SINGLE") && run.isItalic())
@@ -125,27 +126,27 @@ public class ImportService {
                                             
                                             //on test les couleurs
                                             if("FF0000".equals(run.getColor()))
-                                                testingRunStyle = "colorRed";
+                                                testingRunStyle = "colorred";
                                             if("E36C0A".equals(run.getColor()))
-                                                testingRunStyle = "colorOrange";
+                                                testingRunStyle = "colororange";
                                             if("00B050".equals(run.getColor()))
-                                                testingRunStyle = "colorGreen";
+                                                testingRunStyle = "colorgreen";
                                             if("0070C0".equals(run.getColor()))
-                                                testingRunStyle = "colorBlue";
+                                                testingRunStyle = "colorblue";
                                             
                                             //on test les surlignages
                                             if("yellow".equals(run.getTextHightlightColor().toString()))
-                                                testingRunStyle = "highlightYellow";
+                                                testingRunStyle = "highlightyellow";
                                             if("cyan".equals(run.getTextHightlightColor().toString()))
-                                                testingRunStyle = "highlightCyan";
+                                                testingRunStyle = "highlightcyan";
                                             if("red".equals(run.getTextHightlightColor().toString()))
-                                                testingRunStyle = "highlightRed";
+                                                testingRunStyle = "highlightred";
                                             if("green".equals(run.getTextHightlightColor().toString()))
-                                                testingRunStyle = "highlightGreen";
+                                                testingRunStyle = "highlightgreen";
                                             if("magenta".equals(run.getTextHightlightColor().toString()))
-                                                testingRunStyle = "highlightMagenta";
+                                                testingRunStyle = "highlightmagenta";
                                             if("lightGray".equals(run.getTextHightlightColor().toString()))
-                                                testingRunStyle = "highlightGrey";
+                                                testingRunStyle = "highlightgrey";
 
                                             
                                             //si le style est différent de celui d'avant, on ferme le style d'avant et on ouvre le suivant
@@ -174,7 +175,7 @@ public class ImportService {
                                         }
                                           //chaineDescription += chaineParagraph;
                                 }
-                                //System.out.println(chaineDescription);
+                                
                                 tableau.add(chaineDescription);             
                             }
                         }
@@ -229,7 +230,6 @@ public class ImportService {
                                     categorie = categorieDao.ChercherParId(idActuel);       //idActuel est l'identifiant de l'objet que l'on traite
                                     JpaUtil.ouvrirTransaction();
                                     if(categorie == null){   //on crée la categorie
-                                        System.out.println(docListe.get(i).get(1));
                                         categorie = new Categorie(idActuel, docListe.get(i).get(1));
                                         categorieDao.Creer(categorie);  
                                         //on va chercher le chapitre parent pour update listeCategorie
@@ -346,7 +346,6 @@ public class ImportService {
                                         prestationDao.Creer(prestation);
                                         //on va chercher l'ouvrage  parent pour update listeprestation
                                         Ouvrage ouvrageParent = (Ouvrage) descriptifDao.ChercherParId(idActuel.substring(0, idActuel.lastIndexOf('_'))); //on prend idActuel et on retire le dernier _ et ce qu'il y a derrière
-                                        //System.out.println(idActuel + " : " + ouvrageParent);
                                         List<Prestation> listePrestation = ouvrageParent.getListePrestation();
                                         listePrestation.add(prestation);
                                         ouvrageParent.setListePrestation(listePrestation);

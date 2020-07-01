@@ -914,7 +914,7 @@ public class ExportService {
                                 case "u":
                                     rDescritpion.setUnderline(SINGLE);
                                     break;
-                                case "underlineDash":
+                                case "underlinedash":
                                     rDescritpion.setUnderline(DASH);
                                     break;
                                 case "i":
@@ -940,34 +940,34 @@ public class ExportService {
                                     rDescritpion.setItalic(true);
                                     rDescritpion.setUnderline(SINGLE);
                                     break;
-                                case "colorRed":
+                                case "colorred":
                                     rDescritpion.setColor("FF0000");
                                     break;
-                                case "colorOrange":
+                                case "colororange":
                                     rDescritpion.setColor("E36C0A");
                                     break;
-                                case "colorGreen":
+                                case "colorgreen":
                                     rDescritpion.setColor("00B050");
                                     break;
-                                case "colorBlue":
+                                case "colorblue":
                                     rDescritpion.setColor("0070C0");
                                     break;
-                                case "highlightYellow":
+                                case "highlightyellow":
                                     rDescritpion.setTextHighlightColor("yellow");
                                     break;
-                                case "highlightCyan":
+                                case "highlightcyan":
                                     rDescritpion.setTextHighlightColor("cyan");
                                     break;
-                                case "highlightRed":
+                                case "highlightred":
                                     rDescritpion.setTextHighlightColor("red");
                                     break;
-                                case "highlightGreen":
+                                case "highlightgreen":
                                     rDescritpion.setTextHighlightColor("green");
                                     break;
-                                case "highlightMagenta":
+                                case "highlightmagenta":
                                     rDescritpion.setTextHighlightColor("magenta");
                                     break;
-                                case "highlightGrey":
+                                case "highlightgrey":
                                     rDescritpion.setTextHighlightColor("lightGray");
                                     break;  
                             }
