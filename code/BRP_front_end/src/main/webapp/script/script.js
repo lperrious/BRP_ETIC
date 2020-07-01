@@ -933,13 +933,11 @@ function editerDescription(id) {
 
   nicEditors.findEditor(id).setContent(htmlText);
   $(".description" + id).html("");
-
-  /*console.log($(".nicEdit-pane"));
-  $(".nicEdit-pane").parent().css("top", "300px");*/ //! bug position couleur
 }
 
-function forcerPanneauCouleurs(){
-  var panneauCouleurs = $('#container').next().next();
+window.setInterval(forcerPanneauCouleurs, 1000);
+function forcerPanneauCouleurs() {
+  var panneauCouleurs = $("#container").next();
 
   if (panneauCouleurs.length > 0) {
     $(panneauCouleurs).css("top", "250px");
