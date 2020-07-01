@@ -938,6 +938,14 @@ function editerDescription(id) {
   $(".nicEdit-pane").parent().css("top", "300px");*/ //! bug position couleur
 }
 
+function forcerPanneauCouleurs(){
+  var panneauCouleurs = $('#container').next().next();
+
+  if (panneauCouleurs.length > 0) {
+    $(panneauCouleurs).css("top", "250px");
+  }
+}
+
 function extractHTML(id) {
   $(".description" + id).show();
   var textNicEdit = nicEditors.findEditor(id).getContent();
