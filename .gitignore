@@ -4,6 +4,6 @@
 /code/BRP_back_end/target/
 /code/BRP_back_end/target/*
 *.DS_Store
-*/persistence.xml
+*persistence.xml
 /code/BRP_front_end/target/
 /code/BRP_front_end/src/main/webapp/XMLfiles
