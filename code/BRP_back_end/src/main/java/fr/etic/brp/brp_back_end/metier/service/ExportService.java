@@ -56,7 +56,8 @@ public class ExportService {
     protected ProjetXMLDao projetXMLDao = new ProjetXMLDao();
     protected ProjetDao projetDao = new ProjetDao();
     
-    protected String rootXMLFiles = "../../../../code/BRP_front_end/src/main/webapp/XMLfiles/";
+    //protected String rootXMLFiles = "../../../../code/BRP_front_end/src/main/webapp/XMLfiles/";
+    protected String rootXMLFiles = "../../../XMLfiles/";
     
     private final static TreeMap<Integer, String> map = new TreeMap<Integer, String>();
     static {
@@ -291,7 +292,7 @@ public class ExportService {
                     }
                 }
                 //On nomme la CCTP
-                String outputCCTP = "../../../../../../../../Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/webapp/export_files/Exports/" + projet.getNomProjet() + "_" + projet.getIdProjet() + "/" + projet.getNomProjet() + "_LOT_" + h + "_" + baliseLot.getAttribute("intitule") + ".docx"; //Surement à changer lors de l'installation client
+                String outputCCTP = "../../../export_files/Exports/" + projet.getNomProjet() + "_" + projet.getIdProjet() + "/" + projet.getNomProjet() + "_LOT_" + h + "_" + baliseLot.getAttribute("intitule") + ".docx"; //Surement à changer lors de l'installation client
                 //On écrit en sortie le document WORD
                 FileOutputStream out = new FileOutputStream(outputCCTP);
                 word.write(out);
@@ -301,7 +302,7 @@ public class ExportService {
             
             //TRAITEMENT EXCEL
             //Création du document EXCEL
-            Workbook excel = new XSSFWorkbook(new FileInputStream("../../../../../../../../Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/webapp/export_files/TemplatesExcel/Template1/Template1_DPGF.xlsx"));
+            Workbook excel = new XSSFWorkbook(new FileInputStream("../../../export_files/TemplatesExcel/Template1/Template1_DPGF.xlsx"));
             CreationHelper createHelper = excel.getCreationHelper(); //Permet de créer le document "plus simplement"
             
             //Pour chaque lot
@@ -654,7 +655,7 @@ public class ExportService {
             //FIN //NB : (PAS après "Fait à" inclus)
             
             //On nomme la DPGF
-            String outputDPGF = "../../../../../../../../Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/webapp/export_files/Exports/" + projet.getNomProjet() + "_" + projet.getIdProjet() + "/" + projet.getNomProjet() + "_DPGF.xlsx"; //Surement à changer lors de l'installation client
+            String outputDPGF = "../../../export_files/Exports/" + projet.getNomProjet() + "_" + projet.getIdProjet() + "/" + projet.getNomProjet() + "_DPGF.xlsx"; //Surement à changer lors de l'installation client
 
             //On écrit en sortie le document EXCEL
             OutputStream fileOut = new FileOutputStream(outputDPGF);
@@ -668,7 +669,7 @@ public class ExportService {
             //RM le dossier crée
             if(dossierCree) {
                 try {
-                    FileUtils.deleteDirectory(new File("../../../../../../../../Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/webapp/export_files/Exports/" + nomProjet + "_" + idProjet));
+                    FileUtils.deleteDirectory(new File("../../../export_files/Exports/" + nomProjet + "_" + idProjet));
                 } catch (Exception e) {
                     Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service ExporterProjet(Long idProjet, int choixTemplate, String uriXML). Vous devez supprimer à la main le dossier d'export crée", e);
                 }
