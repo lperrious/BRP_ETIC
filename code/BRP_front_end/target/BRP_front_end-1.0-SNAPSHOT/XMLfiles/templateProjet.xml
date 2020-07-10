@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE projet SYSTEM "reglesProjet.dtd">
+<projet idProjet="1">
+    <nextId>11</nextId>
+    <lot id="_12" intitule="LOT1">
+        <titre1 id="_1" intitule="Nom titre 1">
+            <titre2 id="_2" intitule="Nom titre 2">
+                <titre3 id="_3" intitule="Nom titre 3">
+                    <titre4 id="_4" intitule="Nom titre 4"/>
+                </titre3>
+            </titre2>
+        </titre1>
+        <titre1 id="_5" intitule="Nom titre 1">
+            <!-- Balise Générique  -->
+            <descriptif id="_6" idBD="02_AAA_01_01_01" type="generique">
+                <nomDescriptif>Sécurité</nomDescriptif>
+                <description>
+                    Une
+                    <b>description détaillée</b>
+                    du
+                    <i>générique</i>
+                    . Cette
+                    <u>description</u>
+                    apparaitra uniquement sur la CCTP
+                </description>
+                <courteDescription>Courte description (pour la DPGF)</courteDescription>
+            </descriptif>
+            <titre2 id="_7" intitule="Nom titre 2">
+                <!-- Balise Ouvrage  -->
+                <descriptif id="_8" idBD="02_AAA_01_01_02" type="ouvrage">
+                    <nomDescriptif>Étanchéité bitume monocouche</nomDescriptif>
+                    <description>
+                        Une
+                        <b>description détaillée</b>
+                        de
+                        <i>l'ouvrage</i>
+                        . Cette
+                        <u>description</u>
+                        apparaitra uniquement sur la CCTP
+                    </description>
+                    <courteDescription>Courte description (pour la DPGF)</courteDescription>
+                    <unite>m^2</unite>
+                    <ligneChiffrage idLigneChiffrage="1">
+                        <localisation>Batiment A</localisation>
+                        <quantite>25</quantite>
+                        <prixUnitaire>200</prixUnitaire>
+                    </ligneChiffrage>
+                </descriptif>
+                <descriptif id="_9" idBD="02_AAA_01_01_02_01" type="prestation">
+                    <nomDescriptif>Depose du complexe d'etancheite</nomDescriptif>
+                    <description>
+                        Une
+                        <b>description détaillée</b>
+                        de
+                        <i>la prestation</i>
+                        . Cette
+                        <u>description</u>
+                        apparaitra uniquement sur la CCTP
+                    </description>
+                    <courteDescription>Courte description (pour la DPGF)</courteDescription>
+                    <unite>m^2</unite>
+                    <ligneChiffrage idLigneChiffrage="1">
+                        <localisation>Batiment A</localisation>
+                        <quantite>25</quantite>
+                        <prixUnitaire>200</prixUnitaire>
+                    </ligneChiffrage>
+                </descriptif>
+                <titre3 id="_10" intitule="Nom titre 3">
+                    <titre4 id="_11" intitule="Nom titre 4"/>
+                </titre3>
+            </titre2>
+        </titre1>
+    </lot>
+    <lot id="_20" intitule="testLot">
+        <titre1 id="_21" intitule="test1">
+            <titre2 id="_222" intitule="test2"/>
+        </titre1>
+    </lot>
+</projet>

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE projet SYSTEM "reglesProjet.dtd">
+<projet idProjet="69">
+    <nextId>10</nextId>
+    <lot id="_1" intitule="ceci est un test de titre div">
+        <titre1 id="_2" intitule="ceci est un titre 1">
+            <descriptif id="_5" idBD="11_DAP_01_10_001" type="generique">
+                <nomDescriptif>Amiante</nomDescriptif>
+                <description>
+                    <p>
+                        <description>
+ 
+ Nous disposons d’un Repérage Amiante Avant Travaux datant du 
+ &lt;span style="background-color: rgb(255, 255, 0);"&gt;&lt;normal&gt;XXXXX. &lt;/normal&gt;&lt;/span&gt;</description>
+                    </p>
+                    <p>
+                        <normal>Il a été 
+ </normal>
+                        <b>repéré des matériaux contenant de l’amiante</b>
+                        <normal>
+ dans:
+ </normal>
+                    </p>
+                    <li>
+                        <highlightyellow>XXXX</highlightyellow>
+                        <normal></normal>
+                    </li>
+                    <li>
+                        <highlightyellow>XXXX</highlightyellow>
+                        <normal></normal>
+                    </li>
+                    <p>
+                        <normal>En revanche, le programme de travaux du donneur d’ordre ne spécifie pas les travauxsuivant :
+ </normal>
+                    </p>
+                    <li>
+                        <highlightyellow>XXXX</highlightyellow>
+                        <normal></normal>
+                    </li>
+                    <li>
+                        <highlightyellow>XXXX</highlightyellow>
+                        <normal></normal>
+                    </li>
+                    <p>
+                        <normal>Il convient de demander au diagnostiqueur de mettre à jour son rapport (ou d’en établir un nouveau) en intégrant le programme de travaux complet.</normal>
+                    </p>
+                </description>
+                <courteDescription />
+            </descriptif>
+            <titre2 id="_3" intitule="">
+                <descriptif id="_4" idBD="11_DAP_01_10_001" type="generique">
+                    <nomDescriptif>Amiante</nomDescriptif>
+                    <description>
+                        <p>
+                            <description>
+ 
+ Nous disposons d’un Repérage Amiante Avant Travaux datant du 
+ &lt;span style="background-color: rgb(255, 255, 0);"&gt;&lt;normal&gt;XXXXX..&lt;/normal&gt;&lt;/span&gt;</description>
+                        </p>
+                        <li>
+                            <highlightyellow>XXXX</highlightyellow>
+                            <normal></normal>
+                        </li>
+                        <li>
+                            <highlightyellow>XXXX</highlightyellow>
+                            <normal></normal>
+                        </li>
+                        <p>
+                            <normal>En revanche, le programme de travaux du donneur d’ordre ne spécifie pas les travauxsuivant :
+ </normal>
+                        </p>
+                        <li>
+                            <highlightyellow>XXXX</highlightyellow>
+                            <normal></normal>
+                        </li>
+                        <li>
+                            <highlightyellow>XXXX</highlightyellow>
+                            <normal></normal>
+                        </li>
+                        <p>
+                            <normal>Il convient de demander au diagnostiqueur de mettre à jour son rapport (ou d’en établir un nouveau) en intégrant le programme de travaux complet.</normal>
+                        </p>
+                    </description>
+                    <courteDescription />
+                </descriptif>
+                <descriptif id="_6" idBD="06_BAR_01_01_001" type="ouvrage">
+                    <nomDescriptif>Bardage acier</nomDescriptif>
+                    <description>
+                        <p>
+                            <b>Bardage</b>
+                            <normal />
+                            <u>acier</u>
+                        </p>
+                    </description>
+                    <courteDescription />
+                    <unite>m2</unite>
+                    <ligneChiffrage idLigneChiffrage="1">
+                        <localisation />
+                        <quantite>1.0</quantite>
+                        <prixUnitaire>25.0</prixUnitaire>
+                    </ligneChiffrage>
+                </descriptif>
+                <descriptif id="_7" idBD="06_BAR_01_01_001_001" type="prestation">
+                    <nomDescriptif>Bardage acier sinusoïdale</nomDescriptif>
+                    <description>
+                        <p>
+                            <normal>Mise en œuvre d’un bardage métallique sinusoïdal de type </normal>
+                            <highlightyellow>Fréquence 13.18, ép. 63/100 ème</highlightyellow>
+                            <normal>. </normal>
+                        </p>
+                        <p>
+                            <normal>Coloris au choix de l’architecte selon plan de façade.</normal>
+                        </p>
+                        <p>
+                            <normal>Fixation sur plateau de bardage par vis à têtes acier prélaqués coloris Ral identique au bardage, rondelle d’étanchéité et</normal>
+                        </p>
+                        <p>
+                            <normal>Compris toutes façons, coupes droites (coupe à la disqueuse interdite), protection contre la rouille des découpes, closoirs, lisse intermédiaire reprise en tête de bardage, etc…</normal>
+                        </p>
+                    </description>
+                    <courteDescription />
+                    <unite>m2</unite>
+                    <ligneChiffrage idLigneChiffrage="1">
+                        <localisation />
+                        <quantite>1.0</quantite>
+                        <prixUnitaire>30.0</prixUnitaire>
+                    </ligneChiffrage>
+                </descriptif>
+                <descriptif id="_8" idBD="11_DAP_01_10_002" type="generique">
+                    <nomDescriptif>Plomb</nomDescriptif>
+                    <description>
+                        <p>
+                            <normal>En mars 2014, un groupe de travail piloté par la DIRECCTE a émis des préconisations pour guider donneurs d’ordres et diagnostiqueurs dans l’élaboration d’un diagnostic avant travaux de rénovation/réhabilitation ou de démolition de bâtiments et d’ouvrage d’art. Pour nos opérations de réhabilitation, nous nous basons ainsi sur ces préconisations qui sont très proches de celles concernant l’amiante.</normal>
+                        </p>
+                        <p>
+                            <normal>Comme pour l’amiante, le diagnostic plomb avant travaux consiste à repérer la présence de revêtements, matériaux ou produits contenant du plomb dans le bâtiment, l'ouvrage, l'équipement, sur l’ensemble des éléments constitutifs du bâti, ainsi que sur les éléments extérieurs susceptibles d’en. La recherche de plomb peut nécessiter la réalisation de sondages destructifs.</normal>
+                        </p>
+                        <p>
+                            <normal>Pour ce type de diagnostic, il n’existe pas encore de valeur-seuil de prise en compte du risque plomb. Le technicien ne doit se prononcer, ni sur l’état de dégradation des unités de diagnostic, ni sur le niveau de risque que présentent les valeurs mesurées. Au final, il appartient au maître d’ouvrage et aux entreprises intervenantes de choisir la technique d’intervention la moins polluante et de définir les mesures de prévention des risques et d’hygiène adaptées à chaque situation de travail.</normal>
+                        </p>
+                        <p>
+                            <b>Il convient de missionner un diagnostiqueur afin de réaliser un repérage des matériaux susceptibles de contenir du plomb en intégrant les zones concernées par le programme de travaux.</b>
+                        </p>
+                    </description>
+                    <courteDescription />
+                </descriptif>
+                <descriptif id="_9" idBD="11_DAP_01_10_001" type="generique">
+                    <nomDescriptif>Amiante</nomDescriptif>
+                    <description>
+                        <p>
+                            <normal>Nous disposons d’un Repérage Amiante Avant Travaux datant du </normal>
+                            <highlightyellow>XXXXX.</highlightyellow>
+                            <normal> Celui-ci porte sur les matériaux et produits de la liste A1 de la norme NF-X46-020.</normal>
+                        </p>
+                        <li>
+                            <highlightyellow>XXXX</highlightyellow>
+                        </li>
+                        <li>
+                            <highlightyellow>XXXX</highlightyellow>
+                        </li>
+                        <p>
+                            <normal>En revanche, le programme de travaux du donneur d’ordre ne spécifie pas les travauxsuivant :</normal>
+                        </p>
+                        <li>
+                            <highlightyellow>XXXX</highlightyellow>
+                        </li>
+                        <li>
+                            <highlightyellow>XXXX</highlightyellow>
+                        </li>
+                        <p>
+                            <normal>Il convient de demander au diagnostiqueur de mettre à jour son rapport (ou d’en établir un nouveau) en intégrant le programme de travaux complet.</normal>
+                        </p>
+                    </description>
+                    <courteDescription />
+                </descriptif>
+            </titre2>
+        </titre1>
+    </lot>
+</projet>

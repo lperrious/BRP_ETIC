@@ -1,0 +1,70 @@
+<!ELEMENT projet (nextId?, uriExport?, nomProjet?, typeMarche?, typeConstruction?, typeLot?, site?, datePrixRef?, coeffAdapt?, coeffRaccordement?, categorieConstruction?,  sousCategorieConstruction?, caractDim?, lot*)>
+<!ELEMENT uriExport (#PCDATA)>
+<!ELEMENT nextId (#PCDATA)>
+<!ELEMENT lot (titre1*)>
+<!ELEMENT titre1 ANY>
+<!ELEMENT titre2 ANY>
+<!ELEMENT titre3 ANY>
+<!ELEMENT titre4 ANY>
+<!ELEMENT descriptif (nomDescriptif, description, courteDescription, unite?, ligneChiffrage*)>
+<!ELEMENT ligneChiffrage (localisation, quantite, prixUnitaire)>
+<!ELEMENT nomProjet (#PCDATA)>
+<!ELEMENT typeMarche (#PCDATA)>
+<!ELEMENT typeConstruction (#PCDATA)>
+<!ELEMENT typeLot (#PCDATA)>
+<!ELEMENT site (#PCDATA)>
+<!ELEMENT datePrixRef (#PCDATA)>
+<!ELEMENT coeffAdapt (#PCDATA)>
+<!ELEMENT coeffRaccordement (localisationCoeffRaccordement, valeurCoeffRaccordement)>
+<!ELEMENT localisationCoeffRaccordement (#PCDATA)>
+<!ELEMENT valeurCoeffRaccordement (#PCDATA)>
+<!ELEMENT intituleCategorieConstruction (#PCDATA)>
+<!ELEMENT codeCategorieConstruction (#PCDATA)>
+<!ELEMENT codeCaractDim (#PCDATA)>
+<!ELEMENT valeurCaractDim (#PCDATA)>
+<!ELEMENT categorieConstruction (intituleCategorieConstruction, codeCategorieConstruction)>
+<!ELEMENT sousCategorieConstruction (#PCDATA)>
+<!ELEMENT caractDim (codeCaractDim, valeurCaractDim)>
+<!ELEMENT nomDescriptif (#PCDATA)>
+<!ELEMENT description ANY>
+<!ELEMENT courteDescription (#PCDATA)>
+<!ELEMENT unite (#PCDATA)>
+<!ELEMENT prixUnitaire (#PCDATA)>
+<!ELEMENT localisation (#PCDATA)>
+<!ELEMENT quantite (#PCDATA)>
+<!ELEMENT p ANY>
+<!ELEMENT li ANY>
+<!ELEMENT normal (#PCDATA)>
+<!ELEMENT u (#PCDATA)>
+<!ELEMENT underlinedash (#PCDATA)>
+<!ELEMENT i (#PCDATA)>
+<!ELEMENT italic_underline (#PCDATA)>
+<!ELEMENT b (#PCDATA)>
+<!ELEMENT bold_underline (#PCDATA)>
+<!ELEMENT bold_italic (#PCDATA)>
+<!ELEMENT bold_underline_italic (#PCDATA)>
+<!ELEMENT colorred (#PCDATA)>
+<!ELEMENT colororange (#PCDATA)>
+<!ELEMENT colorgreen (#PCDATA)>
+<!ELEMENT colorblue (#PCDATA)>
+<!ELEMENT highlightyellow (#PCDATA)>
+<!ELEMENT highlightcyan (#PCDATA)>
+<!ELEMENT highlightred (#PCDATA)>
+<!ELEMENT highlightgreen (#PCDATA)>
+<!ELEMENT highlightmagenta (#PCDATA)>
+<!ELEMENT highlightgrey (#PCDATA)>
+<!ATTLIST projet idProjet CDATA #REQUIRED>
+<!ATTLIST lot id ID #REQUIRED>
+<!ATTLIST titre1 id ID #REQUIRED>
+<!ATTLIST titre2 id ID #REQUIRED>
+<!ATTLIST titre3 id ID #REQUIRED>
+<!ATTLIST titre4 id ID #REQUIRED>
+<!ATTLIST lot intitule CDATA #REQUIRED>
+<!ATTLIST titre1 intitule CDATA #REQUIRED>
+<!ATTLIST titre2 intitule CDATA #REQUIRED>
+<!ATTLIST titre3 intitule CDATA #REQUIRED>
+<!ATTLIST titre4 intitule CDATA #REQUIRED>
+<!ATTLIST descriptif id ID #REQUIRED>
+<!ATTLIST descriptif type CDATA #REQUIRED>
+<!ATTLIST descriptif idBD CDATA #REQUIRED>
+<!ATTLIST ligneChiffrage idLigneChiffrage CDATA #REQUIRED>
