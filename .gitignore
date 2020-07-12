@@ -1,6 +1,4 @@
-/Test déploiement client/testClientBack/target/
-/Test déploiement client/DASI-TD1-Correction/target/
-/Test déploiement client/DASI-TD2-Correction/target/
+/Test déploiement client/
 /code/BRP_back_end/target/
 /code/BRP_back_end/target/*
 *.DS_Store
