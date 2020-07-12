@@ -67,7 +67,8 @@ public class Service {
     protected ProjetXMLDao projetXMLDao = new ProjetXMLDao();
     
     //protected String rootXMLFiles = "../../../../../../../../Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/webapp/XMLfiles/";
-    protected String rootXMLFiles = "../../../../code/BRP_front_end/src/main/webapp/XMLfiles/";
+    //protected String rootXMLFiles = "../../../../code/BRP_front_end/src/main/webapp/XMLfiles/";
+    protected String rootXMLFiles = "../webapps/BRP_front_end-1.0-SNAPSHOT/XMLfiles/";
     
     
     public Descriptif RechercherDescriptifParId(String id) {

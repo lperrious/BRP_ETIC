@@ -75,7 +75,7 @@ public class Main {
         
     //----------tests-des-services-----------------
     
-        testerModifBaseDescriptif();
+//        testerModifBaseDescriptif();
 //        testerModifBasePrixRef();
 //        testerListerBasePrixRefs();
 //        testerListerCaractDims();
@@ -999,7 +999,7 @@ public static void Scenario3() {
         String mdpHash = Hashing.sha256().hashString(mdpConcat, StandardCharsets.UTF_8).toString();
         Boolean isAdmin = true;
         
-        Operateur admin = new Operateur("benoit@orange.fr", mdpHash, salt, "Benoît", isAdmin);
+        Operateur admin = new Operateur("admin0", mdpHash, salt, "admin0", isAdmin);
         admin.setAdmin(Boolean.TRUE);
          
         System.out.println("** Operateur avant persistance: ");
