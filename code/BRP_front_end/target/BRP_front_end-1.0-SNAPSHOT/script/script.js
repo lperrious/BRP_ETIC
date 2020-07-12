@@ -842,9 +842,9 @@ function display_manage_project() {
 function GenererLivrable() {
   var idProjet = $("#idProjetActuel").val();
   var uriXML =
-    "../../../../../../../../Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/webapp/XMLfiles/" +
+    "../webapps/BRP_front_end-1.0-SNAPSHOT/XMLfiles/" +
     idProjet +
-    ".xml"; //Fonctionne sur l'installation de Louis
+    ".xml";
   var choixTemplate = 1;
 
   $.ajax({

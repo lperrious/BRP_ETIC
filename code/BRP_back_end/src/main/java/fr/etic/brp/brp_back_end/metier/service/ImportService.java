@@ -57,7 +57,7 @@ public class ImportService {
     
     //protected String rootImportFiles = "../../../../code/BRP_front_end/src/main/webapp/import_files/";
     //protected String rootImportFiles = "../../../../../../../../Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/webapp/import_files/";
-    protected String rootImportFiles = "../../../import_files/";
+    protected String rootImportFiles = "../webapps/BRP_front_end-1.0-SNAPSHOT/import_files/";
     
     public ArrayList<String> ModifBaseDescriptif(String nameWord){
         

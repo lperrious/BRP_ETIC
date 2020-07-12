@@ -40,20 +40,6 @@ public class ConnexionAction extends Action {
             request.getSession().setAttribute("idOperateur", resultat.getIdOperateur());
             request.getSession().setAttribute("isAdmin", resultat.getAdmin());
             request.getSession().setAttribute("sameSite", "None");
-            
-            // Si on veut recupérer le paramettre de la session il suffit de faire :
-            // request.getSession().getAttribute("userType");
-            // meme si le user va sur des pages différente on peut l'utiliser
-            // il y a un cookie JSESSIONID et tomcat le lit tout seul et va chercher ses atributs
-            // On pourrait faire comme tu as fais mais ce n'est pas sécurisé (on peut changer la valeur des cookies comme on veut)
-            // et il faudrait pas mal de lignes en plus pour le faire bien
-            // (si tu veux que je t'explique comment on peut faire je peux t'expliquer ou tu peux aller voir les jwt)
-            // donc pour gagner du temps et en simplicité je te propose de passer par ça 
-            
-            // Le cookie et cree automatiquement lorqu'un user se connecte
-            // et quand il se logout il faut le detruire avec request.getSession().invalidate();
-            
-            // https://javarevisited.blogspot.com/2012/08/what-is-jsessionid-in-j2ee-web.html            
         } else {
             request.setAttribute("ErrorState", true);
         }
