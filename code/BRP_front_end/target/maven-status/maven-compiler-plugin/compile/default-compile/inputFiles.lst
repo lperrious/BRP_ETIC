@@ -1,45 +1,45 @@
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/actions/ArboDescriptifsAction.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/actions/ListerSousCatConstCaractDimAction.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/actions/ConnexionAction.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/actions/ImportAction.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/serialisations/ArboDescriptifsSerialisation.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/actions/DeplacerDescriptifAction.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/actions/RecupererUriProjetExportAction.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/serialisations/SupprimerXMLSerialisation.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/serialisations/DeplacerDescriptifSerialisation.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/serialisations/ImportSerialisation.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/actions/AffichageAdminAction.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/serialisations/RecupererDescriptifSerialisation.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/serialisations/OuvrirProjetSerialisation.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/actions/GenererLivrableAction.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/serialisations/AffichageAdminSerialisation.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/serialisations/CreationProjetSerialisation.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/actions/SupprimerXMLAction.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/serialisations/SupprComplexeSerialisation.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/serialisations/ConnexionSerialisation.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/actions/RecupererDescriptifAction.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/actions/SupprComplexeAction.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/serialisations/DupliquerProjetSerialisation.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/actions/EditerInfosProjetAction.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/actions/ListerRaccordementCatConstAction.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/serialisations/Serialisation.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/serialisations/InscriptionSerialisation.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/serialisations/GenererLivrableSerialisation.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/controleur/ActionServlet.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/actions/Action.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/actions/OuvrirProjetAction.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/serialisations/ModifierXMLSerialisation.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/serialisations/EnregistrerUriProjetExportSerialisation.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/actions/DupliquerProjetAction.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/serialisations/ChercherProjetSerialisation.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/actions/TestConnexionAction.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/actions/EnregistrerUriProjetExportAction.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/serialisations/ListerSousCatConstCaractDimSerialisation.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/serialisations/RecupererUriProjetExportSerialisation.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/serialisations/TestConnexionSerialisation.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/actions/InscriptionAction.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/serialisations/ListerRaccordementCatConstSerialisation.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/serialisations/EditerInfosProjetSerialisation.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/actions/ModifierXMLAction.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/actions/ChercherProjetAction.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/actions/CreationProjetAction.java
+/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/actions/ArboDescriptifsAction.java
+/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/serialisations/ArboDescriptifsSerialisation.java
+/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/actions/TestConnexionAction.java
+/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/serialisations/OuvrirProjetSerialisation.java
+/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/actions/ConnexionAction.java
+/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/serialisations/SupprComplexeSerialisation.java
+/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/serialisations/TestConnexionSerialisation.java
+/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/controleur/ActionServlet.java
+/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/actions/RecupererDescriptifAction.java
+/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/actions/InscriptionAction.java
+/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/actions/ModifierXMLAction.java
+/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/serialisations/RecupererUriProjetExportSerialisation.java
+/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/actions/DeplacerDescriptifAction.java
+/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/serialisations/DupliquerProjetSerialisation.java
+/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/actions/GenererLivrableAction.java
+/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/actions/ListerRaccordementCatConstAction.java
+/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/actions/ImportAction.java
+/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/actions/SupprimerXMLAction.java
+/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/serialisations/AffichageAdminSerialisation.java
+/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/serialisations/CreationProjetSerialisation.java
+/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/actions/Action.java
+/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/actions/AffichageAdminAction.java
+/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/serialisations/ConnexionSerialisation.java
+/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/serialisations/ImportSerialisation.java
+/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/serialisations/EnregistrerUriProjetExportSerialisation.java
+/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/serialisations/ListerSousCatConstCaractDimSerialisation.java
+/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/actions/SupprComplexeAction.java
+/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/actions/RecupererUriProjetExportAction.java
+/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/actions/CreationProjetAction.java
+/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/serialisations/ModifierXMLSerialisation.java
+/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/serialisations/GenererLivrableSerialisation.java
+/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/actions/EnregistrerUriProjetExportAction.java
+/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/serialisations/RecupererDescriptifSerialisation.java
+/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/serialisations/Serialisation.java
+/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/actions/OuvrirProjetAction.java
+/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/serialisations/InscriptionSerialisation.java
+/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/actions/DupliquerProjetAction.java
+/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/actions/ChercherProjetAction.java
+/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/serialisations/ChercherProjetSerialisation.java
+/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/serialisations/EditerInfosProjetSerialisation.java
+/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/actions/ListerSousCatConstCaractDimAction.java
+/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/actions/EditerInfosProjetAction.java
+/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/serialisations/DeplacerDescriptifSerialisation.java
+/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/serialisations/ListerRaccordementCatConstSerialisation.java
+/Users/quentinmarc/Documents/ETIC-git/Etude BRP/code/BRP_front_end/src/main/java/fr/etic/brp/brp_front_end/serialisations/SupprimerXMLSerialisation.java
