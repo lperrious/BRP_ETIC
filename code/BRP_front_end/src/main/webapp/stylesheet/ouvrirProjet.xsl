@@ -193,7 +193,7 @@
                     </div>
                     <div class="input-group description">
                         <div class='affichageTexteDescription descriptionarea{@id}'>
-                            <xsl:copy-of select="description" />
+                            <xsl:copy-of select="description/*" />
                         </div>
                         <div class='containerArea containerarea{@id}'>
                             <textarea style='width: 100%;' id='area{@id}'></textarea>
@@ -228,7 +228,7 @@
                     </div>
                     <div class="input-group description">
                         <div class='affichageTexteDescription descriptionarea{@id}'>
-                            <xsl:copy-of select="description" />
+                            <xsl:copy-of select="description/*" />
                         </div>
                         <div class='containerArea containerarea{@id}'>
                             <textarea style='width: 100%;' id='area{@id}'></textarea>
@@ -263,7 +263,7 @@
                     </div>
                     <div class="input-group description">
                         <div class='affichageTexteDescription descriptionarea{@id}'>
-                            <xsl:copy-of select="description" />
+                            <xsl:copy-of select="description/*" />
                         </div>
                         <div class='containerArea containerarea{@id}'>
                             <textarea style='width: 100%;' id='area{@id}'></textarea>
@@ -298,7 +298,7 @@
                     </div>
                     <div class="input-group description">
                         <div class='affichageTexteDescription descriptionarea{@id}'>
-                            <xsl:copy-of select="description" />
+                            <xsl:copy-of select="description/*" />
                         </div>
                         <div class='containerArea containerarea{@id}'>
                             <textarea style='width: 100%;' id='area{@id}'></textarea>

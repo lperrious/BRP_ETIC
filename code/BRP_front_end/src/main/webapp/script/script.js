@@ -1565,6 +1565,8 @@ function AjouterTitre(evt) {
 }
 
 function AjouterDescriptif(element) {
+
+  //deplacer un descriptif?
   if ($(".selectDescriptifXML").length) {
     elementADeplacer = $(".selectDescriptifXML");
     var elementNextLine = $(element).parent().next().next();
@@ -2161,7 +2163,7 @@ function modifierXML(element) {
       dataType: "json",
     }).done(function (response) {
       // Fonction appelée en cas d'appel AJAX réussi
-      //console.log("Response", response);
+      console.log("Response", response);
       if (response.Error) {
         alert(
           "Un problème est survenu lors de la sauvegarde des données du projet. Rafraichir la page peut vous aider à l'identifier"
@@ -2186,6 +2188,7 @@ function modifierXML(element) {
                 $(".descriptionarea_0").addClass(
                   "descriptionarea" + response["idInsere"]
                 );
+
                 $(".containerarea_0").addClass(
                   "containerarea" + response["idInsere"]
                 );

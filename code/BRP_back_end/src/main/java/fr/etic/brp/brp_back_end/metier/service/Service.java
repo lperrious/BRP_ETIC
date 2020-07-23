@@ -820,7 +820,7 @@ public class Service {
             idInsere = "_"+idInserelong.toString();
         }
         catch(Exception e){
-            idInsere = null;
+            idInsere = "_123";
         }finally{
             JpaUtil.fermerContextePersistance();
             DomUtil.destroy();
@@ -1118,7 +1118,7 @@ public class Service {
             baliseDescriptif.appendChild(baliseDescription); 
             baliseDescriptif.appendChild(baliseCourteDescription); 
             
-            //si c'est un ouvrage, on ajoute en plus tout ce qui est relatif aux prix
+            //si c'est un ouvrage ou une prestation, on ajoute en plus tout ce qui est relatif aux prix
             if(descriptif instanceof Ouvrage || descriptif instanceof Prestation){
                 Integer annee_max = 0;
                 int indiceRef = -1;

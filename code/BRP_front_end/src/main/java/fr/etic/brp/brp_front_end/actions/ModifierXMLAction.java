@@ -114,7 +114,7 @@ public class ModifierXMLAction extends Action {
                     }
                     break;
             }
-            request.setAttribute("ErrorState", false);
+            request.setAttribute("ErrorState", !testModification);
             request.setAttribute("idInsere", idInsere);     //a faire pour balise
         }catch(Exception e){
             request.setAttribute("ErrorState", true);
