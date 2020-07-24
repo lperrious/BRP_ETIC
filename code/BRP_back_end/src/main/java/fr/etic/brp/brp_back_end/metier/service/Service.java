@@ -34,7 +34,6 @@ import fr.etic.brp.brp_back_end.metier.modele.SousCategorieConstruction;
 import fr.etic.brp.brp_back_end.metier.modele.SousFamille;
 import static java.lang.Long.parseLong;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -66,9 +65,9 @@ public class Service {
     protected PrestationDao prestationDao = new PrestationDao();
     protected ProjetXMLDao projetXMLDao = new ProjetXMLDao();
     
-    //protected String rootXMLFiles = "../../../../../../../../Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/webapp/XMLfiles/";
-    protected String rootXMLFiles = "../../../../code/BRP_front_end/src/main/webapp/XMLfiles/";
-    //protected String rootXMLFiles = "../webapps/BRP_front_end-1.0-SNAPSHOT/XMLfiles/";
+    //protected String rootXMLFiles = "../../../../../../../Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/webapp/XMLfiles/";
+    //protected String rootXMLFiles = "../../../../code/BRP_front_end/src/main/webapp/XMLfiles/";
+    protected String rootXMLFiles = "../webapps/BRP_front_end-1.0-SNAPSHOT/XMLfiles/";
     
     
     public Descriptif RechercherDescriptifParId(String id) {

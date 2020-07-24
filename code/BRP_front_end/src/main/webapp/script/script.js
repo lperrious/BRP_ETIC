@@ -841,8 +841,9 @@ function display_manage_project() {
 
 function GenererLivrable() {
   var idProjet = $("#idProjetActuel").val();
-  //var uriXML = "../webapps/BRP_front_end-1.0-SNAPSHOT/XMLfiles/" +idProjet +".xml";
-  var uriXML = "../../../../code/BRP_front_end/src/main/webapp/XMLfiles/" +idProjet +".xml";
+  var uriXML =
+    "../webapps/BRP_front_end-1.0-SNAPSHOT/XMLfiles/" + idProjet + ".xml";
+  //var uriXML = "../../../../code/BRP_front_end/src/main/webapp/XMLfiles/" + idProjet + ".xml";
   var choixTemplate = 1;
 
   $.ajax({
@@ -1565,7 +1566,6 @@ function AjouterTitre(evt) {
 }
 
 function AjouterDescriptif(element) {
-
   //deplacer un descriptif?
   if ($(".selectDescriptifXML").length) {
     elementADeplacer = $(".selectDescriptifXML");

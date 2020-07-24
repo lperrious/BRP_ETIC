@@ -51,13 +51,11 @@ import org.w3c.dom.Node;
  */
 public class ExportService {
     
-    //! baliseNomprojet et les suppr des infos projet ont été rajoutés sans être testés
-    
     protected ProjetXMLDao projetXMLDao = new ProjetXMLDao();
     protected ProjetDao projetDao = new ProjetDao();
     
-    protected String rootXMLFiles = "../../../../code/BRP_front_end/src/main/webapp/XMLfiles/";
-    //protected String rootXMLFiles = "../webapps/BRP_front_end-1.0-SNAPSHOT/XMLfiles/"; 
+    //protected String rootXMLFiles = "../../../../code/BRP_front_end/src/main/webapp/XMLfiles/";
+    protected String rootXMLFiles = "../webapps/BRP_front_end-1.0-SNAPSHOT/XMLfiles/"; 
     
     private final static TreeMap<Integer, String> map = new TreeMap<Integer, String>();
     static {
