@@ -124,7 +124,7 @@ $(document).ready(function () {
                   const descriptif = sousFamille.descriptifs[m];
                   if (descriptif.type == "generique") {
                     $("#arboBDD").append(
-                      "<div class='lineBDD lineDescriptif generique'><input type='hidden' class='idDescriptif' value='" +
+                      "<div class='lineBDD lineDescriptif generiqueBDD'><input type='hidden' class='idDescriptif' value='" +
                         descriptif.id +
                         "'/><span class='iconBDD'>-</span><div class='intitule'>" +
                         descriptif.id.substr(13, 17) +
@@ -134,7 +134,7 @@ $(document).ready(function () {
                     );
                   } else if (descriptif.type == "ouvrage") {
                     $("#arboBDD").append(
-                      "<div class='lineBDD lineDescriptif ouvrage'><input type='hidden' class='idDescriptif' value='" +
+                      "<div class='lineBDD lineDescriptif ouvrageBDD'><input type='hidden' class='idDescriptif' value='" +
                         descriptif.id +
                         "'/><span class='iconBDD'>-</span><div class='intitule'>" +
                         descriptif.id.substr(13, 17) +
@@ -145,7 +145,7 @@ $(document).ready(function () {
                     for (n = 0; n < descriptif.prestations.length; n++) {
                       const prestation = descriptif.prestations[n];
                       $("#arboBDD").append(
-                        "<div class='lineBDD lineDescriptif prestation'><input type='hidden' class='idDescriptif' value='" +
+                        "<div class='lineBDD lineDescriptif prestationBDD'><input type='hidden' class='idDescriptif' value='" +
                           prestation.id +
                           "'/><span class='iconBDD'>-</span><div class='intitule'>" +
                           prestation.id.substr(17, 21) +
@@ -647,19 +647,19 @@ function apply_filter() {
 
   switch (filtre) {
     case "generique":
-      array_show = ["generique"];
-      array_hide = ["ouvrage", "prestation"];
+      array_show = ["generiqueBDD"];
+      array_hide = ["ouvrageBDD", "prestationBDD"];
       break;
     case "ouvrage":
-      array_show = ["ouvrage"];
-      array_hide = ["generique", "prestation"];
+      array_show = ["ouvrageBDD"];
+      array_hide = ["generiqueBDD", "prestationBDD"];
       break;
     case "prestation":
-      array_show = ["prestation"];
-      array_hide = ["ouvrage", "generique"];
+      array_show = ["prestationBDD"];
+      array_hide = ["ouvrageBDD", "generiqueBDD"];
       break;
     default:
-      array_show = ["generique", "ouvrage", "prestation"];
+      array_show = ["generiqueBDD", "ouvrageBDD", "prestationBDD"];
       array_hide = [];
   }
 
