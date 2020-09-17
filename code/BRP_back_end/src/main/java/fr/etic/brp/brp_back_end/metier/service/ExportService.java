@@ -55,7 +55,7 @@ public class ExportService {
     protected ProjetDao projetDao = new ProjetDao();
     
     //protected String rootXMLFiles = "../../../../code/BRP_front_end/src/main/webapp/XMLfiles/";
-    protected String rootXMLFiles = "../webapps/BRP_front_end-1.0-SNAPSHOT/XMLfiles/"; 
+    protected String rootXMLFiles = "http://brpetude2.ddns.net:8080/BRP_front_end-1.0-SNAPSHOT/XMLfiles/"; 
     
     private final static TreeMap<Integer, String> map = new TreeMap<Integer, String>();
     static {
@@ -177,7 +177,7 @@ public class ExportService {
             
             //On créer le dossier d'export du Projet
             nomProjet = projet.getNomProjet();
-            Boolean succesCreationDossier = (new File("../webapps/BRP_front_end-1.0-SNAPSHOT/export_files/Exports/"+ nomProjet + "_" + idProjet)).mkdirs();
+            Boolean succesCreationDossier = (new File("http://brpetude2.ddns.net:8080/BRP_front_end-1.0-SNAPSHOT/export_files/Exports/"+ nomProjet + "_" + idProjet)).mkdirs();
             if (!succesCreationDossier) {
                 throw new Exception();
             }
@@ -193,7 +193,7 @@ public class ExportService {
                 switch(choixTemplate) {
                     case 1:
                         template = template1Immutable;
-                        word = new XWPFDocument(new FileInputStream("../webapps/BRP_front_end-1.0-SNAPSHOT/export_files/TemplatesWord/Template1/Template1_CCTP.docx"));
+                        word = new XWPFDocument(new FileInputStream("http://brpetude2.ddns.net:8080/BRP_front_end-1.0-SNAPSHOT/export_files/TemplatesWord/Template1/Template1_CCTP.docx"));
                         break;
                     default :
                         throw new Exception(); //Template non reconnue
@@ -290,7 +290,7 @@ public class ExportService {
                     }
                 }
                 //On nomme la CCTP
-                String outputCCTP = "../webapps/BRP_front_end-1.0-SNAPSHOT/export_files/Exports/" + projet.getNomProjet() + "_" + projet.getIdProjet() + "/" + projet.getNomProjet() + "_LOT_" + h + "_" + baliseLot.getAttribute("intitule") + ".docx"; //Surement à changer lors de l'installation client
+                String outputCCTP = "http://brpetude2.ddns.net:8080/BRP_front_end-1.0-SNAPSHOT/export_files/Exports/" + projet.getNomProjet() + "_" + projet.getIdProjet() + "/" + projet.getNomProjet() + "_LOT_" + h + "_" + baliseLot.getAttribute("intitule") + ".docx"; //Surement à changer lors de l'installation client
                 //On écrit en sortie le document WORD
                 FileOutputStream out = new FileOutputStream(outputCCTP);
                 word.write(out);
@@ -300,7 +300,7 @@ public class ExportService {
             
             //TRAITEMENT EXCEL
             //Création du document EXCEL
-            Workbook excel = new XSSFWorkbook(new FileInputStream("../webapps/BRP_front_end-1.0-SNAPSHOT/export_files/TemplatesExcel/Template1/Template1_DPGF.xlsx"));
+            Workbook excel = new XSSFWorkbook(new FileInputStream("http://brpetude2.ddns.net:8080/BRP_front_end-1.0-SNAPSHOT/export_files/TemplatesExcel/Template1/Template1_DPGF.xlsx"));
             CreationHelper createHelper = excel.getCreationHelper(); //Permet de créer le document "plus simplement"
             
             //Pour chaque lot
@@ -653,7 +653,7 @@ public class ExportService {
             //FIN //NB : (PAS après "Fait à" inclus)
             
             //On nomme la DPGF
-            String outputDPGF = "../webapps/BRP_front_end-1.0-SNAPSHOT/export_files/Exports/" + projet.getNomProjet() + "_" + projet.getIdProjet() + "/" + projet.getNomProjet() + "_DPGF.xlsx"; //Surement à changer lors de l'installation client
+            String outputDPGF = "http://brpetude2.ddns.net:8080/BRP_front_end-1.0-SNAPSHOT/export_files/Exports/" + projet.getNomProjet() + "_" + projet.getIdProjet() + "/" + projet.getNomProjet() + "_DPGF.xlsx"; //Surement à changer lors de l'installation client
 
             //On écrit en sortie le document EXCEL
             OutputStream fileOut = new FileOutputStream(outputDPGF);
@@ -667,7 +667,7 @@ public class ExportService {
             //RM le dossier crée
             if(dossierCree) {
                 try {
-                    FileUtils.deleteDirectory(new File("../webapps/BRP_front_end-1.0-SNAPSHOT/export_files/Exports/" + nomProjet + "_" + idProjet));
+                    FileUtils.deleteDirectory(new File("http://brpetude2.ddns.net:8080/BRP_front_end-1.0-SNAPSHOT/export_files/Exports/" + nomProjet + "_" + idProjet));
                 } catch (Exception e) {
                     Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service ExporterProjet(Long idProjet, int choixTemplate, String uriXML). Vous devez supprimer à la main le dossier d'export crée", e);
                 }

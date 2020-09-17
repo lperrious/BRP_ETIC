@@ -842,7 +842,9 @@ function display_manage_project() {
 function GenererLivrable() {
   var idProjet = $("#idProjetActuel").val();
   var uriXML =
-    "../webapps/BRP_front_end-1.0-SNAPSHOT/XMLfiles/" + idProjet + ".xml";
+    "http://brpetude2.ddns.net:8080/BRP_front_end-1.0-SNAPSHOT/XMLfiles/" +
+    idProjet +
+    ".xml";
   //var uriXML = "../../../../code/BRP_front_end/src/main/webapp/XMLfiles/" + idProjet + ".xml";
   var choixTemplate = 1;
 
@@ -861,7 +863,9 @@ function GenererLivrable() {
     //console.log("Response", response);
     if (!response.ErrorState) {
       //Si l'export à réussi on prévient l'opérateur
-      alert("La génération du livrable a réussie");
+      alert(
+        'La génération du livrable a réussie, vous le retrouverez dans le dossier "exportFiles" de votre application'
+      );
     } else {
       //On previent l'opérateur que l'export a échoué
       alert("Erreur lors de la génération du livrable");
