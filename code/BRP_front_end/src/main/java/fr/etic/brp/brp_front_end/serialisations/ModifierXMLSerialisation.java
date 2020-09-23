@@ -3,7 +3,6 @@ package fr.etic.brp.brp_front_end.serialisations;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import fr.etic.brp.brp_back_end.metier.modele.Operateur;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
