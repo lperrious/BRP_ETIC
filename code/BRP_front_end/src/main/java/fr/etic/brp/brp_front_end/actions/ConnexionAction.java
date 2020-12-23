@@ -23,7 +23,7 @@ public class ConnexionAction extends Action {
         //Appel des services métiers (=méthodes de la classe Service)
         Operateur resultat = null;
         try{
-            resultat = service.A​uthentifierOperateur(mail, password);
+            resultat = service.AuthentifierOperateur(mail, password);
         }
         catch(Exception e) //Stockage de l'erreur dans l'attribut de la requete
         {

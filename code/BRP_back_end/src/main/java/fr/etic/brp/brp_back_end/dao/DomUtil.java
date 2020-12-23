@@ -1,6 +1,5 @@
 package fr.etic.brp.brp_back_end.dao;
 
-import static java.rmi.server.LogStream.log;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -24,7 +23,7 @@ public class DomUtil {
     
     
     public static synchronized void init(){
-        log("Initialisation du parseur");
+        //Initialisation du parseur
         documentBuilderFactory = DocumentBuilderFactory.newInstance();
         documentBuilderFactory.setValidating(true); //Permet d'activer la vérification du fichier
         documentBuilderFactory.setIgnoringElementContentWhitespace(true); //Ignore les espaces dans le XML
@@ -32,19 +31,19 @@ public class DomUtil {
     }
     
     public static synchronized void destroy() {
-        log("Libération de la factory DocumentBuilder et TransformerBuilder");
+        //Libération de la factory DocumentBuilder et TransformerBuilder
         documentBuilderFactory = null;
         transformerFactory = null;
     }
            
     public static DocumentBuilder obtenirBuilder() throws ParserConfigurationException {
-        log("Obtention du DocumentBuilder");
+        //Obtention du DocumentBuilder
         builder = documentBuilderFactory.newDocumentBuilder();
         return builder;
     }
     
     public static Transformer obtenirTransformer() throws TransformerConfigurationException {
-        log("Obtention du Transformer");
+        //Obtention du Transformer
         transformer = transformerFactory.newTransformer();
         return transformer;
     } 
