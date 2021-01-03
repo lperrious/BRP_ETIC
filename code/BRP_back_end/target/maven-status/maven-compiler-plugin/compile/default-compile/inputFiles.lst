@@ -1,36 +1,36 @@
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/metier/modele/SousCategorieConstruction.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/dao/CaractDimDao.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/metier/modele/Generique.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/metier/modele/Ouvrage.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/dao/FamilleDao.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/dao/BasePrixRefDao.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/ihm/console/Main.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/metier/modele/CategorieConstruction.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/dao/CategorieConstructionDao.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/metier/modele/Operateur.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/metier/modele/Famille.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/metier/modele/Categorie.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/dao/JpaUtil.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/metier/modele/Projet.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/dao/PrestationDao.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/dao/ChapitreDao.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/dao/ProjetXMLDao.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/metier/service/Service.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/dao/OperateurDao.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/dao/SousFamilleDao.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/dao/DomUtil.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/metier/modele/Prestation.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/metier/service/ImportService.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/metier/modele/Descriptif.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/metier/modele/BasePrixRef.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/dao/DescriptifDao.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/dao/CoeffRaccordementDao.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/metier/modele/Chapitre.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/metier/modele/SousFamille.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/dao/CategorieDao.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/metier/service/ExportService.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/metier/modele/CaractDim.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/dao/SousCategorieConstructionDao.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/dao/SimpleErrorHandler.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/dao/ProjetDao.java
-/Users/louisrob/Documents/Projets/ETIC/Etude_BRP/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/metier/modele/CoeffRaccordement.java
+/Users/quentinmarc/Documents/projets GIT/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/metier/modele/Descriptif.java
+/Users/quentinmarc/Documents/projets GIT/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/metier/modele/SousCategorieConstruction.java
+/Users/quentinmarc/Documents/projets GIT/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/dao/CategorieConstructionDao.java
+/Users/quentinmarc/Documents/projets GIT/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/metier/modele/SousFamille.java
+/Users/quentinmarc/Documents/projets GIT/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/dao/CategorieDao.java
+/Users/quentinmarc/Documents/projets GIT/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/dao/SousFamilleDao.java
+/Users/quentinmarc/Documents/projets GIT/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/dao/PrestationDao.java
+/Users/quentinmarc/Documents/projets GIT/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/dao/OperateurDao.java
+/Users/quentinmarc/Documents/projets GIT/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/metier/modele/Operateur.java
+/Users/quentinmarc/Documents/projets GIT/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/dao/FamilleDao.java
+/Users/quentinmarc/Documents/projets GIT/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/metier/modele/BasePrixRef.java
+/Users/quentinmarc/Documents/projets GIT/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/dao/JpaUtil.java
+/Users/quentinmarc/Documents/projets GIT/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/metier/modele/Prestation.java
+/Users/quentinmarc/Documents/projets GIT/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/metier/modele/Categorie.java
+/Users/quentinmarc/Documents/projets GIT/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/dao/SousCategorieConstructionDao.java
+/Users/quentinmarc/Documents/projets GIT/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/metier/modele/Projet.java
+/Users/quentinmarc/Documents/projets GIT/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/metier/modele/CoeffRaccordement.java
+/Users/quentinmarc/Documents/projets GIT/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/metier/modele/Ouvrage.java
+/Users/quentinmarc/Documents/projets GIT/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/dao/CaractDimDao.java
+/Users/quentinmarc/Documents/projets GIT/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/dao/SimpleErrorHandler.java
+/Users/quentinmarc/Documents/projets GIT/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/metier/service/Service.java
+/Users/quentinmarc/Documents/projets GIT/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/metier/service/ExportService.java
+/Users/quentinmarc/Documents/projets GIT/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/ihm/console/Main.java
+/Users/quentinmarc/Documents/projets GIT/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/dao/ProjetDao.java
+/Users/quentinmarc/Documents/projets GIT/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/metier/modele/Chapitre.java
+/Users/quentinmarc/Documents/projets GIT/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/metier/modele/CategorieConstruction.java
+/Users/quentinmarc/Documents/projets GIT/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/dao/BasePrixRefDao.java
+/Users/quentinmarc/Documents/projets GIT/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/metier/service/ImportService.java
+/Users/quentinmarc/Documents/projets GIT/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/metier/modele/Famille.java
+/Users/quentinmarc/Documents/projets GIT/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/dao/ChapitreDao.java
+/Users/quentinmarc/Documents/projets GIT/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/dao/ProjetXMLDao.java
+/Users/quentinmarc/Documents/projets GIT/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/dao/DescriptifDao.java
+/Users/quentinmarc/Documents/projets GIT/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/dao/DomUtil.java
+/Users/quentinmarc/Documents/projets GIT/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/metier/modele/CaractDim.java
+/Users/quentinmarc/Documents/projets GIT/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/metier/modele/Generique.java
+/Users/quentinmarc/Documents/projets GIT/BRP_ETIC/code/BRP_back_end/src/main/java/fr/etic/brp/brp_back_end/dao/CoeffRaccordementDao.java
