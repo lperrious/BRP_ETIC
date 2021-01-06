@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Connexion - Gestion de Projet BRP</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap -->
+    <link
+      href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      rel="stylesheet"
+      id="bootstrap-css"
+    />
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+    <link rel="stylesheet" href="style/style.css" />
+
+    <!-- jquery -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script
+      defer
+      src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"
+    ></script>
+  </head>
+  <body id="clientbody">
+    <div class="flex1"></div>
+    <div id="error_notif" style="display: none;">
+      <i class="fas fa-exclamation-triangle"></i> &nbsp; Erreur : identifiant /
+      mot de passe incorrect(s)
+    </div>
+    <div id="conteneur_connection">
+      <div class="titleLogin">
+        <h2>Page de connexion</h2>
+      </div>
+      <div class="login-form">
+        <form action="#">
+          <div class="form-group">
+            <input
+              type="text"
+              class="fieldsLog"
+              placeholder="mail"
+              id="Email"
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="password"
+              class="fieldsLog"
+              placeholder="mot de passe"
+              id="Password"
+            />
+          </div>
+          <div id="conteneur_button">
+            <button
+              onclick="connexion()"
+              class="btn btn-black"
+              id="blogin_button"
+            >
+              Connexion
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="flex1"></div>
+  </body>
+</html>
+
+<script>
+  $.ajax({
+    url: "./ActionServlet",
+    method: "GET",
+    data: {
+      todo: "testConnexion",
+    },
+    dataType: "json",
+  }).done(function (response) {
+    // Fonction appelée en cas d'appel AJAX réussi
+    if (!response.Error) {
+      //Si déjà connecté alors on redirige vers son dashboard
+      window.location.href = "Dashboard.html";
+    }
+  });
+
+  // Fonction appelée lors du clic sur le bouton de login
+  function connexion() {
+    // Récupération de la valeur des champs du formulaire
+    var emailField = $("#Email").val();
+    var passwordField = $("#Password").val();
+
+    $.ajax({
+      url: "./ActionServlet",
+      method: "GET",
+      data: {
+        todo: "connexion",
+        email: emailField,
+        password: passwordField,
+      },
+      dataType: "json",
+    }).done(function (response) {
+      // Fonction appelée en cas d'appel AJAX réussi
+      console.log("Response", response); // LOG dans Console Javascript
+      if (!response.Error) {
+        window.location.href = "Dashboard.html";
+      } else {
+        $("#error_notif").css("display", "block"); // Message pour le paragraphe de notification
+      }
+    });
+  }
+</script>
