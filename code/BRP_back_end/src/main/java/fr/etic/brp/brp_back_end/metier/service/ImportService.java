@@ -57,11 +57,12 @@ public class ImportService {
     
     //protected String rootImportFiles = "../../../../code/BRP_front_end/src/main/webapp/import_files/";
     //protected String rootImportFiles = "../../../../../../../Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/webapp/import_files/";
-    protected String rootImportFiles = "http://brpetude2.ddns.net:8080/BRP_front_end-1.0-SNAPSHOT/import_files/";
+    //protected String rootImportFiles = "http://brpetude2.ddns.net:8080/BRP_front_end-1.0-SNAPSHOT/import_files/";
+    protected String rootImportFiles = "http://localhost:8080/BRP_front_end-1.0-SNAPSHOT/import_files/XX_Jeu_Test_BRP_v0.2.docx";
     
     public ArrayList<String> ModifBaseDescriptif(String nameWord){
         
-        String uriWord = rootImportFiles+nameWord;
+        String uriWord = rootImportFiles;
         String idActuel = null;
         Boolean erreur = false;
         int countUnderscore = 0;
@@ -74,7 +75,7 @@ public class ImportService {
             //Importer le word
             FileInputStream fis = new FileInputStream(uriWord);
             XWPFDocument doc = new XWPFDocument(OPCPackage.open(fis));
-            List<XWPFTable> table = doc.getTables();        //on extrait tous les tableaux 
+            /*List<XWPFTable> table = doc.getTables();        //on extrait tous les tableaux 
             
             //Extraction des informations dans un format rigoureux et indicé
             for (XWPFTable xwpfTable : table) { 
@@ -184,9 +185,10 @@ public class ImportService {
                     countRows++;
                 }
                 docListe.add(tableau);
-            }           
+                
+            }     */      
          } catch(IOException | InvalidFormatException ex) {
-             returnListe.set(0, "Erreur système: l'API POI ne parvient pas à extraire les données");
+             returnListe.set(0, "Coucou");
              erreur = true;
          }
         
