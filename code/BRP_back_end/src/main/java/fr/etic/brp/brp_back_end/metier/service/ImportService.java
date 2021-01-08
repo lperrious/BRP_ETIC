@@ -58,11 +58,11 @@ public class ImportService {
     //protected String rootImportFiles = "../../../../code/BRP_front_end/src/main/webapp/import_files/";
     //protected String rootImportFiles = "../../../../../../../Projets/ETIC/Etude_BRP/code/BRP_front_end/src/main/webapp/import_files/";
     //protected String rootImportFiles = "http://brpetude2.ddns.net:8080/BRP_front_end-1.0-SNAPSHOT/import_files/";
-    protected String rootImportFiles = "http://localhost:8080/BRP_front_end-1.0-SNAPSHOT/import_files/";
+    protected String rootImportFiles = "./import_files/XX_Jeu_Test_BRP_v0.2.docx";
     
     public ArrayList<String> ModifBaseDescriptif(String nameWord){
         
-        String uriWord = rootImportFiles + nameWord;
+        String uriWord = rootImportFiles;
         String idActuel = null;
         Boolean erreur = false;
         int countUnderscore = 0;
@@ -70,8 +70,9 @@ public class ImportService {
         ArrayList<ArrayList<String>> docListe =  new ArrayList<ArrayList<String>> ();       //Création d'un format indicé
         ArrayList<String> returnListe =  new ArrayList<String> ();
         returnListe.add("");
+        //String userDirectory = System.getProperty("user.dir");   
         
-        try {
+       try {
             //Importer le word
             FileInputStream fis = new FileInputStream(uriWord);
             XWPFDocument doc = new XWPFDocument(OPCPackage.open(fis));
@@ -186,10 +187,11 @@ public class ImportService {
                 }
                 docListe.add(tableau);
                 
-            }          
+            }         
          } catch(IOException | InvalidFormatException ex) {
-             returnListe.set(0, "Erreur système: l'API POI ne parvient pas à extraire les données");
-             erreur = true;
+            erreur = true;
+            //returnListe.set(0, userDirectory);
+            returnListe.set(0, "Erreur système: l'API POI ne parvient pas à extraire les données");
          }
         
         //si on a réussi à extraire les données du word, on peut démarrer l'exploitation des données
