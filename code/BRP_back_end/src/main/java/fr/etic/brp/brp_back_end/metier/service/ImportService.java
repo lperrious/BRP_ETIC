@@ -189,8 +189,7 @@ public class ImportService {
             }         
          } catch(IOException | InvalidFormatException ex) {
             erreur = true;
-            //returnListe.set(0, "Erreur système: l'API POI ne parvient pas à extraire les données");
-            returnListe.set(0, rechercheRacine);
+            returnListe.set(0, "Erreur système: l'API POI ne parvient pas à extraire les données");
          }
         
         //si on a réussi à extraire les données du word, on peut démarrer l'exploitation des données

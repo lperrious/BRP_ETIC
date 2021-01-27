@@ -190,6 +190,7 @@ $(document).ready(function () {
   $(".container").last().click(removeSelectDescriptifXML);
   addEventsDescriptifs();
 
+  //Récupère et afficher projets dès l'ouverture
   getProjets();
 });
 
@@ -255,9 +256,9 @@ function createProject() {
 function searchProjet() {
   var morceauNom = $("#search_input").val();
   $("#containerLineProjet").html("");
-  for (var i = 0; i < listeProjets.length; i++) {
+  for (var i = listeProjets.length-1; i >= 0; i--) {
     //si le morceau du nom se trouve bien dans le nom du projet, on l'affiche
-    if (listeProjets[i]["nom"].includes(morceauNom)) {
+    if (morceauNom == null || listeProjets[i]["nom"].includes(morceauNom)) {
       $("#containerLineProjet").append(
         '<div class="lineProjet">\
         <input type="hidden" class="idProjet" value="' +
@@ -297,6 +298,7 @@ function getProjets() {
     if (!response["Error"]) {
       listeProjets = response["listeProjets"];
     }
+    searchProjet();
   });
 }
 
@@ -842,10 +844,10 @@ function display_manage_project() {
 function GenererLivrable() {
   var idProjet = $("#idProjetActuel").val();
   var uriXML =
-    "http://brpetude2.ddns.net:8080/BRP_front_end-1.0-SNAPSHOT/XMLfiles/" +
+    "/usr/local/Cellar/tomcat/9.0.41/libexec/webapps/BRP_front_end-1.0-SNAPSHOT/XMLfiles/" +
     idProjet +
     ".xml";
-  //var uriXML = "../../../../code/BRP_front_end/src/main/webapp/XMLfiles/" + idProjet + ".xml";
+  //http://brpetude2.ddns.net:8080/BRP_front_end-1.0-SNAPSHOT/XMLfiles/
   var choixTemplate = 1;
 
   $.ajax({
@@ -2170,7 +2172,7 @@ function modifierXML(element) {
       console.log("Response", response);
       if (response.Error) {
         alert(
-          "Un problème est survenu lors de la sauvegarde des données du projet. Rafraichir la page peut vous aider à l'identifier"
+          "Un problème est survenu lors de la sauvegarde des données du projet. Si le problème est lié à l'ajout d'un ouvrage ou d'une prestation dans le projet, assurez-vous que l'objet possède bien un prix en base de données!"
         );
       } else {
         if (response["idInsere"] != "" && response["idInsere"] != null) {
