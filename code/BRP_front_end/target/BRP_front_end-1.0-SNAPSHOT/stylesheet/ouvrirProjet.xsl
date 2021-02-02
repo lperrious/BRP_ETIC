@@ -9,6 +9,9 @@
                 <!-- Si nouveau projet -->
                 <div class="divTitreLot" id="divTitreLot_0">
                     <input type="text" class="titreLot" placeholder="Titre Lot" />
+                    <div class='deleteXMLlot'>
+                        <i class='fas fa-times-circle'></i>
+                    </div>
                 </div>
                 <div class="lot" id="lot_0">
                     <input type="hidden" id="idXML" value="_0" />
@@ -22,6 +25,9 @@
                             <span class="input-group-text"></span>
                         </div>
                         <input type="text" class="form-control" placeholder="Titre 1" />
+                        <div class='deleteXML'>
+                            <i class='fas fa-times-circle'></i>
+                        </div>
                     </div>
                     <div class="barreInsertion" onclick="AjouterElement(this);">
                         <div class="panBarreInsertion"></div>

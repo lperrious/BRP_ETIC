@@ -3,7 +3,6 @@ package fr.etic.brp.brp_front_end.serialisations;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import fr.etic.brp.brp_back_end.metier.modele.Operateur;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
@@ -21,9 +20,9 @@ public class SupprimerXMLSerialisation extends Serialisation {
         JsonObject container = new JsonObject(); //Objet "conteneur JSON" pour structurer les données à sérialiser
         
         //Lecture des attributs de la requête (stockés par l'action)
-        boolean ErrorState = (boolean)request.getAttribute("ErrorState");
+        int ErrorCode = (int) request.getAttribute("ErrorCode");
         
-        container.addProperty("Error", ErrorState);
+        container.addProperty("ErrorCode", ErrorCode);
         
         //Formatage de la structure de données JSON => Ecriture sur le flux de sortie de la réponse
         PrintWriter out = this.getWriter(response);

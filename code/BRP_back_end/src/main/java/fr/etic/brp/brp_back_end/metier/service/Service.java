@@ -1313,9 +1313,9 @@ public class Service {
         return resultat;
     }
     
-    public Boolean SuppressionBalise(Long idProjet, String idBalise) {
+    public int SuppressionBalise(Long idProjet, String idBalise) {
         
-        Boolean resultat = false;
+        int resultat = 0;   //0 erreur, 1 peut pas suppr car enfants, 2 peut pas suppr car dernier lot, 3 peut pas suppr car dernier titre du lot, 3 suppr ok
         DomUtil.init();
         
         try {
@@ -1324,12 +1324,42 @@ public class Service {
             Document xml = projetXMLDao.ObtenirDocument(uri);
             
             Element element = (Element) xml.getElementById(idBalise);
-            element.getParentNode().removeChild(element);
-            //On écrit par dessus l'ancien XML
-            projetXMLDao.saveXMLContent(xml, uri);
-            
-            resultat = true; //Si on est arrivé jusque là alors pas d'erreur
-            
+
+            //si enfant: le client a demandé de pas supprimer (donc msg erreur)
+            if(element.getTagName() == "titre1" || element.getTagName() == "titre2" || element.getTagName() == "titre3" || element.getTagName() == "titre4"){
+                //on compte le nombre d'enfants
+                NodeList enfantsElement = element.getChildNodes();
+                for(int k = 0; k < enfantsElement.getLength(); k++){
+                    if(enfantsElement.item(k).getNodeName().equals("titre2") || enfantsElement.item(k).getNodeName().equals("titre3") || enfantsElement.item(k).getNodeName().equals("titre4") || enfantsElement.item(k).getNodeName().equals("descriptif") || enfantsElement.item(k).getNodeName().equals("prestation") || enfantsElement.item(k).getNodeName().equals("ouvrage")){
+                        //Il y a au moins 1 enfant, on ne supprime pas
+                        resultat = 1;
+                        break;
+                    }
+                }
+            }
+
+            //on verifie qu'on n'essaie pas de supprimer le denrier lot
+            if(element.getTagName() == "lot" && resultat == 0){
+                NodeList nodes = xml.getElementsByTagName("lot");
+                if(nodes.getLength() == 1)
+                    resultat = 2;
+            }
+
+            //on verifie qu'on n'essaie pas de supprimer le dernier titre du lot
+            Element parentElement = (Element) element.getParentNode();
+            if(parentElement.getTagName() == "lot" && resultat == 0){
+                NodeList nodes = parentElement.getElementsByTagName("titre1");
+                if(nodes.getLength() == 1)
+                    resultat = 3;
+            }
+
+            if(resultat == 0){
+                //si pas d'enfants
+                element.getParentNode().removeChild(element);
+                //On écrit par dessus l'ancien XML
+                projetXMLDao.saveXMLContent(xml, uri);
+                resultat = 4; //Si on est arrivé jusque là alors pas d'erreur
+            }
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service SuppressionBalise(Long idProjet, String idBalise)", ex);
         } finally {

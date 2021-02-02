@@ -20,6 +20,7 @@ public class SupprimerXMLAction extends Action {
         String idXML = request.getParameter("idXML");
         String idDescriptifXML = null;
         Boolean resultat = false;
+        int resultatSupprXML;
         if("ligneChiffrage".equals(type)){
             idDescriptifXML = request.getParameter("idDescriptifXML");
         }
@@ -31,15 +32,20 @@ public class SupprimerXMLAction extends Action {
         try{
             if("ligneChiffrage".equals(type)){
                 resultat = service.SupprimerLigneChiffrage(idProjet, idDescriptifXML, idXML);
+
+                if(resultat)
+                    request.setAttribute("ErrorCode", 4);
+                else
+                    request.setAttribute("ErrorCode", 0);
             }
             else{
-                resultat = service.SuppressionBalise(idProjet, idXML);
+                resultatSupprXML = service.SuppressionBalise(idProjet, idXML);
+                request.setAttribute("ErrorCode", resultatSupprXML);
             }
-            request.setAttribute("ErrorState", !resultat);
         }
         catch(Exception e) //Stockage de l'erreur dans l'attribut de la requete
         {
-            request.setAttribute("ErrorState", true);
+            request.setAttribute("ErrorCode", 0);
         }
     }
 }

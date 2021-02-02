@@ -628,14 +628,14 @@ label.exportButton input[type="file"] {
 .suppressionLigneChiffrage {
   position: relative;
   top: 6px;
-  opacity: 0;
+  opacity: 0.4;
   color: var(--border);
   width: 25px;
 }
 
 .deleteXML,
 .deleteXMLlot {
-  opacity: 0;
+  opacity: 0.4;
   color: var(--border);
   width: 25px;
 }

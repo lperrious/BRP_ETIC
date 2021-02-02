@@ -1704,19 +1704,19 @@ public static void Scenario3() {
         System.out.println("**** testerSuppressionBalise() ****");
         System.out.println();
         
-        Service service = new Service();
+        // Service service = new Service();
         
-        //Doit fonctionner
-        Long idProjet = 01L;
-        String idBalise = "_1";
+        // //Doit fonctionner
+        // Long idProjet = 01L;
+        // String idBalise = "_1";
         
-        Boolean resultat = service.SuppressionBalise(idProjet, idBalise);
-        if(resultat)
-        {
-            System.out.println("Suppression avec succès du Projet n° " + idProjet+", balise n°"+idBalise);
-        } else {
-            System.out.println("Echec lors de la suppression de la balise n°"+idBalise+",Projet n° " + idProjet);
-        }
+        // Boolean resultat = service.SuppressionBalise(idProjet, idBalise);
+        // if(resultat)
+        // {
+        //     System.out.println("Suppression avec succès du Projet n° " + idProjet+", balise n°"+idBalise);
+        // } else {
+        //     System.out.println("Echec lors de la suppression de la balise n°"+idBalise+",Projet n° " + idProjet);
+        // }
     }
     
     public static void testerModifierIntituleTitre(){

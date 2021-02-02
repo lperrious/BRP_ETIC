@@ -480,7 +480,7 @@ function ouvrirProjet(idProjet) {
       //On spécifie l'id du projet acutellement ouvert dans la partie infos projet
       $("#idProjetActuel").val(idProjet);
 
-      //On ajoute les infos projet dans la partie correspondante
+      //On ajoute les infos projet dans la colonne de gauche
       $("#nomProjet").children(":first").html(response.nomProjet);
       $(".nomProjetUpdate").val(response.nomProjet);
       if (response.refBRP != null) $(".refBRP").val(response.refBRP);
@@ -2285,7 +2285,7 @@ function supprimerXML(croix, type) {
       };
     }
 
-    //console.log(data);
+    console.log(data);    //A COMMENTER
 
     //on a reunit toutes les infortmations, on fait l'appel AJAX
     $.ajax({
@@ -2296,23 +2296,40 @@ function supprimerXML(croix, type) {
     }).done(function (response) {
       // Fonction appelée en cas d'appel AJAX réussi
       console.log("Response", response);
-      if (response.Error) {
+      if (response.ErrorCode == 0) {
         alert(
           "Un problème est survenu lors de la suppression. Rafraichir la page peut vous aider à l'identifier"
         );
-      } else {
+      } 
+      else if(response.ErrorCode == 1){
+        alert(
+          "Veuillez supprimer les enfants de l'élément d'abord"
+        );
+      }
+      else if(response.ErrorCode == 2){
+        alert(
+          "Ce lot est le dernier du projet, vous ne pouvez pas le supprimer. Veuillez créer un nouveau lot avant de supprimer celui-là"
+        );
+      }
+      else if(response.ErrorCode == 3){
+        alert(
+          "Ce titre est le dernier du lot, vous ne pouvez pas le supprimer"
+        );
+      }
+      else {
         if (type != "ligneChiffrage" && lotDelete == null) {
           //Nous devons enlever toute l'arbo en dessous de l'élément supprimé dans le HTML aussi
-          var styleArbo;
+          var styleArbo = "";
           if ($(parent).hasClass("titre1")) styleArbo = "titre1";
           else if ($(parent).hasClass("titre2")) styleArbo = "titre2";
           else if ($(parent).hasClass("titre3")) styleArbo = "titre3";
           else if ($(parent).hasClass("titre4")) styleArbo = "titre4";
+          
           if (styleArbo != "titre4") {
             var nextElement = $(parent).next().next(); //on saute la barre d'insertion du parent pour récup l'élem suivant
             do {
               if (nextElement != undefined) {
-                var nextElementStyle;
+                var nextElementStyle = "";
                 if ($(nextElement).hasClass("titre1"))
                   nextElementStyle = "titre1";
                 else if ($(nextElement).hasClass("titre2"))
@@ -2321,7 +2338,7 @@ function supprimerXML(croix, type) {
                   nextElementStyle = "titre3";
                 else if ($(nextElement).hasClass("titre4"))
                   nextElementStyle = "titre4";
-                if (nextElementStyle.localeCompare(styleArbo) == 1) {
+                if (nextElementStyle != "" && nextElementStyle.localeCompare(styleArbo) == 1) {
                   //Si on descend dans l'arbo alors on suprime un fils
                   var nextElementDelete = nextElement;
                   nextElement = $(nextElementDelete).next().next();
@@ -2349,6 +2366,10 @@ function supprimerXML(croix, type) {
           $(parent).remove();
         }
         parent = null;
+      }
+
+      for (let index = 0; index < $(".lot").length; index++) {
+        NumerotationArbo("lot_" + index);
       }
 
       supprimerXMLEnCours = false;
