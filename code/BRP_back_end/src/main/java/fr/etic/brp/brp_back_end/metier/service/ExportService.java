@@ -28,6 +28,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CreationHelper;
+import org.apache.poi.ss.usermodel.DataFormat;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
@@ -57,6 +58,9 @@ public class ExportService {
     //protected String rootXMLFiles = "../../../../code/BRP_front_end/src/main/webapp/XMLfiles/";
     //protected String rootXMLFiles = "http://brpetude2.ddns.net:8080/BRP_front_end-1.0-SNAPSHOT/XMLfiles/"; 
     protected String rootXMLFiles = "/usr/local/Cellar/tomcat/9.0.41/libexec/webapps/BRP_front_end-1.0-SNAPSHOT/XMLfiles/";
+
+    //Benoit: http://brpetude2.ddns.net:8080/BRP_front_end-1.0-SNAPSHOT/export_files/
+    protected String rootExportFiles = "/usr/local/Cellar/tomcat/9.0.41/libexec/webapps/BRP_front_end-1.0-SNAPSHOT/export_files/";
     
     private final static TreeMap<Integer, String> map = new TreeMap<Integer, String>();
     static {
@@ -178,7 +182,7 @@ public class ExportService {
             
             //On créer le dossier d'export du Projet
             nomProjet = projet.getNomProjet();
-            Boolean succesCreationDossier = (new File("http://brpetude2.ddns.net:8080/BRP_front_end-1.0-SNAPSHOT/export_files/Exports/"+ nomProjet + "_" + idProjet)).mkdirs();
+            Boolean succesCreationDossier = (new File(rootExportFiles+"Exports/"+ nomProjet + "_" + idProjet)).mkdirs();
             if (!succesCreationDossier) {
                 throw new Exception();
             }
@@ -194,7 +198,7 @@ public class ExportService {
                 switch(choixTemplate) {
                     case 1:
                         template = template1Immutable;
-                        word = new XWPFDocument(new FileInputStream("http://brpetude2.ddns.net:8080/BRP_front_end-1.0-SNAPSHOT/export_files/TemplatesWord/Template1/Template1_CCTP.docx"));
+                        word = new XWPFDocument(new FileInputStream(rootExportFiles+"TemplatesWord/Template1/Template1_CCTP.docx"));
                         break;
                     default :
                         throw new Exception(); //Template non reconnue
@@ -291,7 +295,7 @@ public class ExportService {
                     }
                 }
                 //On nomme la CCTP
-                String outputCCTP = "http://brpetude2.ddns.net:8080/BRP_front_end-1.0-SNAPSHOT/export_files/Exports/" + projet.getNomProjet() + "_" + projet.getIdProjet() + "/" + projet.getNomProjet() + "_LOT_" + h + "_" + baliseLot.getAttribute("intitule") + ".docx"; //Surement à changer lors de l'installation client
+                String outputCCTP = rootExportFiles+"Exports/" + projet.getNomProjet() + "_" + projet.getIdProjet() + "/" + projet.getNomProjet() + "_LOT_" + h + "_" + baliseLot.getAttribute("intitule") + ".docx"; //Surement à changer lors de l'installation client
                 //On écrit en sortie le document WORD
                 FileOutputStream out = new FileOutputStream(outputCCTP);
                 word.write(out);
@@ -301,7 +305,7 @@ public class ExportService {
             
             //TRAITEMENT EXCEL
             //Création du document EXCEL
-            Workbook excel = new XSSFWorkbook(new FileInputStream("http://brpetude2.ddns.net:8080/BRP_front_end-1.0-SNAPSHOT/export_files/TemplatesExcel/Template1/Template1_DPGF.xlsx"));
+            Workbook excel = new XSSFWorkbook(new FileInputStream(rootExportFiles+"TemplatesExcel/Template1/Template1_DPGF.xlsx"));
             CreationHelper createHelper = excel.getCreationHelper(); //Permet de créer le document "plus simplement"
             
             //Pour chaque lot
@@ -335,6 +339,7 @@ public class ExportService {
                     enTeteLotLigneGrise.getCell(5).setCellStyle(styleEnTeteLotLigneGrise);
                     enTeteLotLigneGrise.createCell(6).setCellValue(createHelper.createRichTextString("Montant HT"));
                     enTeteLotLigneGrise.getCell(6).setCellStyle(styleEnTeteLotLigneGrise);
+                    
                     //Pour chaque titre1
                     NodeList listeTitre1 = lotBalise.getChildNodes();
                     for(int j = 0; j < listeTitre1.getLength(); j++) {
@@ -559,10 +564,15 @@ public class ExportService {
                                     Row ligneSousTotalTitre2 = sheet.createRow(sheet.getLastRowNum()+1);
                                     CellStyle styleSousTotalTitre2 = excel.createCellStyle();
                                     Font fontSousTotalTitre2 = excel.createFont();
-                                    styleSousTotalTitre2.setFont(fontEnTeteRecap);
-                                    fontSousTotalTitre2.setFontHeightInPoints((short)9);
+                                    //styleSousTotalTitre2.setFont(fontEnTeteRecap);
+                                    fontSousTotalTitre2.setFontHeightInPoints((short)11);
                                     styleSousTotalTitre2.setFont(fontSousTotalTitre2);
                                     styleSousTotalTitre2 = createBorderedStyle(styleSousTotalTitre2);
+
+                                    CellStyle styleSousTotalTitre2Prix = createBorderedStyleLR(excel.createCellStyle());
+                                    styleSousTotalTitre2Prix.setAlignment(HorizontalAlignment.RIGHT);                       //BUG
+                                    styleSousTotalTitre2Prix.setFont(fontSousTotalTitre2);
+
                                     if(titre2Balise.hasAttribute("intitule"))
                                         ligneSousTotalTitre2.createCell(1).setCellValue(createHelper.createRichTextString(titre2Balise.getAttribute("intitule")));
                                     else {
@@ -573,7 +583,7 @@ public class ExportService {
                                     ligneSousTotalTitre2.createCell(2).setCellStyle(styleSousTotalTitre2);
                                     ligneSousTotalTitre2.createCell(3).setCellStyle(styleSousTotalTitre2);
                                     ligneSousTotalTitre2.createCell(4).setCellStyle(styleSousTotalTitre2);
-                                    ligneSousTotalTitre2.createCell(5).setCellStyle(styleSousTotalTitre2);
+                                    ligneSousTotalTitre2.createCell(5).setCellStyle(styleSousTotalTitre2Prix);
                                     sheet.addMergedRegion(new CellRangeAddress(
                                         sheet.getLastRowNum(), //first row (0-based)
                                         sheet.getLastRowNum(), //last row  (0-based)
@@ -654,7 +664,7 @@ public class ExportService {
             //FIN //NB : (PAS après "Fait à" inclus)
             
             //On nomme la DPGF
-            String outputDPGF = "http://brpetude2.ddns.net:8080/BRP_front_end-1.0-SNAPSHOT/export_files/Exports/" + projet.getNomProjet() + "_" + projet.getIdProjet() + "/" + projet.getNomProjet() + "_DPGF.xlsx"; //Surement à changer lors de l'installation client
+            String outputDPGF = rootExportFiles+"Exports/" + projet.getNomProjet() + "_" + projet.getIdProjet() + "/" + projet.getNomProjet() + "_DPGF.xlsx"; //Surement à changer lors de l'installation client
 
             //On écrit en sortie le document EXCEL
             OutputStream fileOut = new FileOutputStream(outputDPGF);
@@ -668,7 +678,7 @@ public class ExportService {
             //RM le dossier crée
             if(dossierCree) {
                 try {
-                    FileUtils.deleteDirectory(new File("http://brpetude2.ddns.net:8080/BRP_front_end-1.0-SNAPSHOT/export_files/Exports/" + nomProjet + "_" + idProjet));
+                    FileUtils.deleteDirectory(new File(rootExportFiles+"Exports/" + nomProjet + "_" + idProjet));
                 } catch (Exception e) {
                     Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service ExporterProjet(Long idProjet, int choixTemplate, String uriXML). Vous devez supprimer à la main le dossier d'export crée", e);
                 }
@@ -824,15 +834,18 @@ public class ExportService {
                 Row ligneChiffrage = sheet.createRow(sheet.getLastRowNum()+1);
                 //On créer le style pour les différentes localisations
                 CellStyle styleBorderLRYellow = createBorderedStyleLR(excel.createCellStyle());
-                styleBorderLRYellow.setFillForegroundColor(IndexedColors.YELLOW.getIndex()); //Trouver une couleur plus proche ?
-                styleBorderLRYellow.setFillPattern(FillPatternType.SOLID_FOREGROUND);
                 styleBorderLRYellow.setAlignment(HorizontalAlignment.RIGHT);
+
+                DataFormat format = excel.createDataFormat();
+                CellStyle styleBorderLRNumber = createBorderedStyleLR(excel.createCellStyle());
+                styleBorderLRNumber.setDataFormat(format.getFormat("### ###,##"));                                  //bug
+
                 //On applique les styles
                 ligneChiffrage.createCell(0).setCellStyle(styleBorderLR);
                 ligneChiffrage.createCell(1).setCellStyle(styleBorderLRYellow);
                 ligneChiffrage.createCell(2).setCellStyle(styleBorderLR);
                 ligneChiffrage.createCell(3).setCellStyle(styleBorderLR);
-                ligneChiffrage.createCell(4).setCellStyle(styleBorderLR);
+                ligneChiffrage.createCell(4).setCellStyle(styleBorderLRNumber);
                 ligneChiffrage.createCell(5).setCellStyle(styleBorderLR);
                 ligneChiffrage.createCell(6).setCellStyle(styleBorderLR);
                 //On rempli la ligne
@@ -988,7 +1001,7 @@ public class ExportService {
                     XWPFParagraph pLocalisation = word.createParagraph();
                     XWPFRun rLocalisation = pLocalisation.createRun();
                     rLocalisation.setText("Localisation : ");
-                    rLocalisation.setColor("7030A0");
+                    rLocalisation.setColor("7030A0");                 
                     rLocalisation.setItalic(true);
                     rLocalisation.setBold(true);
                     //Puces différentes localisations
