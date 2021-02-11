@@ -192,7 +192,7 @@ public class ExportService {
                 index.delete();
             }
 
-            //On créer le dossier d'export du Projet            //TRACKER
+            //On créer le dossier d'export du Projet            
             Boolean succesCreationDossier = (new File(rootExportFiles+"Exports/"+ nomProjet + "_" + idProjet)).mkdirs();
             if (!succesCreationDossier) {
                 throw new Exception();
