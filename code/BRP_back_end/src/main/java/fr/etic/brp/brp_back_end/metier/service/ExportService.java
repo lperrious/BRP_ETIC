@@ -180,13 +180,38 @@ public class ExportService {
             //On écrit par dessus l'ancien XML
             projetXMLDao.saveXMLContent(xml, uriXML);
             
-            //On créer le dossier d'export du Projet
+            //on supprime si existe avant
             nomProjet = projet.getNomProjet();
+            File index = new File(rootExportFiles+"Exports/"+ nomProjet + "_" + idProjet);
+            if(index.exists()){
+                String[]entries = index.list();
+                for(String s: entries){
+                    File currentFile = new File(index.getPath(),s);
+                    currentFile.delete();
+                }
+                index.delete();
+            }
+
+            //On créer le dossier d'export du Projet            //TRACKER
             Boolean succesCreationDossier = (new File(rootExportFiles+"Exports/"+ nomProjet + "_" + idProjet)).mkdirs();
             if (!succesCreationDossier) {
                 throw new Exception();
             }
-            dossierCree = true;
+
+            // Boolean succesCreationDossier = false;
+            // File folder = new File(rootExportFiles+"Exports/"+ nomProjet + "_" + idProjet);
+            // if (!folder.exists()) {
+            //     succesCreationDossier = folder.mkdirs();
+            // } else {
+            //     folder.delete();
+            //     if (!folder.exists()) {
+            //         succesCreationDossier = folder.mkdirs();
+            //     }
+            // }
+
+            // if (!succesCreationDossier) {
+            //     throw new Exception();
+            // }
             
             //TRAITEMENT WORD
             //Pour chaque lot
@@ -223,8 +248,21 @@ public class ExportService {
                                 listRun.get(j).setText("", 0);
                         }
                     }
-                }
 
+                    if(listPara.get(i).getText().equals("TITRE MISSION")){
+                        XWPFParagraph paraNomProjet = listPara.get(i);
+                        List<XWPFRun> listRun = paraNomProjet.getRuns();
+                        //on vide le paragraphe
+                        for(int j = 0; j < listRun.size(); j++){
+                            if (j == 0)
+                                //on insère le nom
+                                listRun.get(j).setText("Lot_"+ h +": "+projet.getNomProjet(), 0);  
+                            else
+                                listRun.get(j).setText("", 0);
+                        }
+                    }
+                }
+                
                 //Pour chaque titre1
                 NodeList listeTitre1 = baliseLot.getElementsByTagName("titre1");
                 for(int i = 0; i < listeTitre1.getLength(); i++){
@@ -569,9 +607,9 @@ public class ExportService {
                                     styleSousTotalTitre2.setFont(fontSousTotalTitre2);
                                     styleSousTotalTitre2 = createBorderedStyle(styleSousTotalTitre2);
 
-                                    CellStyle styleSousTotalTitre2Prix = createBorderedStyleLR(excel.createCellStyle());
-                                    styleSousTotalTitre2Prix.setAlignment(HorizontalAlignment.RIGHT);                       //BUG
-                                    styleSousTotalTitre2Prix.setFont(fontSousTotalTitre2);
+                                    DataFormat format = excel.createDataFormat();
+                                    CellStyle styleSousTotalTitre2Price = styleSousTotalTitre2;     
+                                    styleSousTotalTitre2Price.setDataFormat(format.getFormat("#,##0.00€")); 
 
                                     if(titre2Balise.hasAttribute("intitule"))
                                         ligneSousTotalTitre2.createCell(1).setCellValue(createHelper.createRichTextString(titre2Balise.getAttribute("intitule")));
@@ -583,7 +621,7 @@ public class ExportService {
                                     ligneSousTotalTitre2.createCell(2).setCellStyle(styleSousTotalTitre2);
                                     ligneSousTotalTitre2.createCell(3).setCellStyle(styleSousTotalTitre2);
                                     ligneSousTotalTitre2.createCell(4).setCellStyle(styleSousTotalTitre2);
-                                    ligneSousTotalTitre2.createCell(5).setCellStyle(styleSousTotalTitre2Prix);
+                                    ligneSousTotalTitre2.createCell(5).setCellStyle(styleSousTotalTitre2);
                                     sheet.addMergedRegion(new CellRangeAddress(
                                         sheet.getLastRowNum(), //first row (0-based)
                                         sheet.getLastRowNum(), //last row  (0-based)
@@ -593,8 +631,8 @@ public class ExportService {
                                     styleSousTotalTitre2.setAlignment(HorizontalAlignment.CENTER);
                                     ligneSousTotalTitre2.createCell(0).setCellValue(createHelper.createRichTextString(toRoman(n+1) + "." + (nbTitre2Effectif)));
                                     ligneSousTotalTitre2.getCell(0).setCellStyle(styleSousTotalTitre2);
-                                    ligneSousTotalTitre2.createCell(6).setCellValue(createHelper.createRichTextString(CalculSousTotal(titre2Balise).toString()));
-                                    ligneSousTotalTitre2.getCell(6).setCellStyle(styleSousTotalTitre2);
+                                    ligneSousTotalTitre2.createCell(6).setCellValue(CalculSousTotal(titre2Balise));
+                                    ligneSousTotalTitre2.getCell(6).setCellStyle(styleSousTotalTitre2Price);
                                 }
                             }
                         }
@@ -604,6 +642,11 @@ public class ExportService {
                         bold11.setBold(true);
                         CellStyle styleMontantTotalHT = excel.createCellStyle();
                         styleMontantTotalHT.setFont(bold11);
+                        
+                        DataFormat format = excel.createDataFormat();
+                        CellStyle styleMontantTotalHTPrice = styleMontantTotalHT;
+                        styleMontantTotalHTPrice.setDataFormat(format.getFormat("#,##0.00€")); 
+
                         styleMontantTotalHT.setAlignment(HorizontalAlignment.RIGHT);
                         styleMontantTotalHT = createBorderedStyle(styleMontantTotalHT);
                         ligneMontantTotalHT.createCell(0).setCellStyle(styleMontantTotalHT);
@@ -612,7 +655,7 @@ public class ExportService {
                         ligneMontantTotalHT.createCell(3).setCellStyle(styleMontantTotalHT);
                         ligneMontantTotalHT.createCell(4).setCellStyle(styleMontantTotalHT);
                         ligneMontantTotalHT.createCell(5).setCellStyle(styleMontantTotalHT);
-                        ligneMontantTotalHT.createCell(6).setCellStyle(styleMontantTotalHT);
+                        ligneMontantTotalHT.createCell(6).setCellStyle(styleMontantTotalHTPrice);
                         sheet.addMergedRegion(new CellRangeAddress(
                                 sheet.getLastRowNum(), //first row (0-based)
                                 sheet.getLastRowNum(), //last row  (0-based)
@@ -620,7 +663,7 @@ public class ExportService {
                                 5  //last column  (0-based)
                         ));
                         ligneMontantTotalHT.getCell(0).setCellValue(createHelper.createRichTextString("MONTANT TOTAL H.T " + titre1Balise.getAttribute("intitule")));
-                        ligneMontantTotalHT.getCell(6).setCellValue(createHelper.createRichTextString(CalculSousTotal(titre1Balise).toString()));
+                        ligneMontantTotalHT.getCell(6).setCellValue(CalculSousTotal(titre1Balise));
                         //créer ligne blanche
                         sheet.createRow(sheet.getLastRowNum()+1);
                     }
@@ -630,6 +673,11 @@ public class ExportService {
                     bold11.setBold(true);
                     CellStyle styleMontantTotalHTLot = excel.createCellStyle();
                     styleMontantTotalHTLot.setFont(bold11);
+
+                    DataFormat format = excel.createDataFormat();
+                    CellStyle styleMontantTotalHTLotPrice = styleMontantTotalHTLot;
+                    styleMontantTotalHTLotPrice.setDataFormat(format.getFormat("#,##0.00€")); 
+
                     styleMontantTotalHTLot.setAlignment(HorizontalAlignment.RIGHT);
                     ((XSSFCellStyle)styleMontantTotalHTLot).setFillForegroundColor(new XSSFColor(new java.awt.Color(166, 166, 166)));
                     styleMontantTotalHTLot.setFillPattern(FillPatternType.SOLID_FOREGROUND);
@@ -640,7 +688,7 @@ public class ExportService {
                     ligneMontantTotalHTLot.createCell(3).setCellStyle(styleMontantTotalHTLot);
                     ligneMontantTotalHTLot.createCell(4).setCellStyle(styleMontantTotalHTLot);
                     ligneMontantTotalHTLot.createCell(5).setCellStyle(styleMontantTotalHTLot);
-                    ligneMontantTotalHTLot.createCell(6).setCellStyle(styleMontantTotalHTLot);
+                    ligneMontantTotalHTLot.createCell(6).setCellStyle(styleMontantTotalHTLotPrice);
                     sheet.addMergedRegion(new CellRangeAddress(
                             sheet.getLastRowNum(), //first row (0-based)
                             sheet.getLastRowNum(), //last row  (0-based)
@@ -648,7 +696,7 @@ public class ExportService {
                             5  //last column  (0-based)
                     ));
                     ligneMontantTotalHTLot.getCell(0).setCellValue(createHelper.createRichTextString("MONTANT TOTAL H.T " + lotBalise.getAttribute("intitule")));
-                    ligneMontantTotalHTLot.getCell(6).setCellValue(createHelper.createRichTextString(CalculSousTotal(lotBalise).toString()));
+                    ligneMontantTotalHTLot.getCell(6).setCellValue(CalculSousTotal(lotBalise));
                     //Créer une ligne blanche
                     sheet.createRow(sheet.getLastRowNum()+1);
                     //AutoSize
@@ -770,13 +818,18 @@ public class ExportService {
         styleTemporaire.cloneStyleFrom(cellStyle);
         styleTemporaire.setAlignment(HorizontalAlignment.RIGHT);
         styleTemporaire = createBorderedStyle(styleTemporaire);
+
+        DataFormat format = excel.createDataFormat();
+        CellStyle styleTemporairePrice = styleTemporaire;
+        styleTemporairePrice.setDataFormat(format.getFormat("#,##0.00€")); 
+
         ligneRecap.createCell(0).setCellStyle(styleTemporaire);
         ligneRecap.createCell(1).setCellStyle(styleTemporaire);
         ligneRecap.createCell(2).setCellStyle(styleTemporaire);
         ligneRecap.createCell(3).setCellStyle(styleTemporaire);
         ligneRecap.createCell(4).setCellStyle(styleTemporaire);
         ligneRecap.createCell(5).setCellStyle(styleTemporaire);
-        ligneRecap.createCell(6).setCellStyle(styleTemporaire);
+        ligneRecap.createCell(6).setCellStyle(styleTemporairePrice);
         sheet.addMergedRegion(new CellRangeAddress(
                 sheet.getLastRowNum(), //first row (0-based)
                 sheet.getLastRowNum(), //last row  (0-based)
@@ -784,7 +837,7 @@ public class ExportService {
                 5  //last column  (0-based)
         ));
         ligneRecap.getCell(0).setCellValue(createHelper.createRichTextString("SOUS-TOTAL " + titreBalise.getAttribute("intitule")));
-        ligneRecap.getCell(6).setCellValue(createHelper.createRichTextString(CalculSousTotal(titreBalise).toString()));
+        ligneRecap.getCell(6).setCellValue(CalculSousTotal(titreBalise));
         
         return excel;
     }
@@ -805,6 +858,7 @@ public class ExportService {
         bold11.setBold(true);
         styleBorderLRBold.setFont(bold11);
         CellStyle styleBorderLR = createBorderedStyleLR(excel.createCellStyle());
+        
         //On créer la ligne du descriptif
         Sheet sheet = excel.getSheetAt(nbSheet);
         Row ligneDescriptif = sheet.createRow(sheet.getLastRowNum()+1);
@@ -833,21 +887,23 @@ public class ExportService {
                 //Créer tuple (n°article, localisation à la place du nom surligné en jaune, pas de description, unité, PU, Q et montant HT)
                 Row ligneChiffrage = sheet.createRow(sheet.getLastRowNum()+1);
                 //On créer le style pour les différentes localisations
-                CellStyle styleBorderLRYellow = createBorderedStyleLR(excel.createCellStyle());
-                styleBorderLRYellow.setAlignment(HorizontalAlignment.RIGHT);
+                CellStyle styleBorderLRRight = createBorderedStyleLR(excel.createCellStyle());
+                styleBorderLRRight.setAlignment(HorizontalAlignment.RIGHT);
 
                 DataFormat format = excel.createDataFormat();
                 CellStyle styleBorderLRNumber = createBorderedStyleLR(excel.createCellStyle());
-                styleBorderLRNumber.setDataFormat(format.getFormat("### ###,##"));                                  //bug
+                styleBorderLRNumber.setDataFormat(format.getFormat("#,##0.00")); 
+                CellStyle styleBorderLRPrice = createBorderedStyleLR(excel.createCellStyle());
+                styleBorderLRPrice.setDataFormat(format.getFormat("#,##0.00€")); 
 
                 //On applique les styles
                 ligneChiffrage.createCell(0).setCellStyle(styleBorderLR);
-                ligneChiffrage.createCell(1).setCellStyle(styleBorderLRYellow);
+                ligneChiffrage.createCell(1).setCellStyle(styleBorderLRRight);
                 ligneChiffrage.createCell(2).setCellStyle(styleBorderLR);
                 ligneChiffrage.createCell(3).setCellStyle(styleBorderLR);
                 ligneChiffrage.createCell(4).setCellStyle(styleBorderLRNumber);
-                ligneChiffrage.createCell(5).setCellStyle(styleBorderLR);
-                ligneChiffrage.createCell(6).setCellStyle(styleBorderLR);
+                ligneChiffrage.createCell(5).setCellStyle(styleBorderLRPrice);
+                ligneChiffrage.createCell(6).setCellStyle(styleBorderLRPrice);
                 //On rempli la ligne
                 Element baliseLigneChiffrage = (Element)listeLigneChiffrage.item(l);
                 String localisation = baliseLigneChiffrage.getElementsByTagName("localisation").item(0).getTextContent();
@@ -858,9 +914,9 @@ public class ExportService {
                     Double montantHT = Double.parseDouble(prixUnitaire)*Double.parseDouble(quantite);
                     ligneChiffrage.getCell(1).setCellValue(createHelper.createRichTextString(localisation));
                     ligneChiffrage.getCell(3).setCellValue(createHelper.createRichTextString(unite));
-                    ligneChiffrage.getCell(4).setCellValue(createHelper.createRichTextString(quantite));
-                    ligneChiffrage.getCell(5).setCellValue(createHelper.createRichTextString(prixUnitaire));
-                    ligneChiffrage.getCell(6).setCellValue(createHelper.createRichTextString(montantHT.toString())); 
+                    ligneChiffrage.getCell(4).setCellValue(Float.parseFloat(quantite));
+                    ligneChiffrage.getCell(5).setCellValue(Float.parseFloat(prixUnitaire));
+                    ligneChiffrage.getCell(6).setCellValue(montantHT); 
                 }
             }            
         } else {
@@ -869,12 +925,23 @@ public class ExportService {
             String unite = descriptif.getElementsByTagName("unite").item(0).getTextContent();
             String quantite = baliseLigneChiffrage.getElementsByTagName("quantite").item(0).getTextContent();
             String prixUnitaire = baliseLigneChiffrage.getElementsByTagName("prixUnitaire").item(0).getTextContent();
+
+            DataFormat format = excel.createDataFormat();
+            CellStyle styleBorderLRNumber = createBorderedStyleLR(excel.createCellStyle());
+            styleBorderLRNumber.setDataFormat(format.getFormat("#,##0.00")); 
+            CellStyle styleBorderLRPrice = createBorderedStyleLR(excel.createCellStyle());
+            styleBorderLRPrice.setDataFormat(format.getFormat("#,##0.00€")); 
+
+            ligneDescriptif.createCell(4).setCellStyle(styleBorderLRNumber);
+            ligneDescriptif.createCell(5).setCellStyle(styleBorderLRPrice);
+            ligneDescriptif.createCell(6).setCellStyle(styleBorderLRPrice);
+
             if(!quantite.equals("") && !prixUnitaire.equals("")) {
                 Double montantHT = Double.parseDouble(prixUnitaire)*Double.parseDouble(quantite);
                 ligneDescriptif.getCell(3).setCellValue(createHelper.createRichTextString(unite));
-                ligneDescriptif.getCell(4).setCellValue(createHelper.createRichTextString(quantite));
-                ligneDescriptif.getCell(5).setCellValue(createHelper.createRichTextString(prixUnitaire));
-                ligneDescriptif.getCell(6).setCellValue(createHelper.createRichTextString(montantHT.toString()));
+                ligneDescriptif.getCell(4).setCellValue(Float.parseFloat(quantite));
+                ligneDescriptif.getCell(5).setCellValue(Float.parseFloat(prixUnitaire));
+                ligneDescriptif.getCell(6).setCellValue(montantHT);
             }
         }
         return excel;
