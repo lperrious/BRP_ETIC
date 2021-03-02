@@ -1713,7 +1713,9 @@ function AjouterDescriptif(element) {
         nomDescriptif = response.nomDescriptif;
         typeDescriptif = response.typeDescriptif;
 
+        //alert("Tracker 1");
         if (!$(".selectDescriptif").hasClass("generique")) {
+          //alert("Devrait pas etre ici");
           $(divInsertionDescriptif).html(
             "<input type='hidden' id='idXML' value='_0'/><input type='hidden' class='idDescriptif' value='" +
               idDescriptif +
@@ -2015,6 +2017,7 @@ function toRoman(num) {
 
 function AjouterLigneChiffrage(element) {
   //Création d'une nouvelle ligneChiffrage au dessus de la barre d'insertion ligneChiffrage
+  //alert("Tracker 2");
   var unite = $(element).prev().children(":eq(3)").children(":first").html(); //On va chercher l'unité dans la ligneChiffrage d'au dessus
   var divBarreInsertionLigneChiffrage = $(
     "<div class='ligneChiffrage'><input type='hidden' id='idLigneChiffrage' value='0'/><input type='text' class='form-control localisation' placeholder='Localisation'/><input type='text' class='form-control quantite' placeholder='Quantité' value='1.0'/><div class='input-group-prepend'><span class='input-group-text unite'>" +
