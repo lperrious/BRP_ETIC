@@ -60,18 +60,18 @@ public class Main {
     //------------initialisations------------------
     
         // A faire tout le temps (l'ordre est important)
-//        InitialiserBasePrixRef();
-        InitialiserCaractDim();
-        InitialiserSousCategorieConstruction();
-//        InitialiserCategorie();
-        InitialiserCategorieConstruction();
-        InitialiserCoeffRaccordement();
-//        InitialiserChapitre();
-//        InitialiserDescriptif();
-//        InitialiserFamille();
-        InitialiserOperateur();
-//        InitialiserProjets();
-//        InitialiserSousFamille();
+       //InitialiserBasePrixRef();
+       InitialiserCaractDim();
+       InitialiserSousCategorieConstruction();
+       //InitialiserCategorie();
+       InitialiserCategorieConstruction();
+       InitialiserCoeffRaccordement();
+       //InitialiserChapitre();
+       //InitialiserDescriptif();
+       //InitialiserFamille();
+       InitialiserOperateur();
+       //InitialiserProjets();
+       //InitialiserSousFamille();
         
     //----------tests-des-services-----------------
     

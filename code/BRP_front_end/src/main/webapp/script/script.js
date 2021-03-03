@@ -1713,9 +1713,7 @@ function AjouterDescriptif(element) {
         nomDescriptif = response.nomDescriptif;
         typeDescriptif = response.typeDescriptif;
 
-        //alert("Tracker 1");
-        if (!$(".selectDescriptif").hasClass("generique")) {
-          //alert("Devrait pas etre ici");
+        if (!($(".selectDescriptif").hasClass("generiqueBDD"))) {
           $(divInsertionDescriptif).html(
             "<input type='hidden' id='idXML' value='_0'/><input type='hidden' class='idDescriptif' value='" +
               idDescriptif +
