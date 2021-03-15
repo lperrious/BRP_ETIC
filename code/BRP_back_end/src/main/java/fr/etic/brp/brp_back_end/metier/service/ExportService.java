@@ -56,12 +56,12 @@ public class ExportService {
     protected ProjetDao projetDao = new ProjetDao();
     
     //protected String rootXMLFiles = "../../../../code/BRP_front_end/src/main/webapp/XMLfiles/";
-    //protected String rootXMLFiles = "http://brpetude2.ddns.net:8080/BRP_front_end-1.0-SNAPSHOT/XMLfiles/"; 
-    protected String rootXMLFiles = "/usr/local/Cellar/tomcat/9.0.41/libexec/webapps/BRP_front_end-1.0-SNAPSHOT/XMLfiles/";
+    protected String rootXMLFiles = "http://brpetude2.ddns.net:8080/BRP_front_end-1.0-SNAPSHOT/XMLfiles/"; 
+    //protected String rootXMLFiles = "/usr/local/Cellar/tomcat/9.0.41/libexec/webapps/BRP_front_end-1.0-SNAPSHOT/XMLfiles/";
 
-    //Benoit: http://brpetude2.ddns.net:8080/BRP_front_end-1.0-SNAPSHOT/export_files/
-    protected String rootExportFiles = "/usr/local/Cellar/tomcat/9.0.41/libexec/webapps/BRP_front_end-1.0-SNAPSHOT/export_files/";
-    
+    //protected String rootExportFiles = "/usr/local/Cellar/tomcat/9.0.41/libexec/webapps/BRP_front_end-1.0-SNAPSHOT/export_files/";
+    protected String rootExportFiles = "http://brpetude2.ddns.net:8080/BRP_front_end-1.0-SNAPSHOT/export_files/";
+
     private final static TreeMap<Integer, String> map = new TreeMap<Integer, String>();
     static {
         map.put(1000, "M");

@@ -854,11 +854,15 @@ function display_manage_project() {
 
 function GenererLivrable() {
   var idProjet = $("#idProjetActuel").val();
+  // var uriXML =
+  //   "/usr/local/Cellar/tomcat/9.0.41/libexec/webapps/BRP_front_end-1.0-SNAPSHOT/XMLfiles/" +
+  //   idProjet +
+  //   ".xml";
   var uriXML =
-    "/usr/local/Cellar/tomcat/9.0.41/libexec/webapps/BRP_front_end-1.0-SNAPSHOT/XMLfiles/" +
+    "http://brpetude2.ddns.net:8080/BRP_front_end-1.0-SNAPSHOT/XMLfiles/" +
     idProjet +
     ".xml";
-  //http://brpetude2.ddns.net:8080/BRP_front_end-1.0-SNAPSHOT/XMLfiles/
+  
   var choixTemplate = 1;
 
   $.ajax({
