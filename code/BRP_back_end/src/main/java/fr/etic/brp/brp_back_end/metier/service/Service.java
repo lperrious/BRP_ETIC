@@ -684,6 +684,40 @@ public class Service {
         else
             return false;
     }
+
+    public Boolean EditerCaractDim(Long idProjet, Long idCaractDim){
+        Projet projetAModifier = null;
+        CaractDim caractDim = null;
+        JpaUtil.creerContextePersistance();
+        try{
+            if(idProjet != null) {
+                projetAModifier = projetDao.ChercherParId(idProjet);
+                if(projetAModifier != null) {
+                    caractDim = caractDimDao.ChercherParId(idCaractDim);
+                    if(caractDim != null) {
+                        projetAModifier.setCaractDimSelection(caractDim);
+                    
+                        //On enregistre dans la BD
+                        JpaUtil.ouvrirTransaction();
+                        projetDao.Update(projetAModifier);
+                        JpaUtil.validerTransaction();
+                    } else {
+                        projetAModifier = null;
+                    }
+                }
+            }
+        } catch(Exception ex){
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service EditerCaractDim(Long idProjet, Long idCaractDim)", ex);
+            projetAModifier = null;
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        
+        if(projetAModifier != null)
+            return true;
+        else
+            return false;
+    }
     
     //Duplique un projet en donnant par défaut le nom "Nouveau Projet"
     public Long DupliquerProjet(Long idProjetADupliquer, String nomProjetDuplique){

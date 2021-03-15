@@ -453,6 +453,7 @@ function ouvrirProjet(idProjet) {
     dataType: "json",
   }).done(function (response) {
     // Fonction appelée en cas d'appel AJAX réussi
+    console.log(response);
     if (!response.ErrorState) {
       var xslDocumentUrl = "stylesheet/ouvrirProjet.xsl";
       var xmlDocumentUrl = "XMLfiles/" + idProjet + ".xml";
@@ -500,12 +501,22 @@ function ouvrirProjet(idProjet) {
       if (response.coeffAdapt != null)
         $(".coeffAdapt").val(response.coeffAdapt);
       if (response.localisationCoeffRaccordement != null)
-        $("#coeffRaccordement").val(
-          response.localisationCoeffRaccordement +
-            "-" +
-            response.valeurCoeffRaccordement
-        );
-
+        $('#coeffRaccordement option[name="'+response.localisationCoeffRaccordement+'"]').prop('selected', true);
+      if (response.categorieConstruction != null){
+        $('#categorieConstruction option[name="'+response.categorieConstruction+'"]').prop('selected', true);
+        show_catConstruction();
+      }
+      if (response.idSousCategorieConstruction != null){
+        setTimeout(function(){
+          $('#sousCategorieConstruction option[name="'+response.idSousCategorieConstruction+'"]').prop('selected', true);
+       }, 1000);
+      }
+      if (response.codeCaractDim != null){
+        setTimeout(function(){
+          $('#caractDim option[name="'+response.codeCaractDim+'"]').prop('selected', true);
+       }, 1000);
+      }
+      
       //Ajout de l'hover sur toutes les barres d'insertions titre
       addEventsDescriptifs();
 
@@ -726,13 +737,13 @@ function show_catConstruction() {
             })
           );
         });
-        /*$.each(response.listeCaractDim, function (i, caractDim) { //! Régler Caract Dim plus tard
-          $('#sousCategorieConstruction').append($('<option>', { 
+        $.each(response.listeCaractDim, function (i, caractDim) { //! Régler Caract Dim plus tard
+          $('#caractDim').append($('<option>', { 
               value: i,
               text : caractDim.valeur,
               name: caractDim.code
           }));
-        });*/
+        });
       }
     });
   }

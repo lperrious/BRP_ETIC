@@ -40,7 +40,7 @@ public class EditerInfosProjetAction extends Action {
         String idCoeffRaccordementString = request.getParameter("idCoeffRaccordement");
         String idCategorieConstructionString = request.getParameter("idCategorieConstruction");
         String idSousCategorieConstructionString = request.getParameter("idSousCategorieConstruction");
-//        Long idCaractDim = parseLong(request.getParameter("idCaractDim"));
+        String idCaractDim = request.getParameter("idCaractDim");
         
         //Instanciation de la classe de Service
         Service service = new Service();
@@ -108,7 +108,11 @@ public class EditerInfosProjetAction extends Action {
                if(!testEditerSousCategorieConstructionProjet) nbErreur++;
            } 
 
-           //Editer CaractDim       -- A GERER 
+           //editer CaractDim
+           if(!idCaractDim.equals("")){
+                Boolean testEditerCaractDim = service.EditerCaractDim(idProjet, parseLong(idCaractDim));
+                if(!testEditerCaractDim) nbErreur++;
+            }
            
         } catch(Exception ex) {
             errorState = true;

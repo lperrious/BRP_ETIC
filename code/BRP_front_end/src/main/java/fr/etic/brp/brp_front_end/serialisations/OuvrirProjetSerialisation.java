@@ -40,7 +40,12 @@ public class OuvrirProjetSerialisation extends Serialisation {
                 container.addProperty("localisationCoeffRaccordement", projet.getCoeffRaccordement().getLocalisation());
                 container.addProperty("valeurCoeffRaccordement", projet.getCoeffRaccordement().getValeur());
             }
-            //todo: Cat Dim etc
+            if(projet.getCategorieConstruction() != null)
+                container.addProperty("categorieConstruction", projet.getCategorieConstruction().getCodeCategorieConstruction());
+            if(projet.getSousCategorieConstructionSelection() != null)
+                container.addProperty("idSousCategorieConstruction", projet.getSousCategorieConstructionSelection().getIdSousCategorieConstruction());
+            if(projet.getCaractDimSelection() != null)
+                container.addProperty("codeCaractDim", projet.getCaractDimSelection().getCodeCaractDim());
         }
         
         //Formatage de la structure de données JSON => Ecriture sur le flux de sortie de la réponse
